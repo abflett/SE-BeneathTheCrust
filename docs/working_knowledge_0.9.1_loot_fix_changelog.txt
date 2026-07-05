@@ -1,0 +1,17 @@
+Working Knowledge 0.9.1 - Loot Preservation Fix
+
+Fixed an issue where Working Knowledge could accidentally replace normal container loot while adding Data Fragments to loot tables.
+
+Working Knowledge adds Data Fragments to selected vanilla container types at runtime so players can occasionally find research data in normal loot sources. In 0.9.0, the patch could rebuild those container definitions from an incomplete copy of the loot data. As a result, some vanilla loot entries, and possibly loot entries added by other mods, could be dropped when Working Knowledge inserted its Data Fragment entries.
+
+The fix changes the patching logic to use the container's already-loaded loot list as the source of truth before adding Working Knowledge fragments. Existing loot entries are now preserved, including their item IDs, amounts, frequencies, set data, and story categories. Working Knowledge then adds or updates only its own Data Fragment entries.
+
+What this means in normal play:
+
+- Vanilla container loot should no longer be overwritten by Working Knowledge's Data Fragment injection.
+- Other mods that add loot before Working Knowledge patches the container definitions are less likely to be stomped.
+- Data Fragments can still appear in the intended rare loot pools.
+- Existing generic loot remains intact alongside Working Knowledge research data.
+- Exact Data Schematics remain intended for POIs, missions, scenario rewards, or admin use, not generic random loot.
+
+This is a compatibility and preservation fix, not a progression balance change. Existing spawned containers are not retroactively rebuilt; the fix affects container loot generated after the corrected definitions are loaded.
