@@ -1,5 +1,9 @@
 # Working Knowledge
 
+<p align="center">
+  <img src="../../docs/assets/working-knowledge-hero.png" alt="An engineer reviewing holographic rover schematics beside a survival rover and field base on an alien surface." />
+</p>
+
 **Working Knowledge** is a standalone Space Engineers progression mod.
 
 It turns technology unlocks into a salvage, research, and hands-on practice loop. The mod can be tested on its own today and can later become one progression layer inside the larger **Space Engineers: Beneath the Crust** campaign.
@@ -73,9 +77,9 @@ See [Working Knowledge configuration](../../docs/working_knowledge_configuration
 
 ## Current Status
 
-Working Knowledge is approaching a public feedback release.
+Working Knowledge is in its `0.9.0` public feedback release.
 
-The current balance targets the default `medium` play experience. Command polish, smoke testing, and public feedback are the remaining focus before treating the mod as stable.
+The current balance targets the default `medium` play experience. Public feedback, smoke testing, and survival playthrough tuning are the remaining focus before treating the mod as stable.
 
 The mod currently includes:
 
@@ -102,8 +106,8 @@ The mod currently includes:
 - [Campaign overview](../../docs/campaign_overview.md)
 - [Working Knowledge configuration](../../docs/working_knowledge_configuration.md)
 - [Working Knowledge implementation reference](../../docs/working_knowledge_implementation.md)
-- [Working Knowledge release readiness checklist](../../docs/working_knowledge_v1_release_checklist.md)
-- [Working Knowledge Workshop page draft](../../docs/working_knowledge_workshop_page.md)
+- [Working Knowledge release roadmap](../../docs/working_knowledge_release_roadmap.md)
+- [Working Knowledge Workshop page](../../docs/working_knowledge_workshop_page.md)
 
 ## Local Test Build
 

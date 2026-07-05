@@ -1,14 +1,23 @@
 # Space Engineers: Beneath the Crust
 
-**Space Engineers: Beneath the Crust** is a campaign and mod workspace for Space Engineers.
+<p align="center">
+  <img src="docs/assets/beneath-the-crust-hero.png" alt="A hard-sci-fi engineering outpost beside a glowing breach in an alien planet crust." />
+</p>
 
-The long-term goal is a vanilla-friendly campaign with stronger exploration, salvage, research, POIs, and endgame purpose. The project is being built as standalone mods first so each major system can be tested on its own before being folded into the larger campaign.
+**Beneath the Crust** is a vanilla-friendly Space Engineers campaign and mod workspace focused on exploration, salvage, research progression, POIs, and long-term survival purpose.
 
-## Current Focus
+The project is being built as standalone mods first so each major system can be tested on its own before being folded into a larger campaign or scenario package.
 
-The active mod is **Working Knowledge**, a technology progression overhaul in `mods/WorkingKnowledge`.
+## Project Status
 
-Working Knowledge changes progression from a flat unlock tree into a salvage and reverse-engineering loop:
+- **Current playable layer:** `mods/WorkingKnowledge`
+- **Campaign state:** design and content foundation in `docs/`
+- **Release target:** Working Knowledge `0.9.0` public feedback before campaign composition
+- **Development style:** fresh test worlds, clean defaults, and standalone mod roots until `1.0.0`
+
+## Current Focus: Working Knowledge
+
+**Working Knowledge** is a technology progression overhaul for Space Engineers. It changes progression from a flat unlock tree into a salvage and reverse-engineering loop:
 
 - Unknown blocks are locked behind schematic families.
 - Grinding and salvaging unfamiliar technology grants research progress.
@@ -17,11 +26,26 @@ Working Knowledge changes progression from a flat unlock tree into a salvage and
 - Low Proficiency makes welding, repairs, grinding, and salvage recovery rougher until the engineer improves.
 - Research Pedestal and LCD apps expose player and faction progress in-game.
 
+Research answers: **Do I know the schematic?**
+
+Proficiency answers: **How well can I build, repair, grind, and salvage it?**
+
+## Campaign Direction
+
+Beneath the Crust keeps the core Space Engineers sandbox intact while adding stronger structure around:
+
+- Discovery-based progression
+- Salvage and reverse engineering
+- Authored POIs and environmental storytelling
+- Escalating machine/nanite threats
+- Technology gates that reward exploration
+- A larger campaign arc with a real ending
+
 ## Repository Map
 
-- `docs/` - durable campaign, mod, admin, and publishing docs.
-- `docs/assets/` - reusable images for GitHub docs and future public documentation.
 - `.github/` - public issue templates for bugs and balance feedback.
+- `docs/` - campaign, mod, maintainer, and publishing docs.
+- `docs/assets/` - reusable images for GitHub docs and future public documentation.
 - `mods/` - standalone Space Engineers mod roots.
 - `mods/WorkingKnowledge/` - the current playable Working Knowledge mod.
 - `tools/` - local generation, compile, and validation helpers.
@@ -34,8 +58,8 @@ Working Knowledge changes progression from a flat unlock tree into a salvage and
 - [Working Knowledge overview](mods/WorkingKnowledge/README.md)
 - [Working Knowledge configuration](docs/working_knowledge_configuration.md)
 - [Working Knowledge implementation reference](docs/working_knowledge_implementation.md)
-- [Working Knowledge release readiness checklist](docs/working_knowledge_v1_release_checklist.md)
-- [Working Knowledge Workshop page draft](docs/working_knowledge_workshop_page.md)
+- [Working Knowledge release roadmap](docs/working_knowledge_release_roadmap.md)
+- [Working Knowledge Workshop page](docs/working_knowledge_workshop_page.md)
 
 ## Feedback
 
@@ -46,7 +70,7 @@ Use GitHub issues for public bug reports and balance feedback:
 
 ## Local Testing
 
-Use the root build script to deploy the active mod into the local Space Engineers mods folder:
+Deploy the active mod into the local Space Engineers mods folder:
 
 ```powershell
 .\build.ps1 -ModName WkKn

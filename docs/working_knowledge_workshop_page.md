@@ -1,109 +1,88 @@
-# Working Knowledge Workshop Page Draft
+# Working Knowledge Workshop Page
 
-This is the public-facing Workshop page draft for `Working Knowledge`.
-
-Official publishing flow: https://www.spaceengineersgame.com/modding-guides/space-engineers-workshop-guide/
-
-Use [Working Knowledge release readiness checklist](working_knowledge_v1_release_checklist.md) for maintainer readiness, tuning, and validation tasks before publishing.
-
-## Workshop title
+## Title
 
 Working Knowledge
 
-## Short description
+## Short Description
 
 Salvage unknown blocks, decode research data, and unlock schematic families through a custom progression system mirrored into vanilla research.
 
-## Workshop description draft
+## Description
 
-Working Knowledge is a standalone technology progression mod for Space Engineers.
+Working Knowledge turns Space Engineers progression into a salvage-first research loop.
 
-It replaces the default block-unlock path with a salvage-first research loop:
+Instead of unlocking most blocks by building one item in a flat chain, you learn technology by taking unfamiliar machines apart, recovering research data, and practicing the work until your engineer actually knows what they are doing.
+
+This is the first public feedback release. It is playable as a standalone progression mod, but balance and multiplayer edge cases are still being tested.
+
+## Core Loop
+
+- Find unfamiliar blocks in wrecks, signals, stations, POIs, or captured grids.
+- Grind unknown technology to recover schematic progress.
+- Decode Data Fragments for random partial research.
+- Use exact Data Schematics as POI, mission, scenario, or admin rewards.
+- Complete schematic families to unlock their blocks for normal survival use.
+- Improve Proficiency by building, repairing, grinding, and salvaging the same families.
+
+Research answers: **Do I know the schematic?**
+
+Proficiency answers: **How well can I build, repair, grind, and salvage it?**
+
+## Features
 
 - Most vanilla public cube blocks are grouped into schematic families.
 - Unknown blocks are locked through vanilla research until their schematic family is completed.
 - Grinding unknown blocks grants partial research based on how much of the block was dismantled.
-- Low Proficiency converts much of the recovered component value into scrap; high Proficiency restores normal intact recovery.
-- Low Proficiency also makes welding less reliable: construction botches can knock build progress back, destroy some components, and recover forgiven components when material loss would be too punishing.
-- A selectable `Working Knowledge Research` LCD app shows each viewer's personal and faction schematic progress.
-- A selectable `Working Knowledge Proficiency` LCD app shows each viewer's active hands-on skill progress.
-- Data Fragments can appear as rare loot in unknown signals and selected vanilla POI containers, with uncommon, rare, and prototech fragments weighted below common fragments.
-- Exact Data Schematics are durable shareable items for POI, mission, scenario, or admin rewards.
+- Data Fragments can appear as rare loot in unknown signals and selected vanilla POI containers.
+- Exact Data Schematics are durable shareable items for authored rewards and admin use.
+- Low Proficiency converts more recovered component value into scrap.
+- Low Proficiency can make welding less reliable through construction botches.
+- Botches can knock build progress back, destroy some components, and recover forgiven components when material loss would be too punishing.
 - A Research Pedestal shows filtered player/faction schematic progress and can manually sync partial or completed progress.
-- `/wk` shows command help, `/wk research` or `/wk res` shows schematic progress, `/wk proficiency` shows hands-on skill, `/wk config` shows player feedback settings, `/wk config help` shows player config help, `/wk difficulty` shows the active preset and modifiers, and `/wk admin` indexes admin help categories.
+- Selectable LCD apps show research, Proficiency, player/faction identity, and display calibration.
+- Difficulty presets and admin tuning are available through `/wk` commands.
 
-Current balance targets the default `medium` play experience.
+## LCD Apps
 
-Proficiency keeps welding and grinding quality in a player-only hands-on skill layer. Research answers whether a player or faction knows a schematic family; Proficiency answers how well an individual player can build, repair, grind, and recover that family.
+Working Knowledge adds selectable LCD scripts for normal LCD panels, transparent LCDs, cockpit displays, multi-screen blocks, and the custom Research Sci-Fi Terminal.
 
-This mod is designed as a standalone technology progression layer for the larger Space Engineers: Beneath the Crust project, but it can be loaded and tested on its own.
+- `Working Knowledge Research`
+- `Working Knowledge Proficiency`
+- `Working Knowledge Identity`
+- `Working Knowledge Calibrator`
 
 ## Commands
 
-Public commands:
+Start with:
 
 - `/wk`
 - `/wk help`
-- `/wk research`
-- `/wk res`
-- `/wk research help`
-- `/wk res help`
-- `/wk proficiency`
-- `/wk prof`
-- `/wk proficiency help`
-- `/wk config`
-- `/wk config help`
-- `/wk config <setting> help`
-- `/wk config <setting> <value>`
-- `/wk config reset`
-- `/wk difficulty`
-- `/wk difficulty help`
-- `/wk admin`
-- `/wk admin help`
 
-Admin commands:
+The in-game help lists research and Proficiency summaries, player feedback settings, the current difficulty display, and admin categories when run by an admin. With chat entry open, press Page Up or Page Down to scroll long help messages.
 
-- `/wk admin unlockall`
-- `/wk research show <player>`
-- `/wk research reset <server|player>`
-- `/wk research unlock <player> <schematic>`
-- `/wk research forget <player> <schematic>`
-- `/wk research set <player> <schematic> <percent>`
-- `/wk proficiency show <player>`
-- `/wk proficiency reset <server|player>`
-- `/wk proficiency master <player> <schematic>`
-- `/wk proficiency forget <player> <schematic>`
-- `/wk proficiency set <player> <schematic> <percent>`
-- `/wk config <setting> help`
-- `/wk config <setting> <value>`
-- `/wk config world`
-- `/wk config world help`
-- `/wk config world reset`
-- `/wk difficulty <novice|easy|medium|hard|extreme>`
-- `/wk difficulty custom <difficulty-setting> help`
-- `/wk difficulty custom <difficulty-setting> <value>`
+## Recommended Setup
 
-Admin help categories:
-
-- `/wk research help`
-- `/wk proficiency help`
-- `/wk botch help`
-- `/wk salvage help`
-- `/wk feedback help`
-- `/wk defaults help`
-- `/wk difficulty help`
-
-Only admins can change world config values, use targeted research/Proficiency commands, or use `/wk admin unlockall`. Players can change their own feedback settings.
-
-## Compatibility notes
-
-- Best tested in a new world.
+- Best tested in a new survival world.
 - Experimental Mode is not required.
-- The mod forces vanilla progression on at runtime so it can own the lock path.
+- The mod enables vanilla progression at runtime so it can own the schematic lock path.
+- You can create the world with vanilla progression disabled and let Working Knowledge handle progression.
+- Creative worlds and admin creative-mode testing can bypass schematic locks.
+- No hard companion mod dependencies.
+
+## Compatibility Notes
+
 - Other progression or research-overhaul mods are likely to conflict.
-- Player-built locked blocks are removed server-side unless the player knows the schematic. Creative mode bypasses this check, and promoted Space Master/admin full-built placements are allowed.
-- The custom research store is saved in world storage as `WkKnResearch.xml`.
-- The custom Proficiency store is saved in world storage as `WkKnProficiency.xml`.
-- The world config is saved as `WkKnConfig.xml`.
-- Player feedback settings are saved in world storage as `WkKnPlayerConfig.xml`.
-- Internal script, storage, LCD Custom Data, and generated game definition identifiers use the `WkKn` prefix.
+- Mods that bypass block placement restrictions or alter grinding/welding behavior should be tested carefully.
+- Player-built locked blocks are removed server-side unless the player knows the schematic.
+- Creative mode bypasses locked placement checks.
+- Promoted Space Master/admin full-built placements are allowed.
+- Broad dedicated-server validation is still pending for this feedback release.
+
+## Project And Feedback
+
+Working Knowledge is a standalone mod and the first playable layer of the larger **Space Engineers: Beneath the Crust** campaign project.
+
+Bug reports and balance feedback are welcome:
+
+https://github.com/abflett/SE-BeneathTheCrust/issues

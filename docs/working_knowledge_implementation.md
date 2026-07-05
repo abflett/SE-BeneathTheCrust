@@ -2,7 +2,7 @@
 
 This is the practical maintainer reference for `mods/WorkingKnowledge`. It keeps the file map, runtime shape, and the few Space Engineers edge cases that are easy to break accidentally.
 
-For admin-facing settings, use [Working Knowledge configuration](working_knowledge_configuration.md). For release status, use [Working Knowledge release readiness checklist](working_knowledge_v1_release_checklist.md). For public Workshop copy, use [Working Knowledge Workshop page draft](working_knowledge_workshop_page.md).
+For admin-facing settings, use [Working Knowledge configuration](working_knowledge_configuration.md). For release status, use [Working Knowledge release roadmap](working_knowledge_release_roadmap.md). For public Workshop copy, use [Working Knowledge Workshop page](working_knowledge_workshop_page.md).
 
 ## Load Rules
 
@@ -185,4 +185,4 @@ Use this small local check before committing gameplay changes:
 .\build.ps1 -ModName WkKn
 ```
 
-For generated data or release prep, use the longer validation list in [Working Knowledge release readiness checklist](working_knowledge_v1_release_checklist.md).
+For generated data or release prep, use the longer validation list in [Working Knowledge release roadmap](working_knowledge_release_roadmap.md).

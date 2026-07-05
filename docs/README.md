@@ -14,8 +14,8 @@ Planning scratchpads and generated draft JSON files should not live here once th
 
 - [Configuration](working_knowledge_configuration.md) - admin-facing config values, chat commands, and XML shape.
 - [Implementation notes](working_knowledge_implementation.md) - maintainer file map, runtime shape, and fragile Space Engineers edge cases.
-- [Release readiness checklist](working_knowledge_v1_release_checklist.md) - focused remaining work, tuning, validation, and release tasks.
-- [Workshop page draft](working_knowledge_workshop_page.md) - public-facing Workshop title, description, commands, and compatibility notes.
+- [Release roadmap](working_knowledge_release_roadmap.md) - version targets, remaining feature gates, and repeatable validation checks.
+- [Workshop page](working_knowledge_workshop_page.md) - public-facing Workshop title, description, commands, and compatibility notes.
 
 ## Generated Audits
 
@@ -24,7 +24,9 @@ Planning scratchpads and generated draft JSON files should not live here once th
 
 ## Assets
 
-- [Background image](assets/background.png)
+- [Beneath the Crust hero image](assets/beneath-the-crust-hero.png)
+- [Beneath the Crust thumbnail](assets/beneath-the-crust-thumb.jpg)
+- [Working Knowledge hero image](assets/working-knowledge-hero.png)
 - [Working Knowledge thumbnail](assets/thumb.jpg)
 
 Keep loadable mod assets inside their mod root. The assets here are for GitHub docs, public documentation, and future publishing support.
