@@ -68,9 +68,7 @@ namespace WkKn
             if (builder == null)
                 return;
 
-            var items = new List<MyObjectBuilder_ContainerTypeDefinition.ContainerTypeItem>();
-            if (builder.Items != null)
-                items.AddRange(builder.Items);
+            var items = GetExistingContainerLootItems(definition, builder);
 
             var changed = false;
             changed |= AddFragmentLootItem(items, CommonFragmentId, ScaleFragmentLootFrequency(entry.CommonFrequency, lootScale));
@@ -83,6 +81,44 @@ namespace WkKn
 
             builder.Items = items.ToArray();
             definition.Init(builder, definition.Context);
+        }
+
+        private static List<MyObjectBuilder_ContainerTypeDefinition.ContainerTypeItem> GetExistingContainerLootItems(
+            MyContainerTypeDefinition definition,
+            MyObjectBuilder_ContainerTypeDefinition builder)
+        {
+            var items = new List<MyObjectBuilder_ContainerTypeDefinition.ContainerTypeItem>();
+
+            if (definition.Items != null && definition.Items.Length > 0)
+            {
+                for (var i = 0; i < definition.Items.Length; i++)
+                    items.Add(ToContainerTypeItemBuilder(definition.Items[i]));
+
+                return items;
+            }
+
+            if (builder.Items != null)
+                items.AddRange(builder.Items);
+
+            return items;
+        }
+
+        private static MyObjectBuilder_ContainerTypeDefinition.ContainerTypeItem ToContainerTypeItemBuilder(
+            MyContainerTypeDefinition.ContainerTypeItem item)
+        {
+            var storyCategory = item.StoryCategory.SubtypeName;
+            if (string.IsNullOrEmpty(storyCategory))
+                storyCategory = null;
+
+            return new MyObjectBuilder_ContainerTypeDefinition.ContainerTypeItem
+            {
+                AmountMin = item.AmountMin.ToString(),
+                AmountMax = item.AmountMax.ToString(),
+                Frequency = item.Frequency,
+                Id = item.DefinitionId,
+                Set = item.Set,
+                StoryCategory = storyCategory,
+            };
         }
 
         private static float ScaleFragmentLootFrequency(float frequency, double lootScale)
