@@ -44,6 +44,29 @@ function Assert-ChildPath {
     }
 }
 
+function Sync-PublishMetadataFromDeploy {
+    param(
+        [Parameter(Mandatory = $true)][string] $SourceModPath,
+        [Parameter(Mandatory = $true)][string] $TargetModPath,
+        [Parameter(Mandatory = $true)][string[]] $FileNames
+    )
+
+    if (-not (Test-Path -LiteralPath $TargetModPath)) {
+        return
+    }
+
+    foreach ($fileName in $FileNames) {
+        $deployedFilePath = Join-Path $TargetModPath $fileName
+        if (-not (Test-Path -LiteralPath $deployedFilePath -PathType Leaf)) {
+            continue
+        }
+
+        $sourceFilePath = Join-Path $SourceModPath $fileName
+        Copy-Item -LiteralPath $deployedFilePath -Destination $sourceFilePath -Force
+        Write-Host "Preserved publish metadata $fileName -> $sourceFilePath"
+    }
+}
+
 $repoRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $sourceRoot = Join-Path $repoRoot 'mods'
 
@@ -93,6 +116,11 @@ $deployNames = @{
     'WorkingKnowledge' = 'Working Knowledge'
 }
 
+$publishMetadataFiles = @(
+    'metadata.mod',
+    'modinfo.sbmi'
+)
+
 foreach ($mod in $availableMods) {
     $deployName = $mod.Name
     if ($deployNames.ContainsKey($mod.Name)) {
@@ -103,6 +131,8 @@ foreach ($mod in $availableMods) {
     Assert-ChildPath -Parent $resolvedDestinationRoot -Child $targetPath
 
     if ($PSCmdlet.ShouldProcess($targetPath, "Deploy local Space Engineers mod '$deployName' from '$($mod.Name)'")) {
+        Sync-PublishMetadataFromDeploy -SourceModPath $mod.FullName -TargetModPath $targetPath -FileNames $publishMetadataFiles
+
         $legacyTargetPath = Join-Path $resolvedDestinationRoot $mod.Name
         if ($legacyTargetPath -ne $targetPath -and (Test-Path -LiteralPath $legacyTargetPath) -and -not $NoClean) {
             $resolvedLegacyTargetPath = (Resolve-Path -LiteralPath $legacyTargetPath).Path

@@ -5,6 +5,8 @@
 *.md text
 *.ps1 text
 *.sbc text
+*.sbmi text
+*.mod text
 *.xml text
 *.yml text
 

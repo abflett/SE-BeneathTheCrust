@@ -26,6 +26,17 @@ Use the root build script for local testing:
 .\build.ps1 -ModName WkKn
 ```
 
+## Publishing Metadata
+
+Keep these root-level files tracked in `mods/WorkingKnowledge`:
+
+- `metadata.mod`
+- `modinfo.sbmi`
+
+Space Engineers uses them to associate local publishes with the existing Workshop item. Without them, publishing can create a new Workshop item instead of updating the current one.
+
+`build.ps1` copies those files back from `%APPDATA%\SpaceEngineers\Mods\Working Knowledge` into `mods/WorkingKnowledge` before cleaning and redeploying. This preserves any metadata changes Space Engineers writes during publishing.
+
 ## Progression Strategy
 
 Working Knowledge uses generated vanilla research definitions plus a session component.
