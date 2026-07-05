@@ -1,0 +1,34 @@
+Working Knowledge 0.9.0 - Initial Public Feedback Release
+
+Working Knowledge is now available as an initial public feedback release.
+
+This first publish introduces the core salvage, research, and Proficiency loop for Space Engineers. Most vanilla public cube blocks are grouped into schematic families, and those families are unlocked through research progress instead of the normal flat progression chain.
+
+Players can learn unknown technology by grinding unfamiliar blocks, recovering Data Fragments from selected loot containers, and completing schematic progress over time. Completed research unlocks the matching block family through Space Engineers' vanilla progression system, so the normal block menu and survival build flow still work as expected.
+
+This release also introduces player-only Proficiency. Research controls whether you know the schematic; Proficiency controls how skilled your engineer is at working with that schematic family. Building, repairing, grinding, and salvaging related blocks can improve Proficiency. Low Proficiency can make salvage less efficient and can cause welding botches that roll back some build progress, damage components, and recover forgiven materials when the loss would otherwise be too punishing.
+
+Included in this release:
+
+- Schematic-family research for most vanilla public cube blocks.
+- Vanilla progression integration for locked and unlocked block families.
+- Grinding-based research progress from unknown technology.
+- Data Fragments as rare research loot.
+- Exact Data Schematics for POI, mission, scenario, or admin rewards.
+- Separate player research, faction research, and player-only Proficiency tracking.
+- Salvage recovery effects based on Proficiency.
+- Welding and repair botches for low-Proficiency work.
+- Research Pedestal terminal block for viewing and syncing research.
+- Selectable LCD apps for Research, Proficiency, Identity, and Calibration.
+- Chat commands for player summaries, feedback settings, difficulty display, and admin tuning.
+- Difficulty presets and configurable world settings for research, Proficiency, salvage, botches, and feedback.
+
+Recommended setup:
+
+- Best tested in a fresh survival world.
+- Experimental Mode is not required.
+- The mod enables vanilla progression at runtime so Working Knowledge can manage schematic locks.
+- Creative worlds and admin creative-mode testing can bypass schematic placement restrictions.
+- Other progression or research-overhaul mods are likely to conflict and should be tested carefully.
+
+This is a playable standalone release, but it is still a 0.9.x feedback build. Balance, multiplayer edge cases, dedicated-server behavior, and compatibility with larger mod stacks are still being tested. Bug reports and balance feedback from fresh survival playthroughs are especially useful.
