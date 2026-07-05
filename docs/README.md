@@ -14,6 +14,7 @@ Planning scratchpads and generated draft JSON files should not live here once th
 ## Working Knowledge
 
 - [Configuration](working_knowledge_configuration.md) - admin-facing config values, chat commands, and XML shape.
+- [Changelog](WorkingKnowledgeChangeLog.md) - public-facing Working Knowledge release notes.
 - [Implementation notes](working_knowledge_implementation.md) - maintainer file map, runtime shape, and fragile Space Engineers edge cases.
 - [Inspirations and attribution](working_knowledge_inspirations.md) - credited external mod ideas that influenced Working Knowledge.
 - [Release roadmap](working_knowledge_release_roadmap.md) - version targets, remaining feature gates, and repeatable validation checks.

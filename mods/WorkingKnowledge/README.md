@@ -106,6 +106,7 @@ The mod currently includes:
 ## Project Docs
 
 - [Campaign overview](../../docs/campaign_overview.md)
+- [Working Knowledge changelog](../../docs/WorkingKnowledgeChangeLog.md)
 - [Working Knowledge configuration](../../docs/working_knowledge_configuration.md)
 - [Working Knowledge implementation reference](../../docs/working_knowledge_implementation.md)
 - [Working Knowledge inspirations and attribution](../../docs/working_knowledge_inspirations.md)

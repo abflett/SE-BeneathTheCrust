@@ -57,6 +57,7 @@ Beneath the Crust keeps the core Space Engineers sandbox intact while adding str
 - [Campaign mod shortlist](docs/campaign_mod_shortlist.md)
 - [Standalone mods index](mods/README.md)
 - [Working Knowledge overview](mods/WorkingKnowledge/README.md)
+- [Working Knowledge changelog](docs/WorkingKnowledgeChangeLog.md)
 - [Working Knowledge configuration](docs/working_knowledge_configuration.md)
 - [Working Knowledge implementation reference](docs/working_knowledge_implementation.md)
 - [Working Knowledge inspirations and attribution](docs/working_knowledge_inspirations.md)
