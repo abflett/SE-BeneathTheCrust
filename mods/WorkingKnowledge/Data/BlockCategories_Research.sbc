@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CategoryClasses>
+    <Category xsi:type="MyObjectBuilder_GuiBlockCategoryDefinition">
+      <Id>
+        <TypeId>GuiBlockCategoryDefinition</TypeId>
+        <SubtypeId>WkKnResearch</SubtypeId>
+      </Id>
+      <DisplayName>Research</DisplayName>
+      <Name>Working Knowledge</Name>
+      <SearchBlocks>true</SearchBlocks>
+      <ItemIds>
+        <string>TerminalBlock/WkKnResearchPedestal</string>
+        <string>MyProgrammableBlock/WkKnResearchSciFiTerminal</string>
+      </ItemIds>
+    </Category>
+    <Category xsi:type="MyObjectBuilder_GuiBlockCategoryDefinition">
+      <Id>
+        <TypeId>GuiBlockCategoryDefinition</TypeId>
+        <SubtypeId>Tools</SubtypeId>
+      </Id>
+      <DisplayName>DisplayName_Category_Tools</DisplayName>
+      <Name>Section1_Position3_ShipTools</Name>
+      <StrictSearch>true</StrictSearch>
+      <ItemIds>
+        <string>ShipGrinder/LargeShipGrinder</string>
+        <string>ShipGrinder/SmallShipGrinder</string>
+        <string>ShipGrinder/LargeShipGrinderReskin</string>
+        <string>ShipGrinder/SmallShipGrinderReskin</string>
+        <string>ShipWelder/LargeShipWelder</string>
+        <string>ShipWelder/SmallShipWelder</string>
+        <string>ShipWelder/LargeShipWelderReskin</string>
+        <string>ShipWelder/SmallShipWelderReskin</string>
+        <string>Drill/LargeBlockDrill</string>
+        <string>Drill/SmallBlockDrill</string>
+        <string>Drill/LargeBlockDrillReskin</string>
+        <string>Drill/SmallBlockDrillReskin</string>
+      </ItemIds>
+    </Category>
+    <Category xsi:type="MyObjectBuilder_GuiBlockCategoryDefinition">
+      <Id>
+        <TypeId>GuiBlockCategoryDefinition</TypeId>
+        <SubtypeId>Tools_Ship</SubtypeId>
+      </Id>
+      <DisplayName>DisplayName_Category_ShipTools</DisplayName>
+      <Name>ShipTools</Name>
+      <SearchBlocks>false</SearchBlocks>
+      <IsShipCategory>true</IsShipCategory>
+      <IsBlockCategory>false</IsBlockCategory>
+      <IsToolCategory>true</IsToolCategory>
+      <ItemIds>
+        <string>ShipGrinder/SmallShipGrinder</string>
+        <string>ShipGrinder/LargeShipGrinder</string>
+        <string>ShipGrinder/LargeShipGrinderReskin</string>
+        <string>ShipGrinder/SmallShipGrinderReskin</string>
+        <string>ShipWelder/SmallShipWelder</string>
+        <string>ShipWelder/LargeShipWelder</string>
+        <string>ShipWelder/LargeShipWelderReskin</string>
+        <string>ShipWelder/SmallShipWelderReskin</string>
+        <string>Drill/SmallBlockDrill</string>
+        <string>Drill/LargeBlockDrill</string>
+        <string>Drill/LargeBlockDrillReskin</string>
+        <string>Drill/SmallBlockDrillReskin</string>
+        <string>Drill/LargeBlockPrototechDrill</string>
+      </ItemIds>
+    </Category>
+  </CategoryClasses>
+</Definitions>

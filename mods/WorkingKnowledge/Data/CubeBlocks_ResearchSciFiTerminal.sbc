@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CubeBlocks>
+    <Definition xsi:type="MyObjectBuilder_ProgrammableBlockDefinition">
+      <Id>
+        <TypeId>MyProgrammableBlock</TypeId>
+        <SubtypeId>WkKnResearchSciFiTerminal</SubtypeId>
+      </Id>
+      <DisplayName>Research Sci-Fi Terminal</DisplayName>
+      <Icon>Textures\GUI\Icons\Cubes\NeonTerminal.dds</Icon>
+      <Description>Research archive terminal with an integrated schematic status console.</Description>
+      <CubeSize>Large</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Cubes\large\SciFiTerminal.mwm</Model>
+      <Components>
+        <Component Subtype="SteelPlate" Count="11" />
+        <Component Subtype="Construction" Count="4" />
+        <Component Subtype="LargeTube" Count="2" />
+        <Component Subtype="Motor" Count="1" />
+        <Component Subtype="Display" Count="1" />
+        <Component Subtype="Computer" Count="2" />
+        <Component Subtype="SteelPlate" Count="10" />
+      </Components>
+      <CriticalComponent Subtype="Computer" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Back" ExclusionMask="3" PropertiesMask="3" StartY="0.3" StartX="0.3" EndY="0.8" EndX="0.7" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="0.33" File="Models\Cubes\Large\SciFiTerminalConstruction_1.mwm" />
+        <Model BuildPercentUpperBound="0.66" File="Models\Cubes\Large\SciFiTerminalConstruction_2.mwm" />
+        <Model BuildPercentUpperBound="1.00" File="Models\Cubes\Large\SciFiTerminalConstruction_3.mwm" />
+      </BuildProgressModels>
+      <BlockPairName>WkKnResearchSciFiTerminal</BlockPairName>
+      <ScreenAreas>
+        <ScreenArea Name="CockpitScreen_01" DisplayName="DisplayName_Screen_Large" TextureResolution="512" ScreenWidth="4" ScreenHeight="3" Script="TSS_WkKnResearch" />
+        <ScreenArea Name="CockpitScreen_02" DisplayName="DisplayName_Screen_Keyboard" TextureResolution="256" ScreenWidth="5" ScreenHeight="2" Script="TSS_WkKnIdentity" />
+      </ScreenAreas>
+      <MirroringZ>Y</MirroringZ>
+      <MirroringY>Z</MirroringY>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>20</BuildTimeSeconds>
+      <ResourceSinkGroup>Utility</ResourceSinkGroup>
+      <MaxScreenRenderDistance>400</MaxScreenRenderDistance>
+      <DamageEffectName>Damage_Electrical_Damaged</DamageEffectName>
+      <DamagedSound>ParticleElectrical</DamagedSound>
+      <DestroyEffectOffset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>1.1</Z>
+      </DestroyEffectOffset>
+      <PCU>100</PCU>
+      <IsAirTight>false</IsAirTight>
+      <DLC>SparksOfTheFuture</DLC>
+    </Definition>
+  </CubeBlocks>
+</Definitions>

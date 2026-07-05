@@ -1,0 +1,2040 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CubeBlocks>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_fundamentals</SubtypeId>
+      </Id>
+      <DisplayName>Fundamental Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Fundamental schematics for basic hull shapes and merge systems issued to new engineers.</Description>
+      <BlockPairName>WkKnUnlocker_fundamentals</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_armor_light</SubtypeId>
+      </Id>
+      <DisplayName>Light Armor Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for lightweight armor hull forms used to shape ships and stations.</Description>
+      <BlockPairName>WkKnUnlocker_armor_light</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_armor_heavy</SubtypeId>
+      </Id>
+      <DisplayName>Heavy Armor Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for durable heavy armor hull forms used when protection matters more than mass.</Description>
+      <BlockPairName>WkKnUnlocker_armor_heavy</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_production_basic</SubtypeId>
+      </Id>
+      <DisplayName>Basic Production Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for basic refining, assembling, and survival production equipment.</Description>
+      <BlockPairName>WkKnUnlocker_production_basic</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_tools_drill</SubtypeId>
+      </Id>
+      <DisplayName>Drill Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for ship drills used to mine stone, ore, and voxel material.</Description>
+      <BlockPairName>WkKnUnlocker_tools_drill</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_tools_welder</SubtypeId>
+      </Id>
+      <DisplayName>Welder Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for ship welders used to construct and repair placed frames and projections.</Description>
+      <BlockPairName>WkKnUnlocker_tools_welder</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_tools_grinder</SubtypeId>
+      </Id>
+      <DisplayName>Grinder Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for ship grinders used to salvage structures and recover usable parts.</Description>
+      <BlockPairName>WkKnUnlocker_tools_grinder</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_logistics_cargo_storage</SubtypeId>
+      </Id>
+      <DisplayName>Cargo Storage Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for cargo containers, shelves, crates, freight containers, barrels, and storage fixtures.</Description>
+      <BlockPairName>WkKnUnlocker_logistics_cargo_storage</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_logistics_conveyor_network</SubtypeId>
+      </Id>
+      <DisplayName>Conveyor Network Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for conveyor tubes, junctions, sorters, frames, and pipe networks.</Description>
+      <BlockPairName>WkKnUnlocker_logistics_conveyor_network</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_logistics_cargo_transfer</SubtypeId>
+      </Id>
+      <DisplayName>Cargo Transfer Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for connectors, collectors, ejectors, and transfer ports used to dock and move cargo.</Description>
+      <BlockPairName>WkKnUnlocker_logistics_cargo_transfer</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_gas_processing</SubtypeId>
+      </Id>
+      <DisplayName>Gas Processing Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for vents, oxygen farms, and oxygen/hydrogen generators that manage breathable air and fuel production.</Description>
+      <BlockPairName>WkKnUnlocker_gas_processing</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_gas_storage</SubtypeId>
+      </Id>
+      <DisplayName>Gas Storage Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for oxygen and hydrogen storage tanks.</Description>
+      <BlockPairName>WkKnUnlocker_gas_storage</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_power_renewable</SubtypeId>
+      </Id>
+      <DisplayName>Renewable Power Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for solar panels and wind turbines used for renewable power generation.</Description>
+      <BlockPairName>WkKnUnlocker_power_renewable</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_power_battery</SubtypeId>
+      </Id>
+      <DisplayName>Battery Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for rechargeable power storage systems.</Description>
+      <BlockPairName>WkKnUnlocker_power_battery</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_power_hydrogen_engine</SubtypeId>
+      </Id>
+      <DisplayName>Hydrogen Engine Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for hydrogen engines that convert stored hydrogen into electrical power.</Description>
+      <BlockPairName>WkKnUnlocker_power_hydrogen_engine</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_power_reactor</SubtypeId>
+      </Id>
+      <DisplayName>Reactor Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for compact reactor systems used for high-output power generation.</Description>
+      <BlockPairName>WkKnUnlocker_power_reactor</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_production_food</SubtypeId>
+      </Id>
+      <DisplayName>Food Production Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for food processors, farms, and irrigation equipment used to produce consumables.</Description>
+      <BlockPairName>WkKnUnlocker_production_food</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_production_advanced</SubtypeId>
+      </Id>
+      <DisplayName>Advanced Production Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for assemblers, refineries, and upgrade modules used in advanced production chains.</Description>
+      <BlockPairName>WkKnUnlocker_production_advanced</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_control_interfaces</SubtypeId>
+      </Id>
+      <DisplayName>Control Interface Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for button panels, consoles, projectors, and terminal fixtures used to operate grid systems.</Description>
+      <BlockPairName>WkKnUnlocker_control_interfaces</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_control_stations</SubtypeId>
+      </Id>
+      <DisplayName>Control Station Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for cockpits, helms, control stations, and crew seats used to pilot ships and rovers.</Description>
+      <BlockPairName>WkKnUnlocker_control_stations</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_communications</SubtypeId>
+      </Id>
+      <DisplayName>Communications Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for antennas, beacons, cameras, broadcast controllers, remote control systems, and grid-locating instruments.</Description>
+      <BlockPairName>WkKnUnlocker_communications</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_automation_logic</SubtypeId>
+      </Id>
+      <DisplayName>Automation Logic Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for timers, sensors, programmable systems, event controllers, action relays, turret controllers, and automation controls.</Description>
+      <BlockPairName>WkKnUnlocker_automation_logic</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_automation_ai_control</SubtypeId>
+      </Id>
+      <DisplayName>AI Control Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for autonomous flight, combat, pathing, and task-control systems.</Description>
+      <BlockPairName>WkKnUnlocker_automation_ai_control</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_utility_display_systems</SubtypeId>
+      </Id>
+      <DisplayName>Display Systems Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for LCDs, text panels, billboards, holographic displays, and visual information surfaces.</Description>
+      <BlockPairName>WkKnUnlocker_utility_display_systems</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_utility_interior_lighting</SubtypeId>
+      </Id>
+      <DisplayName>Interior Lighting Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for interior lights, neon fixtures, troffers, and panel lighting.</Description>
+      <BlockPairName>WkKnUnlocker_utility_interior_lighting</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_utility_directed_lighting</SubtypeId>
+      </Id>
+      <DisplayName>Directed Lighting Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for spotlights, floodlights, searchlights, and rotating warning lights.</Description>
+      <BlockPairName>WkKnUnlocker_utility_directed_lighting</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_mechanical_systems</SubtypeId>
+      </Id>
+      <DisplayName>Mechanical Systems Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for pistons, rotors, hinges, gyroscopes, landing gear, and magnetic plates.</Description>
+      <BlockPairName>WkKnUnlocker_mechanical_systems</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_mechanical_wheel_systems</SubtypeId>
+      </Id>
+      <DisplayName>Wheel Systems Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for wheel and suspension assemblies used by rovers and ground vehicles.</Description>
+      <BlockPairName>WkKnUnlocker_mechanical_wheel_systems</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_utility_gravity</SubtypeId>
+      </Id>
+      <DisplayName>Gravity Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for gravity generators, artificial mass systems, and gravity-responsive test masses.</Description>
+      <BlockPairName>WkKnUnlocker_utility_gravity</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_utility_jump_drive</SubtypeId>
+      </Id>
+      <DisplayName>Jump Drive Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for jump drives used for long-distance grid travel.</Description>
+      <BlockPairName>WkKnUnlocker_utility_jump_drive</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_propulsion_atmospheric_thruster</SubtypeId>
+      </Id>
+      <DisplayName>Atmospheric Thruster Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for atmospheric thrusters designed for flight inside planetary atmospheres.</Description>
+      <BlockPairName>WkKnUnlocker_propulsion_atmospheric_thruster</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_propulsion_hydrogen_thruster</SubtypeId>
+      </Id>
+      <DisplayName>Hydrogen Thruster Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for hydrogen thrusters designed for powerful thrust in atmosphere or vacuum using stored hydrogen.</Description>
+      <BlockPairName>WkKnUnlocker_propulsion_hydrogen_thruster</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_propulsion_ion_thruster</SubtypeId>
+      </Id>
+      <DisplayName>Ion Thruster Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for ion thrusters designed for efficient propulsion in vacuum.</Description>
+      <BlockPairName>WkKnUnlocker_propulsion_ion_thruster</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_weapons_fixed_weapon</SubtypeId>
+      </Id>
+      <DisplayName>Fixed Weapon Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for fixed guns, launchers, warheads, and explosive ordnance.</Description>
+      <BlockPairName>WkKnUnlocker_weapons_fixed_weapon</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_weapons_turret</SubtypeId>
+      </Id>
+      <DisplayName>Turret Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for automated and manually controlled turret weapons.</Description>
+      <BlockPairName>WkKnUnlocker_weapons_turret</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_life_support</SubtypeId>
+      </Id>
+      <DisplayName>Life Support Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for medical rooms, refill stations, cryo chambers, first aid cabinets, and crew sustainment systems.</Description>
+      <BlockPairName>WkKnUnlocker_life_support</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_economy_station_services</SubtypeId>
+      </Id>
+      <DisplayName>Station Services Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for contracts, stores, vending, safe zones, ATMs, and station service terminals.</Description>
+      <BlockPairName>WkKnUnlocker_economy_station_services</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_structure_interior</SubtypeId>
+      </Id>
+      <DisplayName>Interior Structure Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for interior walls, floors, stairs, ramps, columns, trim, embrasures, and room shell pieces.</Description>
+      <BlockPairName>WkKnUnlocker_structure_interior</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_structure_passage</SubtypeId>
+      </Id>
+      <DisplayName>Passage Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for corridors, passages, ducts, and walk-through structural modules.</Description>
+      <BlockPairName>WkKnUnlocker_structure_passage</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_structure_door</SubtypeId>
+      </Id>
+      <DisplayName>Door Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for doors, hatches, gates, and access ways used to seal or control movement through interiors.</Description>
+      <BlockPairName>WkKnUnlocker_structure_door</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_structure_hangar_gate</SubtypeId>
+      </Id>
+      <DisplayName>Hangar Gate Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for hangar doors, blast door segments, and large sealed gates used to protect bays and vehicle access.</Description>
+      <BlockPairName>WkKnUnlocker_structure_hangar_gate</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_structure_window</SubtypeId>
+      </Id>
+      <DisplayName>Window Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for windows and transparent structural panels used to enclose rooms while preserving visibility.</Description>
+      <BlockPairName>WkKnUnlocker_structure_window</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_structure_industrial</SubtypeId>
+      </Id>
+      <DisplayName>Industrial Structure Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for catwalks, railings, ladders, beams, truss frames, scaffolds, platforms, and industrial support structures.</Description>
+      <BlockPairName>WkKnUnlocker_structure_industrial</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_structure_bridge</SubtypeId>
+      </Id>
+      <DisplayName>Bridge Structure Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for modular bridge floors, corners, slopes, and raised transition pieces.</Description>
+      <BlockPairName>WkKnUnlocker_structure_bridge</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_decor_habitat_fixtures</SubtypeId>
+      </Id>
+      <DisplayName>Habitat Fixture Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for crew quarters, kitchens, bathrooms, seating, storage furniture, armories, and everyday habitat fixtures.</Description>
+      <BlockPairName>WkKnUnlocker_decor_habitat_fixtures</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_decor_decorative_fixtures</SubtypeId>
+      </Id>
+      <DisplayName>Decorative Fixture Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for decorative fixtures, conduits, pipes, access panels, audio equipment, statues, plushies, and training props.</Description>
+      <BlockPairName>WkKnUnlocker_decor_decorative_fixtures</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_decor_signage</SubtypeId>
+      </Id>
+      <DisplayName>Signage Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for warning signs, symbols, banners, and display markings.</Description>
+      <BlockPairName>WkKnUnlocker_decor_signage</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_prototech_assembler</SubtypeId>
+      </Id>
+      <DisplayName>Prototech Assembler Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for rare prototech assembly systems.</Description>
+      <BlockPairName>WkKnUnlocker_prototech_assembler</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_prototech_drill</SubtypeId>
+      </Id>
+      <DisplayName>Prototech Drill Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for rare prototech mining systems.</Description>
+      <BlockPairName>WkKnUnlocker_prototech_drill</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_prototech_battery</SubtypeId>
+      </Id>
+      <DisplayName>Prototech Battery Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for rare prototech battery systems.</Description>
+      <BlockPairName>WkKnUnlocker_prototech_battery</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_prototech_gyroscope</SubtypeId>
+      </Id>
+      <DisplayName>Prototech Gyroscope Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for rare prototech gyroscope systems.</Description>
+      <BlockPairName>WkKnUnlocker_prototech_gyroscope</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_prototech_reactor</SubtypeId>
+      </Id>
+      <DisplayName>Prototech Reactor Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for rare prototech reactor systems.</Description>
+      <BlockPairName>WkKnUnlocker_prototech_reactor</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_prototech_refinery</SubtypeId>
+      </Id>
+      <DisplayName>Prototech Refinery Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for rare prototech refinery systems.</Description>
+      <BlockPairName>WkKnUnlocker_prototech_refinery</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_prototech_jump_drive</SubtypeId>
+      </Id>
+      <DisplayName>Prototech Jump Drive Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for rare prototech jump drive systems.</Description>
+      <BlockPairName>WkKnUnlocker_prototech_jump_drive</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id>
+        <TypeId>CubeBlock</TypeId>
+        <SubtypeId>WkKnUnlocker_prototech_thruster</SubtypeId>
+      </Id>
+      <DisplayName>Prototech Thruster Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public>
+      <GuiVisible>false</GuiVisible>
+      <Description>Schematics for rare prototech thruster systems.</Description>
+      <BlockPairName>WkKnUnlocker_prototech_thruster</BlockPairName>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components>
+        <Component Subtype="WkKnDataFragmentComponent" Count="100" />
+      </Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" />
+      </BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds>
+      <PCU>1</PCU>
+      <IsAirTight>false</IsAirTight>
+    </Definition>
+  </CubeBlocks>
+</Definitions>

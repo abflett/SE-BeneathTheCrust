@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BlockVariantGroups>
+    <BlockVariantGroup>
+      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="BasicAssemblerGroup" />
+      <Icon>Textures\GUI\Icons\Cubes\basicAssembler.dds</Icon>
+      <DisplayName>DisplayName_Block_BasicAssembler</DisplayName>
+      <Description>Description_AssemblerBasic</Description>
+      <Blocks>
+        <Block Type="MyObjectBuilder_Assembler" Subtype="BasicAssembler" />
+      </Blocks>
+    </BlockVariantGroup>
+    <BlockVariantGroup>
+      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="AssemblerGroup" />
+      <Icon>Textures\GUI\Icons\Cubes\assembler.dds</Icon>
+      <DisplayName>DisplayName_Block_Assembler</DisplayName>
+      <Description>Description_Assembler</Description>
+      <Blocks>
+        <Block Type="MyObjectBuilder_Assembler" Subtype="LargeAssembler" />
+        <Block Type="MyObjectBuilder_Assembler" Subtype="LargeAssemblerIndustrial" />
+      </Blocks>
+    </BlockVariantGroup>
+    <BlockVariantGroup>
+      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="DecorativeUtilityGroup" />
+      <Icon>Textures\GUI\Icons\Cubes\LabEquipment.dds</Icon>
+      <DisplayName>DisplayName_Block_LabEquipment</DisplayName>
+      <Description>Description_LabEquipment</Description>
+      <Blocks>
+        <Block Type="MyObjectBuilder_LCDPanelsBlock" Subtype="LabEquipment" />
+        <Block Type="MyObjectBuilder_LCDPanelsBlock" Subtype="LabEquipment1" />
+        <Block Type="MyObjectBuilder_InteriorLight" Subtype="LabEquipment2" />
+        <Block Type="MyObjectBuilder_LCDPanelsBlock" Subtype="LabEquipment3" />
+      </Blocks>
+    </BlockVariantGroup>
+    <BlockVariantGroup>
+      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="MedicalGroup" />
+      <Icon>Textures\GUI\Icons\Cubes\medical_room.dds</Icon>
+      <DisplayName>DisplayName_Block_MedicalRoom</DisplayName>
+      <Description>Description_MedicalRoom</Description>
+      <Blocks>
+        <Block Type="MyObjectBuilder_MedicalRoom" Subtype="LargeMedicalRoom" />
+        <Block Type="MyObjectBuilder_MedicalRoom" Subtype="LargeMedicalRoomReskin" />
+        <Block Type="MyObjectBuilder_LCDPanelsBlock" Subtype="MedicalStation" />
+      </Blocks>
+    </BlockVariantGroup>
+    <BlockVariantGroup>
+      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ShipToolGroup" />
+      <Icon>Textures\GUI\Icons\Cubes\Grinder.dds</Icon>
+      <DisplayName>DisplayName_Block_ShipGrinder</DisplayName>
+      <Description>Description_ShipGrinder</Description>
+      <Blocks>
+        <Block Type="MyObjectBuilder_ShipGrinder" Subtype="LargeShipGrinder" />
+        <Block Type="MyObjectBuilder_ShipGrinder" Subtype="SmallShipGrinder" />
+        <Block Type="MyObjectBuilder_ShipGrinder" Subtype="LargeShipGrinderReskin" />
+        <Block Type="MyObjectBuilder_ShipGrinder" Subtype="SmallShipGrinderReskin" />
+      </Blocks>
+    </BlockVariantGroup>
+    <BlockVariantGroup>
+      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ShipWelderGroup" />
+      <Icon>Textures\GUI\Icons\Cubes\Welder.dds</Icon>
+      <DisplayName>DisplayName_Block_ShipWelder</DisplayName>
+      <Description>Description_ShipWelder</Description>
+      <Blocks>
+        <Block Type="MyObjectBuilder_ShipWelder" Subtype="LargeShipWelder" />
+        <Block Type="MyObjectBuilder_ShipWelder" Subtype="SmallShipWelder" />
+        <Block Type="MyObjectBuilder_ShipWelder" Subtype="LargeShipWelderReskin" />
+        <Block Type="MyObjectBuilder_ShipWelder" Subtype="SmallShipWelderReskin" />
+      </Blocks>
+    </BlockVariantGroup>
+    <BlockVariantGroup>
+      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ShipDrillGroup" />
+      <Icon>Textures\GUI\Icons\Cubes\drill.dds</Icon>
+      <DisplayName>DisplayName_Block_Drill</DisplayName>
+      <Description>Description_Drill</Description>
+      <Blocks>
+        <Block Type="MyObjectBuilder_Drill" Subtype="SmallBlockDrill" />
+        <Block Type="MyObjectBuilder_Drill" Subtype="LargeBlockDrill" />
+        <Block Type="MyObjectBuilder_Drill" Subtype="SmallBlockDrillReskin" />
+        <Block Type="MyObjectBuilder_Drill" Subtype="LargeBlockDrillReskin" />
+      </Blocks>
+    </BlockVariantGroup>
+    <BlockVariantGroup>
+      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechGroup" />
+      <Icon>Textures\GUI\Icons\Cubes\Prototech_JumpDrive.dds</Icon>
+      <DisplayName>DisplayName_Block_PrototechJumpDrive</DisplayName>
+      <Description>Description_Prototech_JumpDrive</Description>
+      <Blocks>
+        <Block Type="MyObjectBuilder_JumpDrive" Subtype="LargePrototechJumpDrive" />
+        <Block Type="MyObjectBuilder_JumpDrive" Subtype="SmallPrototechJumpDrive" />
+      </Blocks>
+    </BlockVariantGroup>
+    <BlockVariantGroup>
+      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechThrusterGroup" />
+      <Icon>Textures\GUI\Icons\Cubes\Prototech_Thruster_Large.dds</Icon>
+      <DisplayName>DisplayName_Block_PrototechThruster</DisplayName>
+      <Description>Description_Prototech_Thrust</Description>
+      <Blocks>
+        <Block Type="MyObjectBuilder_Thrust" Subtype="LargeBlockPrototechThruster" />
+        <Block Type="MyObjectBuilder_Thrust" Subtype="SmallBlockPrototechThruster" />
+      </Blocks>
+    </BlockVariantGroup>
+    <BlockVariantGroup>
+      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechRefineryGroup" />
+      <Icon>Textures\GUI\Icons\Cubes\Prototech_Refinery.dds</Icon>
+      <DisplayName>DisplayName_Block_PrototechRefinery</DisplayName>
+      <Description>Description_Prototech_Refinery</Description>
+      <Blocks>
+        <Block Type="MyObjectBuilder_Refinery" Subtype="LargePrototechRefinery" />
+        <Block Type="MyObjectBuilder_Refinery" Subtype="SmallPrototechRefinery" />
+      </Blocks>
+    </BlockVariantGroup>
+    <BlockVariantGroup>
+      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechAssemblerGroup" />
+      <Icon>Textures\GUI\Icons\Cubes\Prototech_Assembler.dds</Icon>
+      <DisplayName>DisplayName_Block_PrototechAssembler</DisplayName>
+      <Description>Description_PrototechAssembler</Description>
+      <Blocks>
+        <Block Type="MyObjectBuilder_Assembler" Subtype="LargePrototechAssembler" />
+      </Blocks>
+    </BlockVariantGroup>
+    <BlockVariantGroup>
+      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechGyroGroup" />
+      <Icon>Textures\GUI\Icons\Cubes\Prototech_Gyroscope_large.dds</Icon>
+      <DisplayName>DisplayName_Block_PrototechGyroscope</DisplayName>
+      <Description>Description_Prototech_Gyroscope</Description>
+      <Blocks>
+        <Block Type="MyObjectBuilder_Gyro" Subtype="LargeBlockPrototechGyro" />
+        <Block Type="MyObjectBuilder_Gyro" Subtype="SmallBlockPrototechGyro" />
+      </Blocks>
+    </BlockVariantGroup>
+    <BlockVariantGroup>
+      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechBatteryGroup" />
+      <Icon>Textures\GUI\Icons\Cubes\PrototechBattery.dds</Icon>
+      <DisplayName>DisplayName_Block_PrototechBattery</DisplayName>
+      <Description>Description_Prototech_Battery</Description>
+      <Blocks>
+        <Block Type="MyObjectBuilder_BatteryBlock" Subtype="LargeBlockPrototechBattery" />
+        <Block Type="MyObjectBuilder_BatteryBlock" Subtype="SmallBlockPrototechBattery" />
+      </Blocks>
+    </BlockVariantGroup>
+    <BlockVariantGroup>
+      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechDrillGroup" />
+      <Icon>Textures\GUI\Icons\Cubes\PrototechDrill.dds</Icon>
+      <DisplayName>DisplayName_Block_PrototechDrill</DisplayName>
+      <Description>Description_Prototech_Drill</Description>
+      <Blocks>
+        <Block Type="MyObjectBuilder_Drill" Subtype="LargeBlockPrototechDrill" />
+      </Blocks>
+    </BlockVariantGroup>
+    <BlockVariantGroup>
+      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechReactorGroup" />
+      <Icon>Textures\GUI\Icons\Cubes\Prototech_Reactor.dds</Icon>
+      <DisplayName>DisplayName_Block_PrototechReactor</DisplayName>
+      <Description>Description_PrototechReactor</Description>
+      <Blocks>
+        <Block Type="MyObjectBuilder_HydrogenEngine" Subtype="LargePrototechReactor" />
+      </Blocks>
+    </BlockVariantGroup>
+  </BlockVariantGroups>
+</Definitions>

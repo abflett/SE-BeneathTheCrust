@@ -1,0 +1,1380 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PhysicalItems>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_fundamentals</SubtypeId>
+      </Id>
+      <DisplayName>Fundamental Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Fundamental Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_armor_light</SubtypeId>
+      </Id>
+      <DisplayName>Light Armor Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Light Armor Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_armor_heavy</SubtypeId>
+      </Id>
+      <DisplayName>Heavy Armor Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Heavy Armor Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_production_basic</SubtypeId>
+      </Id>
+      <DisplayName>Basic Production Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Basic Production Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_tools_drill</SubtypeId>
+      </Id>
+      <DisplayName>Drill Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Drill Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_tools_welder</SubtypeId>
+      </Id>
+      <DisplayName>Welder Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Welder Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_tools_grinder</SubtypeId>
+      </Id>
+      <DisplayName>Grinder Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Grinder Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_logistics_cargo_storage</SubtypeId>
+      </Id>
+      <DisplayName>Cargo Storage Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Cargo Storage Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_logistics_conveyor_network</SubtypeId>
+      </Id>
+      <DisplayName>Conveyor Network Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Conveyor Network Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_logistics_cargo_transfer</SubtypeId>
+      </Id>
+      <DisplayName>Cargo Transfer Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Cargo Transfer Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_gas_processing</SubtypeId>
+      </Id>
+      <DisplayName>Gas Processing Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Gas Processing Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_gas_storage</SubtypeId>
+      </Id>
+      <DisplayName>Gas Storage Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Gas Storage Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_power_renewable</SubtypeId>
+      </Id>
+      <DisplayName>Renewable Power Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Renewable Power Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_power_battery</SubtypeId>
+      </Id>
+      <DisplayName>Battery Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Battery Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_power_hydrogen_engine</SubtypeId>
+      </Id>
+      <DisplayName>Hydrogen Engine Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Hydrogen Engine Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_power_reactor</SubtypeId>
+      </Id>
+      <DisplayName>Reactor Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Reactor Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_production_food</SubtypeId>
+      </Id>
+      <DisplayName>Food Production Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Food Production Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_production_advanced</SubtypeId>
+      </Id>
+      <DisplayName>Advanced Production Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Advanced Production Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_control_interfaces</SubtypeId>
+      </Id>
+      <DisplayName>Control Interface Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Control Interface Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_control_stations</SubtypeId>
+      </Id>
+      <DisplayName>Control Station Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Control Station Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_communications</SubtypeId>
+      </Id>
+      <DisplayName>Communications Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Communications Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_automation_logic</SubtypeId>
+      </Id>
+      <DisplayName>Automation Logic Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Automation Logic Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_automation_ai_control</SubtypeId>
+      </Id>
+      <DisplayName>AI Control Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach AI Control Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_utility_display_systems</SubtypeId>
+      </Id>
+      <DisplayName>Display Systems Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Display Systems Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_utility_interior_lighting</SubtypeId>
+      </Id>
+      <DisplayName>Interior Lighting Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Interior Lighting Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_utility_directed_lighting</SubtypeId>
+      </Id>
+      <DisplayName>Directed Lighting Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Directed Lighting Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_mechanical_systems</SubtypeId>
+      </Id>
+      <DisplayName>Mechanical Systems Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Mechanical Systems Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_mechanical_wheel_systems</SubtypeId>
+      </Id>
+      <DisplayName>Wheel Systems Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Wheel Systems Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_utility_gravity</SubtypeId>
+      </Id>
+      <DisplayName>Gravity Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Gravity Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_utility_jump_drive</SubtypeId>
+      </Id>
+      <DisplayName>Jump Drive Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Jump Drive Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_propulsion_atmospheric_thruster</SubtypeId>
+      </Id>
+      <DisplayName>Atmospheric Thruster Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Atmospheric Thruster Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_propulsion_hydrogen_thruster</SubtypeId>
+      </Id>
+      <DisplayName>Hydrogen Thruster Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Hydrogen Thruster Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_propulsion_ion_thruster</SubtypeId>
+      </Id>
+      <DisplayName>Ion Thruster Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Ion Thruster Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_weapons_fixed_weapon</SubtypeId>
+      </Id>
+      <DisplayName>Fixed Weapon Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Fixed Weapon Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_weapons_turret</SubtypeId>
+      </Id>
+      <DisplayName>Turret Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Turret Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_life_support</SubtypeId>
+      </Id>
+      <DisplayName>Life Support Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Life Support Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_economy_station_services</SubtypeId>
+      </Id>
+      <DisplayName>Station Services Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Station Services Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_structure_interior</SubtypeId>
+      </Id>
+      <DisplayName>Interior Structure Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Interior Structure Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_structure_passage</SubtypeId>
+      </Id>
+      <DisplayName>Passage Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Passage Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_structure_door</SubtypeId>
+      </Id>
+      <DisplayName>Door Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Door Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_structure_hangar_gate</SubtypeId>
+      </Id>
+      <DisplayName>Hangar Gate Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Hangar Gate Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_structure_window</SubtypeId>
+      </Id>
+      <DisplayName>Window Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Window Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_structure_industrial</SubtypeId>
+      </Id>
+      <DisplayName>Industrial Structure Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Industrial Structure Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_structure_bridge</SubtypeId>
+      </Id>
+      <DisplayName>Bridge Structure Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Bridge Structure Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_decor_habitat_fixtures</SubtypeId>
+      </Id>
+      <DisplayName>Habitat Fixture Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Habitat Fixture Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_decor_decorative_fixtures</SubtypeId>
+      </Id>
+      <DisplayName>Decorative Fixture Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Decorative Fixture Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_decor_signage</SubtypeId>
+      </Id>
+      <DisplayName>Signage Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Signage Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_prototech_assembler</SubtypeId>
+      </Id>
+      <DisplayName>Prototech Assembler Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Prototech Assembler Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_prototech_drill</SubtypeId>
+      </Id>
+      <DisplayName>Prototech Drill Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Prototech Drill Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_prototech_battery</SubtypeId>
+      </Id>
+      <DisplayName>Prototech Battery Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Prototech Battery Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_prototech_gyroscope</SubtypeId>
+      </Id>
+      <DisplayName>Prototech Gyroscope Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Prototech Gyroscope Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_prototech_reactor</SubtypeId>
+      </Id>
+      <DisplayName>Prototech Reactor Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Prototech Reactor Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_prototech_refinery</SubtypeId>
+      </Id>
+      <DisplayName>Prototech Refinery Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Prototech Refinery Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_prototech_jump_drive</SubtypeId>
+      </Id>
+      <DisplayName>Prototech Jump Drive Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Prototech Jump Drive Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id>
+        <TypeId>ConsumableItem</TypeId>
+        <SubtypeId>WkKnSchematic_prototech_thruster</SubtypeId>
+      </Id>
+      <DisplayName>Prototech Thruster Data Schematic</DisplayName>
+      <Description>A durable data schematic that can teach Prototech Thruster Schematics. It is returned after use so it can be shared.</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.2</Z>
+      </Size>
+      <Mass>0.2</Mass>
+      <Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats>
+        <Stat Name="RadiationImmunity" Value="1" Time="1" />
+      </Stats>
+      <UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled>
+      <CanPlayerOrder>false</CanPlayerOrder>
+      <CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+  </PhysicalItems>
+</Definitions>

@@ -1,0 +1,18 @@
+# Normalize text files and keep generated diffs readable.
+* text=auto
+
+*.cs text
+*.md text
+*.ps1 text
+*.sbc text
+*.xml text
+*.yml text
+
+# Space Engineers and documentation assets.
+*.jpg binary
+*.png binary
+*.wav binary
+*.mwm binary
+*.fbx binary
+*.hkt binary
+*.dds binary

@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ResearchGroups>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_armor_light" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_armor_heavy" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_production_basic" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_tools_drill" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_tools_welder" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_tools_grinder" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_logistics_cargo_storage" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_logistics_conveyor_network" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_logistics_cargo_transfer" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_gas_processing" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_gas_storage" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_power_renewable" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_power_battery" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_power_hydrogen_engine" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_power_reactor" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_production_food" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_production_advanced" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_control_interfaces" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_control_stations" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_communications" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_automation_logic" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_automation_ai_control" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_utility_display_systems" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_utility_interior_lighting" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_utility_directed_lighting" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_mechanical_systems" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_mechanical_wheel_systems" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_utility_gravity" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_utility_jump_drive" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_propulsion_atmospheric_thruster" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_propulsion_hydrogen_thruster" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_propulsion_ion_thruster" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_weapons_fixed_weapon" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_weapons_turret" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_life_support" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_economy_station_services" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_structure_interior" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_structure_passage" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_structure_door" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_structure_hangar_gate" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_structure_window" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_structure_industrial" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_structure_bridge" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_decor_habitat_fixtures" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_decor_decorative_fixtures" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_decor_signage" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_prototech_assembler" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_prototech_drill" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_prototech_battery" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_prototech_gyroscope" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_prototech_reactor" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_prototech_refinery" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_prototech_jump_drive" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_prototech_thruster" />
+      <Members />
+    </ResearchGroup>
+  </ResearchGroups>
+</Definitions>

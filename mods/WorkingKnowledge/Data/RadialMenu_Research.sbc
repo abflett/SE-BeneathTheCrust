@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <RadialMenus>
+    <RadialMenu>
+      <Id Type="RadialMenu" Subtype="Toolbar" />
+      <Sections>
+        <Section>
+          <Label>RadialMenuGroupTitle_ArmorLight</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ArmorLightCubeGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ArmorLightRampGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ArmorLightRampCornerGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ArmorLightRoundGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ArmorLightSlopedCorners" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ArmorLightTransitionBlocks" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="LightArmorPanelsGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_ArmorHeavy</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ArmorHeavyCubeGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ArmorHeavyRampGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ArmorHeavyRampCornerGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ArmorHeavyRoundGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ArmorHeavySlopedCorners" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ArmorHeavyTransitionBlocks" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="HeavyArmorPanelsGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Structure1</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="InteriorWallGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="BlastDoorGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="BeamGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ScaffoldingGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="InteriorPillarGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="StructualBlocksGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="FloorBlockGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="RoundEdgeGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Structure2</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="DoorGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="GateGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="AirtightHangarDoorGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PassageGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="CorridorGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="AirDuctGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="StairsGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Structure3</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="CatwalkGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="CoverWallGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="DecoCatwalkGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="RailingGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="LadderGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Decoration</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="BedGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="BathroomGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="KitchenGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="SmallBlockKitchenGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="DecorativeFloraGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="CouchGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="DeskGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ConsoleModuleGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Decoration2</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="DecorativeUtilityGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="AccesPanelGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="StorageShelves" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="LockersGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PipesBlockGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ConduitsBlockGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="NeonTubes" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ExhaustPipeGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Decoration3</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="StatueGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="DecorativeDeadBodiesGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="EngineerPlushieGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Control</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="CockpitGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="OpenCockpitGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ModularBridgeGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PassengerSeatGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="RemoteControlGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="AIBlocksGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Power</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="BatteryGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="SolarGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="WindTurbineGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="HydrogenEngineGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ReactorsGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Propulsion1</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ThrusterHydroGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ThrusterAtmoGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ThrusterIonGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="GyroscopeGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ParachuteGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Propulsion2</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="WheelSuspensionLeftGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="WheelSuspensionRightGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="OffroadWheelSuspensionRightGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="OffroadWheelSuspensionLeftGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="WheelStaticGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Production</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="RefineryGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="BasicAssemblerGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="AssemblerGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="UpgradeModuleGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="GasGeneratorGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="FoodProductionGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_ProductionMedical</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="SurvivalKitGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="MedicalGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="CryoGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Logistics1</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ContainerGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ConveyorGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ConveyorPipeGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ConveyorSmallGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="DecorativeStorageGroup1" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="DecorativeStorageGroup2" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="DecorativeStorageGroup3" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="DecorativeStorageGroup4" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Logistics2</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="CollectorGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ConnectorGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="TankGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="OxygenFarmGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="AirVentGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="RefillStation" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Utility1</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ShipToolGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ShipWelderGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ShipDrillGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ProjectorGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="CameraGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="LightingGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="SpotlightGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="HeatVentGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Utility2</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="SoundGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="OreDetectorGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="BeaconGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="AntennaGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="BroadcastControllerGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="SafeZoneGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="StoreGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Weapons</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ShipWeaponStaticGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="TurretGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="WarheadGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="DecoyGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="TurretControlGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Automation</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="AutomationGroup2" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ProgrammableBlockGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="AutomationGroup1" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ButtonPanelGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="TargetDummyGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Symbols</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="LCDGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="EmotionControllerGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="WarningSignGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="FloorPlanSignGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="LettersAZ" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="Numbers1" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="Symbols" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Mechanical</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="LandingGearGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="MergeBlockGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PistonGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="RotorGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="HingeGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Windows1</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="WindowSmallGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="WindowMediumGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="WindowLargeGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="WindowSmallCornerGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="WindowMediumCornerGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="RoundWindowGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Windows2</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="WindowWallGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ShutterGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="BarredWindows" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="HalfWindowGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="BridgeWindowsGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ExtendedWindowGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Hitech</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="JumpDriveGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="GravityGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="VirtualMassGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Hitech</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechThrusterGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechRefineryGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechAssemblerGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechGyroGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechBatteryGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechDrillGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechReactorGroup" />
+            </Item>
+          </Items>
+        </Section>
+      </Sections>
+    </RadialMenu>
+  </RadialMenus>
+</Definitions>
