@@ -314,12 +314,6 @@ namespace WkKn
                 return;
             }
 
-            if (args[2].Equals("resetloot", StringComparison.OrdinalIgnoreCase))
-            {
-                HandleAdminResetLootCommand(args);
-                return;
-            }
-
             ShowAdminHelp();
         }
 
@@ -697,9 +691,7 @@ namespace WkKn
                 "Category index for world tuning and admin-only configuration.");
             ShowWkChatSection(
                 "Admin Commands",
-                "/wk admin unlockall - Complete all research for yourself without changing Proficiency",
-                "/wk admin resetloot - Scan empty random cargo containers",
-                "/wk admin resetloot confirm - Refill empty random cargo containers");
+                "/wk admin unlockall - Complete all research for yourself without changing Proficiency");
             ShowWkChatSection(
                 "World Config Commands",
                 "/wk config world - Display world settings",

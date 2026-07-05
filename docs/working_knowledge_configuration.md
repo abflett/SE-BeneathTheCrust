@@ -62,7 +62,6 @@ Admins can also:
 - Reset world config to mod defaults.
 - Show, reset, unlock, forget, or set research and Proficiency for player targets.
 - Run `/wk admin unlockall` for local admin testing.
-- Run `/wk admin resetloot` to scan or refill empty random-cargo containers.
 
 Commands that target other players, reset server progress, or change world values require a promoted Space Engineers admin.
 
@@ -160,7 +159,6 @@ Start with:
 
 ```text
 /wk admin
-/wk admin resetloot
 /wk config world
 /wk config world help
 /wk difficulty
@@ -181,15 +179,6 @@ World config commands:
 `/wk config world reset` resets all world settings to the built-in `medium` defaults.
 
 When a world setting is changed manually through `/wk config <setting> <value>`, `difficultyPreset` is marked as `custom`.
-
-Loot recovery commands:
-
-```text
-/wk admin resetloot
-/wk admin resetloot confirm
-```
-
-`/wk admin resetloot` performs a dry-run scan of entities with Space Engineers' random-cargo component and reports how many empty containers are eligible. `/wk admin resetloot confirm` refills only those empty random-cargo containers. It skips non-empty inventories and does not clear existing loot, so it is intended for repairing worlds affected by broken random-cargo generation rather than for routine loot respawns.
 
 ## Difficulty Presets
 
@@ -315,7 +304,7 @@ Use `/wk config <setting> help` in game for the current value, accepted value ty
 - `researchScale` - Global multiplier for all active research gain. Range: `0.0` to `100.0`. Aliases: `researchgain`, `researchgainscale`.
 - `researchGrindingGainScale` - Multiplier for schematic research gained by grinding blocks. Range: `0.0` to `100.0`. Aliases: `researchgrinding`, `grindingresearchscale`.
 - `dataFragmentRewardScale` - Multiplier for partial research progress from consumable data fragments. Range: `0.0` to `100.0`. Aliases: `fragmentrewardscale`, `datafragmentrewards`.
-- `dataFragmentLootScale` - Multiplier for data fragment loot frequency in patched container definitions. Existing spawned containers are not automatically retroactive; admins can use `/wk admin resetloot confirm` to refill empty random-cargo containers when repairing a broken-state world. Range: `0.0` to `100.0`. Aliases: `fragmentlootscale`, `datafragmentloot`.
+- `dataFragmentLootScale` - Multiplier for data fragment loot frequency in patched container definitions. Existing spawned containers are not retroactive. Range: `0.0` to `100.0`. Aliases: `fragmentlootscale`, `datafragmentloot`.
 - `researchEfficiencyStart` - Research efficiency at 0% known. Higher values front-load discovery. Range: `0.0` to `10.0`.
 - `researchEfficiencyEnd` - Research efficiency near 100% known. Lower values slow the final stretch. Range: `0.0` to `10.0`.
 

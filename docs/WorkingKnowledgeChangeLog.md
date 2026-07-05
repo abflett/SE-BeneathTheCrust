@@ -14,24 +14,14 @@ The patch now preserves the loaded container roll counts before rebuilding the d
 
 Data Fragment coverage was also expanded and rebalanced. Common Data Fragments are now much more visible in the intended loot loop: unknown signal containers should be roughly a one-in-five source, most normal cargo-style containers sit closer to the one-in-ten to one-in-six range, and higher-value military, treasure, prototech, and advanced salvage pools can be better than that. Uncommon, rare, and prototech fragments remain lower-frequency finds.
 
-This release also adds an admin recovery command for test worlds or saves that were played while the broken loot patch was active:
-
-```text
-/wk admin resetloot
-/wk admin resetloot confirm
-```
-
-The first command scans the world and reports empty random-cargo containers. The `confirm` form refills only empty containers that still have Space Engineers' random-cargo component. It does not clear inventories, and it skips containers that already contain loot, so it is meant as a conservative repair tool rather than a general loot respawn system.
-
 What this means in normal play:
 
 - Unknown signal containers should generate normal loot again.
 - Common Data Fragments should be noticeably easier to find.
 - Data Fragments can appear in a broader set of cargo-style loot pools.
 - Working Knowledge no longer drops the container's own item-count settings while patching loot.
-- Existing broken-state saves can be partially repaired by an admin using `/wk admin resetloot confirm`.
 
-Existing already-spawned containers are not automatically refilled; the fixed definitions affect containers generated after the corrected definitions are loaded. The reset command is available when an admin intentionally wants to refill empty random-cargo containers in an existing world.
+Existing already-spawned containers are not retroactively refilled; the fixed definitions affect containers generated after the corrected definitions are loaded.
 
 ## 0.9.2 - Internal Component Price Fix
 

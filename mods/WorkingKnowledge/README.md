@@ -56,8 +56,6 @@ Public commands:
 Admin-only config and tuning:
 
 - `/wk admin unlockall` - Complete all research for yourself without changing Proficiency.
-- `/wk admin resetloot` - Scan empty random-cargo containers.
-- `/wk admin resetloot confirm` - Refill empty random-cargo containers while skipping non-empty inventories.
 - `/wk research show <player>` - Show another player's research progress.
 - `/wk research reset <server|player>` - Reset server or player research.
 - `/wk research unlock <player> <schematic>` - Complete one schematic for a player target.

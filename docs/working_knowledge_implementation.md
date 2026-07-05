@@ -124,7 +124,6 @@ Current behavior:
 - Data fragments are injected into unknown signal containers, personal/tool/weapon loot, component/ore/ingot cargo, salvage containers, hauling containers, ammunition stockpiles, and selected higher-value cargo pools.
 - The runtime rebuild must preserve `CountMin` and `CountMax` from the loaded definition before calling `Init`; those fields control how many loot rolls a container generates and are not restored by `GetObjectBuilder()`.
 - Loot generation still happens through Space Engineers' normal container type flow after the definitions are patched.
-- `/wk admin resetloot` scans entities with `IMyRandomCargoEntityComponent`; `/wk admin resetloot confirm` calls `SpawnRandomCargo()` only for empty inventories and skips non-empty containers.
 
 ## Integrity Monitor
 
