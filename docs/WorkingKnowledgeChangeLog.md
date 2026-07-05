@@ -2,6 +2,25 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
+## 0.9.3 - Unknown Signal Loot Count Fix
+
+Fixed a remaining loot injection issue that could make unknown signal containers generate no loot.
+
+Working Knowledge patches selected container loot tables at runtime so Data Fragments can appear alongside normal loot. The previous fix preserved the loaded item entries before adding Data Fragments, but the runtime rebuild did not also preserve the container's item roll counts. For unknown signals, those counts decide how many loot entries the container should generate.
+
+As a result, the item table could still exist internally, but the container could be left with zero loot rolls after the patch. In normal play this could make unknown signal cargo appear empty, which was especially painful because those containers are an early and visible part of the salvage loop.
+
+The patch now preserves the loaded container roll counts before rebuilding the definition and clears the temporary set map before Space Engineers rebuilds its private selection cache. Data Fragments are still added idempotently, and vanilla loot entries remain intact.
+
+What this means in normal play:
+
+- Unknown signal containers should generate normal loot again.
+- Data Fragments can still appear as rare additions to the intended loot pools.
+- Working Knowledge no longer drops the container's own item-count settings while patching loot.
+- This is a bug fix, not a balance change.
+
+Existing already-spawned containers are not retroactively refilled; the fix affects containers generated after the corrected definitions are loaded.
+
 ## 0.9.2 - Internal Component Price Fix
 
 Fixed an internal definition issue reported by BuildInfo's mod checker.

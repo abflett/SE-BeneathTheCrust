@@ -121,6 +121,7 @@ Current behavior:
 - Only data fragments are added to generic random loot.
 - Exact data schematics are definition items for POI, mission, scenario, or admin use, not generic loot.
 - Fragment entries are added idempotently during `LoadData`; if another source already added the same fragment item to a container type, Working Knowledge does not duplicate it.
+- The runtime rebuild must preserve `CountMin` and `CountMax` from the loaded definition before calling `Init`; those fields control how many loot rolls a container generates and are not restored by `GetObjectBuilder()`.
 - Loot generation still happens through Space Engineers' normal container type flow after the definitions are patched.
 
 ## Integrity Monitor

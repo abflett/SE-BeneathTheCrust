@@ -64,6 +64,8 @@ namespace WkKn
             if (definition == null)
                 return;
 
+            var countMin = definition.CountMin;
+            var countMax = definition.CountMax;
             var builder = definition.GetObjectBuilder() as MyObjectBuilder_ContainerTypeDefinition;
             if (builder == null)
                 return;
@@ -79,7 +81,15 @@ namespace WkKn
             if (!changed)
                 return;
 
+            // MyContainerTypeDefinition does not serialize its own CountMin/CountMax
+            // through GetObjectBuilder(), but Init() needs them to keep containers
+            // from generating zero loot rolls after the runtime patch.
+            builder.CountMin = countMin;
+            builder.CountMax = countMax;
             builder.Items = items.ToArray();
+            if (definition.Sets != null)
+                definition.Sets.Clear();
+
             definition.Init(builder, definition.Context);
         }
 
