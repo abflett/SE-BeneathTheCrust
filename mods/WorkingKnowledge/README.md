@@ -1,5 +1,7 @@
 # Working Knowledge
 
+[Campaign README](../../README.md) | [Standalone mods index](../README.md)
+
 <p align="center">
   <img src="../../docs/assets/working-knowledge-hero.png" alt="An engineer reviewing holographic rover schematics beside a survival rover and field base on an alien surface." />
 </p>
