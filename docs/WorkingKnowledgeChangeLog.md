@@ -2,6 +2,14 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
+## 0.9.2 - Internal Component Price Fix
+
+Fixed an internal definition issue reported by BuildInfo's mod checker.
+
+Working Knowledge uses an internal data-fragment component and circular validation blueprints for hidden schematic unlockers. That component did not have a fixed minimum price, so diagnostic tools could warn that Space Engineers might try to calculate the component price through a blueprint that requires and produces the same item.
+
+The internal component now has a fixed minimal price value, which prevents that recursive price lookup path. The component remains unavailable for normal economy trading, player orders, and player offers.
+
 ## 0.9.1 - Loot Preservation Fix
 
 Fixed an issue where Working Knowledge could accidentally replace normal container loot while adding Data Fragments to loot tables.

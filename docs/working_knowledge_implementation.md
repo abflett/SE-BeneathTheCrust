@@ -85,6 +85,11 @@ Hand-authored gameplay data:
 - `CubeBlocks_ResearchPedestal.sbc` - large-grid Research Pedestal terminal block.
 - `CubeBlocks_ResearchSciFiTerminal.sbc` - Research Sci-Fi Terminal block using the copied terminal model and LCD support.
 
+Internal validation details:
+
+- `Components.sbc` gives `WkKnDataFragmentComponent` a fixed `MinimalPricePerUnit` so Space Engineers and diagnostic mods do not recurse through the circular validation blueprint when calculating item price.
+- Keep `CanPlayerOrder=false` and `CanPlayerOffer=false` on `WkKnDataFragmentComponent`; the fixed price is only a definition-safety value and should not make the internal component tradeable.
+
 Balance source:
 
 - `Scripts/WorkingKnowledge/Application/Balance/SchematicWorkRewardTable.cs` is the live source-code reward table.

@@ -20,6 +20,8 @@
       <MaxIntegrity>1</MaxIntegrity>
       <DropProbability>0</DropProbability>
       <Health>1</Health>
+      <!-- Fixed price prevents recursive price lookup through the internal circular validation blueprint. -->
+      <MinimalPricePerUnit>1</MinimalPricePerUnit>
       <CanPlayerOrder>false</CanPlayerOrder>
       <CanPlayerOffer>false</CanPlayerOffer>
     </Component>
