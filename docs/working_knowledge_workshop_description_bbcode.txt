@@ -55,8 +55,8 @@ Start with:
 [*]Tailored schematic families for most vanilla public cube blocks.
 [*]Survival block locks tied into the game's progression system.
 [*]Research progress recovered by grinding unknown technology.
-[*]Data Fragments as rare random research loot from unknown signals and selected POI containers.
-[*]Exact Data Schematics as durable shareable items for authored rewards, POIs, missions, scenarios, or admin use.
+[*]Data Fragments as rare random research loot.
+[*]Exact Data Schematics for authored rewards, POIs, missions, scenarios, or admin use.
 [*]Separate player research and faction research.
 [/list]
 
@@ -64,7 +64,6 @@ Start with:
 [list]
 [*]Player-only Proficiency for hands-on engineering practice.
 [*]Salvage recovery influenced by Proficiency.
-[*]Low-Proficiency salvage can turn more recovered value into scrap.
 [*]Construction and repair setbacks for low-Proficiency work.
 [*]Better reliability as your engineer gains experience.
 [/list]
@@ -89,18 +88,11 @@ Working Knowledge changes how block knowledge, schematic unlocks, grinding resea
 
 Progression overhauls are the most likely to overlap. Mods that bypass block placement restrictions, rewrite grinding or welding, or heavily change salvage flow may also affect the intended experience.
 
-Normal survival placement is enforced server-side. Creative-mode and promoted admin testing have bypass paths for setup and debugging.
-
 [h2]Project Links[/h2]
 Working Knowledge is the first playable layer of the larger Space Engineers: Beneath the Crust campaign project.
 
 [url=https://github.com/abflett/SE-BeneathTheCrust/blob/main/mods/WorkingKnowledge/README.md]Working Knowledge README[/url]
 [url=https://github.com/abflett/SE-BeneathTheCrust]Project README[/url]
-
-[h2]Inspirations And Attribution[/h2]
-Working Knowledge was influenced by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3207654953]Grind To Learn 3[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2908185563]ZControlPanel+[/url].
-
-These are design inspirations only. Working Knowledge does not require those mods and does not include their code or assets.
 
 [h2]Current Status And Feedback[/h2]
 Working Knowledge is a public feedback release. The core systems are playable, but balance, multiplayer edge cases, dedicated-server behavior, and compatibility with larger mod stacks are still being tested.

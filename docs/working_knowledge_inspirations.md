@@ -18,4 +18,4 @@ These are acknowledgements of design inspiration only. Working Knowledge does no
 - These mods are inspirations, not dependencies.
 - Working Knowledge should remain playable without them.
 - Do not copy code, models, textures, icons, namespaced definitions, or other assets from external mods into this repository without explicit permission and a documented license/attribution decision.
-- If a future feature becomes more directly derived from an external mod, add that detail here and to the Workshop page before release.
+- If a future feature becomes more directly derived from an external mod, add that detail here and to the Workshop description before release.

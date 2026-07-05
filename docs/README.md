@@ -18,7 +18,7 @@ Planning scratchpads and generated draft JSON files should not live here once th
 - [Implementation notes](working_knowledge_implementation.md) - maintainer file map, runtime shape, and fragile Space Engineers edge cases.
 - [Inspirations and attribution](working_knowledge_inspirations.md) - credited external mod ideas that influenced Working Knowledge.
 - [Release roadmap](working_knowledge_release_roadmap.md) - version targets, remaining feature gates, and repeatable validation checks.
-- [Workshop page](working_knowledge_workshop_page.md) - public-facing Workshop title, description, commands, and compatibility notes.
+- [Workshop description](working_knowledge_workshop_description_bbcode.txt) - public-facing Steam BBCode description.
 
 ## Generated Audits
 
