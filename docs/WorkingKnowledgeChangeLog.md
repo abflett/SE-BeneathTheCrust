@@ -12,12 +12,13 @@ As a result, the item table could still exist internally, but the container coul
 
 The patch now preserves the loaded container roll counts before rebuilding the definition and clears the temporary set map before Space Engineers rebuilds its private selection cache. Data Fragments are still added idempotently, and vanilla loot entries remain intact.
 
-Data Fragment coverage was also expanded and rebalanced. Common Data Fragments are now much more visible in the intended loot loop: unknown signal containers should be roughly a one-in-five source, most normal cargo-style containers sit closer to the one-in-ten to one-in-six range, and higher-value military, treasure, prototech, and advanced salvage pools can be better than that. Uncommon, rare, and prototech fragments remain lower-frequency finds.
+Data Fragment coverage was also expanded and rebalanced across all tiers. Common Data Fragments are now much more visible in the intended loot loop: unknown signal containers should be roughly a one-in-five source, most normal cargo-style containers sit closer to the one-in-ten to one-in-six range, and higher-value military, treasure, prototech, and advanced salvage pools can be better than that. Uncommon and rare fragments now follow the same container-value curve instead of staying at the old very-low rates. Prototech fragments remain the rarest tier, landing around one-in-twenty in unknown signal and strong loot pools, higher in special rare pools, and lower in weak general loot.
 
 What this means in normal play:
 
 - Unknown signal containers should generate normal loot again.
 - Common Data Fragments should be noticeably easier to find.
+- Uncommon, rare, and prototech fragment chances should better match the new common-fragment balance.
 - Data Fragments can appear in a broader set of cargo-style loot pools.
 - Working Knowledge no longer drops the container's own item-count settings while patching loot.
 
