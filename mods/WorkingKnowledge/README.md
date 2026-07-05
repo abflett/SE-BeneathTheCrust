@@ -108,6 +108,7 @@ The mod currently includes:
 - [Campaign overview](../../docs/campaign_overview.md)
 - [Working Knowledge configuration](../../docs/working_knowledge_configuration.md)
 - [Working Knowledge implementation reference](../../docs/working_knowledge_implementation.md)
+- [Working Knowledge inspirations and attribution](../../docs/working_knowledge_inspirations.md)
 - [Working Knowledge release roadmap](../../docs/working_knowledge_release_roadmap.md)
 - [Working Knowledge Workshop page](../../docs/working_knowledge_workshop_page.md)
 

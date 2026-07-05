@@ -9,11 +9,13 @@ Planning scratchpads and generated draft JSON files should not live here once th
 - [Campaign overview](campaign_overview.md) - current high-level design, progression philosophy, and technical direction.
 - [Campaign story foundation](campaign_story_foundation.md) - broad story structure, tone, chapters, and campaign premise.
 - [Campaign mod shortlist](campaign_mod_shortlist.md) - optional external mod candidates for the future campaign stack.
+- [Campaign integration test stack](campaign_integration_test_stack.md) - current normal-world mod stack being tested before campaign composition.
 
 ## Working Knowledge
 
 - [Configuration](working_knowledge_configuration.md) - admin-facing config values, chat commands, and XML shape.
 - [Implementation notes](working_knowledge_implementation.md) - maintainer file map, runtime shape, and fragile Space Engineers edge cases.
+- [Inspirations and attribution](working_knowledge_inspirations.md) - credited external mod ideas that influenced Working Knowledge.
 - [Release roadmap](working_knowledge_release_roadmap.md) - version targets, remaining feature gates, and repeatable validation checks.
 - [Workshop page](working_knowledge_workshop_page.md) - public-facing Workshop title, description, commands, and compatibility notes.
 
