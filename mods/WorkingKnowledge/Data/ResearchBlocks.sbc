@@ -5114,6 +5114,10 @@
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="TerminalBlock" Subtype="LargeWeldPad" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="TerminalBlock" Subtype="SmallBlockAccessPanel1" />
       <UnlockedByGroups />
     </ResearchBlock>
@@ -5151,6 +5155,10 @@
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="TerminalBlock" Subtype="SmallControlPanelPedestal" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="TerminalBlock" Subtype="SmallWeldPad" />
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">

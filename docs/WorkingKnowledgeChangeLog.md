@@ -2,6 +2,17 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
+## 0.9.5 - Advanced Welding Compatibility
+
+Added targeted compatibility for the Weld Pad blocks from the recommended companion mod **Advanced Welding**.
+
+Because Advanced Welding is likely to be used alongside Working Knowledge in many campaign-style saves, this became both a useful feature and a good proof of concept for future companion-mod compatibility. Working Knowledge now includes research definitions and catalog mappings for Advanced Welding's large and small weld pads:
+
+- `TerminalBlock/LargeWeldPad`
+- `TerminalBlock/SmallWeldPad`
+
+When Advanced Welding is loaded, both weld pad variants are treated as Fundamental Schematics and participate in the normal Working Knowledge unlock, placement, welding, grinding, salvage, and Proficiency paths. When Advanced Welding is not loaded, the compatibility entries are inert because the matching cube block definitions do not exist.
+
 ## 0.9.4 - Salvage Scrap Tuning
 
 Reduced the default low-Proficiency grinding scrap payout from a full 1:1 component-mass replacement to 20% of the degraded component mass.

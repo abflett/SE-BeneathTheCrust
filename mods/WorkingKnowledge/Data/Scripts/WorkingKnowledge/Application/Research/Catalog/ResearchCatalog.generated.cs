@@ -1342,6 +1342,7 @@ TerminalBlock/LargeBlockSciFiTerminal|control.interfaces
 TerminalBlock/LargeControlPanelPedestal|control.interfaces
 TerminalBlock/LargeCrate|logistics.cargo_storage
 TerminalBlock/LargeFreezer|decor.habitat_fixtures
+TerminalBlock/LargeWeldPad|fundamentals
 TerminalBlock/SmallBlockAccessPanel1|decor.decorative_fixtures
 TerminalBlock/SmallBlockAccessPanel2|decor.decorative_fixtures
 TerminalBlock/SmallBlockAccessPanel3|decor.decorative_fixtures
@@ -1352,6 +1353,7 @@ TerminalBlock/SmallBlockKitchenMicrowave|decor.habitat_fixtures
 TerminalBlock/SmallBlockKitchenOven|decor.habitat_fixtures
 TerminalBlock/SmallControlPanel|control.interfaces
 TerminalBlock/SmallControlPanelPedestal|control.interfaces
+TerminalBlock/SmallWeldPad|fundamentals
 TextPanel/HoloLCDLarge|utility.display_systems
 TextPanel/HoloLCDSmall|utility.display_systems
 TextPanel/LargeBlockCorner_LCD_1|utility.display_systems

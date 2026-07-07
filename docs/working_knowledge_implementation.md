@@ -61,12 +61,14 @@ Accepted tradeoff:
 
 Generated progression data:
 
-- `ResearchBlocks.sbc` - generated research block entries for vanilla cube blocks.
+- `ResearchBlocks.sbc` - generated research block entries for vanilla cube blocks, plus targeted compatibility entries added by the generator.
 - `ResearchGroups.sbc` - generated vanilla research group overrides, with group `0` kept as a crash guard.
 - `ResearchUnlockerGroups.sbc` - hidden unlocker research groups, one per schematic family.
 - `ResearchUnlockers.sbc` - hidden synthetic datapad-style blocks used as vanilla research unlock triggers.
 - `ResearchBlocks_ResearchTerminals.sbc` - progression gate for the Research Pedestal and Research Sci-Fi Terminal.
 - `Scripts/WorkingKnowledge/Application/Research/Catalog/ResearchCatalog.generated.cs` - generated block-to-schematic catalog shared by runtime code and generated `.sbc` files.
+
+Targeted compatibility entries currently include Advanced Welding's `TerminalBlock/LargeWeldPad` and `TerminalBlock/SmallWeldPad`, mapped to Fundamental Schematics. These entries are harmless when the companion mod is not loaded because no matching cube block definition exists for players to build.
 
 Generated support data:
 

@@ -439,6 +439,7 @@ function Get-ResearchId {
     if ($type -eq 'cubeblock' -and $fundamentalArmorCubeSubtypes -contains $subtype) { return 'fundamentals' }
     if ($type -eq 'mergeblock' -and @('largeshipmergeblock', 'smallshipmergeblock', 'smallshipsmallmergeblock') -contains $subtype) { return 'fundamentals' }
     if ($type -eq 'landinggear' -and @('largeblocksmallmagneticplate', 'smallblocksmallmagneticplate') -contains $subtype) { return 'fundamentals' }
+    if ($type -eq 'terminalblock' -and @('largeweldpad', 'smallweldpad') -contains $subtype) { return 'fundamentals' }
 
     if ($subtype -match 'prototech') {
         switch -Regex ($subtype) {
@@ -662,6 +663,30 @@ function Get-CubeBlockIds {
             if (-not $ids.Contains($id.Key)) {
                 $ids.Add($id.Key, $id)
             }
+        }
+    }
+
+    return @($ids.Values | Sort-Object Type,Subtype)
+}
+
+function Add-CompatibilityCubeBlockIds {
+    param([Parameter(Mandatory = $true)] [object[]] $Blocks)
+
+    $ids = [ordered]@{}
+    foreach ($block in $Blocks) {
+        if (-not $ids.Contains($block.Key)) {
+            $ids.Add($block.Key, $block)
+        }
+    }
+
+    $compatibilityIds = @(
+        [pscustomobject]@{ Type = 'TerminalBlock'; Subtype = 'LargeWeldPad'; Key = 'TerminalBlock/LargeWeldPad' },
+        [pscustomobject]@{ Type = 'TerminalBlock'; Subtype = 'SmallWeldPad'; Key = 'TerminalBlock/SmallWeldPad' }
+    )
+
+    foreach ($id in $compatibilityIds) {
+        if (-not $ids.Contains($id.Key)) {
+            $ids.Add($id.Key, $id)
         }
     }
 
@@ -1521,7 +1546,7 @@ if (-not (Test-Path -LiteralPath $GeneratedCatalogDirectory)) {
     New-Item -ItemType Directory -Path $GeneratedCatalogDirectory -Force | Out-Null
 }
 
-$blocks = Get-CubeBlockIds -DataRoot $SpaceEngineersData
+$blocks = Add-CompatibilityCubeBlockIds -Blocks (Get-CubeBlockIds -DataRoot $SpaceEngineersData)
 $catalog = New-ResearchCatalog -Blocks $blocks
 
 Write-ResearchBlocks -Entries $catalog.Entries -Path (Join-Path $OutputData 'ResearchBlocks.sbc')
