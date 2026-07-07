@@ -30,6 +30,9 @@ namespace WkKn
         // Research efficiency near 100% known. Lower values slow down final confirmation.
         public double ResearchEfficiencyEnd = 0.50;
 
+        // Semicolon-separated block-to-schematic mappings for modded or admin-overridden blocks.
+        public string ModBlockSchematicMappings = "";
+
         // Multiplier for intact component recovery while grinding with incomplete Proficiency.
         public double SalvageScale = 1.0;
 

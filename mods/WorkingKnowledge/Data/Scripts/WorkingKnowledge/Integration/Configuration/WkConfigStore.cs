@@ -26,6 +26,7 @@ namespace WkKn
             "Proficiency",
             "Botches",
             "Salvage",
+            "Compatibility",
             "Feedback",
             "Defaults",
         };
@@ -120,6 +121,7 @@ namespace WkKn
             data.DataFragmentLootScale = RatioMath.Clamp(data.DataFragmentLootScale, 0.0, 100.0);
             data.ResearchEfficiencyStart = RatioMath.Clamp(data.ResearchEfficiencyStart, 0.0, 10.0);
             data.ResearchEfficiencyEnd = RatioMath.Clamp(data.ResearchEfficiencyEnd, 0.0, 10.0);
+            data.ModBlockSchematicMappings = string.IsNullOrWhiteSpace(data.ModBlockSchematicMappings) ? string.Empty : data.ModBlockSchematicMappings.Trim();
             data.SalvageScale = RatioMath.Clamp(data.SalvageScale, 0.0, 100.0);
             data.SalvageScrapYield = RatioMath.Clamp(data.SalvageScrapYield, 0.0, 100.0);
             data.NotificationDelaySeconds = RatioMath.Clamp(data.NotificationDelaySeconds, 0.1, 30.0);
@@ -281,6 +283,7 @@ namespace WkKn
                 Number("dataFragmentLootScale", "Data Fragment Loot Scale", "Research", "0.0 to 100.0", "Multiplier for data fragment loot frequency in patched container definitions. Existing spawned containers are not retroactive.", delegate(WkConfig c) { return c.DataFragmentLootScale; }, delegate(WkConfig c, double v) { c.DataFragmentLootScale = v; }, "fragmentlootscale", "datafragmentloot"),
                 Number("researchEfficiencyStart", "Research Start Efficiency", "Research", "0.0 to 10.0", "Research efficiency at 0% known. Higher values front-load discovery.", delegate(WkConfig c) { return c.ResearchEfficiencyStart; }, delegate(WkConfig c, double v) { c.ResearchEfficiencyStart = v; }),
                 Number("researchEfficiencyEnd", "Research End Efficiency", "Research", "0.0 to 10.0", "Research efficiency near 100% known. Lower values slow the final stretch.", delegate(WkConfig c) { return c.ResearchEfficiencyEnd; }, delegate(WkConfig c, double v) { c.ResearchEfficiencyEnd = v; }),
+                Text("modBlockSchematicMappings", "Mod Block Schematic Mappings", "Compatibility", "BlockType/Subtype=research.id;...", "Semicolon-separated block-to-schematic mappings applied before generated mappings and the Fundamentals fallback.", delegate(WkConfig c) { return c.ModBlockSchematicMappings; }, delegate(WkConfig c, string v) { c.ModBlockSchematicMappings = v; }, "modblockmappings", "schematicmappings", "blockschematics"),
                 Number("salvageScale", "Salvage Scale", "Salvage", "0.0 to 100.0", "Multiplier for intact component recovery before the 100% cap.", delegate(WkConfig c) { return c.SalvageScale; }, delegate(WkConfig c, double v) { c.SalvageScale = v; }, "salvagerecovery", "salvagerecoveryscale"),
                 RatioOrPercent("salvageScrapYield", "Salvage Scrap Yield", "Salvage", "Mass ratio returned as scrap ore when low-Proficiency grinding converts components to scrap.", delegate(WkConfig c) { return c.SalvageScrapYield; }, delegate(WkConfig c, double v) { c.SalvageScrapYield = v; }, "scrapyield", "salvagescrapratio", "scrapratio"),
                 Number("notificationDelaySeconds", "Notification Delay", "Feedback", "0.1 to 30.0 seconds", "World delay used to combine repeated progress updates before chat/toast feedback.", delegate(WkConfig c) { return c.NotificationDelaySeconds; }, delegate(WkConfig c, double v) { c.NotificationDelaySeconds = v; }, "notificationdelay"),
@@ -371,6 +374,25 @@ namespace WkKn
                     }
 
                     setter(config, parsed);
+                    error = null;
+                    return true;
+                },
+                aliases);
+        }
+
+        private static WkConfigSettingDefinition Text(string setting, string title, string category, string valueHint, string description, Func<WkConfig, string> getter, Action<WkConfig, string> setter, params string[] aliases)
+        {
+            return new WkConfigSettingDefinition(
+                setting,
+                title,
+                category,
+                valueHint,
+                description,
+                true,
+                delegate(WkConfig config) { return getter(config) ?? string.Empty; },
+                delegate(WkConfig config, string value, out string error)
+                {
+                    setter(config, string.IsNullOrWhiteSpace(value) ? string.Empty : value.Trim());
                     error = null;
                     return true;
                 },

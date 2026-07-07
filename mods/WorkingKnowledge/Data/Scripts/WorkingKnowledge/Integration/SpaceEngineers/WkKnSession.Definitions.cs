@@ -9,7 +9,8 @@ namespace WkKn
                 UnlockerBlockPrefix,
                 ResearchPedestalSubtype,
                 ResearchSciFiTerminalSubtype,
-                ControlInterfaceResearchGroupSubtype);
+                ControlInterfaceResearchGroupSubtype,
+                config == null ? null : config.ModBlockSchematicMappings);
         }
     }
 }
