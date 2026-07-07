@@ -46,7 +46,7 @@ namespace WkKn
             if (scrapDefinition == null || scrapDefinition.Mass <= 0f)
                 return false;
 
-            var yield = RatioMath.Clamp01(scrapMassYield);
+            var yield = RatioMath.Clamp(scrapMassYield, 0.0, 100.0);
             var afterComponents = ComponentInventory.Snapshot(operation.Inventory);
             var totalScrapMass = 0f;
 

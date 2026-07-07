@@ -34,7 +34,7 @@ namespace WkKn
         public double SalvageScale = 1.0;
 
         // Mass ratio returned as scrap ore when low-Proficiency grinding converts components to scrap.
-        public double SalvageScrapYield = 0.10;
+        public double SalvageScrapYield = 0.20;
 
         // Delay used to combine repeated progress updates before chat/toast feedback.
         public double NotificationDelaySeconds = 2.0;
