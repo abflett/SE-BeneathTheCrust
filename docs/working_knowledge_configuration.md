@@ -328,7 +328,10 @@ Progress values accept `0.8`, `80`, or `80%`; values above `1.0` are treated as 
 
 - `salvageScrapEnabled` - Enables low-Proficiency salvage conversion from recovered components into scrap. Aliases: `scrap`, `salvage`.
 - `salvageScale` - Multiplier for intact component recovery before the 100% cap. Range: `0.0` to `100.0`. Aliases: `salvagerecovery`, `salvagerecoveryscale`.
+- `salvageScrapYield` - Component mass ratio returned as scrap ore when low-Proficiency grinding converts components to scrap. Default `0.10`, or 10%. Range: `0.0` to `1.0`. Accepts progress values such as `0.1`, `10`, or `10%`. Aliases: `scrapyield`, `salvagescrapratio`, `scrapratio`.
 - `proficiencyGrindingLossEnabled` - Enables Proficiency-biased scrap recovery while grinding. Alias: `grindingloss`.
+
+By default, components converted to scrap return `10%` of their component mass as scrap ore.
 
 ### Botches
 
@@ -426,6 +429,7 @@ The mod creates this default world config on first load:
   <ResearchEfficiencyStart>1</ResearchEfficiencyStart>
   <ResearchEfficiencyEnd>0.5</ResearchEfficiencyEnd>
   <SalvageScale>1</SalvageScale>
+  <SalvageScrapYield>0.1</SalvageScrapYield>
   <NotificationDelaySeconds>2</NotificationDelaySeconds>
   <ProgressChatEnabled>true</ProgressChatEnabled>
   <ProgressToastEnabled>true</ProgressToastEnabled>

@@ -39,7 +39,7 @@ namespace WkKn
                 scrapDefinition = MyDefinitionManager.Static.GetPhysicalItemDefinition(ScrapOreId);
 
             SalvageRecoveryResult result;
-            salvageRecoveryPolicy.Apply(operation, scrapDefinition, random, out result);
+            salvageRecoveryPolicy.Apply(operation, scrapDefinition, config.SalvageScrapYield, random, out result);
         }
 
         private int GetProficiencyBasedSalvageIntactPercent(long identityId, string researchId)

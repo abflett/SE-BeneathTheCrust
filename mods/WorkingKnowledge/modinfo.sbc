@@ -2,7 +2,7 @@
 <ModItem>
   <Name>Working Knowledge</Name>
   <Description>Salvage unknown blocks, decode data fragments, and practice hands-on skills to unlock schematic families.</Description>
-  <Version>0.9.3</Version>
+  <Version>0.9.4</Version>
   <Makers>Beneath the Crust</Makers>
   <IncludeInExport>True</IncludeInExport>
 </ModItem>

@@ -723,7 +723,7 @@ namespace WkKn
             ShowWorldConfigHelpTopic(
                 "Salvage",
                 "Grinding recovery, scrap conversion, and salvage pressure.",
-                "salvageScrapEnabled, salvageScale, proficiencyGrindingLossEnabled, proficiencyGrindingGainScale");
+                "salvageScrapEnabled, salvageScale, salvageScrapYield, proficiencyGrindingLossEnabled, proficiencyGrindingGainScale");
         }
 
         private void ShowFeedbackHelp()

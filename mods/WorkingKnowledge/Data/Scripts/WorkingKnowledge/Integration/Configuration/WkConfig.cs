@@ -33,6 +33,9 @@ namespace WkKn
         // Multiplier for intact component recovery while grinding with incomplete Proficiency.
         public double SalvageScale = 1.0;
 
+        // Mass ratio returned as scrap ore when low-Proficiency grinding converts components to scrap.
+        public double SalvageScrapYield = 0.10;
+
         // Delay used to combine repeated progress updates before chat/toast feedback.
         public double NotificationDelaySeconds = 2.0;
 

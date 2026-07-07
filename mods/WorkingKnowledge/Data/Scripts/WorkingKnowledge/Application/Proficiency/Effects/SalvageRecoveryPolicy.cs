@@ -37,7 +37,7 @@ namespace WkKn
             return Math.Max(0, Math.Min(100, (int)Math.Round(intactPercent * salvageScale)));
         }
 
-        internal bool Apply(SalvageOperation operation, MyPhysicalItemDefinition scrapDefinition, Random random, out SalvageRecoveryResult result)
+        internal bool Apply(SalvageOperation operation, MyPhysicalItemDefinition scrapDefinition, double scrapMassYield, Random random, out SalvageRecoveryResult result)
         {
             result = new SalvageRecoveryResult();
             if (operation == null || operation.Inventory == null || operation.BeforeComponents == null || operation.IntactPercent >= 100)
@@ -46,6 +46,7 @@ namespace WkKn
             if (scrapDefinition == null || scrapDefinition.Mass <= 0f)
                 return false;
 
+            var yield = RatioMath.Clamp01(scrapMassYield);
             var afterComponents = ComponentInventory.Snapshot(operation.Inventory);
             var totalScrapMass = 0f;
 
@@ -80,7 +81,10 @@ namespace WkKn
             if (totalScrapMass <= 0f)
                 return false;
 
-            result.ScrapAmount = (MyFixedPoint)(totalScrapMass / scrapDefinition.Mass);
+            if (yield <= 0.0)
+                return result.RemovedComponents > 0;
+
+            result.ScrapAmount = (MyFixedPoint)((totalScrapMass * yield) / scrapDefinition.Mass);
             operation.Inventory.AddItems(result.ScrapAmount, MyObjectBuilderSerializer.CreateNewObject<MyObjectBuilder_Ore>("Scrap"));
             return true;
         }

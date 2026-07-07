@@ -24,8 +24,11 @@ The current main mod is `mods/WorkingKnowledge`, a standalone research and progr
 - Use existing generators for generated data when possible; if generated outputs are edited directly, document why in the change summary.
 - After changing mod C# scripts, run `.\tools\compile-mod-scripts.ps1 -ModName WkKn` from the repo root.
 - Use `.\build.ps1 -ModName WkKn` only when a local deploy to `%APPDATA%\SpaceEngineers\Mods\Working Knowledge` is needed for testing.
+- For release-worthy Working Knowledge changes, update `docs/WorkingKnowledgeChangeLog.md` and bump the mod version in `mods/WorkingKnowledge/modinfo.sbc` to the next intended release version.
+- Before committing Working Knowledge changes, run the required compile check. If the change needs local playtesting, also run `.\build.ps1 -ModName WkKn`.
+- For maintainer-requested completed changes, commit and push after validation unless the maintainer explicitly says not to.
 - During pre-v1 development of `mods/WorkingKnowledge`, do not add legacy save migration, version-merging, or old-config fallback logic unless a maintainer explicitly asks for it. Assume frequent fresh test worlds and prefer current clean defaults until the initial `1.0.0` release is declared.
-- Do not commit or push unless a maintainer explicitly asks for that action.
+- Do not commit or push unrelated or speculative changes.
 - Do not invent campaign details beyond the current docs unless the task is explicitly design work.
 
 ## Public Repo Hygiene

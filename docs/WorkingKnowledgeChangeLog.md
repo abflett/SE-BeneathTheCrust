@@ -2,6 +2,14 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
+## 0.9.4 - Salvage Scrap Tuning
+
+Reduced the default low-Proficiency grinding scrap payout from a full 1:1 component-mass replacement to 10% of the degraded component mass.
+
+The previous behavior made failed salvage feel too close to a material swap instead of a meaningful loss, which made the mechanic more annoying than useful during longer survival play. Grinding still uses Proficiency to decide how many recovered components remain intact, but components converted to scrap now produce much less scrap ore by default.
+
+This scrap payout is now configurable through the world setting `salvageScrapYield`. The default is `0.10`; admins can use values such as `0.1`, `10`, or `10%` with `/wk config salvageScrapYield <value>`.
+
 ## 0.9.3 - Loot Restoration and Data Fragment Tuning
 
 Fixed a remaining loot injection issue that could make unknown signal containers generate no loot, then retuned Data Fragment loot so common fragments are easier to find during normal salvage play.

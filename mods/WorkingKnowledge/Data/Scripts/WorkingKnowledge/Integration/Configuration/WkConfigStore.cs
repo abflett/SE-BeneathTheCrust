@@ -121,6 +121,7 @@ namespace WkKn
             data.ResearchEfficiencyStart = RatioMath.Clamp(data.ResearchEfficiencyStart, 0.0, 10.0);
             data.ResearchEfficiencyEnd = RatioMath.Clamp(data.ResearchEfficiencyEnd, 0.0, 10.0);
             data.SalvageScale = RatioMath.Clamp(data.SalvageScale, 0.0, 100.0);
+            data.SalvageScrapYield = RatioMath.Clamp01(data.SalvageScrapYield);
             data.NotificationDelaySeconds = RatioMath.Clamp(data.NotificationDelaySeconds, 0.1, 30.0);
             data.ResearchChatSuppressionPercent = RatioMath.Clamp(data.ResearchChatSuppressionPercent, 0.0, 100.0);
             data.ProficiencyChatSuppressionPercent = RatioMath.Clamp(data.ProficiencyChatSuppressionPercent, 0.0, 100.0);
@@ -281,6 +282,7 @@ namespace WkKn
                 Number("researchEfficiencyStart", "Research Start Efficiency", "Research", "0.0 to 10.0", "Research efficiency at 0% known. Higher values front-load discovery.", delegate(WkConfig c) { return c.ResearchEfficiencyStart; }, delegate(WkConfig c, double v) { c.ResearchEfficiencyStart = v; }),
                 Number("researchEfficiencyEnd", "Research End Efficiency", "Research", "0.0 to 10.0", "Research efficiency near 100% known. Lower values slow the final stretch.", delegate(WkConfig c) { return c.ResearchEfficiencyEnd; }, delegate(WkConfig c, double v) { c.ResearchEfficiencyEnd = v; }),
                 Number("salvageScale", "Salvage Scale", "Salvage", "0.0 to 100.0", "Multiplier for intact component recovery before the 100% cap.", delegate(WkConfig c) { return c.SalvageScale; }, delegate(WkConfig c, double v) { c.SalvageScale = v; }, "salvagerecovery", "salvagerecoveryscale"),
+                Progress("salvageScrapYield", "Salvage Scrap Yield", "Salvage", "Mass ratio returned as scrap ore when low-Proficiency grinding converts components to scrap.", delegate(WkConfig c) { return c.SalvageScrapYield; }, delegate(WkConfig c, double v) { c.SalvageScrapYield = v; }, "scrapyield", "salvagescrapratio", "scrapratio"),
                 Number("notificationDelaySeconds", "Notification Delay", "Feedback", "0.1 to 30.0 seconds", "World delay used to combine repeated progress updates before chat/toast feedback.", delegate(WkConfig c) { return c.NotificationDelaySeconds; }, delegate(WkConfig c, double v) { c.NotificationDelaySeconds = v; }, "notificationdelay"),
                 Bool("defaultProgressChatEnabled", "Default Progress Chat", "Feedback", "World default for delayed progress chat messages.", delegate(WkConfig c) { return c.ProgressChatEnabled; }, delegate(WkConfig c, bool v) { c.ProgressChatEnabled = v; }, "defaultchat", "defaultchatenabled", "worldprogresschat"),
                 Bool("defaultProgressToastEnabled", "Default Progress Toast", "Feedback", "World default for HUD progress notifications and completion toasts.", delegate(WkConfig c) { return c.ProgressToastEnabled; }, delegate(WkConfig c, bool v) { c.ProgressToastEnabled = v; }, "defaulttoast", "defaulttoastenabled", "worldprogresstoast"),
