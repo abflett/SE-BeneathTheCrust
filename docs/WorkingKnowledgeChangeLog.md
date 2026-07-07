@@ -2,12 +2,6 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
-## 0.9.5 - Mod Block Compatibility
-
-Working Knowledge now treats loaded public cube blocks that are not assigned to a generated schematic family as Fundamental Schematics. This lets optional mod content, such as Advanced Welding's weld pads, remain tied into placement checks, Proficiency, salvage, and welding behavior when the companion mod is installed, while worlds without that mod continue normally.
-
-Admins can now override the fallback with the world setting `modBlockSchematicMappings`. The setting accepts semicolon-separated mappings such as `TerminalBlock/LargeWeldPad=fundamentals` or `LargeMissileTurret/MyModTurret=weapons.turret`; explicit mappings are applied before generated mappings and before the Fundamentals fallback. Mappings currently target existing generated schematic research ids. A future compatibility data/shim format can add new schematic families or let companion mods publish their own mappings.
-
 ## 0.9.4 - Salvage Scrap Tuning
 
 Reduced the default low-Proficiency grinding scrap payout from a full 1:1 component-mass replacement to 20% of the degraded component mass.
@@ -15,6 +9,8 @@ Reduced the default low-Proficiency grinding scrap payout from a full 1:1 compon
 The previous behavior made failed salvage feel too close to a material swap instead of a meaningful loss, which made the mechanic more annoying than useful during longer survival play. Grinding still uses Proficiency to decide how many recovered components remain intact, but components converted to scrap now produce much less scrap ore by default.
 
 This scrap payout is now configurable through the world setting `salvageScrapYield`. The default is `0.20`; admins can use ratio or percent values such as `0.2` or `20%` with `/wk config salvageScrapYield <value>`. A plain value such as `20` is treated as a literal ratio, or 20:1, not as 20%.
+
+Working Knowledge now treats loaded public cube blocks that are not assigned to a generated schematic family as Fundamental Schematics. This lets optional mod content, such as Advanced Welding's weld pads, remain tied into placement checks, Proficiency, salvage, and welding behavior when the companion mod is installed, while worlds without that mod continue normally. Dedicated mappings can still be added later for mod blocks that should belong to a more specific schematic family.
 
 ## 0.9.3 - Loot Restoration and Data Fragment Tuning
 

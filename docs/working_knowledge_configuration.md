@@ -333,12 +333,6 @@ Progress values accept `0.8`, `80`, or `80%`; values above `1.0` are treated as 
 
 By default, components converted to scrap return `20%` of their component mass as scrap ore.
 
-### Compatibility
-
-- `modBlockSchematicMappings` - Semicolon-separated block-to-schematic mappings applied before generated mappings and the Fundamentals fallback. Use `BlockType/Subtype=research.id`, such as `TerminalBlock/LargeWeldPad=fundamentals` or `LargeMissileTurret/MyModTurret=weapons.turret`. Aliases: `modblockmappings`, `schematicmappings`, `blockschematics`.
-
-Loaded public cube blocks that are not in the generated Working Knowledge catalog and are not listed in `modBlockSchematicMappings` fall back to Fundamental Schematics. Explicit mappings can point blocks at existing generated schematic research ids; new schematic families still require a future compatibility data/shim format.
-
 ### Botches
 
 - `proficiencyWeldingLossEnabled` - Enables low-Proficiency construction botches while welding. Alias: `weldingloss`.
@@ -394,13 +388,12 @@ Admins can use these help topics from the `/wk admin` index:
 /wk proficiency help
 /wk botch help
 /wk salvage help
-/wk compatibility help
 /wk feedback help
 /wk defaults help
 /wk difficulty help
 ```
 
-The world config display is grouped by chat senders such as `Config - Research`, `Config - Proficiency`, `Config - Botches`, `Config - Salvage`, `Config - Compatibility`, `Config - Feedback`, and `Config - Defaults`.
+The world config display is grouped by chat senders such as `Config - Research`, `Config - Proficiency`, `Config - Botches`, `Config - Salvage`, `Config - Feedback`, and `Config - Defaults`.
 
 ## Storage Files
 
@@ -435,7 +428,6 @@ The mod creates this default world config on first load:
   <DataFragmentLootScale>1</DataFragmentLootScale>
   <ResearchEfficiencyStart>1</ResearchEfficiencyStart>
   <ResearchEfficiencyEnd>0.5</ResearchEfficiencyEnd>
-  <ModBlockSchematicMappings></ModBlockSchematicMappings>
   <SalvageScale>1</SalvageScale>
   <SalvageScrapYield>0.2</SalvageScrapYield>
   <NotificationDelaySeconds>2</NotificationDelaySeconds>

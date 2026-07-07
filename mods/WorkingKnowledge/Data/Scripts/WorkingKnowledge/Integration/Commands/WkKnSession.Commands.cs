@@ -64,12 +64,6 @@ namespace WkKn
                 return;
             }
 
-            if (args[1].Equals("compatibility", StringComparison.OrdinalIgnoreCase))
-            {
-                ShowCategoryHelpOrCommandHelp(sender, args, ShowCompatibilityHelp);
-                return;
-            }
-
             if (args[1].Equals("feedback", StringComparison.OrdinalIgnoreCase))
             {
                 ShowCategoryHelpOrCommandHelp(sender, args, ShowFeedbackHelp);
@@ -370,9 +364,7 @@ namespace WkKn
 
         private void ApplyWorldConfigRuntimeEffects()
         {
-            RebuildResearchDefinitions();
             ApplyFundamentalsDefaultsForOnlinePlayers();
-            SyncCompletedResearchForOnlinePlayers();
             RefreshResearchDataFragmentsInContainerLoot();
         }
 
@@ -713,7 +705,6 @@ namespace WkKn
                 "/wk proficiency help - Proficiency gain and skill tuning",
                 "/wk botch help - Build failure chance, damage, forgiveness, and sound tuning",
                 "/wk salvage help - Grinding recovery and scrap tuning",
-                "/wk compatibility help - Mod block schematic mapping",
                 "/wk feedback help - Chat, toast, sound, and notification tuning",
                 "/wk defaults help - New-player Fundamentals defaults",
                 "/wk difficulty help - Difficulty modifier presets");
@@ -733,14 +724,6 @@ namespace WkKn
                 "Salvage",
                 "Grinding recovery, scrap conversion, and salvage pressure.",
                 "salvageScrapEnabled, salvageScale, salvageScrapYield, proficiencyGrindingLossEnabled, proficiencyGrindingGainScale");
-        }
-
-        private void ShowCompatibilityHelp()
-        {
-            ShowWorldConfigHelpTopic(
-                "Compatibility",
-                "Mappings for loaded mod blocks and uncatalogued public block fallback behavior.",
-                "modBlockSchematicMappings");
         }
 
         private void ShowFeedbackHelp()

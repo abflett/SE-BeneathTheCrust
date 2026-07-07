@@ -46,7 +46,7 @@ Working Knowledge uses generated vanilla research definitions plus a session com
 - Public cube blocks map to generated schematic-family hidden unlockers.
 - Completed custom research mirrors into vanilla research.
 - Player research, faction research, and player-only Proficiency are stored separately.
-- Loaded public cube blocks that are not in the generated catalog are treated as Fundamental Schematics at runtime. `modBlockSchematicMappings` can explicitly point loaded block keys at existing generated schematic ids before that fallback runs.
+- Loaded public cube blocks that are not in the generated catalog are treated as Fundamental Schematics at runtime. This keeps modded blocks usable with Working Knowledge by default while leaving room for explicit compatibility mappings later.
 
 Retired approaches:
 
@@ -57,7 +57,7 @@ Retired approaches:
 Accepted tradeoff:
 
 - Hidden unlockers can appear in G-menu search for "Schematics". They are not normally buildable in survival because their requirements are unavailable. In creative they are small colorable datapad-like blocks. Leave this alone unless a safe visibility flag is proven not to break vanilla progression.
-- Uncatalogued public mod blocks fall back to Fundamentals, so advanced modded content can be more permissive than vanilla Working Knowledge balance until `modBlockSchematicMappings` or a future compatibility data/shim format maps it to a dedicated schematic.
+- Uncatalogued public mod blocks fall back to Fundamentals, so advanced modded content can be more permissive than vanilla Working Knowledge balance until a dedicated mapping is added.
 
 ## Data Files
 

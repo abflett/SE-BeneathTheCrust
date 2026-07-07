@@ -14,8 +14,7 @@ namespace WkKn
             string unlockerBlockPrefix,
             string researchPedestalSubtype,
             string researchSciFiTerminalSubtype,
-            string controlPanelResearchGroupSubtype,
-            string modBlockSchematicMappings)
+            string controlPanelResearchGroupSubtype)
         {
             schematicCatalog.Clear();
             ClearVanillaResearch(unlockerBlockPrefix);
@@ -23,8 +22,6 @@ namespace WkKn
             var blocks = GetResearchCandidateBlocks(unlockerBlockPrefix, researchPedestalSubtype, researchSciFiTerminalSubtype);
             var entries = ResearchCatalog.Entries;
             var catalogByBlockKey = ResearchCatalog.BuildLookupByBlockKey();
-            var catalogByResearchId = BuildLookupByResearchId(entries);
-            var mappedResearchIdByBlockKey = ParseBlockSchematicMappings(modBlockSchematicMappings);
             schematicCatalog.LoadMetadata(entries);
 
             ResearchCatalogEntry fallbackEntry;
@@ -33,16 +30,9 @@ namespace WkKn
             for (var i = 0; i < blocks.Count; i++)
             {
                 var block = blocks[i];
-                var catalogEntry = default(ResearchCatalogEntry);
+                ResearchCatalogEntry catalogEntry;
                 var blockKey = GetDefinitionKey(block.Id);
-                string mappedResearchId;
-                var hasCatalogEntry = mappedResearchIdByBlockKey.TryGetValue(blockKey, out mappedResearchId) &&
-                                      catalogByResearchId.TryGetValue(mappedResearchId, out catalogEntry);
-
-                if (!hasCatalogEntry)
-                    hasCatalogEntry = catalogByBlockKey.TryGetValue(blockKey, out catalogEntry);
-
-                if (!hasCatalogEntry)
+                if (!catalogByBlockKey.TryGetValue(blockKey, out catalogEntry))
                 {
                     if (!hasFallbackEntry)
                         continue;
@@ -65,59 +55,6 @@ namespace WkKn
             }
 
             ConfigureResearchTerminalUnlocks(researchPedestalSubtype, researchSciFiTerminalSubtype, controlPanelResearchGroupSubtype);
-        }
-
-        private static Dictionary<string, ResearchCatalogEntry> BuildLookupByResearchId(IEnumerable<ResearchCatalogEntry> entries)
-        {
-            var result = new Dictionary<string, ResearchCatalogEntry>(StringComparer.OrdinalIgnoreCase);
-            foreach (var entry in entries)
-            {
-                if (!result.ContainsKey(entry.ResearchId))
-                    result.Add(entry.ResearchId, entry);
-            }
-
-            return result;
-        }
-
-        private static Dictionary<string, string> ParseBlockSchematicMappings(string mappings)
-        {
-            var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            if (string.IsNullOrWhiteSpace(mappings))
-                return result;
-
-            var rows = mappings.Split(new[] { ';', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            for (var i = 0; i < rows.Length; i++)
-            {
-                var row = rows[i].Trim();
-                if (row.Length == 0)
-                    continue;
-
-                var equalsIndex = row.IndexOf('=');
-                if (equalsIndex <= 0 || equalsIndex >= row.Length - 1)
-                    continue;
-
-                var blockKey = NormalizeDefinitionKey(row.Substring(0, equalsIndex));
-                var researchId = row.Substring(equalsIndex + 1).Trim();
-                if (blockKey.Length == 0 || researchId.Length == 0)
-                    continue;
-
-                result[blockKey] = researchId;
-            }
-
-            return result;
-        }
-
-        private static string NormalizeDefinitionKey(string value)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-                return string.Empty;
-
-            var trimmed = value.Trim();
-            var slashIndex = trimmed.IndexOf('/');
-            if (slashIndex < 0)
-                return trimmed;
-
-            return NormalizeObjectBuilderType(trimmed.Substring(0, slashIndex).Trim()) + "/" + trimmed.Substring(slashIndex + 1).Trim();
         }
 
         private static bool TryGetFundamentalsFallbackEntry(IEnumerable<ResearchCatalogEntry> entries, out ResearchCatalogEntry entry)
