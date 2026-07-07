@@ -20,32 +20,67 @@ namespace WkKn
             ClearVanillaResearch(unlockerBlockPrefix);
 
             var blocks = GetResearchCandidateBlocks(unlockerBlockPrefix, researchPedestalSubtype, researchSciFiTerminalSubtype);
+            var entries = ResearchCatalog.Entries;
             var catalogByBlockKey = ResearchCatalog.BuildLookupByBlockKey();
-            schematicCatalog.LoadMetadata(ResearchCatalog.Entries);
+            schematicCatalog.LoadMetadata(entries);
+
+            ResearchCatalogEntry fallbackEntry;
+            var hasFallbackEntry = TryGetFundamentalsFallbackEntry(entries, out fallbackEntry);
 
             for (var i = 0; i < blocks.Count; i++)
             {
                 var block = blocks[i];
                 ResearchCatalogEntry catalogEntry;
-                if (!catalogByBlockKey.TryGetValue(GetDefinitionKey(block.Id), out catalogEntry))
-                    continue;
+                var blockKey = GetDefinitionKey(block.Id);
+                if (!catalogByBlockKey.TryGetValue(blockKey, out catalogEntry))
+                {
+                    if (!hasFallbackEntry)
+                        continue;
+
+                    catalogEntry = CreateFallbackEntry(blockKey, fallbackEntry);
+                }
 
                 var unlockerId = new MyDefinitionId(typeof(MyObjectBuilder_CubeBlock), catalogEntry.UnlockerSubtype);
                 var researchBlock = MyDefinitionManager.Static.GetResearchBlock(block.Id);
-                if (researchBlock == null)
-                    continue;
-
                 var unlockerBlock = MyDefinitionManager.Static.GetCubeBlockDefinition(unlockerId);
                 var unlockerResearchGroup = MyDefinitionManager.Static.GetResearchGroup(catalogEntry.GroupSubtype);
                 if (unlockerBlock == null || unlockerResearchGroup == null)
                     continue;
 
-                researchBlock.UnlockedByGroups = new[] { catalogEntry.GroupSubtype };
+                if (researchBlock != null)
+                    researchBlock.UnlockedByGroups = new[] { catalogEntry.GroupSubtype };
+
                 unlockerResearchGroup.Members = new SerializableDefinitionId[] { unlockerId };
                 schematicCatalog.AddMappedBlock(catalogEntry, block.Id, unlockerId);
             }
 
             ConfigureResearchTerminalUnlocks(researchPedestalSubtype, researchSciFiTerminalSubtype, controlPanelResearchGroupSubtype);
+        }
+
+        private static bool TryGetFundamentalsFallbackEntry(IEnumerable<ResearchCatalogEntry> entries, out ResearchCatalogEntry entry)
+        {
+            foreach (var candidate in entries)
+            {
+                if (!string.Equals(candidate.ResearchId, "fundamentals", StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                entry = candidate;
+                return true;
+            }
+
+            entry = default(ResearchCatalogEntry);
+            return false;
+        }
+
+        private static ResearchCatalogEntry CreateFallbackEntry(string blockKey, ResearchCatalogEntry fallbackEntry)
+        {
+            return new ResearchCatalogEntry(
+                blockKey,
+                fallbackEntry.ResearchId,
+                fallbackEntry.DisplayName,
+                fallbackEntry.GroupSubtype,
+                fallbackEntry.UnlockerSubtype,
+                fallbackEntry.Tier);
         }
 
         private static void ConfigureResearchTerminalUnlocks(

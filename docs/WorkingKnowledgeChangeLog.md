@@ -10,6 +10,8 @@ The previous behavior made failed salvage feel too close to a material swap inst
 
 This scrap payout is now configurable through the world setting `salvageScrapYield`. The default is `0.20`; admins can use ratio or percent values such as `0.2` or `20%` with `/wk config salvageScrapYield <value>`. A plain value such as `20` is treated as a literal ratio, or 20:1, not as 20%.
 
+Working Knowledge now treats loaded public cube blocks that are not assigned to a generated schematic family as Fundamental Schematics. This lets optional mod content, such as Advanced Welding's weld pads, remain tied into placement checks, Proficiency, salvage, and welding behavior when the companion mod is installed, while worlds without that mod continue normally. Dedicated mappings can still be added later for mod blocks that should belong to a more specific schematic family.
+
 ## 0.9.3 - Loot Restoration and Data Fragment Tuning
 
 Fixed a remaining loot injection issue that could make unknown signal containers generate no loot, then retuned Data Fragment loot so common fragments are easier to find during normal salvage play.
