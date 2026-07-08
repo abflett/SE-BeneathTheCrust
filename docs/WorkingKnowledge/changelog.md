@@ -2,6 +2,16 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
+## 0.11.0 - External Layer Support
+
+Added support for small external **Working Knowledge Layer** mods that map third-party block definitions into Working Knowledge schematic families.
+
+Layer mods can now include a simple `Data/WorkingKnowledge/block_mappings.txt` file. Working Knowledge scans loaded mods for those mapping files at startup, then uses them to bind supported modded blocks into the normal research catalog, vanilla progression unlocks, Proficiency, construction, repair, grinding, and salvage systems.
+
+This keeps the main Working Knowledge catalog focused while allowing compatibility support to live in small companion layers. Players, server owners, or mod authors can create focused layers for specific block packs instead of editing the large generated Working Knowledge catalog directly.
+
+The first published layer is [Working Knowledge Layer - ARC Truss System](https://steamcommunity.com/sharedfiles/filedetails/?id=3760442026). It maps ARC Truss System structure blocks to Industrial Structure Schematics and its truss light to Interior Lighting Schematics.
+
 ## 0.10.0 - HUD Progress Overlay
 
 Added a Text HUD API-backed progress overlay for recent Working Knowledge progress.
