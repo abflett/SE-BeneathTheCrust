@@ -25,6 +25,11 @@ namespace WkKn
         private const double BarWidth = 0.40;
         private const double BarHeight = 0.016;
         private const double ProficiencyBarHeight = 0.0112;
+        private const double BarBackgroundPaddingX = 0.004;
+        private const double BarBackgroundPaddingY = 0.003;
+        private const double BarBackgroundWidth = BarWidth + (BarBackgroundPaddingX * 2.0);
+        private const double BarBackgroundHeight = (ResearchBarY + (BarHeight * 0.5)) - (ProficiencyBarY - (ProficiencyBarHeight * 0.5)) + (BarBackgroundPaddingY * 2.0);
+        private const double BarBackgroundY = ((ResearchBarY + (BarHeight * 0.5)) + (ProficiencyBarY - (ProficiencyBarHeight * 0.5))) * 0.5;
         private const double BarScale = 0.20;
         private const double ShadowOffsetX = 0.0015;
         private const double ShadowOffsetY = 0.0015;
@@ -264,9 +269,8 @@ namespace WkKn
             private readonly HudAPIv2.HUDMessage labelShadowDown;
             private readonly HudAPIv2.HUDMessage labelShadowCross;
             private readonly HudAPIv2.HUDMessage label;
-            private readonly HudAPIv2.BillBoardHUDMessage researchBack;
+            private readonly HudAPIv2.BillBoardHUDMessage barBack;
             private readonly HudAPIv2.BillBoardHUDMessage researchFill;
-            private readonly HudAPIv2.BillBoardHUDMessage proficiencyBack;
             private readonly HudAPIv2.BillBoardHUDMessage proficiencyFill;
 
             private Row(
@@ -278,9 +282,8 @@ namespace WkKn
                 HudAPIv2.HUDMessage labelShadowDown,
                 HudAPIv2.HUDMessage labelShadowCross,
                 HudAPIv2.HUDMessage label,
-                HudAPIv2.BillBoardHUDMessage researchBack,
+                HudAPIv2.BillBoardHUDMessage barBack,
                 HudAPIv2.BillBoardHUDMessage researchFill,
-                HudAPIv2.BillBoardHUDMessage proficiencyBack,
                 HudAPIv2.BillBoardHUDMessage proficiencyFill)
             {
                 this.labelBuilder = labelBuilder;
@@ -291,17 +294,15 @@ namespace WkKn
                 this.labelShadowDown = labelShadowDown;
                 this.labelShadowCross = labelShadowCross;
                 this.label = label;
-                this.researchBack = researchBack;
+                this.barBack = barBack;
                 this.researchFill = researchFill;
-                this.proficiencyBack = proficiencyBack;
                 this.proficiencyFill = proficiencyFill;
             }
 
             internal static Row Create()
             {
-                var researchBack = CreateBar(BarBackColor);
+                var barBack = CreateBar(BarBackColor, BarBackgroundHeight);
                 var researchFill = CreateBar(WkProgressHudOverlay.researchColorFallback);
-                var proficiencyBack = CreateBar(BarBackColor);
                 var proficiencyFill = CreateBar(WkProgressHudOverlay.proficiencyColorFallback);
 
                 var labelShadowUpBuilder = new StringBuilder(MaxLabelLength);
@@ -320,7 +321,7 @@ namespace WkKn
                 var label = new HudAPIv2.HUDMessage(labelBuilder, Vector2D.Zero, null, -1, LabelScale, true, false, null, BlendTypeEnum.PostPP);
                 label.Visible = false;
 
-                return new Row(labelBuilder, labelShadowUpBuilder, labelShadowDownBuilder, labelShadowCrossBuilder, labelShadowUp, labelShadowDown, labelShadowCross, label, researchBack, researchFill, proficiencyBack, proficiencyFill);
+                return new Row(labelBuilder, labelShadowUpBuilder, labelShadowDownBuilder, labelShadowCrossBuilder, labelShadowUp, labelShadowDown, labelShadowCross, label, barBack, researchFill, proficiencyFill);
             }
 
             internal void Update(string labelText, double researchProgress, double proficiencyProgress, byte alpha, double rowY, Color researchColor, Color proficiencyColor)
@@ -331,9 +332,8 @@ namespace WkKn
 
                 UpdateLabel(labelBuilder, label, labelText, LabelColor, alpha, AnchorX, rowY);
 
-                UpdateBar(researchBack, BarLeftX, rowY + ResearchBarY, BarWidth, BarHeight, WithAlpha(BarBackColor, (byte)(alpha * 130 / 255)));
+                UpdateBar(barBack, BarLeftX - BarBackgroundPaddingX, rowY + BarBackgroundY, BarBackgroundWidth, BarBackgroundHeight, WithAlpha(BarBackColor, (byte)(alpha * 130 / 255)));
                 UpdateBar(researchFill, BarLeftX, rowY + ResearchBarY, BarWidth * Clamp01(researchProgress), BarHeight, WithAlpha(researchColor, alpha));
-                UpdateBar(proficiencyBack, BarLeftX, rowY + ProficiencyBarY, BarWidth, ProficiencyBarHeight, WithAlpha(BarBackColor, (byte)(alpha * 130 / 255)));
                 UpdateBar(proficiencyFill, BarLeftX, rowY + ProficiencyBarY, BarWidth * Clamp01(proficiencyProgress), ProficiencyBarHeight, WithAlpha(proficiencyColor, alpha));
             }
 
@@ -343,9 +343,8 @@ namespace WkKn
                 labelShadowDown.Visible = visible;
                 labelShadowCross.Visible = visible;
                 label.Visible = visible;
-                researchBack.Visible = visible;
+                barBack.Visible = visible;
                 researchFill.Visible = visible;
-                proficiencyBack.Visible = visible;
                 proficiencyFill.Visible = visible;
             }
 
@@ -355,9 +354,8 @@ namespace WkKn
                 labelShadowDown.DeleteMessage();
                 labelShadowCross.DeleteMessage();
                 label.DeleteMessage();
-                researchBack.DeleteMessage();
+                barBack.DeleteMessage();
                 researchFill.DeleteMessage();
-                proficiencyBack.DeleteMessage();
                 proficiencyFill.DeleteMessage();
             }
 
