@@ -13,17 +13,17 @@ namespace WkKn
     {
         private const int MaxRows = 5;
         private const int MaxLabelLength = 32;
-        private const long HoldTicks = 240;
-        private const long FadeTicks = 120;
-        private const double LabelScale = 0.58;
-        private const double RowSpacing = 0.125;
+        private const long HoldTicks = 360;
+        private const long FadeTicks = 180;
+        private const double LabelScale = 0.72;
+        private const double RowSpacing = 0.140;
         private const double AnchorX = 0.49;
         private const double AnchorY = 0.78;
         private const double BarLeftX = 0.49;
-        private const double ResearchBarY = -0.035;
-        private const double ProficiencyBarY = -0.070;
-        private const double BarWidth = 0.34;
-        private const double BarHeight = 0.012;
+        private const double ResearchBarY = -0.026;
+        private const double ProficiencyBarY = -0.044;
+        private const double BarWidth = 0.40;
+        private const double BarHeight = 0.018;
         private const double BarScale = 0.20;
         private static readonly Color LabelColor = new Color(225, 236, 240);
         private static readonly Color BarBackColor = new Color(24, 34, 38);
