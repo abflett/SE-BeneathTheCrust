@@ -142,7 +142,7 @@ Percent values accept whole percent values such as `0`, `5`, or `10%`. A thresho
 Player settings:
 
 - `progressChatEnabled` - Shows delayed research and Proficiency chat messages when world settings allow them. Aliases: `chatenabled`, `chatnotifications`.
-- `progressToastEnabled` - Shows HUD progress notifications, completion toasts, and botch toasts when world settings allow them. Aliases: `toastenabled`, `toastnotifications`.
+- `progressToastEnabled` - Shows HUD progress notifications and botch toasts when world settings allow them. Completion toasts are not suppressed by this setting. Aliases: `toastenabled`, `toastnotifications`.
 - `researchChatSuppressionPercent` - Minimum accumulated research percent before another research chat update appears. Aliases: `reschatsuppression`, `researchchatthreshold`, `reschatthreshold`.
 - `proficiencyChatSuppressionPercent` - Minimum accumulated Proficiency percent before another Proficiency chat update appears. Aliases: `profchatsuppression`, `proficiencychatthreshold`, `profchatthreshold`.
 - `researchToastSuppressionPercent` - Minimum accumulated research percent before another research toast appears. Aliases: `restoastsuppression`, `researchtoastthreshold`, `restoastthreshold`.
@@ -363,7 +363,7 @@ World feedback settings:
 
 - `notificationDelaySeconds` - World delay used to combine repeated progress updates before chat/toast feedback. Range: `0.1` to `30.0` seconds. Alias: `notificationdelay`.
 - `defaultProgressChatEnabled` - World default for delayed progress chat messages. Aliases: `defaultchat`, `defaultchatenabled`, `worldprogresschat`.
-- `defaultProgressToastEnabled` - World default for HUD progress notifications, completion toasts, and botch toasts. Aliases: `defaulttoast`, `defaulttoastenabled`, `worldprogresstoast`.
+- `defaultProgressToastEnabled` - World default for HUD progress notifications and botch toasts. Completion toasts are not suppressed by this setting. Aliases: `defaulttoast`, `defaulttoastenabled`, `worldprogresstoast`.
 - `defaultResearchChatSuppressionPercent` - World default/minimum accumulated research percent before another research chat update appears. Aliases: `defaultreschatsuppression`, `defaultresearchchatthreshold`, `worldresearchchatthreshold`.
 - `defaultProficiencyChatSuppressionPercent` - World default/minimum accumulated Proficiency percent before another Proficiency chat update appears. Aliases: `defaultprofchatsuppression`, `defaultproficiencychatthreshold`, `worldproficiencychatthreshold`.
 - `defaultResearchToastSuppressionPercent` - World default/minimum accumulated research percent before another research toast appears. Aliases: `defaultrestoastsuppression`, `defaultresearchtoastthreshold`, `worldresearchtoastthreshold`.

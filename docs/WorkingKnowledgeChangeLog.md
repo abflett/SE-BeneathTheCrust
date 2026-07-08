@@ -2,6 +2,12 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
+## 0.9.6 - Completion Toast Fix
+
+Fixed completion HUD toasts so they are no longer muted by `progressToastEnabled` or `defaultProgressToastEnabled`.
+
+Those settings now only control repeated progress HUD notifications and botch toasts. Research completion and Proficiency mastery toasts are immediate milestone feedback and still appear even when a player disables the spammy progress toast stream.
+
 ## 0.9.5 - Advanced Welding Compatibility
 
 Added targeted compatibility for the Weld Pad blocks from the recommended companion mod **Advanced Welding**.

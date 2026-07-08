@@ -41,7 +41,7 @@ namespace WkKn
                 identityId,
                 displayName + " " + label + ": " + messageText,
                 WkChatCompletionFont,
-                IsPlayerProgressToastEnabled(identityId),
+                true,
                 soundSubtype,
                 IsPlayerCompletionSoundEnabled(identityId) && !string.IsNullOrWhiteSpace(soundSubtype));
         }
