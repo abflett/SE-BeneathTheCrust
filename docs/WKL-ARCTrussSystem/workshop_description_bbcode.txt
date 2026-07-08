@@ -5,6 +5,8 @@ This small layer mod connects [url=https://steamcommunity.com/sharedfiles/filede
 
 With this layer loaded, ARC Truss System blocks are no longer outside the Working Knowledge progression model. They can be assigned to schematic families, gated by research, practiced through Proficiency, and handled by the normal Working Knowledge welding, grinding, repair, and salvage systems.
 
+For normal Steam Workshop use, add this layer mod to your world and Steam should resolve the required mods automatically.
+
 [h2]What It Does[/h2]
 [list]
 [*]Adds vanilla research block definitions for ARC Truss System blocks.
@@ -13,16 +15,22 @@ With this layer loaded, ARC Truss System blocks are no longer outside the Workin
 [*]Lets Working Knowledge treat those blocks like normal researched/proficient technology.
 [/list]
 
-[h2]Required Mods[/h2]
+[h2]Workshop Requirements[/h2]
 [list]
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3758066250]Working Knowledge[/url]
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3701176691]ARC Truss System[/url]
 [/list]
 
-[h2]Recommended Load Order[/h2]
-[code]1. Working Knowledge
-2. ARC Truss System
-3. Working Knowledge Layer - ARC Truss System[/code]
+Working Knowledge also depends on Text HUD API for its progress overlay, so that dependency may be pulled in through Working Knowledge.
+
+[h2]Manual Or Offline Setup[/h2]
+If you are copying mods locally, using offline files, or building a manual modpack, include:
+
+[code]Working Knowledge
+ARC Truss System
+Working Knowledge Layer - ARC Truss System[/code]
+
+The layer is safest after both parent mods in a manual list, but normal Steam dependency resolution should handle this for Workshop worlds.
 
 [h2]Notes[/h2]
 This mod does not include ARC Truss System and does not add new blocks, models, recipes, or balance rules. It is only a compatibility layer.
@@ -30,7 +38,7 @@ This mod does not include ARC Truss System and does not add new blocks, models, 
 If ARC Truss System changes its block subtype IDs in a future update, this layer may need to be updated.
 
 [h2]Status[/h2]
-Version 1.0.0 is the initial stable layer release.
+Version 1.0.1 is the current stable layer release.
 
 [h2]Project Links[/h2]
 [url=https://github.com/abflett/SE-BeneathTheCrust/tree/main/mods/WKL-ARCTrussSystem]Layer README[/url]
