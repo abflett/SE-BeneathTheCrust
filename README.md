@@ -11,6 +11,7 @@ The project is being built as standalone mods first so each major system can be 
 ## Project Status
 
 - **Current playable layer:** `mods/WorkingKnowledge`
+- **Current scenario tooling layer:** `mods/Worldwright`
 - **Campaign state:** design and content foundation in `docs/`
 - **Release target:** Working Knowledge `0.9.0` public feedback before campaign composition
 - **Development style:** fresh test worlds, clean defaults, and standalone mod roots until `1.0.0`
@@ -48,6 +49,7 @@ Beneath the Crust keeps the core Space Engineers sandbox intact while adding str
 - `docs/assets/` - reusable images for GitHub docs and future public documentation.
 - `mods/` - standalone Space Engineers mod roots.
 - `mods/WorkingKnowledge/` - the current playable Working Knowledge mod.
+- `mods/Worldwright/` - standalone scenario-authoring tools for protected stations, tutorial bays, and staged authored spaces.
 - `tools/` - local generation, compile, and validation helpers.
 
 ## Main Docs
@@ -73,16 +75,31 @@ Use GitHub issues for public bug reports and balance feedback:
 
 ## Local Testing
 
-Deploy the active mod into the local Space Engineers mods folder:
+Deploy all standalone mods into the local Space Engineers mods folder:
+
+```powershell
+.\build.ps1
+```
+
+Deploy one standalone mod:
 
 ```powershell
 .\build.ps1 -ModName WkKn
+.\build.ps1 -ModName Ww
 ```
 
-The local Working Knowledge test copy deploys as `%APPDATA%\SpaceEngineers\Mods\Working Knowledge`. Experimental Mode is not required.
+Convenience wrappers are also available:
 
-After changing Working Knowledge C# scripts, compile before deploying:
+```powershell
+.\build-workingknowledge.ps1
+.\build-worldwright.ps1
+```
+
+The local Working Knowledge test copy deploys as `%APPDATA%\SpaceEngineers\Mods\Working Knowledge`. The local Worldwright test copy deploys as `%APPDATA%\SpaceEngineers\Mods\Worldwright`. Experimental Mode is not required.
+
+After changing mod C# scripts, compile before deploying:
 
 ```powershell
 .\tools\compile-mod-scripts.ps1 -ModName WkKn
+.\tools\compile-mod-scripts.ps1 -ModName Ww
 ```

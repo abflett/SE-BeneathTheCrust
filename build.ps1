@@ -87,6 +87,9 @@ if ($ModName.Count -gt 0) {
         'Working-Knowledge' = 'WorkingKnowledge'
         'Working Knowledge' = 'WorkingKnowledge'
         'WkKn' = 'WorkingKnowledge'
+        'Worldwrite' = 'Worldwright'
+        'Worldwright Scenario Tools' = 'Worldwright'
+        'Ww' = 'Worldwright'
     }
 
     $requested = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)

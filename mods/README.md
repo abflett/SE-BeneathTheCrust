@@ -9,7 +9,10 @@ Keep each mod independently loadable while this project grows. Campaign/scenario
 ## Current mods
 
 - [WorkingKnowledge/](WorkingKnowledge/README.md) - schematic research, salvage-based learning, and hands-on Proficiency for welding, grinding, botches, and recovery quality. It deploys locally as `Working Knowledge`.
+- [Worldwright/](Worldwright/README.md) - standalone scenario-authoring tools for protected stations, tutorial bays, and staged authored spaces. It deploys locally as `Worldwright`.
 
 ## Local deploy
 
-Run `.\build.ps1` from the repo root to deploy standalone mod folders to `%APPDATA%\SpaceEngineers\Mods` for in-game testing.
+Run `.\build.ps1` from the repo root to deploy all standalone mod folders to `%APPDATA%\SpaceEngineers\Mods` for in-game testing.
+
+Use `.\build-workingknowledge.ps1` or `.\build-worldwright.ps1` to deploy one mod directly.

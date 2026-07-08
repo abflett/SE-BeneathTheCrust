@@ -16,6 +16,9 @@ function Resolve-ModNames {
         'Working-Knowledge' = 'WorkingKnowledge'
         'Working Knowledge' = 'WorkingKnowledge'
         'WkKn' = 'WorkingKnowledge'
+        'Worldwrite' = 'Worldwright'
+        'Worldwright Scenario Tools' = 'Worldwright'
+        'Ww' = 'Worldwright'
     }
 
     $resolved = New-Object 'System.Collections.Generic.List[string]'
