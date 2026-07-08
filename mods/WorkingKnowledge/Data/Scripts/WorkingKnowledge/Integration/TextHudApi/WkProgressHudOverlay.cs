@@ -16,7 +16,7 @@ namespace WkKn
         private const long HoldTicks = 360;
         private const long FadeTicks = 180;
         private const double LabelScale = 1.05;
-        private const double RowSpacing = 0.165;
+        private const double RowSpacing = 0.095;
         private const double AnchorX = 0.49;
         private const double AnchorY = 0.78;
         private const double BarLeftX = 0.49;
@@ -185,7 +185,7 @@ namespace WkKn
                     continue;
                 }
 
-                var entry = entries[i];
+                var entry = entries[entries.Count - 1 - i];
                 rows[i].Update(
                     entry.DisplayName,
                     entry.ResearchProgress,
