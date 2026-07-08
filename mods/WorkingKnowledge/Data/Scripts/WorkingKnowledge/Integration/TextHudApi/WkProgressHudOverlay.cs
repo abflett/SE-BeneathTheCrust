@@ -21,7 +21,7 @@ namespace WkKn
         private const double AnchorY = 0.94;
         private const double BarLeftX = 0.57;
         private const double ResearchBarY = -0.028;
-        private const double ProficiencyBarY = -0.040;
+        private const double ProficiencyBarY = -0.043;
         private const double BarWidth = 0.40;
         private const double BarHeight = 0.016;
         private const double ProficiencyBarHeight = 0.0112;
