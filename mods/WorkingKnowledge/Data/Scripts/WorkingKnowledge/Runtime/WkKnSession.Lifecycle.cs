@@ -41,6 +41,7 @@ namespace WkKn
             InitializeResearchDisplayModule();
             RegisterBlockIntegrityMonitorHandlers();
             InitializeProficiencyModule();
+            progressHudOverlay.Initialize();
         }
 
         internal void LoadRuntimeData()
@@ -81,6 +82,7 @@ namespace WkKn
             UpdateProficiencyModule();
             FlushReadyProgressNotifications();
             FlushReadyWeldBotchWarnings();
+            progressHudOverlay.Update(simulationTick);
         }
 
         internal void UpdateRuntimeAfterSimulation()
@@ -150,6 +152,7 @@ namespace WkKn
         private void ClearRuntimeState()
         {
             researchNotificationService.ClearAll();
+            progressHudOverlay.Close();
             progressChatHeaderByIdentity.Clear();
             progressChatLastShownByKey.Clear();
             progressToastLastShownByKey.Clear();

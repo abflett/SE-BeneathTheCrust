@@ -25,7 +25,7 @@ Learning the schematic is only part of the system. Proficiency tracks the practi
 [i]Technology is not just unlocked. It is learned.[/i]
 
 [h2]Recommended Way To Play[/h2]
-Working Knowledge can be played standalone and has no required companion mods, but it is designed around a physical salvage playstyle. The ideal experience is to pair it with tools that let you recover, move, and reuse parts instead of grinding every discovery into scrap.
+Working Knowledge's core progression can be played standalone, but the 0.10.0 HUD progress overlay uses Text HUD API for compact on-screen progress rows. The mod is also designed around a physical salvage playstyle. The ideal experience is to pair it with tools that let you recover, move, and reuse parts instead of grinding every discovery into scrap.
 
 [h3]Recommended Companions[/h3]
 [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=510790477]Advanced Welding[/url][/b]
@@ -72,6 +72,7 @@ Start with:
 [list]
 [*]Research Pedestal terminal block for viewing and syncing research.
 [*]LCD apps for Research, Proficiency, Identity, and display Calibration.
+[*]Compact Text HUD API-backed progress overlay for recent research and Proficiency updates.
 [*]Player feedback settings through [b]/wk[/b] commands.
 [*]Admin tuning and difficulty presets for novice, easy, medium, hard, and extreme worlds.
 [/list]
@@ -79,7 +80,7 @@ Start with:
 [h2]Recommended Setup[/h2]
 [list]
 [*]Best tested in a fresh survival world.
-[*]No required companion mods, but Advanced Welding and Improvised Experimentation are recommended for the intended salvage experience.
+[*]Text HUD API is used by the HUD progress overlay. Advanced Welding and Improvised Experimentation are recommended for the intended salvage experience.
 [*]No DLC required, but Sparks of the Future owners also get the optional Research Sci-Fi Terminal.
 [/list]
 

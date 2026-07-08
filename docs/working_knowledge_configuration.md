@@ -67,7 +67,7 @@ Commands that target other players, reset server progress, or change world value
 
 ## Feedback Players Will See
 
-Working Knowledge feedback is split into chat messages, HUD notifications, completion sounds, and botch sounds.
+Working Knowledge feedback is split into chat messages, HUD progress overlay rows, HUD notifications, completion sounds, and botch sounds.
 
 Progress feedback is delayed and combined by `notificationDelaySeconds`. Research and Proficiency gained from the same grinding action can be displayed together. Chat progress uses a schematic header and then lines like:
 
@@ -82,6 +82,8 @@ HUD progress toasts use the schematic display name:
 Ion Thruster Schematics Research +2.5% (42.5%)
 Ion Thruster Schematics Proficiency +1.1% (73.2%)
 ```
+
+The HUD progress overlay uses Text HUD API when it is loaded. It shows up to five recent schematic rows near the top right of the screen, with a green research bar and a blue Proficiency bar. The rows update as progress changes and fade after a short idle period.
 
 Completion feedback uses chat/toast labels:
 

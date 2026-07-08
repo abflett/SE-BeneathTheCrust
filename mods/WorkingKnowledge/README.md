@@ -79,7 +79,7 @@ See [Working Knowledge configuration](../../docs/working_knowledge_configuration
 
 ## Current Status
 
-Working Knowledge is in its `0.9.x` public feedback release series.
+Working Knowledge is in its `0.10.x` public feedback release series.
 
 The current balance targets the default `medium` play experience. Public feedback, smoke testing, and survival playthrough tuning are the remaining focus before treating the mod as stable.
 
@@ -90,6 +90,7 @@ The mod currently includes:
 - Player and faction research stores.
 - Player-only Proficiency persistence.
 - Grinding research and Proficiency gains.
+- Text HUD API-backed progress overlay for recent research and Proficiency progress.
 - Welding and repair quality effects.
 - Player feedback settings through `/wk config`.
 - Admin-configurable tuning through `/wk config`.
@@ -101,6 +102,7 @@ The mod currently includes:
 - Experimental Mode is not required.
 - The mod forces vanilla progression on at runtime so it can own the lock path.
 - Creative worlds and admin creative-mode testing are allowed to bypass schematic locks.
+- Text HUD API is used for the optional HUD progress overlay; core progression still falls back to chat and notifications if the framework is unavailable.
 - Other progression or research-overhaul mods are likely to conflict.
 
 ## Project Docs

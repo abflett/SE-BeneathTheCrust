@@ -26,7 +26,10 @@ namespace WkKn
     {
         private void QueueProficiencyNotification(long identityId, string researchId, ProficiencyProgressResult progress, string source)
         {
-            proficiencyNotificationService.Queue(identityId, researchId, GetSchematicDisplayName(researchId), progress, simulationTick, IsProgressComboEligibleSource(source));
+            var displayName = GetSchematicDisplayName(researchId);
+            proficiencyNotificationService.Queue(identityId, researchId, displayName, progress, simulationTick, IsProgressComboEligibleSource(source));
+            if (IsPlayerProgressToastEnabled(identityId))
+                progressHudOverlay.UpdateProficiency(identityId, researchId, displayName, progress.TotalProgress, simulationTick);
         }
 
     }

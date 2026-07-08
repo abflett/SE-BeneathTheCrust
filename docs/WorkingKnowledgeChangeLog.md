@@ -2,6 +2,14 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
+## 0.10.0 - HUD Progress Overlay
+
+Added a Text HUD API-backed progress overlay for recent Working Knowledge progress.
+
+Research and Proficiency progress now update in a compact top-right HUD display with up to five recent schematic rows. Each row shows the schematic name plus research and Proficiency bars using the same green and blue feedback colors used by the existing chat output. Rows update as progress changes, then fade out after a short idle period.
+
+The existing delayed chat and notification behavior remains in place as fallback feedback while this HUD display is tested. The overlay respects the existing progress toast enablement settings.
+
 ## 0.9.6 - Completion Toast Fix
 
 Fixed completion HUD toasts so they are no longer muted by `progressToastEnabled` or `defaultProgressToastEnabled`.
