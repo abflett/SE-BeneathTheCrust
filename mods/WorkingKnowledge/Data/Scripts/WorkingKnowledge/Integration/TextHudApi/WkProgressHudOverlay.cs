@@ -21,9 +21,10 @@ namespace WkKn
         private const double AnchorY = 0.78;
         private const double BarLeftX = 0.49;
         private const double ResearchBarY = -0.028;
-        private const double ProficiencyBarY = -0.039;
+        private const double ProficiencyBarY = -0.042;
         private const double BarWidth = 0.40;
         private const double BarHeight = 0.016;
+        private const double ProficiencyBarHeight = 0.0112;
         private const double BarScale = 0.20;
         private const double ShadowOffsetX = 0.0015;
         private const double ShadowOffsetY = 0.0015;
@@ -332,8 +333,8 @@ namespace WkKn
 
                 UpdateBar(researchBack, BarLeftX, rowY + ResearchBarY, BarWidth, BarHeight, WithAlpha(BarBackColor, (byte)(alpha * 130 / 255)));
                 UpdateBar(researchFill, BarLeftX, rowY + ResearchBarY, BarWidth * Clamp01(researchProgress), BarHeight, WithAlpha(researchColor, alpha));
-                UpdateBar(proficiencyBack, BarLeftX, rowY + ProficiencyBarY, BarWidth, BarHeight, WithAlpha(BarBackColor, (byte)(alpha * 130 / 255)));
-                UpdateBar(proficiencyFill, BarLeftX, rowY + ProficiencyBarY, BarWidth * Clamp01(proficiencyProgress), BarHeight, WithAlpha(proficiencyColor, alpha));
+                UpdateBar(proficiencyBack, BarLeftX, rowY + ProficiencyBarY, BarWidth, ProficiencyBarHeight, WithAlpha(BarBackColor, (byte)(alpha * 130 / 255)));
+                UpdateBar(proficiencyFill, BarLeftX, rowY + ProficiencyBarY, BarWidth * Clamp01(proficiencyProgress), ProficiencyBarHeight, WithAlpha(proficiencyColor, alpha));
             }
 
             internal void SetVisible(bool visible)
