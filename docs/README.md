@@ -33,5 +33,6 @@ Planning scratchpads and generated draft JSON files should not live here once th
 - [Beneath the Crust thumbnail](assets/beneath-the-crust-thumb.jpg)
 - [Working Knowledge hero image](assets/working-knowledge-hero.png)
 - [Working Knowledge thumbnail](assets/thumb.jpg)
+- [WKL - ARC Truss System thumbnail](assets/wkl-arc-truss-system-thumb.jpg)
 
 Keep loadable mod assets inside their mod root. The assets here are for GitHub docs, public documentation, and future publishing support.
