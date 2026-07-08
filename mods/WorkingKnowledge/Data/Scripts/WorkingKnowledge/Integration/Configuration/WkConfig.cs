@@ -42,7 +42,7 @@ namespace WkKn
         // Enables delayed progress chat messages.
         public bool ProgressChatEnabled = true;
 
-        // Enables delayed HUD notifications and botch toasts.
+        // Enables delayed popup progress notifications and botch toasts.
         public bool ProgressToastEnabled = true;
 
         // Minimum accumulated research percent before another research chat update is shown.

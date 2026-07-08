@@ -12,7 +12,7 @@ namespace WkKn
     {
         public string Id = "";
         public bool ProgressChatEnabled = false;
-        public bool ProgressToastEnabled = true;
+        public bool ProgressToastEnabled = false;
         public double ResearchChatSuppressionPercent = 0.0;
         public double ProficiencyChatSuppressionPercent = 0.0;
         public double ResearchToastSuppressionPercent = 0.0;

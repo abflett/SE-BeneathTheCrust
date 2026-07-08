@@ -76,7 +76,7 @@ Research +2.5% (42.5%)
 Proficiency +1.1% (73.2%)
 ```
 
-HUD progress toasts use the schematic display name:
+Popup HUD progress toasts use the schematic display name and are disabled by default for players:
 
 ```text
 Ion Thruster Schematics Research +2.5% (42.5%)
@@ -144,7 +144,7 @@ Percent values accept whole percent values such as `0`, `5`, or `10%`. A thresho
 Player settings:
 
 - `progressChatEnabled` - Shows delayed research and Proficiency chat messages when world settings allow them. Aliases: `chatenabled`, `chatnotifications`.
-- `progressToastEnabled` - Shows HUD progress notifications and botch toasts when world settings allow them. Completion toasts are not suppressed by this setting. Aliases: `toastenabled`, `toastnotifications`.
+- `progressToastEnabled` - Shows popup progress notifications and botch toasts when world settings allow them. The Text HUD progress bars are separate. Completion toasts are not suppressed by this setting. Aliases: `toastenabled`, `toastnotifications`.
 - `researchChatSuppressionPercent` - Minimum accumulated research percent before another research chat update appears. Aliases: `reschatsuppression`, `researchchatthreshold`, `reschatthreshold`.
 - `proficiencyChatSuppressionPercent` - Minimum accumulated Proficiency percent before another Proficiency chat update appears. Aliases: `profchatsuppression`, `proficiencychatthreshold`, `profchatthreshold`.
 - `researchToastSuppressionPercent` - Minimum accumulated research percent before another research toast appears. Aliases: `restoastsuppression`, `researchtoastthreshold`, `restoastthreshold`.
@@ -153,7 +153,7 @@ Player settings:
 - `weldBotchSoundEnabled` - Plays positional botch sounds for this player when world settings allow them.
 - `weldBotchWarningCooldownSeconds` - Minimum time before repeating the same botch warning for this player and block. Use `default` to follow the world setting, or a number from `0.0` to `30.0`.
 
-Personal defaults keep progress chat off, HUD toasts on, sounds on, zero suppression thresholds, and botch warning cooldown set to `default`. Players can enable progress chat with `/wk config progressChatEnabled true` when world settings allow it.
+Personal defaults keep progress chat and popup progress toasts off, Text HUD progress bars on, sounds on, zero suppression thresholds, and botch warning cooldown set to `default`. Players can enable chat with `/wk config progressChatEnabled true` and popup toasts with `/wk config progressToastEnabled true` when world settings allow them.
 
 ## Admin Command Flow
 
@@ -365,7 +365,7 @@ World feedback settings:
 
 - `notificationDelaySeconds` - World delay used to combine repeated progress updates before chat/toast feedback. Range: `0.1` to `30.0` seconds. Alias: `notificationdelay`.
 - `defaultProgressChatEnabled` - World default for delayed progress chat messages. Aliases: `defaultchat`, `defaultchatenabled`, `worldprogresschat`.
-- `defaultProgressToastEnabled` - World default for HUD progress notifications and botch toasts. Completion toasts are not suppressed by this setting. Aliases: `defaulttoast`, `defaulttoastenabled`, `worldprogresstoast`.
+- `defaultProgressToastEnabled` - World default for popup progress notifications and botch toasts. The Text HUD progress bars are separate. Completion toasts are not suppressed by this setting. Aliases: `defaulttoast`, `defaulttoastenabled`, `worldprogresstoast`.
 - `defaultResearchChatSuppressionPercent` - World default/minimum accumulated research percent before another research chat update appears. Aliases: `defaultreschatsuppression`, `defaultresearchchatthreshold`, `worldresearchchatthreshold`.
 - `defaultProficiencyChatSuppressionPercent` - World default/minimum accumulated Proficiency percent before another Proficiency chat update appears. Aliases: `defaultprofchatsuppression`, `defaultproficiencychatthreshold`, `worldproficiencychatthreshold`.
 - `defaultResearchToastSuppressionPercent` - World default/minimum accumulated research percent before another research toast appears. Aliases: `defaultrestoastsuppression`, `defaultresearchtoastthreshold`, `worldresearchtoastthreshold`.
