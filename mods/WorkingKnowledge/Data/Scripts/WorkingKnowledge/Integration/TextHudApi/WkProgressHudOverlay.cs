@@ -21,18 +21,15 @@ namespace WkKn
         private const double AnchorY = 0.78;
         private const double BarLeftX = 0.49;
         private const double ResearchBarY = -0.028;
-        private const double SeparatorBarY = -0.037;
         private const double ProficiencyBarY = -0.046;
         private const double BarWidth = 0.40;
         private const double BarHeight = 0.016;
-        private const double SeparatorBarHeight = 0.002;
         private const double BarScale = 0.20;
-        private const double ShadowOffsetX = 0.004;
-        private const double ShadowOffsetY = -0.005;
+        private const double ShadowOffsetX = 0.003;
+        private const double ShadowOffsetY = 0.003;
         private static readonly Color LabelColor = new Color(225, 236, 240);
         private static readonly Color LabelShadowColor = new Color(0, 0, 0);
         private static readonly Color BarBackColor = new Color(24, 34, 38);
-        private static readonly Color SeparatorColor = new Color(200, 255, 230);
         private static readonly MyStringId BarMaterial = MyStringId.GetOrCompute("Square");
 
         private readonly List<Entry> entries = new List<Entry>(MaxRows);
@@ -259,33 +256,36 @@ namespace WkKn
         private sealed class Row
         {
             private readonly StringBuilder labelBuilder;
-            private readonly StringBuilder labelShadowBuilder;
-            private readonly HudAPIv2.HUDMessage labelShadow;
+            private readonly StringBuilder labelShadowUpBuilder;
+            private readonly StringBuilder labelShadowDownBuilder;
+            private readonly HudAPIv2.HUDMessage labelShadowUp;
+            private readonly HudAPIv2.HUDMessage labelShadowDown;
             private readonly HudAPIv2.HUDMessage label;
             private readonly HudAPIv2.BillBoardHUDMessage researchBack;
             private readonly HudAPIv2.BillBoardHUDMessage researchFill;
-            private readonly HudAPIv2.BillBoardHUDMessage separator;
             private readonly HudAPIv2.BillBoardHUDMessage proficiencyBack;
             private readonly HudAPIv2.BillBoardHUDMessage proficiencyFill;
 
             private Row(
                 StringBuilder labelBuilder,
-                StringBuilder labelShadowBuilder,
-                HudAPIv2.HUDMessage labelShadow,
+                StringBuilder labelShadowUpBuilder,
+                StringBuilder labelShadowDownBuilder,
+                HudAPIv2.HUDMessage labelShadowUp,
+                HudAPIv2.HUDMessage labelShadowDown,
                 HudAPIv2.HUDMessage label,
                 HudAPIv2.BillBoardHUDMessage researchBack,
                 HudAPIv2.BillBoardHUDMessage researchFill,
-                HudAPIv2.BillBoardHUDMessage separator,
                 HudAPIv2.BillBoardHUDMessage proficiencyBack,
                 HudAPIv2.BillBoardHUDMessage proficiencyFill)
             {
                 this.labelBuilder = labelBuilder;
-                this.labelShadowBuilder = labelShadowBuilder;
-                this.labelShadow = labelShadow;
+                this.labelShadowUpBuilder = labelShadowUpBuilder;
+                this.labelShadowDownBuilder = labelShadowDownBuilder;
+                this.labelShadowUp = labelShadowUp;
+                this.labelShadowDown = labelShadowDown;
                 this.label = label;
                 this.researchBack = researchBack;
                 this.researchFill = researchFill;
-                this.separator = separator;
                 this.proficiencyBack = proficiencyBack;
                 this.proficiencyFill = proficiencyFill;
             }
@@ -294,60 +294,55 @@ namespace WkKn
             {
                 var researchBack = CreateBar(BarBackColor);
                 var researchFill = CreateBar(WkProgressHudOverlay.researchColorFallback);
-                var separator = CreateBar(SeparatorColor, SeparatorBarHeight);
                 var proficiencyBack = CreateBar(BarBackColor);
                 var proficiencyFill = CreateBar(WkProgressHudOverlay.proficiencyColorFallback);
 
-                var labelShadowBuilder = new StringBuilder(MaxLabelLength);
-                var labelShadow = new HudAPIv2.HUDMessage(labelShadowBuilder, Vector2D.Zero, null, -1, LabelScale, true, false, null, BlendTypeEnum.PostPP);
-                labelShadow.Visible = false;
+                var labelShadowUpBuilder = new StringBuilder(MaxLabelLength);
+                var labelShadowUp = new HudAPIv2.HUDMessage(labelShadowUpBuilder, Vector2D.Zero, null, -1, LabelScale, true, false, null, BlendTypeEnum.PostPP);
+                labelShadowUp.Visible = false;
+
+                var labelShadowDownBuilder = new StringBuilder(MaxLabelLength);
+                var labelShadowDown = new HudAPIv2.HUDMessage(labelShadowDownBuilder, Vector2D.Zero, null, -1, LabelScale, true, false, null, BlendTypeEnum.PostPP);
+                labelShadowDown.Visible = false;
 
                 var labelBuilder = new StringBuilder(MaxLabelLength);
                 var label = new HudAPIv2.HUDMessage(labelBuilder, Vector2D.Zero, null, -1, LabelScale, true, false, null, BlendTypeEnum.PostPP);
                 label.Visible = false;
 
-                return new Row(labelBuilder, labelShadowBuilder, labelShadow, label, researchBack, researchFill, separator, proficiencyBack, proficiencyFill);
+                return new Row(labelBuilder, labelShadowUpBuilder, labelShadowDownBuilder, labelShadowUp, labelShadowDown, label, researchBack, researchFill, proficiencyBack, proficiencyFill);
             }
 
             internal void Update(string labelText, double researchProgress, double proficiencyProgress, byte alpha, double rowY, Color researchColor, Color proficiencyColor)
             {
-                labelShadowBuilder.Clear();
-                AppendColorTag(labelShadowBuilder, LabelShadowColor, (byte)(alpha * 220 / 255));
-                labelShadowBuilder.Append(labelText);
-                labelShadow.Origin = new Vector2D(AnchorX + ShadowOffsetX, rowY + ShadowOffsetY);
-                labelShadow.Visible = alpha > 0;
+                UpdateLabel(labelShadowUpBuilder, labelShadowUp, labelText, LabelShadowColor, alpha, AnchorX - ShadowOffsetX, rowY + ShadowOffsetY);
+                UpdateLabel(labelShadowDownBuilder, labelShadowDown, labelText, LabelShadowColor, alpha, AnchorX + ShadowOffsetX, rowY - ShadowOffsetY);
 
-                labelBuilder.Clear();
-                AppendColorTag(labelBuilder, LabelColor, alpha);
-                labelBuilder.Append(labelText);
-                label.Origin = new Vector2D(AnchorX, rowY);
-                label.Visible = alpha > 0;
+                UpdateLabel(labelBuilder, label, labelText, LabelColor, alpha, AnchorX, rowY);
 
                 UpdateBar(researchBack, BarLeftX, rowY + ResearchBarY, BarWidth, BarHeight, WithAlpha(BarBackColor, (byte)(alpha * 130 / 255)));
                 UpdateBar(researchFill, BarLeftX, rowY + ResearchBarY, BarWidth * Clamp01(researchProgress), BarHeight, WithAlpha(researchColor, alpha));
-                UpdateBar(separator, BarLeftX, rowY + SeparatorBarY, BarWidth, SeparatorBarHeight, WithAlpha(SeparatorColor, (byte)(alpha * 190 / 255)));
                 UpdateBar(proficiencyBack, BarLeftX, rowY + ProficiencyBarY, BarWidth, BarHeight, WithAlpha(BarBackColor, (byte)(alpha * 130 / 255)));
                 UpdateBar(proficiencyFill, BarLeftX, rowY + ProficiencyBarY, BarWidth * Clamp01(proficiencyProgress), BarHeight, WithAlpha(proficiencyColor, alpha));
             }
 
             internal void SetVisible(bool visible)
             {
-                labelShadow.Visible = visible;
+                labelShadowUp.Visible = visible;
+                labelShadowDown.Visible = visible;
                 label.Visible = visible;
                 researchBack.Visible = visible;
                 researchFill.Visible = visible;
-                separator.Visible = visible;
                 proficiencyBack.Visible = visible;
                 proficiencyFill.Visible = visible;
             }
 
             internal void Close()
             {
-                labelShadow.DeleteMessage();
+                labelShadowUp.DeleteMessage();
+                labelShadowDown.DeleteMessage();
                 label.DeleteMessage();
                 researchBack.DeleteMessage();
                 researchFill.DeleteMessage();
-                separator.DeleteMessage();
                 proficiencyBack.DeleteMessage();
                 proficiencyFill.DeleteMessage();
             }
@@ -372,6 +367,15 @@ namespace WkKn
                 bar.Height = (float)(height / BarScale);
                 bar.BillBoardColor = color;
                 bar.Visible = color.A > 0;
+            }
+
+            private static void UpdateLabel(StringBuilder builder, HudAPIv2.HUDMessage message, string labelText, Color color, byte alpha, double x, double y)
+            {
+                builder.Clear();
+                AppendColorTag(builder, color, alpha);
+                builder.Append(labelText);
+                message.Origin = new Vector2D(x, y);
+                message.Visible = alpha > 0;
             }
 
             private static void AppendColorTag(StringBuilder builder, Color color, byte alpha)
