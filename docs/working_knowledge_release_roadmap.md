@@ -1,26 +1,73 @@
-# Working Knowledge Release Roadmap
+# Working Knowledge Roadmap
 
-This roadmap tracks what needs to happen before each Working Knowledge release tier. It is intentionally short: completed launch-prep items belong in git history, not in a permanent checklist.
+This roadmap tracks the planned path from the current public-feedback releases to a stable `1.0.0` Working Knowledge release. It combines release targets, feature candidates, compatibility work, and the validation checklist used before publishing.
 
 Working Knowledge should stay standalone until `1.0.0`. Campaign integration, companion mod packs, richer story content, and deeper terminal trade systems are later work.
 
-## Current Release: 0.9.x Feedback
+## Versioning
 
-Goal: publish and iterate on the first public Workshop release.
+Working Knowledge uses a `major.feature.fix` version pattern during pre-`1.0.0` development.
 
-- Gather bug reports and balance feedback from fresh survival worlds.
+- Fix-only releases stay in the current feature line, such as `0.9.6`.
+- The next feature release after `0.9.x` should become `0.10.0`.
+- `1.0.0` is the planned full release after the main feedback-driven features are added and the standalone mod is stable.
+
+## Current Track: 0.9.x Bugfix And Compatibility Testing
+
+Goal: keep the first public Workshop release healthy while gathering feedback from normal play and common mod stacks.
+
+### Feedback And Message Polish
+
+- Continue testing recent feedback, toast, and progress reporting fixes in normal play.
+- Review chat message frequency during discovery, research, and Proficiency updates.
+- Confirm that existing config options properly reduce or disable progress and info message spam.
+- Improve config documentation where needed.
 - Run a light in-game smoke test after each gameplay fix.
-- Confirm admin-only command gating and targeted command feedback are clear.
-- Watch for confusion around hidden schematic unlockers appearing in G-menu search.
-- Track compatibility reports from mods that change progression, placement, grinding, welding, or salvage.
-- Keep broad dedicated-server validation as a known gap until it has been tested directly.
 
-Accepted 0.9.x tradeoffs:
+### Modded Block Compatibility
+
+- Test how normal modded blocks behave with Working Knowledge.
+- Confirm whether modded blocks are currently buildable as already researched and full Proficiency.
+- Verify that block mods do not unintentionally become locked, blocked, or partially restricted by the progression system.
+- Track compatibility reports from mods that change progression, placement, grinding, welding, or salvage.
+- Document current behavior clearly so players know whether configuration is required.
+
+### 0.9.x Known Tradeoffs
 
 - Hidden unlockers may appear in G-menu search for "Schematics".
 - Hidden unlockers are not survival-buildable because their requirements are unavailable.
 - In creative, hidden unlockers can be placed as small colorable datapad-like blocks.
 - The default `medium` balance is considered close enough for public feedback.
+- Broad dedicated-server validation remains a known gap until it has been tested directly.
+
+## Next Feature Track: 0.10.0 Feedback-Driven Update
+
+Goal: add the next substantial quality-of-life and compatibility features before the `1.0.0` stabilization push.
+
+### HUD Progress Display
+
+- Investigate replacing or supplementing chat progress messages with a cleaner HUD-style display.
+- Prototype recent progress bars for discovery, research, or Proficiency updates.
+- Show only the most recent few progress entries if possible.
+- Have progress bars fade out after a few seconds of no updates.
+- Keep chat messages available as a fallback or optional mode.
+- Evaluate whether this can be done without heavy dependencies.
+- Investigate frameworks such as Rich HUD, but avoid adding required dependencies unless the benefit is worth it.
+
+### Custom Modded Block Integration
+
+- Add a way for admins or players to assign custom modded blocks into Working Knowledge schematic groups.
+- Allow modded blocks to become part of the normal research and Proficiency system instead of always acting as already unlocked.
+- Consider config-driven definitions for custom block groups.
+- Make the system safe for servers and modpacks where many block mods are installed.
+
+### Automation Mod Attribution
+
+- Investigate compatibility with automation mods such as Nanobot Build and Repair System.
+- Determine whether automated welding and grinding actions expose a player owner, builder, controller, or usable attribution source.
+- Check whether Working Knowledge can safely grant research and Proficiency from automated actions.
+- Add a fallback attribution option if possible.
+- If reliable attribution is not possible, document the limitation clearly.
 
 ## Target Release: 1.0.0 Stable
 
@@ -36,6 +83,14 @@ Goal: make Working Knowledge safe to recommend as a stable standalone progressio
 - Run a focused multiplayer or hosted-session pass for shared research, faction sync, and nearby-player attribution.
 - Recheck public docs for version-specific or maintainer-only wording.
 - Bump `mods/WorkingKnowledge/modinfo.sbc` to `1.0.0` when the above gates are satisfied.
+
+## General Design Goals
+
+- Keep Working Knowledge usable without requiring players to edit config.
+- Use config mainly for tuning, server balancing, and advanced customization.
+- Avoid hard dependencies on companion mods unless absolutely necessary.
+- Prioritize compatibility with common modpacks.
+- Continue using player feedback to guide quality-of-life improvements.
 
 ## Post-1.0 Candidates
 
