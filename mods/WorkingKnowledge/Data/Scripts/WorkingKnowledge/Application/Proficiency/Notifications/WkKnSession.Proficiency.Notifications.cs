@@ -29,7 +29,7 @@ namespace WkKn
             var displayName = GetSchematicDisplayName(researchId);
             proficiencyNotificationService.Queue(identityId, researchId, displayName, progress, simulationTick, IsProgressComboEligibleSource(source));
             if (IsPlayerProgressToastEnabled(identityId))
-                progressHudOverlay.UpdateProficiency(identityId, researchId, displayName, progress.TotalProgress, simulationTick);
+                progressHudOverlay.UpdateCombined(identityId, researchId, displayName, GetPlayerResearchProgress(identityId, researchId), progress.TotalProgress, simulationTick);
         }
 
     }
