@@ -16,7 +16,6 @@ The pre-`1.0.0` feedback track is about making Working Knowledge comfortable in 
 
 Feature backlog:
 
-- Improve progress feedback so research and Proficiency updates do not rely on chat spam.
 - Add a safer way to map custom block mods into Working Knowledge schematic groups.
 - Keep player-facing config simple enough that ordinary players do not need to edit config to enjoy the mod.
 - Keep advanced config useful for server owners, modpacks, and balance tuning.
@@ -40,32 +39,34 @@ Compatibility and test backlog:
 
 The planned sequence before `1.0.0` is:
 
-- `0.10.0` - better progress display.
-- `0.11.0` - custom block mod integration.
+- `0.10.0` - better progress display. Complete.
+- `0.11.0` - custom block mod integration. Next active feature track.
 - `1.0.0` - stable standalone release after the main feature and validation gates are satisfied.
 
-## 0.10.0 Progress Display
+## 0.10.0 Progress Display - Complete
 
 Goal: make research and Proficiency progress readable without relying on spammy chat updates.
 
-Direction:
+Completed direction:
 
-- Replace or supplement chat progress messages with a cleaner HUD-style display.
-- Prototype recent progress bars for discovery, research, or Proficiency updates.
-- Show only the most recent few progress entries.
-- Fade progress bars out after a few seconds with no new updates.
-- Keep chat messages available as a fallback or optional mode.
-- Confirm existing config still lets players reduce or disable progress and info message spam.
-- Improve config documentation where needed.
+- Added a Text HUD API-backed progress overlay for recent research and Proficiency updates.
+- Shows compact schematic rows with research and Proficiency bars.
+- Defaults to five rows in the top-right position.
+- Progress chat and popup progress toasts are off by default for players.
+- Chat progress and popup progress toasts remain available as player opt-in feedback.
+- Added player config for enabling/disabling the overlay, row count, row order, position preset, X/Y offsets, and fade timing.
+- Added `progressHudFadeSeconds 0` support for persistent recent-history display.
+- Updated configuration docs, changelog, README, and Workshop copy.
+- Added Text HUD API as a Workshop required item for the published mod.
 
-Technical questions:
+Follow-up watch items:
 
-- Can this be done cleanly with vanilla HUD notification tools?
-- Is a lightweight custom draw approach viable inside the mod script environment?
-- Would Rich HUD or a similar framework provide enough value to justify an optional or required dependency?
-- Can the HUD display remain readable with common HUD mods and modpack UI changes?
+- Watch for Text HUD API load-order or missing-dependency reports.
+- Watch for HUD overlap issues with common HUD mods and modpack UI changes.
+- Keep progress feedback tuning player-facing and avoid requiring ordinary players to edit config.
+- Consider minor visual polish only if Workshop feedback points to a clear issue.
 
-## 0.11.0 Custom Block Mod Integration
+## 0.11.0 Custom Block Mod Integration - Next
 
 Goal: make Working Knowledge easier to use with block mods instead of depending mostly on hard-coded catalog and generator mappings.
 
