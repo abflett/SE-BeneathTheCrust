@@ -2,7 +2,7 @@
 
 This is the practical maintainer reference for `mods/WorkingKnowledge`. It keeps the file map, runtime shape, and the few Space Engineers edge cases that are easy to break accidentally.
 
-For admin-facing settings, use [Working Knowledge configuration](working_knowledge_configuration.md). For release status, use [Working Knowledge release roadmap](working_knowledge_release_roadmap.md). For public Workshop copy, use [Working Knowledge Workshop description](working_knowledge_workshop_description_bbcode.txt).
+For admin-facing settings, use [Working Knowledge configuration](configuration.md). For release status, use [Working Knowledge release roadmap](release_roadmap.md). For public Workshop copy, use [Working Knowledge Workshop description](workshop_description_bbcode.txt).
 
 ## Load Rules
 
@@ -96,7 +96,7 @@ Balance source:
 
 - `Scripts/WorkingKnowledge/Application/Balance/SchematicWorkRewardTable.cs` is the live source-code reward table.
 - `tools/generate-working-knowledge-balance.ps1 -UpdateSource` refreshes that table from vanilla blueprint, component, cube-block, and generated catalog data.
-- Generated balance audits live under `docs/generated/`; treat them as reports, not hand-maintained design docs.
+- Generated balance audits live under `docs/WorkingKnowledge/generated/`; treat them as reports, not hand-maintained design docs.
 
 ## Runtime Shape
 
@@ -205,4 +205,4 @@ Use this small local check before committing gameplay changes:
 .\build.ps1 -ModName WkKn
 ```
 
-For generated data or release prep, use the longer validation list in [Working Knowledge release roadmap](working_knowledge_release_roadmap.md).
+For generated data or release prep, use the longer validation list in [Working Knowledge release roadmap](release_roadmap.md).

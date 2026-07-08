@@ -3,8 +3,8 @@ param(
     [string] $SpaceEngineersData = 'C:\Program Files (x86)\Steam\steamapps\common\SpaceEngineers\Content\Data',
     [string] $CatalogPath = (Join-Path (Split-Path -Parent $PSScriptRoot) 'mods\WorkingKnowledge\Data\Scripts\WorkingKnowledge\Application\Research\Catalog\ResearchCatalog.generated.cs'),
     [string] $RewardTablePath = (Join-Path (Split-Path -Parent $PSScriptRoot) 'mods\WorkingKnowledge\Data\Scripts\WorkingKnowledge\Application\Balance\SchematicWorkRewardTable.cs'),
-    [string] $ReportPath = (Join-Path (Split-Path -Parent $PSScriptRoot) 'docs\generated\working_knowledge_balance_report.md'),
-    [string] $BlockRewardReportPath = (Join-Path (Split-Path -Parent $PSScriptRoot) 'docs\generated\working_knowledge_block_reward_report.md'),
+    [string] $ReportPath = (Join-Path (Split-Path -Parent $PSScriptRoot) 'docs\WorkingKnowledge\generated\balance_report.md'),
+    [string] $BlockRewardReportPath = (Join-Path (Split-Path -Parent $PSScriptRoot) 'docs\WorkingKnowledge\generated\block_reward_report.md'),
     [switch] $UpdateSource
 )
 

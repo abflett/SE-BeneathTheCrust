@@ -45,7 +45,9 @@ Beneath the Crust keeps the core Space Engineers sandbox intact while adding str
 ## Repository Map
 
 - `.github/` - public issue templates for bugs and balance feedback.
-- `docs/` - campaign, mod, maintainer, and publishing docs.
+- `docs/` - project documentation index, shared assets, campaign docs, and mod docs.
+- `docs/BeneathTheCrust/` - campaign design, story, mod stack, and R&D notes.
+- `docs/WorkingKnowledge/` - Working Knowledge maintainer, release, generated audit, and publishing docs.
 - `docs/assets/` - reusable images for GitHub docs and future public documentation.
 - `mods/` - standalone Space Engineers mod roots.
 - `mods/WorkingKnowledge/` - the current playable Working Knowledge mod.
@@ -54,17 +56,17 @@ Beneath the Crust keeps the core Space Engineers sandbox intact while adding str
 
 ## Main Docs
 
-- [Campaign overview](docs/campaign_overview.md)
-- [Campaign story foundation](docs/campaign_story_foundation.md)
-- [Campaign mod shortlist](docs/campaign_mod_shortlist.md)
+- [Campaign overview](docs/BeneathTheCrust/overview.md)
+- [Campaign story foundation](docs/BeneathTheCrust/story_foundation.md)
+- [Campaign mod shortlist](docs/BeneathTheCrust/mod_shortlist.md)
 - [Standalone mods index](mods/README.md)
 - [Working Knowledge overview](mods/WorkingKnowledge/README.md)
-- [Working Knowledge changelog](docs/WorkingKnowledgeChangeLog.md)
-- [Working Knowledge configuration](docs/working_knowledge_configuration.md)
-- [Working Knowledge implementation reference](docs/working_knowledge_implementation.md)
-- [Working Knowledge inspirations and attribution](docs/working_knowledge_inspirations.md)
-- [Working Knowledge release roadmap](docs/working_knowledge_release_roadmap.md)
-- [Working Knowledge Workshop description](docs/working_knowledge_workshop_description_bbcode.txt)
+- [Working Knowledge changelog](docs/WorkingKnowledge/changelog.md)
+- [Working Knowledge configuration](docs/WorkingKnowledge/configuration.md)
+- [Working Knowledge implementation reference](docs/WorkingKnowledge/implementation.md)
+- [Working Knowledge inspirations and attribution](docs/WorkingKnowledge/inspirations.md)
+- [Working Knowledge release roadmap](docs/WorkingKnowledge/release_roadmap.md)
+- [Working Knowledge Workshop description](docs/WorkingKnowledge/workshop_description_bbcode.txt)
 
 ## Feedback
 

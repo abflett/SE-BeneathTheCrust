@@ -320,7 +320,7 @@ Use `/wk config <setting> help` in game for the current value, accepted value ty
 - `researchEfficiencyStart` - Research efficiency at 0% known. Higher values front-load discovery. Range: `0.0` to `10.0`.
 - `researchEfficiencyEnd` - Research efficiency near 100% known. Lower values slow the final stretch. Range: `0.0` to `10.0`.
 
-Schematic-specific work rewards are source-code balance data in `Application/Balance/SchematicWorkRewardTable.cs`. Each row stores large-grid base work reward, small-grid base work reward, and reference build seconds. The fallback defaults are `0.21`, `0.0857`, and `8.0`. Vanilla block build time then applies a clamped square-root factor before research or Proficiency curve and config multipliers. Generated audit reports, when refreshed, live under `docs/generated/`.
+Schematic-specific work rewards are source-code balance data in `Application/Balance/SchematicWorkRewardTable.cs`. Each row stores large-grid base work reward, small-grid base work reward, and reference build seconds. The fallback defaults are `0.21`, `0.0857`, and `8.0`. Vanilla block build time then applies a clamped square-root factor before research or Proficiency curve and config multipliers. Generated audit reports, when refreshed, live under `docs/WorkingKnowledge/generated/`.
 
 ### Proficiency
 

@@ -6,8 +6,8 @@ This R&D inventory focuses on reusable vanilla and DLC prefab definitions under 
 
 ## Files
 
-- Machine-readable inventory: `docs\RnD\space_engineers_prefab_inventory.json`
-- Human-readable index: `docs\RnD\space_engineers_prefab_inventory.md`
+- Machine-readable inventory: `docs\BeneathTheCrust\RnD\space_engineers_prefab_inventory.json`
+- Human-readable index: `docs\BeneathTheCrust\RnD\space_engineers_prefab_inventory.md`
 
 ## Important Caveats
 

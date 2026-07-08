@@ -75,7 +75,7 @@ Admin-only config and tuning:
 - `/wk difficulty custom <difficulty-setting> help`
 - `/wk difficulty custom <difficulty-setting> <value>`
 
-See [Working Knowledge configuration](../../docs/working_knowledge_configuration.md) for current settings and accepted values.
+See [Working Knowledge configuration](../../docs/WorkingKnowledge/configuration.md) for current settings and accepted values.
 
 ## Current Status
 
@@ -107,13 +107,13 @@ The mod currently includes:
 
 ## Project Docs
 
-- [Campaign overview](../../docs/campaign_overview.md)
-- [Working Knowledge changelog](../../docs/WorkingKnowledgeChangeLog.md)
-- [Working Knowledge configuration](../../docs/working_knowledge_configuration.md)
-- [Working Knowledge implementation reference](../../docs/working_knowledge_implementation.md)
-- [Working Knowledge inspirations and attribution](../../docs/working_knowledge_inspirations.md)
-- [Working Knowledge release roadmap](../../docs/working_knowledge_release_roadmap.md)
-- [Working Knowledge Workshop description](../../docs/working_knowledge_workshop_description_bbcode.txt)
+- [Campaign overview](../../docs/BeneathTheCrust/overview.md)
+- [Working Knowledge changelog](../../docs/WorkingKnowledge/changelog.md)
+- [Working Knowledge configuration](../../docs/WorkingKnowledge/configuration.md)
+- [Working Knowledge implementation reference](../../docs/WorkingKnowledge/implementation.md)
+- [Working Knowledge inspirations and attribution](../../docs/WorkingKnowledge/inspirations.md)
+- [Working Knowledge release roadmap](../../docs/WorkingKnowledge/release_roadmap.md)
+- [Working Knowledge Workshop description](../../docs/WorkingKnowledge/workshop_description_bbcode.txt)
 
 ## Local Test Build
 

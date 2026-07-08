@@ -4,26 +4,23 @@ This folder holds durable project documentation for **Space Engineers: Beneath t
 
 Planning scratchpads and generated draft JSON files should not live here once their useful content has moved into the campaign summary, current mod docs, generated code, or live `.sbc` files.
 
-## Campaign
+## Beneath The Crust
 
-- [Campaign overview](campaign_overview.md) - current high-level design, progression philosophy, and technical direction.
-- [Campaign story foundation](campaign_story_foundation.md) - broad story structure, tone, chapters, and campaign premise.
-- [Campaign mod shortlist](campaign_mod_shortlist.md) - optional external mod candidates for the future campaign stack.
-- [Campaign integration test stack](campaign_integration_test_stack.md) - current normal-world mod stack being tested before campaign composition.
+- [Campaign overview](BeneathTheCrust/overview.md) - current high-level design, progression philosophy, and technical direction.
+- [Campaign story foundation](BeneathTheCrust/story_foundation.md) - broad story structure, tone, chapters, and campaign premise.
+- [Campaign mod shortlist](BeneathTheCrust/mod_shortlist.md) - optional external mod candidates for the future campaign stack.
+- [Campaign integration test stack](BeneathTheCrust/integration_test_stack.md) - current normal-world mod stack being tested before campaign composition.
+- [Space Engineers prefab inventory](BeneathTheCrust/RnD/space_engineers_prefab_inventory.md) - prefab inventory research notes.
 
 ## Working Knowledge
 
-- [Configuration](working_knowledge_configuration.md) - admin-facing config values, chat commands, and XML shape.
-- [Changelog](WorkingKnowledgeChangeLog.md) - public-facing Working Knowledge release notes.
-- [Implementation notes](working_knowledge_implementation.md) - maintainer file map, runtime shape, and fragile Space Engineers edge cases.
-- [Inspirations and attribution](working_knowledge_inspirations.md) - credited external mod ideas that influenced Working Knowledge.
-- [Roadmap](working_knowledge_release_roadmap.md) - version targets, feedback-driven feature plans, compatibility work, and repeatable validation checks.
-- [Workshop description](working_knowledge_workshop_description_bbcode.txt) - public-facing Steam BBCode description.
-
-## Generated Audits
-
-- [Working Knowledge balance report](generated/working_knowledge_balance_report.md) - generated schematic reward audit.
-- [Working Knowledge block reward report](generated/working_knowledge_block_reward_report.md) - generated per-block reward audit.
+- [Configuration](WorkingKnowledge/configuration.md) - admin-facing config values, chat commands, and XML shape.
+- [Changelog](WorkingKnowledge/changelog.md) - public-facing Working Knowledge release notes.
+- [Implementation notes](WorkingKnowledge/implementation.md) - maintainer file map, runtime shape, and fragile Space Engineers edge cases.
+- [Inspirations and attribution](WorkingKnowledge/inspirations.md) - credited external mod ideas that influenced Working Knowledge.
+- [Roadmap](WorkingKnowledge/release_roadmap.md) - version targets, feedback-driven feature plans, compatibility work, and repeatable validation checks.
+- [Workshop description](WorkingKnowledge/workshop_description_bbcode.txt) - public-facing Steam BBCode description.
+- [Generated audits](WorkingKnowledge/generated/README.md) - generated Working Knowledge balance reports.
 
 ## Assets
 
