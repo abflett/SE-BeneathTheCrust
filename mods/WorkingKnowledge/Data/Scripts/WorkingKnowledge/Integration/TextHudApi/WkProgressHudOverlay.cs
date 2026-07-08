@@ -25,7 +25,7 @@ namespace WkKn
         private const double BarWidth = 0.40;
         private const double BarHeight = 0.016;
         private const double ProficiencyBarHeight = 0.0112;
-        private const double BarBackgroundPaddingX = 0.004;
+        private const double BarBackgroundPaddingX = 0.002;
         private const double BarBackgroundPaddingY = 0.003;
         private const double BarBackgroundWidth = BarWidth + (BarBackgroundPaddingX * 2.0);
         private const double BarBackgroundHeight = (ResearchBarY + (BarHeight * 0.5)) - (ProficiencyBarY - (ProficiencyBarHeight * 0.5)) + (BarBackgroundPaddingY * 2.0);
