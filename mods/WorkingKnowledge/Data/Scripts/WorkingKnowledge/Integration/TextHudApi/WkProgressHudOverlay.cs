@@ -15,8 +15,8 @@ namespace WkKn
         private const int MaxLabelLength = 32;
         private const long HoldTicks = 360;
         private const long FadeTicks = 180;
-        private const double LabelScale = 0.72;
-        private const double RowSpacing = 0.140;
+        private const double LabelScale = 1.05;
+        private const double RowSpacing = 0.165;
         private const double AnchorX = 0.49;
         private const double AnchorY = 0.78;
         private const double BarLeftX = 0.49;
@@ -27,7 +27,7 @@ namespace WkKn
         private const double BarScale = 0.20;
         private static readonly Color LabelColor = new Color(225, 236, 240);
         private static readonly Color BarBackColor = new Color(24, 34, 38);
-        private static readonly MyStringId BarMaterial = MyStringId.GetOrCompute("hud_bg_large_default");
+        private static readonly MyStringId BarMaterial = MyStringId.GetOrCompute("Square");
 
         private readonly List<Entry> entries = new List<Entry>(MaxRows);
         private readonly Row[] rows = new Row[MaxRows];
