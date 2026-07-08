@@ -43,12 +43,14 @@ World admins can use [b]/wk[/b] commands to adjust the experience with difficult
 
 Make schematic unlocks faster, soften Proficiency pressure, reduce salvage penalties, disable construction setbacks, or lean into the full field-engineering experience.
 
-Players can also use [b]/wk config[/b] to tune feedback, including HUD progress bars, chat progress, popup progress toasts, and sounds.
+Players can use [b]/wk config[/b] to view their current feedback settings, then [b]/wk config help[/b] to see the commands for changing HUD progress bars, chat progress, popup progress toasts, and sounds.
 
 Start with:
 [code]/wk
 /wk help
 /wk difficulty
+/wk config
+/wk config help
 /wk config world[/code]
 
 [h2]Feature Highlights[/h2]
