@@ -258,8 +258,10 @@ namespace WkKn
             private readonly StringBuilder labelBuilder;
             private readonly StringBuilder labelShadowUpBuilder;
             private readonly StringBuilder labelShadowDownBuilder;
+            private readonly StringBuilder labelShadowCrossBuilder;
             private readonly HudAPIv2.HUDMessage labelShadowUp;
             private readonly HudAPIv2.HUDMessage labelShadowDown;
+            private readonly HudAPIv2.HUDMessage labelShadowCross;
             private readonly HudAPIv2.HUDMessage label;
             private readonly HudAPIv2.BillBoardHUDMessage researchBack;
             private readonly HudAPIv2.BillBoardHUDMessage researchFill;
@@ -270,8 +272,10 @@ namespace WkKn
                 StringBuilder labelBuilder,
                 StringBuilder labelShadowUpBuilder,
                 StringBuilder labelShadowDownBuilder,
+                StringBuilder labelShadowCrossBuilder,
                 HudAPIv2.HUDMessage labelShadowUp,
                 HudAPIv2.HUDMessage labelShadowDown,
+                HudAPIv2.HUDMessage labelShadowCross,
                 HudAPIv2.HUDMessage label,
                 HudAPIv2.BillBoardHUDMessage researchBack,
                 HudAPIv2.BillBoardHUDMessage researchFill,
@@ -281,8 +285,10 @@ namespace WkKn
                 this.labelBuilder = labelBuilder;
                 this.labelShadowUpBuilder = labelShadowUpBuilder;
                 this.labelShadowDownBuilder = labelShadowDownBuilder;
+                this.labelShadowCrossBuilder = labelShadowCrossBuilder;
                 this.labelShadowUp = labelShadowUp;
                 this.labelShadowDown = labelShadowDown;
+                this.labelShadowCross = labelShadowCross;
                 this.label = label;
                 this.researchBack = researchBack;
                 this.researchFill = researchFill;
@@ -305,17 +311,22 @@ namespace WkKn
                 var labelShadowDown = new HudAPIv2.HUDMessage(labelShadowDownBuilder, Vector2D.Zero, null, -1, LabelScale, true, false, null, BlendTypeEnum.PostPP);
                 labelShadowDown.Visible = false;
 
+                var labelShadowCrossBuilder = new StringBuilder(MaxLabelLength);
+                var labelShadowCross = new HudAPIv2.HUDMessage(labelShadowCrossBuilder, Vector2D.Zero, null, -1, LabelScale, true, false, null, BlendTypeEnum.PostPP);
+                labelShadowCross.Visible = false;
+
                 var labelBuilder = new StringBuilder(MaxLabelLength);
                 var label = new HudAPIv2.HUDMessage(labelBuilder, Vector2D.Zero, null, -1, LabelScale, true, false, null, BlendTypeEnum.PostPP);
                 label.Visible = false;
 
-                return new Row(labelBuilder, labelShadowUpBuilder, labelShadowDownBuilder, labelShadowUp, labelShadowDown, label, researchBack, researchFill, proficiencyBack, proficiencyFill);
+                return new Row(labelBuilder, labelShadowUpBuilder, labelShadowDownBuilder, labelShadowCrossBuilder, labelShadowUp, labelShadowDown, labelShadowCross, label, researchBack, researchFill, proficiencyBack, proficiencyFill);
             }
 
             internal void Update(string labelText, double researchProgress, double proficiencyProgress, byte alpha, double rowY, Color researchColor, Color proficiencyColor)
             {
                 UpdateLabel(labelShadowUpBuilder, labelShadowUp, labelText, LabelShadowColor, alpha, AnchorX - ShadowOffsetX, rowY + ShadowOffsetY);
                 UpdateLabel(labelShadowDownBuilder, labelShadowDown, labelText, LabelShadowColor, alpha, AnchorX + ShadowOffsetX, rowY - ShadowOffsetY);
+                UpdateLabel(labelShadowCrossBuilder, labelShadowCross, labelText, LabelShadowColor, alpha, AnchorX - ShadowOffsetX, rowY - ShadowOffsetY);
 
                 UpdateLabel(labelBuilder, label, labelText, LabelColor, alpha, AnchorX, rowY);
 
@@ -329,6 +340,7 @@ namespace WkKn
             {
                 labelShadowUp.Visible = visible;
                 labelShadowDown.Visible = visible;
+                labelShadowCross.Visible = visible;
                 label.Visible = visible;
                 researchBack.Visible = visible;
                 researchFill.Visible = visible;
@@ -340,6 +352,7 @@ namespace WkKn
             {
                 labelShadowUp.DeleteMessage();
                 labelShadowDown.DeleteMessage();
+                labelShadowCross.DeleteMessage();
                 label.DeleteMessage();
                 researchBack.DeleteMessage();
                 researchFill.DeleteMessage();
