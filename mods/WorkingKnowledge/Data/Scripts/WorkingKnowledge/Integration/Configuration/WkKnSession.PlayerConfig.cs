@@ -1,4 +1,5 @@
 using System.Globalization;
+using Sandbox.ModAPI;
 
 namespace WkKn
 {
@@ -16,6 +17,31 @@ namespace WkKn
         private WkPlayerConfigRecord GetPlayerConfig(long identityId)
         {
             return playerConfigStore.GetPlayerOrDefault(GetPlayerConfigId(identityId));
+        }
+
+        private WkProgressHudSettings GetLocalProgressHudSettings()
+        {
+            if (MyAPIGateway.Session == null ||
+                MyAPIGateway.Session.Player == null ||
+                MyAPIGateway.Session.Player.IdentityId == 0)
+                return WkProgressHudSettings.Default;
+
+            return GetProgressHudSettings(MyAPIGateway.Session.Player.IdentityId);
+        }
+
+        private WkProgressHudSettings GetProgressHudSettings(long identityId)
+        {
+            var player = GetPlayerConfig(identityId);
+            return new WkProgressHudSettings
+            {
+                Enabled = player.ProgressHudEnabled,
+                RowCount = player.ProgressHudRows,
+                Order = player.ProgressHudOrder,
+                Position = player.ProgressHudPosition,
+                OffsetX = player.ProgressHudOffsetX,
+                OffsetY = player.ProgressHudOffsetY,
+                FadeSeconds = player.ProgressHudFadeSeconds,
+            };
         }
 
         private bool IsPlayerProgressChatEnabled(long identityId)

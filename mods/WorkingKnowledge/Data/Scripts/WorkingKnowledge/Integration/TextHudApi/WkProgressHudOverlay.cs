@@ -11,15 +11,16 @@ namespace WkKn
 {
     internal sealed class WkProgressHudOverlay
     {
-        private const int MaxRows = 5;
+        private const int MaxRows = 10;
         private const int MaxLabelLength = 32;
-        private const long HoldTicks = 360;
-        private const long FadeTicks = 180;
+        private const long FadeOutTicks = 180;
         private const double LabelScale = 1.05;
         private const double RowSpacing = 0.095;
-        private const double AnchorX = 0.57;
-        private const double AnchorY = 0.94;
-        private const double BarLeftX = 0.57;
+        private const double RightAnchorX = 0.57;
+        private const double LeftAnchorX = -0.972;
+        private const double CenterAnchorX = -0.20;
+        private const double TopAnchorY = 0.94;
+        private const double BottomAnchorY = -0.88;
         private const double ResearchBarY = -0.028;
         private const double ProficiencyBarY = -0.041;
         private const double BarWidth = 0.40;
@@ -59,14 +60,22 @@ namespace WkKn
             api = new HudAPIv2();
         }
 
-        internal void Update(long currentTick)
+        internal void Update(long currentTick, WkProgressHudSettings settings)
         {
+            settings = NormalizeSettings(settings);
+            if (!settings.Enabled)
+            {
+                TrimExpired(currentTick, settings);
+                HideRows();
+                return;
+            }
+
             EnsureRowsCreated();
             if (!apiReady)
                 return;
 
-            TrimExpired(currentTick);
-            RenderRows(currentTick);
+            TrimExpired(currentTick, settings);
+            RenderRows(currentTick, settings);
         }
 
         internal void Clear()
@@ -166,46 +175,136 @@ namespace WkKn
             return -1;
         }
 
-        private void TrimExpired(long currentTick)
+        private void TrimExpired(long currentTick, WkProgressHudSettings settings)
         {
+            if (settings.FadeSeconds <= 0.0)
+                return;
+
+            var holdTicks = GetHoldTicks(settings);
             for (var i = entries.Count - 1; i >= 0; i--)
             {
-                if (currentTick - entries[i].LastUpdatedTick > HoldTicks + FadeTicks)
+                if (currentTick - entries[i].LastUpdatedTick > holdTicks + FadeOutTicks)
                     entries.RemoveAt(i);
             }
         }
 
-        private void RenderRows(long currentTick)
+        private void RenderRows(long currentTick, WkProgressHudSettings settings)
         {
+            var visibleCount = Math.Min(settings.RowCount, entries.Count);
+            var layout = GetLayout(settings, visibleCount);
             for (var i = 0; i < rows.Length; i++)
             {
-                if (i >= entries.Count)
+                if (i >= visibleCount)
                 {
                     rows[i].SetVisible(false);
                     continue;
                 }
 
-                var entry = entries[entries.Count - 1 - i];
+                var entry = entries[IsAscending(settings.Order) ? i : visibleCount - 1 - i];
                 rows[i].Update(
                     entry.DisplayName,
                     entry.ResearchProgress,
                     entry.ProficiencyProgress,
-                    GetAlpha(currentTick, entry.LastUpdatedTick),
-                    AnchorY - (RowSpacing * i),
+                    GetAlpha(currentTick, entry.LastUpdatedTick, settings),
+                    layout.LabelX,
+                    layout.BarLeftX,
+                    layout.RowY + (layout.RowStepY * i),
                     researchColor,
                     proficiencyColor);
             }
         }
 
-        private static byte GetAlpha(long currentTick, long lastUpdatedTick)
+        private static byte GetAlpha(long currentTick, long lastUpdatedTick, WkProgressHudSettings settings)
         {
-            var age = currentTick - lastUpdatedTick;
-            if (age <= HoldTicks)
+            if (settings.FadeSeconds <= 0.0)
                 return 255;
 
-            var fadeAge = age - HoldTicks;
-            var alpha = 1.0 - Math.Min(1.0, Math.Max(0.0, fadeAge / (double)FadeTicks));
+            var age = currentTick - lastUpdatedTick;
+            var holdTicks = GetHoldTicks(settings);
+            if (age <= holdTicks)
+                return 255;
+
+            var fadeAge = age - holdTicks;
+            var alpha = 1.0 - Math.Min(1.0, Math.Max(0.0, fadeAge / (double)FadeOutTicks));
             return (byte)Math.Round(255.0 * alpha);
+        }
+
+        private static long GetHoldTicks(WkProgressHudSettings settings)
+        {
+            return (long)Math.Round(RatioMath.Clamp(settings.FadeSeconds, 0.0, 60.0) * 60.0);
+        }
+
+        private static Layout GetLayout(WkProgressHudSettings settings, int visibleCount)
+        {
+            var position = NormalizePosition(settings.Position);
+            var bottom = position == "bottomLeft" || position == "bottomRight";
+            var x = GetBaseX(position) + settings.OffsetX;
+            var y = GetBaseY(position, visibleCount) + settings.OffsetY;
+
+            return new Layout
+            {
+                LabelX = x,
+                BarLeftX = x,
+                RowY = y,
+                RowStepY = bottom ? RowSpacing : -RowSpacing,
+            };
+        }
+
+        private static double GetBaseX(string position)
+        {
+            if (position == "topLeft" || position == "bottomLeft")
+                return LeftAnchorX;
+
+            if (position == "center")
+                return CenterAnchorX;
+
+            return RightAnchorX;
+        }
+
+        private static double GetBaseY(string position, int visibleCount)
+        {
+            if (position == "bottomLeft" || position == "bottomRight")
+                return BottomAnchorY;
+
+            if (position == "center")
+                return Math.Max(0, visibleCount - 1) * RowSpacing * 0.5;
+
+            return TopAnchorY;
+        }
+
+        private static WkProgressHudSettings NormalizeSettings(WkProgressHudSettings settings)
+        {
+            settings.RowCount = settings.RowCount <= 0 ? 5 : (int)RatioMath.Clamp(settings.RowCount, 1, MaxRows);
+            settings.Order = NormalizeOrder(settings.Order);
+            settings.Position = NormalizePosition(settings.Position);
+            settings.OffsetX = RatioMath.Clamp(settings.OffsetX, -2.0, 2.0);
+            settings.OffsetY = RatioMath.Clamp(settings.OffsetY, -2.0, 2.0);
+            settings.FadeSeconds = settings.FadeSeconds < 0.0 ? 6.0 : RatioMath.Clamp(settings.FadeSeconds, 0.0, 60.0);
+            return settings;
+        }
+
+        private static string NormalizeOrder(string order)
+        {
+            return string.Equals(order, "ascending", StringComparison.OrdinalIgnoreCase) ? "ascending" : "descending";
+        }
+
+        private static string NormalizePosition(string position)
+        {
+            if (string.Equals(position, "topLeft", StringComparison.OrdinalIgnoreCase))
+                return "topLeft";
+            if (string.Equals(position, "bottomLeft", StringComparison.OrdinalIgnoreCase))
+                return "bottomLeft";
+            if (string.Equals(position, "bottomRight", StringComparison.OrdinalIgnoreCase))
+                return "bottomRight";
+            if (string.Equals(position, "center", StringComparison.OrdinalIgnoreCase))
+                return "center";
+
+            return "topRight";
+        }
+
+        private static bool IsAscending(string order)
+        {
+            return string.Equals(order, "ascending", StringComparison.OrdinalIgnoreCase);
         }
 
         private void HideRows()
@@ -257,6 +356,14 @@ namespace WkKn
             internal double ResearchProgress;
             internal double ProficiencyProgress;
             internal long LastUpdatedTick;
+        }
+
+        private struct Layout
+        {
+            internal double LabelX;
+            internal double BarLeftX;
+            internal double RowY;
+            internal double RowStepY;
         }
 
         private sealed class Row
@@ -324,17 +431,17 @@ namespace WkKn
                 return new Row(labelBuilder, labelShadowUpBuilder, labelShadowDownBuilder, labelShadowCrossBuilder, labelShadowUp, labelShadowDown, labelShadowCross, label, barBack, researchFill, proficiencyFill);
             }
 
-            internal void Update(string labelText, double researchProgress, double proficiencyProgress, byte alpha, double rowY, Color researchColor, Color proficiencyColor)
+            internal void Update(string labelText, double researchProgress, double proficiencyProgress, byte alpha, double labelX, double barLeftX, double rowY, Color researchColor, Color proficiencyColor)
             {
-                UpdateLabel(labelShadowUpBuilder, labelShadowUp, labelText, LabelShadowColor, alpha, AnchorX - ShadowOffsetX, rowY + ShadowOffsetY);
-                UpdateLabel(labelShadowDownBuilder, labelShadowDown, labelText, LabelShadowColor, alpha, AnchorX + ShadowOffsetX, rowY - ShadowOffsetY);
-                UpdateLabel(labelShadowCrossBuilder, labelShadowCross, labelText, LabelShadowColor, alpha, AnchorX - ShadowOffsetX, rowY - ShadowOffsetY);
+                UpdateLabel(labelShadowUpBuilder, labelShadowUp, labelText, LabelShadowColor, alpha, labelX - ShadowOffsetX, rowY + ShadowOffsetY);
+                UpdateLabel(labelShadowDownBuilder, labelShadowDown, labelText, LabelShadowColor, alpha, labelX + ShadowOffsetX, rowY - ShadowOffsetY);
+                UpdateLabel(labelShadowCrossBuilder, labelShadowCross, labelText, LabelShadowColor, alpha, labelX - ShadowOffsetX, rowY - ShadowOffsetY);
 
-                UpdateLabel(labelBuilder, label, labelText, LabelColor, alpha, AnchorX, rowY);
+                UpdateLabel(labelBuilder, label, labelText, LabelColor, alpha, labelX, rowY);
 
-                UpdateBar(barBack, BarLeftX - BarBackgroundPaddingX, rowY + BarBackgroundY, BarBackgroundWidth, BarBackgroundHeight, WithAlpha(BarBackColor, (byte)(alpha * 130 / 255)));
-                UpdateBar(researchFill, BarLeftX, rowY + ResearchBarY, BarWidth * Clamp01(researchProgress), BarHeight, WithAlpha(researchColor, alpha));
-                UpdateBar(proficiencyFill, BarLeftX, rowY + ProficiencyBarY, BarWidth * Clamp01(proficiencyProgress), ProficiencyBarHeight, WithAlpha(proficiencyColor, alpha));
+                UpdateBar(barBack, barLeftX - BarBackgroundPaddingX, rowY + BarBackgroundY, BarBackgroundWidth, BarBackgroundHeight, WithAlpha(BarBackColor, (byte)(alpha * 130 / 255)));
+                UpdateBar(researchFill, barLeftX, rowY + ResearchBarY, BarWidth * Clamp01(researchProgress), BarHeight, WithAlpha(researchColor, alpha));
+                UpdateBar(proficiencyFill, barLeftX, rowY + ProficiencyBarY, BarWidth * Clamp01(proficiencyProgress), ProficiencyBarHeight, WithAlpha(proficiencyColor, alpha));
             }
 
             internal void SetVisible(bool visible)

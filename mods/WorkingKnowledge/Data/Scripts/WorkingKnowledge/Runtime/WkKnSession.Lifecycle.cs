@@ -82,7 +82,7 @@ namespace WkKn
             UpdateProficiencyModule();
             FlushReadyProgressNotifications();
             FlushReadyWeldBotchWarnings();
-            progressHudOverlay.Update(simulationTick);
+            progressHudOverlay.Update(simulationTick, GetLocalProgressHudSettings());
         }
 
         internal void UpdateRuntimeAfterSimulation()

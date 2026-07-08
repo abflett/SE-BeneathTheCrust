@@ -37,6 +37,9 @@ Useful player feedback examples:
 ```text
 /wk config progressChatEnabled false
 /wk config progressToastEnabled true
+/wk config progressHudPosition topRight
+/wk config progressHudRows 5
+/wk config progressHudFadeSeconds 0
 /wk config researchChatSuppressionPercent 5
 /wk config proficiencyToastSuppressionPercent 10%
 /wk config completionSoundEnabled false
@@ -83,7 +86,7 @@ Ion Thruster Schematics Research +2.5% (42.5%)
 Ion Thruster Schematics Proficiency +1.1% (73.2%)
 ```
 
-The HUD progress overlay uses Text HUD API when it is loaded. It shows up to five recent schematic rows near the top right of the screen, with a green research bar and a blue Proficiency bar. The rows update as progress changes and fade after a short idle period.
+The HUD progress overlay uses Text HUD API when it is loaded. By default it shows up to five recent schematic rows near the top right of the screen, with a green research bar and a blue Proficiency bar. The rows update as progress changes and fade after a short idle period. Players can move, disable, reorder, resize, or keep the overlay visible through `/wk config`.
 
 Completion feedback uses chat/toast labels:
 
@@ -145,6 +148,13 @@ Player settings:
 
 - `progressChatEnabled` - Shows delayed research and Proficiency chat messages when world settings allow them. Aliases: `chatenabled`, `chatnotifications`.
 - `progressToastEnabled` - Shows popup progress notifications and botch toasts when world settings allow them. The Text HUD progress bars are separate. Completion toasts are not suppressed by this setting. Aliases: `toastenabled`, `toastnotifications`.
+- `progressHudEnabled` - Shows the Text HUD API progress bar overlay. Aliases: `barsenabled`, `hudbars`, `progressbars`.
+- `progressHudRows` - Maximum recent schematic rows shown in the progress bar overlay. Range: `1` to `10`. Aliases: `hudrows`, `progressrows`.
+- `progressHudOrder` - Row ordering for the progress bar overlay. Values: `ascending` or `descending`. The default `descending` keeps the newest row at the end of the stack. Aliases: `hudorder`, `progressorder`.
+- `progressHudPosition` - Position preset for the progress bar overlay. Values: `topLeft`, `topRight`, `bottomLeft`, `bottomRight`, or `center`. Aliases: `hudposition`, `progressposition`, `hudpreset`.
+- `progressHudOffsetX` - Horizontal offset added to the progress bar position preset. Positive values move right. Range: `-2.0` to `2.0`. Aliases: `hudx`, `hudoffsetx`, `progressx`.
+- `progressHudOffsetY` - Vertical offset added to the progress bar position preset. Positive values move up. Range: `-2.0` to `2.0`. Aliases: `hudy`, `hudoffsety`, `progressy`.
+- `progressHudFadeSeconds` - Seconds a progress bar row stays active before fading. Use `0` to keep recent history visible until replaced. Range: `0.0` to `60.0`. Aliases: `hudfade`, `progressfade`, `barfade`.
 - `researchChatSuppressionPercent` - Minimum accumulated research percent before another research chat update appears. Aliases: `reschatsuppression`, `researchchatthreshold`, `reschatthreshold`.
 - `proficiencyChatSuppressionPercent` - Minimum accumulated Proficiency percent before another Proficiency chat update appears. Aliases: `profchatsuppression`, `proficiencychatthreshold`, `profchatthreshold`.
 - `researchToastSuppressionPercent` - Minimum accumulated research percent before another research toast appears. Aliases: `restoastsuppression`, `researchtoastthreshold`, `restoastthreshold`.
@@ -153,7 +163,7 @@ Player settings:
 - `weldBotchSoundEnabled` - Plays positional botch sounds for this player when world settings allow them.
 - `weldBotchWarningCooldownSeconds` - Minimum time before repeating the same botch warning for this player and block. Use `default` to follow the world setting, or a number from `0.0` to `30.0`.
 
-Personal defaults keep progress chat and popup progress toasts off, Text HUD progress bars on, sounds on, zero suppression thresholds, and botch warning cooldown set to `default`. Players can enable chat with `/wk config progressChatEnabled true` and popup toasts with `/wk config progressToastEnabled true` when world settings allow them.
+Personal defaults keep progress chat and popup progress toasts off, Text HUD progress bars on with five top-right rows, `descending` row order, zero overlay offset, six-second fade timing, sounds on, zero suppression thresholds, and botch warning cooldown set to `default`. Players can enable chat with `/wk config progressChatEnabled true` and popup toasts with `/wk config progressToastEnabled true` when world settings allow them.
 
 ## Admin Command Flow
 

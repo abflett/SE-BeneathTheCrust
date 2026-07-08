@@ -6,7 +6,9 @@ Public-facing release notes for the standalone **Working Knowledge** Space Engin
 
 Added a Text HUD API-backed progress overlay for recent Working Knowledge progress.
 
-Research and Proficiency progress now update in a compact top-right HUD display with up to five recent schematic rows. Each row shows the schematic name plus research and Proficiency bars using the same green and blue feedback colors used by the existing chat output. Rows update as progress changes, then fade out after a short idle period.
+Research and Proficiency progress now update in a compact HUD display with up to five recent schematic rows by default. Each row shows the schematic name plus research and Proficiency bars using the same green and blue feedback colors used by the existing chat output. Rows update as progress changes, then fade out after a short idle period.
+
+Players can configure the progress bar overlay through `/wk config`: enable or disable it, choose one to ten visible rows, switch row order, choose top-left/top-right/bottom-left/bottom-right/center presets, add X/Y offsets, and set the fade timing. Setting `progressHudFadeSeconds` to `0` keeps the recent progress history visible until replaced by newer entries.
 
 Delayed research and Proficiency chat progress and popup progress toasts are now disabled by default for players so the HUD overlay carries routine progress feedback without spam. Players can re-enable chat progress with `/wk config progressChatEnabled true` and popup progress toasts with `/wk config progressToastEnabled true` when world settings allow them. The Text HUD progress bars update separately from the popup toast setting.
 

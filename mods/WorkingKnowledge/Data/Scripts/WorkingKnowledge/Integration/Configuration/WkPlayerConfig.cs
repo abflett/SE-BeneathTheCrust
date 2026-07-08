@@ -13,6 +13,13 @@ namespace WkKn
         public string Id = "";
         public bool ProgressChatEnabled = false;
         public bool ProgressToastEnabled = false;
+        public bool ProgressHudEnabled = true;
+        public int ProgressHudRows = 5;
+        public string ProgressHudOrder = "descending";
+        public string ProgressHudPosition = "topRight";
+        public double ProgressHudOffsetX = 0.0;
+        public double ProgressHudOffsetY = 0.0;
+        public double ProgressHudFadeSeconds = 6.0;
         public double ResearchChatSuppressionPercent = 0.0;
         public double ProficiencyChatSuppressionPercent = 0.0;
         public double ResearchToastSuppressionPercent = 0.0;
