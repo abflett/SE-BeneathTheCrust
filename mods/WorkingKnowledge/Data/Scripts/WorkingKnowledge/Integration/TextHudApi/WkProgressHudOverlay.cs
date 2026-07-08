@@ -17,9 +17,9 @@ namespace WkKn
         private const long FadeTicks = 180;
         private const double LabelScale = 1.05;
         private const double RowSpacing = 0.095;
-        private const double AnchorX = 0.49;
-        private const double AnchorY = 0.78;
-        private const double BarLeftX = 0.49;
+        private const double AnchorX = 0.57;
+        private const double AnchorY = 0.88;
+        private const double BarLeftX = 0.57;
         private const double ResearchBarY = -0.028;
         private const double ProficiencyBarY = -0.040;
         private const double BarWidth = 0.40;
