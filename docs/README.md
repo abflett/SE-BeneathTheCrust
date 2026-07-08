@@ -22,6 +22,11 @@ Planning scratchpads and generated draft JSON files should not live here once th
 - [Workshop description](WorkingKnowledge/workshop_description_bbcode.txt) - public-facing Steam BBCode description.
 - [Generated audits](WorkingKnowledge/generated/README.md) - generated Working Knowledge balance reports.
 
+## Working Knowledge Layers
+
+- [WKL - ARC Truss System changelog](WKL-ARCTrussSystem/changelog.md) - public-facing release notes for the ARC Truss compatibility layer.
+- [WKL - ARC Truss System Workshop description](WKL-ARCTrussSystem/workshop_description_bbcode.txt) - public-facing Steam BBCode description.
+
 ## Assets
 
 - [Beneath the Crust hero image](assets/beneath-the-crust-hero.png)
