@@ -25,8 +25,8 @@ namespace WkKn
         private const double BarWidth = 0.40;
         private const double BarHeight = 0.016;
         private const double BarScale = 0.20;
-        private const double ShadowOffsetX = 0.00075;
-        private const double ShadowOffsetY = 0.00075;
+        private const double ShadowOffsetX = 0.0015;
+        private const double ShadowOffsetY = 0.0015;
         private static readonly Color LabelColor = new Color(225, 236, 240);
         private static readonly Color LabelShadowColor = new Color(0, 0, 0);
         private static readonly Color BarBackColor = new Color(24, 34, 38);
