@@ -2,7 +2,7 @@
 <ModItem>
   <Name>Working Knowledge Layer - ARC Truss System</Name>
   <Description>Adds Working Knowledge progression support for ARC Truss System blocks.</Description>
-  <Version>1.0.0</Version>
+  <Version>1.0.1</Version>
   <Makers>Beneath the Crust</Makers>
   <IncludeInExport>True</IncludeInExport>
 </ModItem>

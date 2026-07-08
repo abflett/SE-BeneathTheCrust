@@ -2,6 +2,12 @@
 
 Public-facing release notes for **Working Knowledge Layer - ARC Truss System**.
 
+## 1.0.1 - Workshop Thumbnail Update
+
+Updated the Workshop thumbnail and publishing metadata.
+
+No block mappings, research definitions, progression behavior, or balance values changed in this release.
+
 ## 1.0.0 - Initial Compatibility Layer
 
 Initial stable release for using **ARC Truss System** blocks with **Working Knowledge** progression.
