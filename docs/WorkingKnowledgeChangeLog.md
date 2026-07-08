@@ -8,7 +8,7 @@ Added a Text HUD API-backed progress overlay for recent Working Knowledge progre
 
 Research and Proficiency progress now update in a compact top-right HUD display with up to five recent schematic rows. Each row shows the schematic name plus research and Proficiency bars using the same green and blue feedback colors used by the existing chat output. Rows update as progress changes, then fade out after a short idle period.
 
-The existing delayed chat and notification behavior remains in place as fallback feedback while this HUD display is tested. The overlay respects the existing progress toast enablement settings.
+Delayed research and Proficiency chat progress is now disabled by default for players so the HUD overlay carries routine progress feedback without chat spam. Players can re-enable chat progress with `/wk config progressChatEnabled true` when world settings allow it. The overlay respects the existing progress toast enablement settings.
 
 ## 0.9.6 - Completion Toast Fix
 

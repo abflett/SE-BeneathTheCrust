@@ -153,7 +153,7 @@ Player settings:
 - `weldBotchSoundEnabled` - Plays positional botch sounds for this player when world settings allow them.
 - `weldBotchWarningCooldownSeconds` - Minimum time before repeating the same botch warning for this player and block. Use `default` to follow the world setting, or a number from `0.0` to `30.0`.
 
-Player defaults are chat on, HUD toasts on, sounds on, zero suppression thresholds, and botch warning cooldown set to `default`.
+Personal defaults keep progress chat off, HUD toasts on, sounds on, zero suppression thresholds, and botch warning cooldown set to `default`. Players can enable progress chat with `/wk config progressChatEnabled true` when world settings allow it.
 
 ## Admin Command Flow
 

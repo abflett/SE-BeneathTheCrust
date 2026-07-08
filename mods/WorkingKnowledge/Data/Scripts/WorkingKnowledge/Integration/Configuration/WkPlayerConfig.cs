@@ -11,7 +11,7 @@ namespace WkKn
     public class WkPlayerConfigRecord
     {
         public string Id = "";
-        public bool ProgressChatEnabled = true;
+        public bool ProgressChatEnabled = false;
         public bool ProgressToastEnabled = true;
         public double ResearchChatSuppressionPercent = 0.0;
         public double ProficiencyChatSuppressionPercent = 0.0;

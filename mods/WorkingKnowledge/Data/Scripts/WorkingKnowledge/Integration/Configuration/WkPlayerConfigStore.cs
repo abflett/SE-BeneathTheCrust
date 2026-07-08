@@ -173,7 +173,7 @@ namespace WkKn
             return new WkPlayerConfigRecord
             {
                 Id = playerId ?? "",
-                ProgressChatEnabled = true,
+                ProgressChatEnabled = false,
                 ProgressToastEnabled = true,
                 ResearchChatSuppressionPercent = 0.0,
                 ProficiencyChatSuppressionPercent = 0.0,
