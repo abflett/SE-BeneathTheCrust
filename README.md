@@ -52,6 +52,7 @@ Beneath the Crust keeps the core Space Engineers sandbox intact while adding str
 - `mods/` - standalone Space Engineers mod roots.
 - `mods/WorkingKnowledge/` - the current playable Working Knowledge mod.
 - `mods/Worldwright/` - standalone scenario-authoring tools for protected stations, tutorial bays, and staged authored spaces.
+- `templates/` - copyable starter layouts for generated or hand-authored companion content.
 - `tools/` - local generation, compile, and validation helpers.
 
 ## Main Docs
@@ -64,6 +65,7 @@ Beneath the Crust keeps the core Space Engineers sandbox intact while adding str
 - [Working Knowledge changelog](docs/WorkingKnowledge/changelog.md)
 - [Working Knowledge configuration](docs/WorkingKnowledge/configuration.md)
 - [Working Knowledge implementation reference](docs/WorkingKnowledge/implementation.md)
+- [Working Knowledge layer authoring](docs/WorkingKnowledge/layer_authoring.md)
 - [Working Knowledge inspirations and attribution](docs/WorkingKnowledge/inspirations.md)
 - [Working Knowledge release roadmap](docs/WorkingKnowledge/release_roadmap.md)
 - [Working Knowledge Workshop description](docs/WorkingKnowledge/workshop_description_bbcode.txt)

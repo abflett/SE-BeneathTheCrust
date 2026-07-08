@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModItem>
+  <Name>{{LAYER_NAME}}</Name>
+  <Description>Adds Working Knowledge progression support for {{SOURCE_MOD_NAME}} blocks.</Description>
+  <Version>{{VERSION}}</Version>
+  <Makers>{{AUTHOR}}</Makers>
+  <IncludeInExport>True</IncludeInExport>
+</ModItem>

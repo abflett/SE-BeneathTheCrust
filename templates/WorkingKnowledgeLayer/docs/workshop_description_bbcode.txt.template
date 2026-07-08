@@ -1,0 +1,31 @@
+[h1]{{LAYER_NAME}}[/h1]
+[h3]Compatibility support for using {{SOURCE_MOD_NAME}} with Working Knowledge progression.[/h3]
+
+This small layer mod connects {{SOURCE_MOD_NAME}} blocks to Working Knowledge.
+
+For normal Steam Workshop use, add this layer mod to your world and Steam should resolve the required mods automatically after the Workshop requirements are set.
+
+[h2]What It Does[/h2]
+[list]
+[*]Adds vanilla research block definitions for supported {{SOURCE_MOD_NAME}} blocks.
+[*]Maps supported blocks into Working Knowledge schematic families.
+[*]Lets Working Knowledge treat those blocks like normal researched/proficient technology.
+[/list]
+
+[h2]Workshop Requirements[/h2]
+[list]
+[*]Working Knowledge
+[*]{{SOURCE_MOD_NAME}}
+[/list]
+
+[h2]Manual Or Offline Setup[/h2]
+If you are copying mods locally, using offline files, or building a manual modpack, include:
+
+[code]Working Knowledge
+{{SOURCE_MOD_NAME}}
+{{LAYER_NAME}}[/code]
+
+[h2]Notes[/h2]
+This mod does not include {{SOURCE_MOD_NAME}} and does not add new blocks, models, recipes, or balance rules. It is only a compatibility layer.
+
+If {{SOURCE_MOD_NAME}} changes its block subtype IDs in a future update, this layer may need to be updated.

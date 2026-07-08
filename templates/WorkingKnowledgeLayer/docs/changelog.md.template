@@ -1,0 +1,11 @@
+# {{LAYER_NAME}} Changelog
+
+Public-facing release notes for **{{LAYER_NAME}}**.
+
+## {{VERSION}} - Initial Compatibility Layer
+
+Initial release for using **{{SOURCE_MOD_NAME}}** blocks with **Working Knowledge** progression.
+
+This layer adds vanilla research block definitions for supported {{SOURCE_MOD_NAME}} blocks, then maps those blocks into Working Knowledge schematic families.
+
+No new blocks, models, recipes, or balance rules are added by this layer.

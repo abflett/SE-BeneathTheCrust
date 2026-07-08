@@ -6,6 +6,8 @@ Each folder under `mods/` is intended to be a standalone Space Engineers mod roo
 
 Keep each mod independently loadable while this project grows. Campaign/scenario composition should happen later through a separate scenario layer or documented mod pack, not by making the early standalone mods depend on each other unnecessarily.
 
+Do not put templates or draft layer starters here. Use [templates/WorkingKnowledgeLayer/](../templates/WorkingKnowledgeLayer/README.md) and [Working Knowledge layer authoring](../docs/WorkingKnowledge/layer_authoring.md) when creating a new compatibility layer, then move the finished mod root under `mods/`.
+
 ## Current mods
 
 - [WorkingKnowledge/](WorkingKnowledge/README.md) - schematic research, salvage-based learning, and hands-on Proficiency for welding, grinding, botches, and recovery quality. It deploys locally as `Working Knowledge`.

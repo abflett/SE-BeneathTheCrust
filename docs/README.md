@@ -17,6 +17,7 @@ Planning scratchpads and generated draft JSON files should not live here once th
 - [Configuration](WorkingKnowledge/configuration.md) - admin-facing config values, chat commands, and XML shape.
 - [Changelog](WorkingKnowledge/changelog.md) - public-facing Working Knowledge release notes.
 - [Implementation notes](WorkingKnowledge/implementation.md) - maintainer file map, runtime shape, and fragile Space Engineers edge cases.
+- [Layer authoring](WorkingKnowledge/layer_authoring.md) - how to create Working Knowledge Layer compatibility mods.
 - [Inspirations and attribution](WorkingKnowledge/inspirations.md) - credited external mod ideas that influenced Working Knowledge.
 - [Roadmap](WorkingKnowledge/release_roadmap.md) - version targets, feedback-driven feature plans, compatibility work, and repeatable validation checks.
 - [Workshop description](WorkingKnowledge/workshop_description_bbcode.txt) - public-facing Steam BBCode description.
@@ -26,6 +27,7 @@ Planning scratchpads and generated draft JSON files should not live here once th
 
 - [WKL - ARC Truss System changelog](WKL-ARCTrussSystem/changelog.md) - public-facing release notes for the ARC Truss compatibility layer.
 - [WKL - ARC Truss System Workshop description](WKL-ARCTrussSystem/workshop_description_bbcode.txt) - public-facing Steam BBCode description.
+- [Working Knowledge Layer template](../templates/WorkingKnowledgeLayer/README.md) - copyable starter layout for new compatibility layers.
 
 ## Assets
 
