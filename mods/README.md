@@ -10,6 +10,7 @@ Keep each mod independently loadable while this project grows. Campaign/scenario
 
 - [WorkingKnowledge/](WorkingKnowledge/README.md) - schematic research, salvage-based learning, and hands-on Proficiency for welding, grinding, botches, and recovery quality. It deploys locally as `Working Knowledge`.
 - [Worldwright/](Worldwright/README.md) - standalone scenario-authoring tools for protected stations, tutorial bays, and staged authored spaces. It deploys locally as `Worldwright`.
+- [WKL-ARCTrussSystem/](WKL-ARCTrussSystem/README.md) - Working Knowledge compatibility layer for ARC Truss System blocks.
 
 ## Local deploy
 

@@ -1,0 +1,23 @@
+# Working Knowledge Layer mapping file.
+# Format:
+# Type/Subtype = working.knowledge.schematic.id
+#
+# ARC Truss System is treated as Industrial Structure Schematics.
+
+CubeBlock/Arc_Truss_I = structure.industrial
+CubeBlock/Arc_Truss_RB = structure.industrial
+CubeBlock/Arc_Truss_3 = structure.industrial
+CubeBlock/Arc_Truss_4 = structure.industrial
+CubeBlock/Arc_Truss_5 = structure.industrial
+CubeBlock/Arc_Truss_6 = structure.industrial
+CubeBlock/Arc_Truss_4C = structure.industrial
+CubeBlock/Arc_Truss_VTM = structure.industrial
+CubeBlock/Arc_Truss_Ix2 = structure.industrial
+CubeBlock/Arc_Truss_Ix2_RB = structure.industrial
+CubeBlock/Arc_Truss_Ix2_RCB = structure.industrial
+CubeBlock/Arc_Truss_L = structure.industrial
+CubeBlock/Arc_Truss_L3 = structure.industrial
+InteriorLight/Arc_Truss_LF = utility.interior_lighting
+CubeBlock/Arc_Truss_SPM = structure.industrial
+CubeBlock/Arc_Truss_SPM2 = structure.industrial
+CubeBlock/Arc_Truss_EC = structure.industrial

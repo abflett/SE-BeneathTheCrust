@@ -21,6 +21,7 @@ namespace WkKn
 
             var blocks = GetResearchCandidateBlocks(unlockerBlockPrefix, researchPedestalSubtype, researchSciFiTerminalSubtype);
             var catalogByBlockKey = ResearchCatalog.BuildLookupByBlockKey();
+            AddLayerMappings(catalogByBlockKey);
             schematicCatalog.LoadMetadata(ResearchCatalog.Entries);
 
             for (var i = 0; i < blocks.Count; i++)
@@ -46,6 +47,18 @@ namespace WkKn
             }
 
             ConfigureResearchTerminalUnlocks(researchPedestalSubtype, researchSciFiTerminalSubtype, controlPanelResearchGroupSubtype);
+        }
+
+        private static void AddLayerMappings(Dictionary<string, ResearchCatalogEntry> catalogByBlockKey)
+        {
+            var layerMappings = WorkingKnowledgeLayerMappingLoader.LoadMappings();
+            foreach (var mapping in layerMappings)
+            {
+                if (catalogByBlockKey.ContainsKey(mapping.Key))
+                    continue;
+
+                catalogByBlockKey.Add(mapping.Key, mapping.Value);
+            }
         }
 
         private static void ConfigureResearchTerminalUnlocks(
