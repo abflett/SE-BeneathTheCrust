@@ -1,0 +1,52 @@
+[h1]Worldwright[/h1]
+[h3]Small scenario-authoring tools for Space Engineers builders.[/h3]
+
+Worldwright is a lightweight toolkit for authors who want stronger control over tutorial spaces, stations, reclamation bays, and staged scenario areas without making those tools specific to one campaign.
+
+The first release focuses on protected grids: stations or infrastructure that players can use, walk through, and build around, but cannot dismantle with grinders.
+
+[h2]Current Feature: Protected Grids[/h2]
+Worldwright can cancel normal grinder damage against marked grids. This is useful for:
+
+[list]
+[*]Tutorial rooms and spawn spaces.
+[*]Scenario stations that should remain intact.
+[*]Trade hubs, staging areas, and protected infrastructure.
+[*]Salvage yards where only specific scrap grids should be grindable.
+[*]Authored locations where players should interact with the space instead of dismantling the whole set.
+[/list]
+
+[h2]How To Mark A Protected Grid[/h2]
+Use either method.
+
+[h3]Grid Name Marker[/h3]
+Add [b]G-PROT[/b] anywhere in the grid name:
+
+[code]Starter Station G-PROT[/code]
+
+[h3]Custom Data Marker[/h3]
+Add this to any terminal block on the grid:
+
+[code][Worldwright]
+protected=true[/code]
+
+The name marker is convenient for quick builder/admin work. The Custom Data marker is cleaner for authored setups where you do not want the grid name to carry tooling tags.
+
+[h2]What It Does Not Do[/h2]
+Worldwright is not a safe zone replacement.
+
+It does not block movement, welding, terminal access, ownership changes, collisions, weapon damage, or other non-grinder interactions. It only blocks normal grinder damage on protected grids.
+
+[h2]Recommended Use[/h2]
+Keep protected scenario infrastructure separate from scrap grids.
+
+For example, a tutorial station can be protected while nearby broken panels, wreckage, containers, or practice grids remain unprotected and grindable.
+
+[h2]Status[/h2]
+Version 0.1.0 is the initial protected-grid tools release.
+
+Future Worldwright work may add reclamation-bay scrap spawning, trigger volumes, staged prefab drops, scenario reset helpers, and other reusable scenario-authoring tools.
+
+[h2]Project Links[/h2]
+[url=https://github.com/abflett/SE-BeneathTheCrust/tree/main/mods/Worldwright]Worldwright README[/url]
+[url=https://github.com/abflett/SE-BeneathTheCrust/tree/main/docs/Worldwright]Worldwright docs and changelog[/url]

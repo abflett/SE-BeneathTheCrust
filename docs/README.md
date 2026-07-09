@@ -29,6 +29,11 @@ Planning scratchpads and generated draft JSON files should not live here once th
 - [WKL - ARC Truss System Workshop description](WKL-ARCTrussSystem/workshop_description_bbcode.txt) - public-facing Steam BBCode description.
 - [Working Knowledge Layer template](../templates/WorkingKnowledgeLayer/README.md) - copyable starter layout for new compatibility layers.
 
+## Worldwright
+
+- [Worldwright changelog](Worldwright/changelog.md) - public-facing Worldwright release notes.
+- [Worldwright Workshop description](Worldwright/workshop_description_bbcode.txt) - public-facing Steam BBCode description.
+
 ## Assets
 
 - [Beneath the Crust hero image](assets/beneath-the-crust-hero.png)

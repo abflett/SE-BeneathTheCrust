@@ -12,6 +12,11 @@ It provides small, reusable tools for builders who want stronger control over tu
 - Separate scrap or tutorial grids remain grindable if they are not protected.
 - Protection is server-side and applies to normal grinder damage.
 
+Public docs:
+
+- [Workshop description](../../docs/Worldwright/workshop_description_bbcode.txt)
+- [Changelog](../../docs/Worldwright/changelog.md)
+
 ## Grind Protection
 
 Worldwright protects a grid when either condition is true:

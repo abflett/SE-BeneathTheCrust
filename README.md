@@ -70,6 +70,9 @@ Beneath the Crust keeps the core Space Engineers sandbox intact while adding str
 - [Working Knowledge inspirations and attribution](docs/WorkingKnowledge/inspirations.md)
 - [Working Knowledge release roadmap](docs/WorkingKnowledge/release_roadmap.md)
 - [Working Knowledge Workshop description](docs/WorkingKnowledge/workshop_description_bbcode.txt)
+- [Worldwright overview](mods/Worldwright/README.md)
+- [Worldwright changelog](docs/Worldwright/changelog.md)
+- [Worldwright Workshop description](docs/Worldwright/workshop_description_bbcode.txt)
 
 ## Feedback
 
