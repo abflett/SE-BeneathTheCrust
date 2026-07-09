@@ -76,7 +76,7 @@ Completed direction:
 - Layers can provide `Data/WorkingKnowledge/block_mappings.txt` to map third-party block IDs into schematic families.
 - Layers also provide `Data/ResearchBlocks.sbc` entries so vanilla progression can expose the mapped blocks correctly.
 - Mapped blocks participate in normal research, vanilla progression unlocks, Proficiency, construction, repair, grinding, and salvage behavior.
-- Added authoring docs, a copyable layer template, and `tools/new-working-knowledge-layer.ps1`.
+- Added authoring docs, a standalone Working Knowledge Layer Toolkit, and repository-maintenance generator scripts.
 - Published the first layer, Working Knowledge Layer - ARC Truss System.
 
 Follow-up watch items:

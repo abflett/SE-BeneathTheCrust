@@ -4,6 +4,8 @@ Working Knowledge layers are small compatibility mods that assign blocks from an
 
 Use a layer when a block mod should participate in Working Knowledge research, Proficiency, welding, grinding, repair, and salvage behavior without adding those block definitions directly to the main Working Knowledge catalog.
 
+The user-facing package for creating layers is the [Working Knowledge Layer Toolkit](../../tools/WorkingKnowledgeLayerToolkit/README.md). It is designed to be zipped and released as a standalone download so users can run an interactive script, copy an example mod, or read the included docs without needing this repository.
+
 ## Recommended Shape
 
 Use this naming pattern:
@@ -146,15 +148,28 @@ Leave `UnlockedByGroups` empty in the layer. Working Knowledge rebuilds the load
 
 ## Tooling
 
-Inspect block IDs from a local mod folder:
+Preferred user-facing workflow:
+
+```powershell
+cd tools\WorkingKnowledgeLayerToolkit
+.\Start.ps1
+```
+
+The toolkit script scans a selected source mod, finds public cube block definitions, asks for a default schematic group, lets the user override outliers, and generates a complete layer mod folder.
+
+The toolkit also includes:
+
+- `QUICKSTART.md` - normal script-driven workflow.
+- `ExampleMod/` - complete copyable example for manual authoring.
+- `Docs/mapping_format.md` - mapping file rules.
+- `Docs/schematic_groups.md` - current schematic group IDs and usage hints.
+- `Data/Template/` - internal templates used by the script.
+
+Repository-maintenance helpers still exist for batch or scripted work:
 
 ```powershell
 .\tools\inspect-space-engineers-block-mod.ps1 -ModPath "C:\Path\To\SomeBlockMod"
-```
 
-Create a starter layer from a list of block IDs:
-
-```powershell
 .\tools\new-working-knowledge-layer.ps1 `
   -LayerName "Working Knowledge Layer - Example Block Mod" `
   -SourceModName "Example Block Mod" `
@@ -163,7 +178,7 @@ Create a starter layer from a list of block IDs:
   -DefaultSchematicId "structure.industrial"
 ```
 
-The block list can contain either plain IDs:
+For the repository generator, the block list can contain either plain IDs:
 
 ```text
 CubeBlock/ExampleTruss

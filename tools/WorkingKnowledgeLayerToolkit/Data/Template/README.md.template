@@ -2,17 +2,24 @@
 
 Compatibility layer for using **{{SOURCE_MOD_NAME}}** blocks with **Working Knowledge** progression.
 
-This folder is a template. Replace the `{{...}}` placeholders, remove `.template` suffixes, and keep the finished mod as a normal Space Engineers mod root.
+This mod provides vanilla research definitions for supported {{SOURCE_MOD_NAME}} blocks and maps those blocks into Working Knowledge schematic families.
+
+## Load Order
+
+1. Working Knowledge
+2. {{SOURCE_MOD_NAME}}
+3. {{LAYER_NAME}}
 
 ## Files
 
-- `modinfo.sbc` - Space Engineers mod metadata.
 - `Data/ResearchBlocks.sbc` - vanilla progression definitions for each supported block.
 - `Data/WorkingKnowledge/block_mappings.txt` - Working Knowledge schematic-family mappings.
 
-## Typical Workshop Requirements
+## Publishing Notes
+
+Set Workshop requirements for:
 
 - Working Knowledge
 - {{SOURCE_MOD_NAME}}
 
-If publishing through Steam Workshop, set those as required items on the Workshop page.
+Publishing copy is available under `Publishing/`.

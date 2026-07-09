@@ -1,0 +1,7 @@
+# Working Knowledge Layer mapping file.
+# Format:
+# Type/Subtype = working.knowledge.schematic.id
+#
+# Source mod: {{SOURCE_MOD_NAME}}
+
+{{BLOCK_MAPPINGS}}

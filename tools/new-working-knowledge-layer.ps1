@@ -208,17 +208,20 @@ $tokens = @{
 }
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
-$templateRoot = Join-Path $repoRoot 'templates\WorkingKnowledgeLayer'
+$templateRoot = Join-Path $repoRoot 'tools\WorkingKnowledgeLayerToolkit\Data\Template'
 
-$readmeTemplate = Get-Content -LiteralPath (Join-Path $templateRoot 'README.md') -Raw
+$readmeTemplate = Get-Content -LiteralPath (Join-Path $templateRoot 'README.md.template') -Raw
 $modinfoTemplate = Get-Content -LiteralPath (Join-Path $templateRoot 'modinfo.sbc.template') -Raw
-$changelogTemplate = Get-Content -LiteralPath (Join-Path $templateRoot 'docs\changelog.md.template') -Raw
-$workshopTemplate = Get-Content -LiteralPath (Join-Path $templateRoot 'docs\workshop_description_bbcode.txt.template') -Raw
+$changelogTemplate = Get-Content -LiteralPath (Join-Path $templateRoot 'Publishing\changelog.md.template') -Raw
+$workshopTemplate = Get-Content -LiteralPath (Join-Path $templateRoot 'Publishing\workshop_description_bbcode.txt.template') -Raw
+
+$tokens['RESEARCH_BLOCKS'] = ((Convert-ToResearchBlockXml -Mappings $mappings) | Select-Object -Skip 3 | Select-Object -SkipLast 2) -join [Environment]::NewLine
+$tokens['BLOCK_MAPPINGS'] = ((Convert-ToMappingLines -Mappings $mappings -SourceName $SourceModName) | Select-Object -Skip 6) -join [Environment]::NewLine
 
 Set-RawTextFileNoBom -Path (Join-Path $outputPath 'README.md') -Content (Expand-Template -Text $readmeTemplate -Tokens $tokens)
 Set-RawTextFileNoBom -Path (Join-Path $outputPath 'modinfo.sbc') -Content (Expand-Template -Text $modinfoTemplate -Tokens $tokens)
-Set-TextFileNoBom -Path (Join-Path $outputPath 'Data\ResearchBlocks.sbc') -Lines (Convert-ToResearchBlockXml -Mappings $mappings)
-Set-TextFileNoBom -Path (Join-Path $outputPath 'Data\WorkingKnowledge\block_mappings.txt') -Lines (Convert-ToMappingLines -Mappings $mappings -SourceName $SourceModName)
+Set-RawTextFileNoBom -Path (Join-Path $outputPath 'Data\ResearchBlocks.sbc') -Content (Expand-Template -Text (Get-Content -LiteralPath (Join-Path $templateRoot 'Data\ResearchBlocks.sbc.template') -Raw) -Tokens $tokens)
+Set-RawTextFileNoBom -Path (Join-Path $outputPath 'Data\WorkingKnowledge\block_mappings.txt') -Content (Expand-Template -Text (Get-Content -LiteralPath (Join-Path $templateRoot 'Data\WorkingKnowledge\block_mappings.txt.template') -Raw) -Tokens $tokens)
 Set-RawTextFileNoBom -Path (Join-Path $outputPath 'Publishing\changelog.md') -Content (Expand-Template -Text $changelogTemplate -Tokens $tokens)
 Set-RawTextFileNoBom -Path (Join-Path $outputPath 'Publishing\workshop_description_bbcode.txt') -Content (Expand-Template -Text $workshopTemplate -Tokens $tokens)
 
