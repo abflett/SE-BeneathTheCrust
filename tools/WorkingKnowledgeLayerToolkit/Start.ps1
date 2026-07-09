@@ -179,6 +179,100 @@ function Get-BlockDefinitions {
     return @($rows | Sort-Object Key -Unique)
 }
 
+function Get-ModDisplayName {
+    param([Parameter(Mandatory = $true)][string] $Root)
+
+    $name = Split-Path -Leaf $Root
+    $modinfoPath = Join-Path $Root 'modinfo.sbc'
+    if (Test-Path -LiteralPath $modinfoPath) {
+        try {
+            [xml] $modinfoXml = Get-Content -LiteralPath $modinfoPath -Raw
+            if ($modinfoXml.ModItem.Name) {
+                $parsedName = ([string] $modinfoXml.ModItem.Name).Trim()
+                if (-not [string]::IsNullOrWhiteSpace($parsedName)) {
+                    return $parsedName
+                }
+            }
+        }
+        catch {
+        }
+    }
+
+    return $name
+}
+
+function Test-LooksLikeModRoot {
+    param([Parameter(Mandatory = $true)][string] $Path)
+
+    return (Test-Path -LiteralPath (Join-Path $Path 'Data')) -or
+        (Test-Path -LiteralPath (Join-Path $Path 'modinfo.sbc')) -or
+        ($null -ne (Get-ChildItem -LiteralPath $Path -File -Filter '*.sbc' -ErrorAction SilentlyContinue | Select-Object -First 1))
+}
+
+function Get-BlockSetCandidates {
+    param([Parameter(Mandatory = $true)][string] $ScanRoot)
+
+    $candidateRoots = [System.Collections.Generic.List[string]]::new()
+    $seenRoots = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+
+    $scanRootIsMod = Test-LooksLikeModRoot -Path $ScanRoot
+    if ($scanRootIsMod) {
+        if ($seenRoots.Add($ScanRoot)) {
+            $candidateRoots.Add($ScanRoot) | Out-Null
+        }
+    }
+
+    if (-not $scanRootIsMod) {
+        foreach ($directory in @(Get-ChildItem -LiteralPath $ScanRoot -Directory -ErrorAction SilentlyContinue | Sort-Object Name)) {
+            if ($seenRoots.Add($directory.FullName)) {
+                $candidateRoots.Add($directory.FullName) | Out-Null
+            }
+        }
+    }
+
+    $sets = [System.Collections.Generic.List[object]]::new()
+    foreach ($candidateRoot in $candidateRoots) {
+        $name = Get-ModDisplayName -Root $candidateRoot
+        Write-Host ("Scanning block set: {0}" -f $name)
+        $blocks = @(Get-BlockDefinitions -Root $candidateRoot)
+        if ($blocks.Count -eq 0) {
+            continue
+        }
+
+        $sets.Add([pscustomobject]@{
+            Name = $name
+            Path = $candidateRoot
+            Blocks = $blocks
+            BlockCount = $blocks.Count
+        }) | Out-Null
+    }
+
+    return @($sets | Sort-Object Name)
+}
+
+function Convert-ToSelectionNumbers {
+    param(
+        [Parameter(Mandatory = $true)][string] $Text,
+        [Parameter(Mandatory = $true)][int] $MaxValue
+    )
+
+    $numbers = [System.Collections.Generic.List[int]]::new()
+    foreach ($part in @($Text -split '[,\s]+' | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })) {
+        $number = 0
+        if (-not [int]::TryParse($part, [ref] $number)) {
+            return $null
+        }
+        if ($number -lt 1 -or $number -gt $MaxValue) {
+            return $null
+        }
+        if (-not $numbers.Contains($number)) {
+            $numbers.Add($number) | Out-Null
+        }
+    }
+
+    return @($numbers)
+}
+
 function Get-CandidateModRoots {
     $roots = [System.Collections.Generic.List[object]]::new()
     $seenPaths = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
@@ -222,11 +316,13 @@ function Select-Path {
         Write-Host ("    {0}" -f $roots[$i].Path)
         Write-Host ("    {0}" -f $roots[$i].Note)
     }
-    Write-Host '[C] Enter a custom path'
+    $customOption = $roots.Count + 1
+    Write-Host ("[{0}] Enter a custom path" -f $customOption)
 
     while ($true) {
         $choice = Read-Host 'Select folder'
-        if ($choice -match '^[Cc]$') {
+        $index = 0
+        if ([int]::TryParse($choice, [ref] $index) -and $index -eq $customOption) {
             $custom = Read-Host 'Enter mod folder or parent folder path'
             if (Test-Path -LiteralPath $custom) {
                 return (Resolve-Path -LiteralPath $custom).Path
@@ -235,66 +331,45 @@ function Select-Path {
             continue
         }
 
-        $index = 0
         if ([int]::TryParse($choice, [ref] $index) -and $index -ge 1 -and $index -le $roots.Count) {
             return $roots[$index - 1].Path
         }
 
-        Write-Host 'Enter one of the shown numbers, or C.'
+        Write-Host 'Enter one of the shown numbers.'
     }
 }
 
-function Select-SourceMod {
-    param([Parameter(Mandatory = $true)][string] $ScanRoot)
-
-    if ((Test-Path -LiteralPath (Join-Path $ScanRoot 'Data')) -or (Get-ChildItem -LiteralPath $ScanRoot -File -Filter '*.sbc' -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1)) {
-        $useRoot = Read-Host "Use this folder as the source mod? $ScanRoot [Y/n]"
-        if ([string]::IsNullOrWhiteSpace($useRoot) -or $useRoot -match '^[Yy]') {
-            return $ScanRoot
-        }
-    }
-
-    $mods = @(Get-ChildItem -LiteralPath $ScanRoot -Directory | Sort-Object Name)
-    if ($mods.Count -eq 0) {
-        throw "No child mod folders found under: $ScanRoot"
-    }
+function Select-BlockSets {
+    param([Parameter(Mandatory = $true)][object[]] $Sets)
 
     Write-Host ''
-    Write-Host 'Select the source block mod:'
-    for ($i = 0; $i -lt $mods.Count; $i++) {
-        $label = $mods[$i].Name
-        $modinfo = Join-Path $mods[$i].FullName 'modinfo.sbc'
-        if (Test-Path -LiteralPath $modinfo) {
-            try {
-                [xml] $xml = Get-Content -LiteralPath $modinfo -Raw
-                if ($xml.ModItem.Name) {
-                    $label = "{0} ({1})" -f $xml.ModItem.Name, $mods[$i].Name
-                }
-            }
-            catch {
-            }
-        }
-        Write-Host ("[{0}] {1}" -f ($i + 1), $label)
+    Write-Host 'Select which block sets to include in this layer:'
+    for ($i = 0; $i -lt $Sets.Count; $i++) {
+        Write-Host ("[{0}] {1} - contains {2} public blocks" -f ($i + 1), $Sets[$i].Name, $Sets[$i].BlockCount)
+        Write-Host ("    {0}" -f $Sets[$i].Path)
     }
-    Write-Host '[C] Enter a custom source mod path'
+    $allOption = $Sets.Count + 1
+    Write-Host ("[{0}] Select all block sets and all blocks" -f $allOption)
+
+    $defaultSelection = if ($Sets.Count -eq 1) { '1' } else { [string] $allOption }
 
     while ($true) {
-        $choice = Read-Host 'Select mod'
-        if ($choice -match '^[Cc]$') {
-            $custom = Read-Host 'Enter source mod path'
-            if (Test-Path -LiteralPath $custom) {
-                return (Resolve-Path -LiteralPath $custom).Path
-            }
-            Write-Host 'Path not found.'
+        $choice = Read-Host "Please select block sets [default $defaultSelection] (example: 1 3)"
+        if ([string]::IsNullOrWhiteSpace($choice)) {
+            $choice = $defaultSelection
+        }
+
+        $selectedNumbers = @(Convert-ToSelectionNumbers -Text $choice -MaxValue $allOption)
+        if ($null -eq $selectedNumbers -or $selectedNumbers.Count -eq 0) {
+            Write-Host 'Enter one or more shown numbers separated by spaces, or choose the all option.'
             continue
         }
 
-        $index = 0
-        if ([int]::TryParse($choice, [ref] $index) -and $index -ge 1 -and $index -le $mods.Count) {
-            return $mods[$index - 1].FullName
+        if ($selectedNumbers -contains $allOption) {
+            return @($Sets)
         }
 
-        Write-Host 'Enter one of the shown numbers, or C.'
+        return @($selectedNumbers | ForEach-Object { $Sets[$_ - 1] })
     }
 }
 
@@ -398,29 +473,27 @@ if ($groups.Count -eq 0) {
 }
 
 $scanRoot = Select-Path
-$sourceModPath = Select-SourceMod -ScanRoot $scanRoot
-$sourceModName = Split-Path -Leaf $sourceModPath
-
-$modinfoPath = Join-Path $sourceModPath 'modinfo.sbc'
-if (Test-Path -LiteralPath $modinfoPath) {
-    try {
-        [xml] $modinfoXml = Get-Content -LiteralPath $modinfoPath -Raw
-        if ($modinfoXml.ModItem.Name) {
-            $sourceModName = [string] $modinfoXml.ModItem.Name
-        }
-    }
-    catch {
-    }
-}
-
 Write-Host ''
-Write-Host "Scanning: $sourceModPath"
-$blocks = @(Get-BlockDefinitions -Root $sourceModPath)
-if ($blocks.Count -eq 0) {
-    throw 'No public cube block definitions were found in the selected source mod.'
+Write-Host 'Scanning for block sets. This can take a moment for large Workshop folders.'
+$blockSets = @(Get-BlockSetCandidates -ScanRoot $scanRoot)
+if ($blockSets.Count -eq 0) {
+    throw 'No block sets with public cube block definitions were found in the selected folder.'
 }
 
-Write-Host "Found $($blocks.Count) public block definitions."
+$selectedSets = @(Select-BlockSets -Sets $blockSets)
+$sourceModName = if ($selectedSets.Count -eq 1) {
+    [string] $selectedSets[0].Name
+}
+elseif ($selectedSets.Count -le 3) {
+    [string] (($selectedSets | ForEach-Object { $_.Name }) -join ', ')
+}
+else {
+    'Selected Space Engineers block mods'
+}
+
+$blocks = @($selectedSets | ForEach-Object { $_.Blocks } | Sort-Object Key -Unique)
+Write-Host ''
+Write-Host ("Selected {0} block set(s), containing {1} unique public block definitions." -f $selectedSets.Count, $blocks.Count)
 $blocks | Select-Object -First 20 Key, DisplayName, CubeSize, BlockPairName | Format-Table -AutoSize
 if ($blocks.Count -gt 20) {
     Write-Host "...and $($blocks.Count - 20) more."

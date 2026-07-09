@@ -38,6 +38,14 @@ The toolkit scans public cube block definitions under `.sbc` files. It skips unr
 <Public>false</Public>
 ```
 
+If you select a parent folder, the toolkit only lists child mod folders that contain public cube block definitions. Mods with scripts, research mappings, blueprints, or non-block content but no public block definitions will not appear in the block-set list.
+
+## The Mod List Uses Numbers Instead Of Names
+
+Steam Workshop folders are often named with Workshop item IDs. The toolkit reads `modinfo.sbc` and uses the mod's display name when that file is present and readable.
+
+If a mod has no `modinfo.sbc`, the toolkit falls back to the folder name.
+
 ## A Generated Layer Does Not Affect Blocks
 
 Check load order:
