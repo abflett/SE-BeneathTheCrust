@@ -6,9 +6,21 @@ A layer maps blocks from another Space Engineers block mod into Working Knowledg
 
 This folder is designed to be zipped and distributed as a standalone toolkit. It should work after being unzipped anywhere on disk.
 
+## Download
+
+Most users should download the ready-to-use zip:
+
+[Download WorkingKnowledgeLayerToolkit-2026-07-09.zip](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.0.0/WorkingKnowledgeLayerToolkit-2026-07-09.zip)
+
+If that direct link changes, use the project releases page:
+
+[SE-BeneathTheCrust Releases](https://github.com/abflett/SE-BeneathTheCrust/releases)
+
+After downloading, unzip the file anywhere convenient. The zip contains a `WorkingKnowledgeLayerToolkit` folder with the script, docs, and example mod.
+
 ## Start Here
 
-For the normal path, read [QUICKSTART.md](QUICKSTART.md), then run:
+From the unzipped `WorkingKnowledgeLayerToolkit` folder, read [QUICKSTART.md](QUICKSTART.md), then run:
 
 ```powershell
 .\Start.ps1
