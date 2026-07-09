@@ -180,11 +180,16 @@ function Get-BlockDefinitions {
 }
 
 function Get-CandidateModRoots {
-    $roots = [System.Collections.Generic.List[string]]::new()
+    $roots = [System.Collections.Generic.List[object]]::new()
+    $seenPaths = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
 
     $localMods = Join-Path $env:APPDATA 'SpaceEngineers\Mods'
-    if (Test-Path -LiteralPath $localMods) {
-        $roots.Add($localMods) | Out-Null
+    if ((Test-Path -LiteralPath $localMods) -and $seenPaths.Add($localMods)) {
+        $roots.Add([pscustomobject]@{
+            Label = 'Local Space Engineers mods folder'
+            Path = $localMods
+            Note = 'Local/manual mods and test deploys.'
+        }) | Out-Null
     }
 
     $steamRoots = @(
@@ -196,12 +201,16 @@ function Get-CandidateModRoots {
 
     foreach ($root in $steamRoots) {
         $candidate = Join-Path $root 'Steam\steamapps\workshop\content\244850'
-        if (Test-Path -LiteralPath $candidate) {
-            $roots.Add($candidate) | Out-Null
+        if ((Test-Path -LiteralPath $candidate) -and $seenPaths.Add($candidate)) {
+            $roots.Add([pscustomobject]@{
+                Label = 'Steam Workshop Space Engineers mods folder'
+                Path = $candidate
+                Note = '244850 is the Steam App ID for Space Engineers.'
+            }) | Out-Null
         }
     }
 
-    return @($roots | Select-Object -Unique)
+    return @($roots)
 }
 
 function Select-Path {
@@ -209,7 +218,9 @@ function Select-Path {
     Write-Host 'Where should the toolkit scan for source mods?'
     $roots = @(Get-CandidateModRoots)
     for ($i = 0; $i -lt $roots.Count; $i++) {
-        Write-Host ("[{0}] {1}" -f ($i + 1), $roots[$i])
+        Write-Host ("[{0}] {1}" -f ($i + 1), $roots[$i].Label)
+        Write-Host ("    {0}" -f $roots[$i].Path)
+        Write-Host ("    {0}" -f $roots[$i].Note)
     }
     Write-Host '[C] Enter a custom path'
 
@@ -226,7 +237,7 @@ function Select-Path {
 
         $index = 0
         if ([int]::TryParse($choice, [ref] $index) -and $index -ge 1 -and $index -le $roots.Count) {
-            return $roots[$index - 1]
+            return $roots[$index - 1].Path
         }
 
         Write-Host 'Enter one of the shown numbers, or C.'

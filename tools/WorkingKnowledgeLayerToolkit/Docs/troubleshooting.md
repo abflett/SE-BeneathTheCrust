@@ -1,5 +1,33 @@
 # Troubleshooting
 
+## What Is The 244850 Folder?
+
+`244850` is the Steam App ID for Space Engineers.
+
+Steam stores Workshop downloads by game under:
+
+```text
+...\Steam\steamapps\workshop\content\<Steam App ID>
+```
+
+For Space Engineers, that becomes:
+
+```text
+...\Steam\steamapps\workshop\content\244850
+```
+
+Each child folder inside `244850` is usually one downloaded Workshop item, named by its Workshop item ID.
+
+## What Is The Local Mods Folder?
+
+The local Space Engineers mods folder is usually:
+
+```text
+%APPDATA%\SpaceEngineers\Mods
+```
+
+This is where local test mods, manually copied mods, and mods deployed by local build scripts usually appear.
+
 ## The Script Finds No Blocks
 
 Confirm you selected the source mod root, not a parent folder with no `.sbc` files.

@@ -28,9 +28,11 @@ If Windows blocks script execution, `Start.bat` runs PowerShell with a process-o
 
 The script can look in common Space Engineers mod folders:
 
-- `%APPDATA%\SpaceEngineers\Mods`
-- Steam Workshop content folder, when it can be found
+- Local Space Engineers mods folder: `%APPDATA%\SpaceEngineers\Mods`
+- Steam Workshop Space Engineers mods folder, when it can be found: `...\Steam\steamapps\workshop\content\244850`
 - A custom folder you type in
+
+`244850` is the Steam App ID for Space Engineers. Steam uses that number as the Workshop content folder name.
 
 Choose the block mod you want to support.
 
