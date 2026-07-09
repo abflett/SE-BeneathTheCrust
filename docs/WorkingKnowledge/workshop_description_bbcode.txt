@@ -94,6 +94,11 @@ Working Knowledge changes how block knowledge, schematic unlocks, grinding resea
 
 Progression overhauls are the most likely to overlap. Mods that bypass block placement restrictions, rewrite grinding or welding, or heavily change salvage flow may also affect the intended experience.
 
+[h3]Custom Block Compatibility Layers[/h3]
+Custom block mods can be connected to Working Knowledge with small layer mods. The layer toolkit scans block mods, assigns blocks to schematic families, and generates the needed research and mapping files.
+
+[url=https://github.com/abflett/SE-BeneathTheCrust/tree/main/tools/WorkingKnowledgeLayerToolkit]Working Knowledge Layer Toolkit[/url]
+
 [h2]Project Links[/h2]
 Working Knowledge is the first playable layer of the larger Space Engineers: Beneath the Crust campaign project.
 
@@ -103,15 +108,5 @@ Working Knowledge is the first playable layer of the larger Space Engineers: Ben
 [h2]Current Status And Feedback[/h2]
 Working Knowledge is a public feedback release. The core systems are playable, but balance, multiplayer edge cases, dedicated-server behavior, and compatibility with larger mod stacks are still being tested.
 
-Feedback that helps most:
-[list]
-[*]Does research feel rewarding?
-[*]Does Proficiency create good decisions?
-[*]Are construction setbacks memorable, frustrating, or too easy to ignore?
-[*]Does salvage recovery feel fair?
-[*]Do the [b]/wk[/b] commands, Research Pedestal, and LCD apps explain enough?
-[*]Which mods work well or conflict with it?
-[/list]
-
-[b]Bug reports and balance feedback:[/b]
+[b]Bug reports, compatibility notes, and balance feedback:[/b]
 [url=https://github.com/abflett/SE-BeneathTheCrust/issues]GitHub Issues[/url]
