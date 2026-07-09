@@ -38,7 +38,7 @@ All choices are numbered. Pick the custom-folder number if your source mod is so
 
 ## 4. Select Block Sets
 
-The script scans the selected folder for mods that contain public cube block definitions. It reads `modinfo.sbc` when available so the list uses mod names instead of only folder names.
+The script scans the selected folder for mods that contain public cube block definitions. For Steam Workshop folders named by Workshop item ID, it tries to look up the public Workshop title through Steam first. If that lookup fails, it reads `modinfo.sbc` when available, then falls back to the folder name.
 
 Example:
 

@@ -42,9 +42,9 @@ If you select a parent folder, the toolkit only lists child mod folders that con
 
 ## The Mod List Uses Numbers Instead Of Names
 
-Steam Workshop folders are often named with Workshop item IDs. The toolkit reads `modinfo.sbc` and uses the mod's display name when that file is present and readable.
+Steam Workshop folders are often named with Workshop item IDs. When a folder name looks like a Workshop item ID, the toolkit tries to look up the public Workshop title through Steam's Workshop details API.
 
-If a mod has no `modinfo.sbc`, the toolkit falls back to the folder name.
+If Steam is offline, slow, blocked by a firewall, or does not return a title, the toolkit reads `modinfo.sbc` when present. If that is also unavailable, it falls back to the folder name.
 
 ## A Generated Layer Does Not Affect Blocks
 

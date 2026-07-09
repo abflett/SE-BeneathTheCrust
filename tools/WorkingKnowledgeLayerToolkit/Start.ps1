@@ -80,6 +80,17 @@ function Get-Text {
     return ([string] $Node).Trim()
 }
 
+function Get-WorkshopItemId {
+    param([Parameter(Mandatory = $true)][string] $Root)
+
+    $leaf = Split-Path -Leaf $Root
+    if ($leaf -match '^\d{5,}$') {
+        return $leaf
+    }
+
+    return $null
+}
+
 function Get-DefinitionId {
     param([Parameter(Mandatory = $true)][object] $IdNode)
 
@@ -179,10 +190,9 @@ function Get-BlockDefinitions {
     return @($rows | Sort-Object Key -Unique)
 }
 
-function Get-ModDisplayName {
+function Get-ModInfoDisplayName {
     param([Parameter(Mandatory = $true)][string] $Root)
 
-    $name = Split-Path -Leaf $Root
     $modinfoPath = Join-Path $Root 'modinfo.sbc'
     if (Test-Path -LiteralPath $modinfoPath) {
         try {
@@ -198,7 +208,70 @@ function Get-ModDisplayName {
         }
     }
 
-    return $name
+    return $null
+}
+
+function Get-SteamWorkshopTitles {
+    param(
+        [Parameter(Mandatory = $true)][AllowEmptyCollection()][string[]] $PublishedFileIds,
+        [int] $TimeoutSeconds = 5
+    )
+
+    $titles = @{}
+    $ids = @($PublishedFileIds | Where-Object { $_ -match '^\d+$' } | Sort-Object -Unique)
+    if ($ids.Count -eq 0) {
+        return $titles
+    }
+
+    Write-Host ("Looking up Steam Workshop names for {0} item(s)." -f $ids.Count)
+    $endpoint = 'https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/'
+    $chunkSize = 100
+
+    for ($offset = 0; $offset -lt $ids.Count; $offset += $chunkSize) {
+        $chunk = @($ids | Select-Object -Skip $offset -First $chunkSize)
+        $body = @{
+            itemcount = $chunk.Count
+        }
+        for ($i = 0; $i -lt $chunk.Count; $i++) {
+            $body["publishedfileids[$i]"] = $chunk[$i]
+        }
+
+        try {
+            $response = Invoke-RestMethod -Uri $endpoint -Method Post -Body $body -ContentType 'application/x-www-form-urlencoded' -TimeoutSec $TimeoutSeconds
+            foreach ($detail in @($response.response.publishedfiledetails)) {
+                $id = [string] $detail.publishedfileid
+                $title = ([string] $detail.title).Trim()
+                if ([string] $detail.result -eq '1' -and -not [string]::IsNullOrWhiteSpace($id) -and -not [string]::IsNullOrWhiteSpace($title)) {
+                    $titles[$id] = $title
+                }
+            }
+        }
+        catch {
+            Write-Host 'Steam Workshop name lookup failed or timed out. Falling back to modinfo.sbc or folder names.'
+            return $titles
+        }
+    }
+
+    return $titles
+}
+
+function Get-ModDisplayName {
+    param(
+        [Parameter(Mandatory = $true)][string] $Root,
+        [hashtable] $WorkshopTitles = @{}
+    )
+
+    $workshopId = Get-WorkshopItemId -Root $Root
+    if ($workshopId -and $WorkshopTitles.ContainsKey($workshopId)) {
+        return [string] $WorkshopTitles[$workshopId]
+    }
+
+    $modinfoName = Get-ModInfoDisplayName -Root $Root
+    if (-not [string]::IsNullOrWhiteSpace($modinfoName)) {
+        return $modinfoName
+    }
+
+    return (Split-Path -Leaf $Root)
 }
 
 function Test-LooksLikeModRoot {
@@ -230,9 +303,12 @@ function Get-BlockSetCandidates {
         }
     }
 
+    $workshopIds = @($candidateRoots | ForEach-Object { Get-WorkshopItemId -Root $_ } | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
+    $workshopTitles = Get-SteamWorkshopTitles -PublishedFileIds $workshopIds
+
     $sets = [System.Collections.Generic.List[object]]::new()
     foreach ($candidateRoot in $candidateRoots) {
-        $name = Get-ModDisplayName -Root $candidateRoot
+        $name = Get-ModDisplayName -Root $candidateRoot -WorkshopTitles $workshopTitles
         Write-Host ("Scanning block set: {0}" -f $name)
         $blocks = @(Get-BlockDefinitions -Root $candidateRoot)
         if ($blocks.Count -eq 0) {
