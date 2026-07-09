@@ -105,6 +105,10 @@ function Get-Text {
         return ''
     }
 
+    if ($Node -is [System.Xml.XmlNode]) {
+        return ([string] $Node.InnerText).Trim()
+    }
+
     return ([string] $Node).Trim()
 }
 
@@ -166,6 +170,50 @@ function Get-RelativePath {
     return [System.Uri]::UnescapeDataString($baseUri.MakeRelativeUri($targetUri).ToString()).Replace('/', [System.IO.Path]::DirectorySeparatorChar)
 }
 
+function Test-ElementTextEquals {
+    param(
+        [Parameter(Mandatory = $true)][object] $Node,
+        [Parameter(Mandatory = $true)][string] $Name,
+        [Parameter(Mandatory = $true)][string] $Value
+    )
+
+    if (-not $Node.PSObject.Properties[$Name]) {
+        return $false
+    }
+
+    return (Get-Text $Node.$Name).Equals($Value, [System.StringComparison]::OrdinalIgnoreCase)
+}
+
+function Test-HasOnlyNoVoxelPlacement {
+    param([Parameter(Mandatory = $true)][object] $Definition)
+
+    if (-not $Definition.PSObject.Properties['VoxelPlacement']) {
+        return $false
+    }
+
+    $placementModes = @($Definition.VoxelPlacement.SelectNodes('.//*[local-name()="PlacementMode"]') | ForEach-Object { Get-Text $_ })
+    if ($placementModes.Count -eq 0) {
+        return $false
+    }
+
+    foreach ($mode in $placementModes) {
+        if (-not $mode.Equals('None', [System.StringComparison]::OrdinalIgnoreCase)) {
+            return $false
+        }
+    }
+
+    return $true
+}
+
+function Test-IsUnplaceableSupportBlock {
+    param([Parameter(Mandatory = $true)][object] $Definition)
+
+    return (Test-ElementTextEquals -Node $Definition -Name 'GuiVisible' -Value 'false') -and
+        (Test-ElementTextEquals -Node $Definition -Name 'IsStandAlone' -Value 'false') -and
+        (Test-ElementTextEquals -Node $Definition -Name 'HasPhysics' -Value 'false') -and
+        (Test-HasOnlyNoVoxelPlacement -Definition $Definition)
+}
+
 function Get-BlockDefinitions {
     param([Parameter(Mandatory = $true)][string] $Root)
 
@@ -200,6 +248,9 @@ function Get-BlockDefinitions {
                 $isPublic = -not ([string] $definition.Public).Trim().Equals('false', [System.StringComparison]::OrdinalIgnoreCase)
             }
             if (-not $isPublic) {
+                continue
+            }
+            if (Test-IsUnplaceableSupportBlock -Definition $definition) {
                 continue
             }
 
