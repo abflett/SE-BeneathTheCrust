@@ -6,7 +6,8 @@ The goal of this phase is not to build the campaign yet. The goal is to run Work
 
 ## Test Phase
 
-- Phase: `Working Knowledge v0.9.0` external-mod integration test
+- Phase: external-mod integration test, originally started on `Working Knowledge v0.9.0`
+- Current follow-up target: retest with `Working Knowledge v0.11.0` after external layer support
 - Save name: `Working Knowledge v0.9.0 Extra Mods`
 - Started: 2026-07-05
 - World type: normal Space Engineers save, not an authored campaign scenario

@@ -79,7 +79,7 @@ See [Working Knowledge configuration](../../docs/WorkingKnowledge/configuration.
 
 ## Current Status
 
-Working Knowledge is in its `0.10.x` public feedback release series.
+Working Knowledge is in its `0.11.x` public feedback release series.
 
 The current balance targets the default `medium` play experience. Public feedback, smoke testing, and survival playthrough tuning are the remaining focus before treating the mod as stable.
 
@@ -95,6 +95,7 @@ The mod currently includes:
 - Player feedback settings through `/wk config`.
 - Admin-configurable tuning through `/wk config`.
 - LCD apps and Research Pedestal workflows.
+- External Working Knowledge Layer support for mapping third-party block mods into schematic families.
 
 ## Compatibility
 

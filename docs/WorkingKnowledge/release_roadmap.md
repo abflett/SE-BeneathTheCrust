@@ -40,8 +40,8 @@ Compatibility and test backlog:
 The planned sequence before `1.0.0` is:
 
 - `0.10.0` - better progress display. Complete.
-- `0.11.0` - custom block mod integration. Next active feature track.
-- `1.0.0` - stable standalone release after the main feature and validation gates are satisfied.
+- `0.11.0` - external layer support for custom block mod integration. Complete.
+- `1.0.0` - current stabilization target after validation gates are satisfied.
 
 ## 0.10.0 Progress Display - Complete
 
@@ -66,24 +66,25 @@ Follow-up watch items:
 - Keep progress feedback tuning player-facing and avoid requiring ordinary players to edit config.
 - Consider minor visual polish only if Workshop feedback points to a clear issue.
 
-## 0.11.0 Custom Block Mod Integration - Next
+## 0.11.0 External Layer Support - Complete
 
 Goal: make Working Knowledge easier to use with block mods instead of depending mostly on hard-coded catalog and generator mappings.
 
-Current behavior to verify and document:
+Completed direction:
 
-- Test how normal modded blocks behave with Working Knowledge.
-- Confirm whether uncataloged modded blocks are currently buildable as already researched and full Proficiency.
-- Verify that block mods do not unintentionally become locked, blocked, or partially restricted by the progression system.
-- Document current behavior clearly so players know whether configuration is required.
+- Added support for small external Working Knowledge Layer mods.
+- Layers can provide `Data/WorkingKnowledge/block_mappings.txt` to map third-party block IDs into schematic families.
+- Layers also provide `Data/ResearchBlocks.sbc` entries so vanilla progression can expose the mapped blocks correctly.
+- Mapped blocks participate in normal research, vanilla progression unlocks, Proficiency, construction, repair, grinding, and salvage behavior.
+- Added authoring docs, a copyable layer template, and `tools/new-working-knowledge-layer.ps1`.
+- Published the first layer, Working Knowledge Layer - ARC Truss System.
 
-Feature direction:
+Follow-up watch items:
 
-- Add a way for admins or modpack authors to assign custom modded blocks into Working Knowledge schematic groups.
-- Allow modded blocks to become part of the normal research and Proficiency system instead of always acting as already unlocked.
-- Consider config-driven definitions for custom block groups.
-- Make the system safe for servers and modpacks where many block mods are installed.
-- Avoid requiring ordinary players to edit config just to use common block mods.
+- Watch for malformed or stale layer mappings in third-party compatibility mods.
+- Keep the layer format stable unless a clear compatibility issue requires a change.
+- Document any common block-pack layer patterns that emerge from playtesting.
+- Continue treating uncataloged modded blocks as compatibility cases rather than forcing ordinary players to configure them.
 
 ## 1.0.0 Release Checklist
 
@@ -91,8 +92,8 @@ Goal: make Working Knowledge safe to recommend as a stable standalone progressio
 
 Feature readiness:
 
-- `0.10.0` progress display work is complete or intentionally deferred.
-- `0.11.0` custom block mod integration work is complete or intentionally deferred.
+- `0.10.0` progress display work is complete.
+- `0.11.0` external layer support is complete.
 - Player-facing feedback defaults are comfortable for normal survival play.
 - Modded block behavior is documented clearly.
 

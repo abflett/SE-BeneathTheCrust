@@ -2,7 +2,7 @@
 
 Compatibility layer for using ARC Truss System blocks with Working Knowledge progression.
 
-Version: `1.0.0`
+Version: `1.0.1`
 
 Load order:
 
