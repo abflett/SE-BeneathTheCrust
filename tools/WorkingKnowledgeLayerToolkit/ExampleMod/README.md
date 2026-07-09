@@ -16,4 +16,6 @@ It is not meant to be published as-is. Copy this folder, rename it, replace the 
 - `Data/ResearchBlocks.sbc` - add one `ResearchBlock` entry for each block from the source mod.
 - `Data/WorkingKnowledge/block_mappings.txt` - map each block ID to a Working Knowledge schematic group.
 
+Before copying this folder, read `../Docs/editing_generated_layers.md` for a slower walkthrough of these files.
+
 Use `../Docs/schematic_groups.md` to choose schematic IDs.

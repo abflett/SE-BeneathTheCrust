@@ -26,6 +26,15 @@ Recommended name format:
 Working Knowledge Layer - My Block Pack
 ```
 
+The most important fields are:
+
+```xml
+<Name>Working Knowledge Layer - My Block Pack</Name>
+<Makers>Your Name</Makers>
+```
+
+`Name` is shown in the Space Engineers mod list. `Makers` should be your author name or alias.
+
 ## 3. Add ResearchBlocks.sbc Entries
 
 For each source block, add one entry:
@@ -37,6 +46,23 @@ For each source block, add one entry:
 </ResearchBlock>
 ```
 
+The `Type` and `Subtype` values come from the source mod's SBC block definition:
+
+```xml
+<Id>
+  <TypeId>MyObjectBuilder_CubeBlock</TypeId>
+  <SubtypeId>ExampleBlock</SubtypeId>
+</Id>
+```
+
+Remove the `MyObjectBuilder_` prefix from `TypeId`. In this example, the research ID becomes:
+
+```xml
+<Id Type="CubeBlock" Subtype="ExampleBlock" />
+```
+
+Leave `UnlockedByGroups` empty. Working Knowledge binds the real unlock group at runtime.
+
 ## 4. Add block_mappings.txt Entries
 
 For each source block, add one mapping:
@@ -46,6 +72,8 @@ CubeBlock/ExampleBlock = structure.industrial
 ```
 
 Use [schematic_groups.md](schematic_groups.md) to pick IDs.
+
+For a slower walkthrough of these files, read [editing_generated_layers.md](editing_generated_layers.md).
 
 ## 5. Test Load Order
 

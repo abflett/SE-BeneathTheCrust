@@ -25,7 +25,7 @@ Start.bat
 - `Start.ps1` - interactive layer generator.
 - `Start.bat` - simple launcher for `Start.ps1`.
 - `ExampleMod/` - copyable example layer mod for manual editing.
-- `Docs/` - mapping format, schematic group, manual authoring, and troubleshooting notes.
+- `Docs/` - [toolkit documentation](Docs/README.md), mapping format, schematic group, manual authoring, and troubleshooting notes.
 - `Data/` - internal toolkit data used by the script.
 
 Most users should only touch `Start.ps1`, `Start.bat`, `QUICKSTART.md`, `Docs/`, `ExampleMod/`, and the generated output mod.

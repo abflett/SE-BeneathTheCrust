@@ -89,7 +89,15 @@ Choose the output folder and layer folder name, such as:
 WKL-ExampleBlockMod
 ```
 
-The script creates a normal Space Engineers mod root there.
+The script also asks for the layer display name and author/maker name. The recommended display name is:
+
+```text
+Working Knowledge Layer - Name Of Source Mod
+```
+
+The author/maker name is written to `modinfo.sbc`.
+
+The script creates a normal Space Engineers mod root in the output folder.
 
 ## 8. Review And Test
 
@@ -101,6 +109,8 @@ Data/WorkingKnowledge/block_mappings.txt
 ```
 
 Use [Docs/mapping_format.md](Docs/mapping_format.md) and [Docs/schematic_groups.md](Docs/schematic_groups.md) if you want to adjust mappings by hand.
+
+For a plain-language explanation of the editable files, read [Docs/editing_generated_layers.md](Docs/editing_generated_layers.md).
 
 Then test with this load order:
 

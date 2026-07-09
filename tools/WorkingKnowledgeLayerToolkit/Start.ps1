@@ -734,6 +734,12 @@ if ([string]::IsNullOrWhiteSpace($layerName)) {
     $layerName = $defaultLayerName
 }
 
+$defaultAuthor = if ([string]::IsNullOrWhiteSpace($env:USERNAME)) { 'Your Name' } else { $env:USERNAME }
+$author = Read-Host "Layer author / maker name [$defaultAuthor]"
+if ([string]::IsNullOrWhiteSpace($author)) {
+    $author = $defaultAuthor
+}
+
 $defaultFolderName = Get-SafeLayerFolderName -Name $layerName
 $folderName = Read-Host "Layer folder name [$defaultFolderName]"
 if ([string]::IsNullOrWhiteSpace($folderName)) {
@@ -763,7 +769,7 @@ $tokens = @{
     LAYER_NAME = $layerName
     SOURCE_MOD_NAME = $sourceModName
     VERSION = '1.0.0'
-    AUTHOR = 'Beneath the Crust'
+    AUTHOR = $author
     RESEARCH_BLOCKS = Convert-ToResearchBlockEntries -Mappings $mappings
     BLOCK_MAPPINGS = Convert-ToMappingLines -Mappings $mappings
 }

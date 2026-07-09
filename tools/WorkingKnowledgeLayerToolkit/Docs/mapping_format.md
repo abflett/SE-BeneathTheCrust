@@ -40,6 +40,21 @@ CubeBlock/ExampleIndustrialTruss = structure.industrial
 
 Remove the `MyObjectBuilder_` prefix from the type.
 
+If the source block uses a different `TypeId`, use that type instead:
+
+```xml
+<TypeId>MyObjectBuilder_InteriorLight</TypeId>
+<SubtypeId>ExampleTrussLight</SubtypeId>
+```
+
+maps as:
+
+```text
+InteriorLight/ExampleTrussLight = utility.interior_lighting
+```
+
+The script reads this automatically. Manual authors only need to copy the type and subtype carefully.
+
 ## Comments
 
 Lines beginning with `#` are comments:
