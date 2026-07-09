@@ -8,6 +8,7 @@ $ScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $DataRoot = Join-Path $ScriptRoot 'Data'
 $TemplateRoot = Join-Path $DataRoot 'Template'
 $GroupDataPath = Join-Path $DataRoot 'schematic_groups.json'
+$KnownWorkingKnowledgeBlocksPath = Join-Path $DataRoot 'working_knowledge_block_keys.txt'
 
 function Read-TextNoBom {
     param([Parameter(Mandatory = $true)][string] $Path)
@@ -42,6 +43,32 @@ function Expand-Template {
     }
 
     return $expanded
+}
+
+function Read-BlockKeySet {
+    param([Parameter(Mandatory = $true)][string] $Path)
+
+    $keys = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    if (-not (Test-Path -LiteralPath $Path)) {
+        return $keys
+    }
+
+    foreach ($rawLine in [System.IO.File]::ReadLines($Path)) {
+        $line = $rawLine
+        $commentIndex = $line.IndexOf('#')
+        if ($commentIndex -ge 0) {
+            $line = $line.Substring(0, $commentIndex)
+        }
+
+        $line = $line.Trim()
+        if ([string]::IsNullOrWhiteSpace($line)) {
+            continue
+        }
+
+        [void] $keys.Add($line)
+    }
+
+    return $keys
 }
 
 function Get-SafeName {
@@ -283,7 +310,10 @@ function Test-LooksLikeModRoot {
 }
 
 function Get-BlockSetCandidates {
-    param([Parameter(Mandatory = $true)][string] $ScanRoot)
+    param(
+        [Parameter(Mandatory = $true)][string] $ScanRoot,
+        [Parameter(Mandatory = $true)][System.Collections.Generic.HashSet[string]] $KnownWorkingKnowledgeBlockKeys
+    )
 
     $candidateRoots = [System.Collections.Generic.List[string]]::new()
     $seenRoots = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
@@ -310,9 +340,19 @@ function Get-BlockSetCandidates {
     foreach ($candidateRoot in $candidateRoots) {
         $name = Get-ModDisplayName -Root $candidateRoot -WorkshopTitles $workshopTitles
         Write-Host ("Scanning block set: {0}" -f $name)
-        $blocks = @(Get-BlockDefinitions -Root $candidateRoot)
-        if ($blocks.Count -eq 0) {
+        $allBlocks = @(Get-BlockDefinitions -Root $candidateRoot)
+        if ($allBlocks.Count -eq 0) {
             continue
+        }
+
+        $blocks = @($allBlocks | Where-Object { -not $KnownWorkingKnowledgeBlockKeys.Contains($_.Key) })
+        $coveredBlockCount = $allBlocks.Count - $blocks.Count
+        if ($blocks.Count -eq 0) {
+            Write-Host ("Skipping block set: {0} - all {1} public blocks are already covered by Working Knowledge." -f $name, $allBlocks.Count)
+            continue
+        }
+        if ($coveredBlockCount -gt 0) {
+            Write-Host ("Ignoring {0} block(s) already covered by Working Knowledge." -f $coveredBlockCount)
         }
 
         $sets.Add([pscustomobject]@{
@@ -320,6 +360,8 @@ function Get-BlockSetCandidates {
             Path = $candidateRoot
             Blocks = $blocks
             BlockCount = $blocks.Count
+            PublicBlockCount = $allBlocks.Count
+            CoveredBlockCount = $coveredBlockCount
         }) | Out-Null
     }
 
@@ -421,7 +463,8 @@ function Select-BlockSets {
     Write-Host ''
     Write-Host 'Select which block sets to include in this layer:'
     for ($i = 0; $i -lt $Sets.Count; $i++) {
-        Write-Host ("[{0}] {1} - contains {2} public blocks" -f ($i + 1), $Sets[$i].Name, $Sets[$i].BlockCount)
+        $coverageNote = if ($Sets[$i].CoveredBlockCount -gt 0) { ", ignored $($Sets[$i].CoveredBlockCount) already covered" } else { '' }
+        Write-Host ("[{0}] {1} - contains {2} new public blocks{3}" -f ($i + 1), $Sets[$i].Name, $Sets[$i].BlockCount, $coverageNote)
         Write-Host ("    {0}" -f $Sets[$i].Path)
     }
     $allOption = $Sets.Count + 1
@@ -547,13 +590,14 @@ $groups = @($rawGroups | ForEach-Object { $_ })
 if ($groups.Count -eq 0) {
     throw "No schematic groups found in $GroupDataPath"
 }
+$knownWorkingKnowledgeBlockKeys = Read-BlockKeySet -Path $KnownWorkingKnowledgeBlocksPath
 
 $scanRoot = Select-Path
 Write-Host ''
 Write-Host 'Scanning for block sets. This can take a moment for large Workshop folders.'
-$blockSets = @(Get-BlockSetCandidates -ScanRoot $scanRoot)
+$blockSets = @(Get-BlockSetCandidates -ScanRoot $scanRoot -KnownWorkingKnowledgeBlockKeys $knownWorkingKnowledgeBlockKeys)
 if ($blockSets.Count -eq 0) {
-    throw 'No block sets with public cube block definitions were found in the selected folder.'
+    throw 'No block sets with new public cube block definitions were found in the selected folder.'
 }
 
 $selectedSets = @(Select-BlockSets -Sets $blockSets)

@@ -32,6 +32,8 @@ Most users should only touch `Start.ps1`, `Start.bat`, `QUICKSTART.md`, `Docs/`,
 
 `Data/Template/` is the internal template used by the script. Edit it only if you are intentionally changing how generated layers are shaped.
 
+`Data/working_knowledge_block_keys.txt` is the built-in Working Knowledge block catalog. The script uses it to skip vanilla or already-supported block IDs, including mods that only override existing vanilla definitions.
+
 ## Output
 
 Generated layers are normal Space Engineers mod roots. A typical output looks like:
