@@ -9,6 +9,7 @@ $DataRoot = Join-Path $ScriptRoot 'Data'
 $TemplateRoot = Join-Path $DataRoot 'Template'
 $GroupDataPath = Join-Path $DataRoot 'schematic_groups.json'
 $KnownWorkingKnowledgeBlocksPath = Join-Path $DataRoot 'working_knowledge_block_keys.txt'
+$WorkingKnowledgeWorkshopIds = @('3758066250')
 
 function Read-TextNoBom {
     param([Parameter(Mandatory = $true)][string] $Path)
@@ -301,6 +302,24 @@ function Get-ModDisplayName {
     return (Split-Path -Leaf $Root)
 }
 
+function Test-IsWorkingKnowledgeSourceMod {
+    param(
+        [Parameter(Mandatory = $true)][string] $Root,
+        [Parameter(Mandatory = $true)][string] $DisplayName
+    )
+
+    $workshopId = Get-WorkshopItemId -Root $Root
+    if ($workshopId -and $WorkingKnowledgeWorkshopIds -contains $workshopId) {
+        return $true
+    }
+
+    if ($DisplayName.Equals('Working Knowledge', [System.StringComparison]::OrdinalIgnoreCase)) {
+        return $true
+    }
+
+    return $false
+}
+
 function Test-LooksLikeModRoot {
     param([Parameter(Mandatory = $true)][string] $Path)
 
@@ -339,6 +358,11 @@ function Get-BlockSetCandidates {
     $sets = [System.Collections.Generic.List[object]]::new()
     foreach ($candidateRoot in $candidateRoots) {
         $name = Get-ModDisplayName -Root $candidateRoot -WorkshopTitles $workshopTitles
+        if (Test-IsWorkingKnowledgeSourceMod -Root $candidateRoot -DisplayName $name) {
+            Write-Host ("Skipping block set: {0} - this is Working Knowledge itself." -f $name)
+            continue
+        }
+
         Write-Host ("Scanning block set: {0}" -f $name)
         $allBlocks = @(Get-BlockDefinitions -Root $candidateRoot)
         if ($allBlocks.Count -eq 0) {

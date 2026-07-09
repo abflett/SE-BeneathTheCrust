@@ -40,7 +40,7 @@ The toolkit scans public cube block definitions under `.sbc` files. It skips unr
 
 If you select a parent folder, the toolkit only lists child mod folders that contain public cube block definitions. Mods with scripts, research mappings, blueprints, or non-block content but no public block definitions will not appear in the block-set list.
 
-The toolkit also ignores block IDs already covered by Working Knowledge. Mods that only override vanilla blocks may be skipped because Working Knowledge already has research definitions and schematic mappings for those IDs.
+The toolkit skips Working Knowledge itself. It also ignores block IDs already covered by Working Knowledge. Mods that only override vanilla blocks may be skipped because Working Knowledge already has research definitions and schematic mappings for those IDs.
 
 ## The Mod List Uses Numbers Instead Of Names
 

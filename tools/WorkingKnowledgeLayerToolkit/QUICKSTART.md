@@ -40,7 +40,7 @@ All choices are numbered. Pick the custom-folder number if your source mod is so
 
 The script scans the selected folder for mods that contain public cube block definitions. For Steam Workshop folders named by Workshop item ID, it tries to look up the public Workshop title through Steam first. If that lookup fails, it reads `modinfo.sbc` when available, then falls back to the folder name.
 
-Blocks already covered by Working Knowledge are ignored automatically. This is expected for mods that only override vanilla block definitions without adding new block IDs.
+Working Knowledge itself is skipped automatically. Blocks already covered by Working Knowledge are also ignored. This is expected for mods that only override vanilla block definitions without adding new block IDs.
 
 Example:
 
