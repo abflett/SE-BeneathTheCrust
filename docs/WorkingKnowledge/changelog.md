@@ -12,6 +12,10 @@ This keeps the main Working Knowledge catalog focused while allowing compatibili
 
 The first published layer is [Working Knowledge Layer - ARC Truss System](https://steamcommunity.com/sharedfiles/filedetails/?id=3760442026). It maps ARC Truss System structure blocks to Industrial Structure Schematics and its truss light to Interior Lighting Schematics.
 
+Released the [Working Knowledge Layer Toolkit](https://github.com/abflett/SE-BeneathTheCrust/tree/main/tools/WorkingKnowledgeLayerToolkit) to make layer creation easier for players, server owners, and mod authors. The toolkit can scan local or Steam Workshop block mods, find new public block definitions, help assign those blocks to schematic families, and generate a ready-to-test layer mod with `ResearchBlocks.sbc`, `Data/WorkingKnowledge/block_mappings.txt`, README, and publishing starter files.
+
+The ready-to-use toolkit zip is available from the [SE-BeneathTheCrust releases page](https://github.com/abflett/SE-BeneathTheCrust/releases).
+
 ## 0.10.0 - HUD Progress Overlay
 
 Added a Text HUD API-backed progress overlay for recent Working Knowledge progress.
