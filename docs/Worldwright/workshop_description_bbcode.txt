@@ -16,6 +16,8 @@ The [b]Spawn Next[/b] and [b]Reset Sequence[/b] toolbar actions work with timer 
 
 A configurable Clearance Scale lets scenario authors reduce conservative false blocking around slopes and half blocks, or add extra safety margin for less controlled machinery.
 
+Optional Gravity Assist can accelerate spawned payloads along the station grid's down direction for 60 seconds, allowing blocks to fall and settle in space-based reclamation chutes without affecting unrelated grids.
+
 Paint and skin the Block Spawner, then capture that appearance as a random preset. Multiple colors and skins, randomized integrity, and starting-rotation variance can make spawned parts look like varied used salvage.
 
 Optional smoke can remain off, run continuously to conceal a hatch, or build for one second before stopping as each payload spawns. Choose among several vanilla exhaust effects, adjust particle density, or experiment with optional RGB tint multipliers without replacing the spawner's normal terminal or toolbar behavior.

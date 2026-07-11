@@ -84,6 +84,12 @@ namespace Worldwright
                     if (float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out scale))
                         config.ClearanceScale = scale;
                 }
+                else if (key.Equals("gravityAssist", StringComparison.OrdinalIgnoreCase))
+                {
+                    float acceleration;
+                    if (float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out acceleration))
+                        config.GravityAssistAcceleration = acceleration;
+                }
                 else if (key.Equals("smokeMode", StringComparison.OrdinalIgnoreCase))
                 {
                     ReclamationSmokeMode mode;
@@ -187,6 +193,7 @@ namespace Worldwright
             output.Append("minimumIntegrity=").AppendLine(config.MinimumIntegrity.ToString("0.###", CultureInfo.InvariantCulture));
             output.Append("maximumIntegrity=").AppendLine(config.MaximumIntegrity.ToString("0.###", CultureInfo.InvariantCulture));
             output.Append("clearanceScale=").AppendLine(config.ClearanceScale.ToString("0.###", CultureInfo.InvariantCulture));
+            output.Append("gravityAssist=").AppendLine(config.GravityAssistAcceleration.ToString("0.###", CultureInfo.InvariantCulture));
             output.Append("smokeMode=").AppendLine(config.SmokeMode.ToString());
             output.Append("smokeEffect=").AppendLine(config.SmokeEffect.ToString());
             output.Append("smokeRed=").AppendLine(config.SmokeRed.ToString("0.###", CultureInfo.InvariantCulture));

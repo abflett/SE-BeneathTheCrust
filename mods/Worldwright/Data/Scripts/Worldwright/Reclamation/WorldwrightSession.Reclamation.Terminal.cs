@@ -181,6 +181,22 @@ namespace Worldwright
             SetReclamationControlText(clearanceScale, "Clearance Scale", "Scale the conservative payload clearance test. Values below 1 can fit authored slopes and half blocks but may allow payload collisions; values above 1 add safety margin.");
             reclamationSpawnerControls.Add(clearanceScale);
 
+            var gravityAssist = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlSlider, IMyTerminalBlock>("WwReclamationGravityAssist");
+            gravityAssist.Visible = IsReclamationSpawner;
+            gravityAssist.SetLimits(0f, MaximumGravityAssistAcceleration);
+            gravityAssist.Getter = block => ReadReclamationSpawnerConfig(block).GravityAssistAcceleration;
+            gravityAssist.Setter = (block, value) => RequestReclamationOperation(block, "gravity-assist", number: value);
+            gravityAssist.Writer = (block, output) =>
+            {
+                var acceleration = ReadReclamationSpawnerConfig(block).GravityAssistAcceleration;
+                if (acceleration <= 0.001f)
+                    output.Append("Off");
+                else
+                    output.Append(acceleration.ToString("0.00", CultureInfo.InvariantCulture)).Append(" m/s²");
+            };
+            SetReclamationControlText(gravityAssist, "Gravity Assist", "Apply acceleration along the station grid's Down direction to each spawned payload for 60 seconds. Zero disables it.");
+            reclamationSpawnerControls.Add(gravityAssist);
+
             var smokeMode = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlCombobox, IMyTerminalBlock>("WwReclamationSmokeMode");
             smokeMode.Visible = IsReclamationSpawner;
             smokeMode.ComboBoxContent = PopulateReclamationSmokeModes;
@@ -644,6 +660,11 @@ namespace Worldwright
             output.Append("Rotation variance: ").Append(config.RotationVariance.ToString("0", CultureInfo.InvariantCulture)).AppendLine("%");
             output.Append("Integrity: ").Append(config.MinimumIntegrity.ToString("0", CultureInfo.InvariantCulture)).Append("-").Append(config.MaximumIntegrity.ToString("0", CultureInfo.InvariantCulture)).AppendLine("%");
             output.Append("Clearance scale: ").Append(config.ClearanceScale.ToString("0.00", CultureInfo.InvariantCulture)).AppendLine("x");
+            output.Append("Gravity assist: ");
+            if (config.GravityAssistAcceleration <= 0.001f)
+                output.AppendLine("Off");
+            else
+                output.Append(config.GravityAssistAcceleration.ToString("0.00", CultureInfo.InvariantCulture)).AppendLine(" m/s² for 60 s");
             output.Append("Smoke: ").Append(config.SmokeMode).Append(" / ").Append(config.SmokeEffect).Append(" tint(")
                 .Append(config.SmokeRed.ToString("0", CultureInfo.InvariantCulture)).Append(", ")
                 .Append(config.SmokeGreen.ToString("0", CultureInfo.InvariantCulture)).Append(", ")

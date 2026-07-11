@@ -60,6 +60,7 @@ namespace Worldwright
 
         private void UnloadReclamationSpawners()
         {
+            UnloadReclamationGravityAssists();
             UnloadReclamationSpawnerParticles();
             UnregisterReclamationSpawnerControls();
             UnregisterReclamationSpawnerNetwork();
@@ -414,6 +415,7 @@ namespace Worldwright
                     return false;
             }
 
+            IMyCubeGrid spawnedGrid;
             if (!SpawnSingleBlockGrid(
                     block,
                     catalogEntry.Definition,
@@ -422,7 +424,8 @@ namespace Worldwright
                     pending.Up,
                     pending.Appearance,
                     pending.IntegrityPercent,
-                    config.OutwardVelocity))
+                    config.OutwardVelocity,
+                    out spawnedGrid))
             {
                 pendingReclamationSpawns.Remove(pending.BlockEntityId);
                 EndReclamationBurstSmoke(pending.BlockEntityId, true);
@@ -431,6 +434,10 @@ namespace Worldwright
             }
 
             pendingReclamationSpawns.Remove(pending.BlockEntityId);
+            RegisterReclamationGravityAssist(
+                block,
+                spawnedGrid,
+                config.GravityAssistAcceleration);
             if (config.SmokeMode == ReclamationSmokeMode.Bursts)
                 EndReclamationBurstSmoke(block.EntityId, true);
             AdvanceSequence(config, pending.SequenceIndex);
@@ -590,8 +597,10 @@ namespace Worldwright
             Vector3D up,
             ReclamationAppearancePreset appearance,
             float integrityPercent,
-            float outwardVelocity)
+            float outwardVelocity,
+            out IMyCubeGrid spawnedGrid)
         {
+            spawnedGrid = null;
             try
             {
                 var blockBuilder = MyObjectBuilderSerializer.CreateNewObject(definition.Id.TypeId, definition.Id.SubtypeName)
@@ -625,7 +634,7 @@ namespace Worldwright
                     CubeBlocks = new List<MyObjectBuilder_CubeBlock> { blockBuilder },
                 };
 
-                var spawnedGrid = MyAPIGateway.Entities.CreateFromObjectBuilderAndAdd(gridBuilder) as IMyCubeGrid;
+                spawnedGrid = MyAPIGateway.Entities.CreateFromObjectBuilderAndAdd(gridBuilder) as IMyCubeGrid;
                 if (spawnedGrid == null || spawnedGrid.Physics == null)
                     return spawnedGrid != null;
 

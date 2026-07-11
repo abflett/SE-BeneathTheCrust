@@ -43,6 +43,7 @@ namespace Worldwright
         internal float MinimumIntegrity = 100f;
         internal float MaximumIntegrity = 100f;
         internal float ClearanceScale = 1f;
+        internal float GravityAssistAcceleration;
         internal ReclamationSmokeMode SmokeMode = ReclamationSmokeMode.Off;
         internal ReclamationSmokeEffect SmokeEffect = ReclamationSmokeEffect.DefaultExhaust;
         internal float SmokeRed = 255f;
@@ -73,6 +74,9 @@ namespace Worldwright
             MinimumIntegrity = Math.Max(10f, Math.Min(100f, MinimumIntegrity));
             MaximumIntegrity = Math.Max(10f, Math.Min(100f, MaximumIntegrity));
             ClearanceScale = Math.Max(0.25f, Math.Min(2f, ClearanceScale));
+            GravityAssistAcceleration = Math.Max(
+                0f,
+                Math.Min(WorldwrightSession.MaximumGravityAssistAcceleration, GravityAssistAcceleration));
             SmokeRed = Math.Max(0f, Math.Min(255f, SmokeRed));
             SmokeGreen = Math.Max(0f, Math.Min(255f, SmokeGreen));
             SmokeBlue = Math.Max(0f, Math.Min(255f, SmokeBlue));
@@ -133,6 +137,14 @@ namespace Worldwright
     {
         internal long BlockEntityId;
         internal int NextSpawnFrame;
+    }
+
+    internal sealed class ReclamationGravityAssist
+    {
+        internal long GridEntityId;
+        internal Vector3D Direction;
+        internal float Acceleration;
+        internal int ExpiresAtFrame;
     }
 
     public sealed class ReclamationSpawnerNetworkMessage

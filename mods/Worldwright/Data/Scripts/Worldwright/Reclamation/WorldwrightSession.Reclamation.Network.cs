@@ -289,6 +289,12 @@ namespace Worldwright
             {
                 config.ClearanceScale = Math.Max(0.25f, Math.Min(2f, request.Number));
             }
+            else if (operation.Equals("gravity-assist", StringComparison.OrdinalIgnoreCase))
+            {
+                config.GravityAssistAcceleration = Math.Max(
+                    0f,
+                    Math.Min(MaximumGravityAssistAcceleration, request.Number));
+            }
             else if (operation.Equals("smoke-mode", StringComparison.OrdinalIgnoreCase))
             {
                 if (!Enum.IsDefined(typeof(ReclamationSmokeMode), request.Index))

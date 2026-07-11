@@ -29,6 +29,7 @@ This development release adds the first Worldwright Block Spawner for authored s
 - Measures the hatch model's actual output depth and adds a safe launch gap before checking clearance.
 - Uses the payload's full diagonal as a rotation-independent clearance radius, preventing large randomly rotated blocks from falsely jamming as the source grid changes world orientation.
 - Adds an author-controlled `0.25-2.00x` Clearance Scale. It scales only the conservative occupancy test, allowing tighter slope and half-block chutes without moving payloads closer to the hatch.
+- Adds optional `0-9.81 m/s²` Gravity Assist. Spawned payload grids accelerate along the source station grid's Down direction for 60 seconds, allowing authored space-based chutes to settle ordinary blocks that vanilla artificial gravity ignores.
 - Adds four status indicators for automatic interval progress, blocked output, invalid configuration, completed Once sequences, ready state, and empty sequences.
 - Keeps Block Spawner operations silent instead of showing player-facing toast notifications; status remains available through the vent indicators and terminal details.
 - Adds directly rendered smoke while preserving the stable TerminalBlock-based spawner and all toolbar actions.

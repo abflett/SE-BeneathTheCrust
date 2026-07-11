@@ -41,6 +41,7 @@ namespace Worldwright
             UpdateReclamationSpawnerEmissives();
             UpdateReclamationSpawnerParticles();
             UpdatePendingReclamationSpawns();
+            UpdateReclamationGravityAssists();
         }
 
         protected override void UnloadData()
