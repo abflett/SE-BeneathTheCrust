@@ -24,8 +24,9 @@ This development release adds the first Worldwright Block Spawner for authored s
 - Adds weighted appearance presets captured from the Block Spawner's current paint color and skin.
 - Adds an obvious Custom Name control for authored names such as `Reclamation Door Hatch`.
 - Renames the public block and terminal heading to Block Spawner.
-- Corrects the public block from the bare TerminalBlock type to a proper FunctionalBlock so it consistently receives an entity ID, saves terminal changes, and exposes toolbar actions.
-- Removes the broken early TerminalBlock subtype and old configuration section. Early test blocks must be removed and replaced.
+- Corrects the public block to use a concrete timer-backed terminal entity while retaining its Light Armor Half Block shape. This prevents grid rebuilds, cockpit entry, paint changes, and saves from collapsing it into a terminal-less armor block.
+- Hides the backing timer controls and actions so only the Block Spawner interface appears in the terminal and toolbar configuration.
+- Removes the broken early block types and old configuration section. Early test blocks must be removed and replaced.
 - Persists configuration on the spawner block while preserving unrelated Custom Data sections.
 
 Current testing boundaries:

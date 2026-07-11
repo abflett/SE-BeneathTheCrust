@@ -119,7 +119,7 @@ namespace Worldwright
 
         private static bool IsReclamationSpawnerDefinition(MyDefinitionId id)
         {
-            return id.TypeId.ToString().Equals("MyObjectBuilder_FunctionalBlock", StringComparison.OrdinalIgnoreCase) &&
+            return id.TypeId.ToString().Equals("MyObjectBuilder_TimerBlock", StringComparison.OrdinalIgnoreCase) &&
                    id.SubtypeName.Equals(BlockSpawnerSubtype, StringComparison.OrdinalIgnoreCase);
         }
 
@@ -128,7 +128,7 @@ namespace Worldwright
             if (block == null)
                 return false;
 
-            return block.BlockDefinition.TypeIdString.Equals("MyObjectBuilder_FunctionalBlock", StringComparison.OrdinalIgnoreCase) &&
+            return block.BlockDefinition.TypeIdString.Equals("MyObjectBuilder_TimerBlock", StringComparison.OrdinalIgnoreCase) &&
                    block.BlockDefinition.SubtypeName.Equals(BlockSpawnerSubtype, StringComparison.OrdinalIgnoreCase);
         }
 

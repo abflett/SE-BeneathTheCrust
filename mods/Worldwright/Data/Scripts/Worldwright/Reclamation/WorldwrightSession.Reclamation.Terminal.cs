@@ -261,17 +261,20 @@ namespace Worldwright
             if (reclamationInfoSubscribedBlocks.Add(block.EntityId))
                 block.AppendingCustomInfo += AppendReclamationSpawnerInfo;
 
-            controls.InsertRange(0, reclamationSpawnerControls);
+            controls.Clear();
+            controls.AddRange(reclamationSpawnerControls);
         }
 
         private void FilterReclamationSpawnerActions(IMyTerminalBlock block, List<IMyTerminalAction> actions)
         {
-            if (IsReclamationSpawner(block) || actions == null)
+            if (actions == null)
                 return;
 
             for (var i = actions.Count - 1; i >= 0; i--)
             {
-                if (reclamationSpawnerActions.Contains(actions[i]))
+                var isSpawnerAction = reclamationSpawnerActions.Contains(actions[i]);
+                if ((IsReclamationSpawner(block) && !isSpawnerAction) ||
+                    (!IsReclamationSpawner(block) && isSpawnerAction))
                     actions.RemoveAt(i);
             }
         }
