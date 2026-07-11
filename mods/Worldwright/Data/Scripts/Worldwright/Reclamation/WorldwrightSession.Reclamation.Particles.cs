@@ -9,7 +9,7 @@ namespace Worldwright
 {
     public sealed partial class WorldwrightSession
     {
-        private const string ReclamationSmokeParticleName = "WwBlockSpawnerSmoke";
+        private const string ReclamationSmokeParticleName = "ExhaustSmokeWhite";
         private const int ReclamationBurstSmokeFrames = 60;
         private const double ReclamationSmokeSurfaceOffset = 0.05;
 
