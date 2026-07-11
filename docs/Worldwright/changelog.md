@@ -30,7 +30,7 @@ This development release adds the first Worldwright Block Spawner for authored s
 - Uses the payload's full diagonal as a rotation-independent clearance radius, preventing large randomly rotated blocks from falsely jamming as the source grid changes world orientation.
 - Adds four status indicators for automatic interval progress, blocked output, invalid configuration, completed Once sequences, ready state, and empty sequences.
 - Adds directly rendered smoke while preserving the stable TerminalBlock-based spawner and all toolbar actions.
-- Adds Off, Always, and Bursts smoke modes. Bursts builds smoke for two seconds after the full payload volume is clear, then stops emitting when the payload spawns.
+- Adds Off, Always, and Bursts smoke modes. Bursts builds smoke for one second after the full payload volume is clear, then stops emitting when the payload spawns.
 - Adds Default, White, Vehicle, and Reactor vanilla smoke-effect choices.
 - Adds optional `0-255` RGB tint multipliers and a `10-100%` particle-density control. Neutral `255,255,255` preserves the selected effect's authored colors.
 - Recreates an active emitter when its effect, tint, or intensity changes so the new values apply immediately instead of relying on unreliable live GPU-particle updates.

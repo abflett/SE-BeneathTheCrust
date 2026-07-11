@@ -9,7 +9,7 @@ namespace Worldwright
 {
     public sealed partial class WorldwrightSession
     {
-        private const int ReclamationBurstSmokeLeadFrames = 120;
+        private const int ReclamationBurstSmokeLeadFrames = 60;
         private const double ReclamationSmokeSurfaceOffset = 0.05;
 
         private readonly Dictionary<long, MyParticleEffect> reclamationSmokeEffects =
