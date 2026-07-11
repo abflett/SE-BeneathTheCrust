@@ -20,7 +20,7 @@ The audit now identifies:
 
 Existing `block_mappings.txt` files remain compatible. The Working Knowledge Layer Toolkit output does not need to be regenerated.
 
-Added a release validation helper for script compilation, XML parsing, version documentation, thumbnail size, and temporary-file checks.
+Added a release validation helper for script compilation, XML parsing, version documentation, and thumbnail size.
 
 ## 0.11.0 - External Layer Support
 

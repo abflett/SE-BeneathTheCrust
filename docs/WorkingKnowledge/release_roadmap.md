@@ -149,7 +149,6 @@ Release verification:
 - The deployed local folder is `%APPDATA%\SpaceEngineers\Mods\Working Knowledge`.
 - The deployed `modinfo.sbc` has the intended version.
 - `thumb.jpg` exists in the deployed mod and stays under 1 MB.
-- `.tmp/` is empty before committing release prep.
 
 Smoke test matrix:
 

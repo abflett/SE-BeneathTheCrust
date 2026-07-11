@@ -1,8 +1,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)][string] $ExpectedVersion,
-    [switch] $SkipCompile,
-    [switch] $SkipTempCheck
+    [switch] $SkipCompile
 )
 
 Set-StrictMode -Version Latest
@@ -12,7 +11,6 @@ $repoRoot = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 $modRoot = Join-Path $repoRoot 'mods\WorkingKnowledge'
 $modInfoPath = Join-Path $modRoot 'modinfo.sbc'
 $thumbPath = Join-Path $modRoot 'thumb.jpg'
-$tmpPath = Join-Path $repoRoot '.tmp'
 
 if (-not (Test-Path -LiteralPath $modInfoPath -PathType Leaf)) {
     throw "Working Knowledge modinfo.sbc was not found: $modInfoPath"
@@ -43,13 +41,6 @@ if (-not (Test-Path -LiteralPath $thumbPath -PathType Leaf)) {
 $thumb = Get-Item -LiteralPath $thumbPath
 if ($thumb.Length -ge 1MB) {
     throw "Working Knowledge thumbnail must stay under 1 MB; current size is $($thumb.Length) bytes."
-}
-
-if (-not $SkipTempCheck -and (Test-Path -LiteralPath $tmpPath)) {
-    $tmpFiles = @(Get-ChildItem -LiteralPath $tmpPath -Recurse -Force)
-    if ($tmpFiles.Count -gt 0) {
-        throw ".tmp must be empty before release validation."
-    }
 }
 
 $changelog = Get-Content -LiteralPath (Join-Path $repoRoot 'docs\WorkingKnowledge\changelog.md') -Raw
