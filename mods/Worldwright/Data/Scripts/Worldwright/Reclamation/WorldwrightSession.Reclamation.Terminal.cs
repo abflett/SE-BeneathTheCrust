@@ -37,6 +37,11 @@ namespace Worldwright
             title.Visible = IsReclamationSpawner;
             reclamationSpawnerControls.Add(title);
 
+            var legacyWarning = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlLabel, IMyTerminalBlock>("WwBlockSpawnerLegacyWarning");
+            legacyWarning.Label = MyStringId.GetOrCompute("Legacy test block: replace with the new Block Spawner.");
+            legacyWarning.Visible = IsLegacyReclamationSpawner;
+            reclamationSpawnerControls.Add(legacyWarning);
+
             var customName = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlTextbox, IMyTerminalBlock>("WwBlockSpawnerName");
             customName.Visible = IsReclamationSpawner;
             customName.Getter = block => new StringBuilder(block.CustomName ?? string.Empty);
@@ -233,7 +238,7 @@ namespace Worldwright
                 MyAPIGateway.TerminalControls.CustomActionGetter -= FilterReclamationSpawnerActions;
 
                 for (var i = 0; i < reclamationSpawnerActions.Count; i++)
-                    MyAPIGateway.TerminalControls.RemoveAction<IMyTerminalBlock>(reclamationSpawnerActions[i]);
+                    MyAPIGateway.TerminalControls.RemoveAction<IMyFunctionalBlock>(reclamationSpawnerActions[i]);
             }
 
             foreach (var entityId in reclamationInfoSubscribedBlocks)
@@ -314,7 +319,7 @@ namespace Worldwright
             Action<IMyTerminalBlock> actionDelegate,
             Action<IMyTerminalBlock, StringBuilder> writer)
         {
-            var action = MyAPIGateway.TerminalControls.CreateAction<IMyTerminalBlock>(id);
+            var action = MyAPIGateway.TerminalControls.CreateAction<IMyFunctionalBlock>(id);
             action.Name = new StringBuilder(name);
             action.Icon = icon;
             action.Action = actionDelegate;
@@ -322,7 +327,7 @@ namespace Worldwright
             action.Writer = writer;
             action.ValidForGroups = true;
             reclamationSpawnerActions.Add(action);
-            MyAPIGateway.TerminalControls.AddAction<IMyTerminalBlock>(action);
+            MyAPIGateway.TerminalControls.AddAction<IMyFunctionalBlock>(action);
         }
 
         private static void SetReclamationControlText(IMyTerminalControl control, string title, string tooltip)

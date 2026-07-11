@@ -23,7 +23,9 @@ This development release adds the first Worldwright Block Spawner for authored s
 - Adds a configurable random integrity range for used or damaged parts.
 - Adds weighted appearance presets captured from the Block Spawner's current paint color and skin.
 - Adds an obvious Custom Name control for authored names such as `Reclamation Door Hatch`.
-- Renames the public block and terminal heading to Block Spawner while retaining the original subtype for save compatibility.
+- Renames the public block and terminal heading to Block Spawner.
+- Corrects the public block from the bare TerminalBlock type to a proper FunctionalBlock so it consistently receives an entity ID, saves terminal changes, and exposes toolbar actions.
+- Retains the early TerminalBlock subtype as a hidden legacy definition so existing saves continue to load and clearly marks those blocks for replacement.
 - Persists configuration on the spawner block while preserving unrelated Custom Data sections.
 
 Current testing boundaries:

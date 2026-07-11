@@ -19,7 +19,8 @@ namespace Worldwright
         internal const float MinimumAutomaticIntervalSeconds = 0.1f;
         internal const float MaximumAutomaticIntervalSeconds = 60f;
 
-        private const string ReclamationSpawnerSubtype = "WwReclamationSpawner";
+        private const string BlockSpawnerSubtype = "WwBlockSpawner";
+        private const string LegacyReclamationSpawnerSubtype = "WwReclamationSpawner";
         private const int PendingSpawnPollFrames = 10;
         private const double SpawnClearancePadding = 0.05;
 
@@ -119,15 +120,31 @@ namespace Worldwright
 
         private static bool IsReclamationSpawnerDefinition(MyDefinitionId id)
         {
-            return id.TypeId.ToString().Equals("MyObjectBuilder_TerminalBlock", StringComparison.OrdinalIgnoreCase) &&
-                   id.SubtypeName.Equals(ReclamationSpawnerSubtype, StringComparison.OrdinalIgnoreCase);
+            var type = id.TypeId.ToString();
+            return (type.Equals("MyObjectBuilder_FunctionalBlock", StringComparison.OrdinalIgnoreCase) &&
+                    id.SubtypeName.Equals(BlockSpawnerSubtype, StringComparison.OrdinalIgnoreCase)) ||
+                   (type.Equals("MyObjectBuilder_TerminalBlock", StringComparison.OrdinalIgnoreCase) &&
+                    id.SubtypeName.Equals(LegacyReclamationSpawnerSubtype, StringComparison.OrdinalIgnoreCase));
         }
 
         private static bool IsReclamationSpawner(IMyTerminalBlock block)
         {
+            if (block == null)
+                return false;
+
+            var type = block.BlockDefinition.TypeIdString;
+            var subtype = block.BlockDefinition.SubtypeName;
+            return (type.Equals("MyObjectBuilder_FunctionalBlock", StringComparison.OrdinalIgnoreCase) &&
+                    subtype.Equals(BlockSpawnerSubtype, StringComparison.OrdinalIgnoreCase)) ||
+                   (type.Equals("MyObjectBuilder_TerminalBlock", StringComparison.OrdinalIgnoreCase) &&
+                    subtype.Equals(LegacyReclamationSpawnerSubtype, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private static bool IsLegacyReclamationSpawner(IMyTerminalBlock block)
+        {
             return block != null &&
                    block.BlockDefinition.TypeIdString.Equals("MyObjectBuilder_TerminalBlock", StringComparison.OrdinalIgnoreCase) &&
-                   block.BlockDefinition.SubtypeName.Equals(ReclamationSpawnerSubtype, StringComparison.OrdinalIgnoreCase);
+                   block.BlockDefinition.SubtypeName.Equals(LegacyReclamationSpawnerSubtype, StringComparison.OrdinalIgnoreCase);
         }
 
         private static ReclamationSpawnerConfig ReadReclamationSpawnerConfig(IMyTerminalBlock block)

@@ -40,7 +40,9 @@ This is not a safe zone replacement. It does not block movement, welding, termin
 
 ## Block Spawner
 
-The **Worldwright Block Spawner** is a large-grid terminal block shaped like a Light Armor Half Block. Its recessed side is the output side. It has no physical control screen, so open it from another terminal on the same construct. The internal subtype remains `WwReclamationSpawner` so blocks placed during early testing continue to load.
+The **Worldwright Block Spawner** is a large-grid functional terminal block shaped like a Light Armor Half Block. Its recessed side is the output side. It has no physical control screen, so open it from another terminal on the same construct.
+
+Early test blocks used the bare `TerminalBlock/WwReclamationSpawner` type. That definition remains hidden but loadable so saves do not lose the block. It did not reliably receive a terminal entity ID, however, so replace any block labelled **Worldwright Block Spawner (Legacy)** with the current `FunctionalBlock/WwBlockSpawner`. Existing early-test configuration can be copied from the legacy block's Custom Data if needed.
 
 The terminal provides:
 
