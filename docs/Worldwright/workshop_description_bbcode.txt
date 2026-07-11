@@ -16,6 +16,8 @@ The [b]Spawn Next[/b] and [b]Reset Sequence[/b] toolbar actions work with timer 
 
 Paint and skin the Block Spawner, then capture that appearance as a random preset. Multiple colors and skins, randomized integrity, and starting-rotation variance can make spawned parts look like varied used salvage.
 
+Optional smoke can remain off, run continuously to conceal a hatch, or burst for one second before and after each spawn. RGB and intensity controls support black smoke, colored effects, and different densities without replacing the spawner's normal terminal or toolbar behavior.
+
 [h2]Current Feature: Protected Grids[/h2]
 Worldwright can cancel normal grinder damage against marked grids. This is useful for:
 

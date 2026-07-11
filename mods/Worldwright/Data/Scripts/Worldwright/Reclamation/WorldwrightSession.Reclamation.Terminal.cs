@@ -172,6 +172,39 @@ namespace Worldwright
             SetReclamationControlText(maximumIntegrity, "Maximum Integrity", "Highest random integrity assigned to a spawned block.");
             reclamationSpawnerControls.Add(maximumIntegrity);
 
+            var smokeMode = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlCombobox, IMyTerminalBlock>("WwReclamationSmokeMode");
+            smokeMode.Visible = IsReclamationSpawner;
+            smokeMode.ComboBoxContent = PopulateReclamationSmokeModes;
+            smokeMode.Getter = block => (long)ReadReclamationSpawnerConfig(block).SmokeMode;
+            smokeMode.Setter = (block, value) => RequestReclamationOperation(block, "smoke-mode", index: (int)value);
+            SetReclamationControlText(smokeMode, "Smoke Mode", "Off, continuous smoke, or a one-second burst before and after each spawn.");
+            reclamationSpawnerControls.Add(smokeMode);
+
+            reclamationSpawnerControls.Add(CreateReclamationSmokeChannelSlider(
+                "WwReclamationSmokeRed",
+                "Smoke Red",
+                config => config.SmokeRed,
+                "smoke-red"));
+            reclamationSpawnerControls.Add(CreateReclamationSmokeChannelSlider(
+                "WwReclamationSmokeGreen",
+                "Smoke Green",
+                config => config.SmokeGreen,
+                "smoke-green"));
+            reclamationSpawnerControls.Add(CreateReclamationSmokeChannelSlider(
+                "WwReclamationSmokeBlue",
+                "Smoke Blue",
+                config => config.SmokeBlue,
+                "smoke-blue"));
+
+            var smokeIntensity = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlSlider, IMyTerminalBlock>("WwReclamationSmokeIntensity");
+            smokeIntensity.Visible = IsReclamationSpawner;
+            smokeIntensity.SetLimits(10f, 100f);
+            smokeIntensity.Getter = block => ReadReclamationSpawnerConfig(block).SmokeIntensity;
+            smokeIntensity.Setter = (block, value) => RequestReclamationOperation(block, "smoke-intensity", number: value);
+            smokeIntensity.Writer = (block, output) => output.Append(ReadReclamationSpawnerConfig(block).SmokeIntensity.ToString("0", CultureInfo.InvariantCulture)).Append("%");
+            SetReclamationControlText(smokeIntensity, "Smoke Intensity", "Controls how many smoke particles are emitted without changing their size.");
+            reclamationSpawnerControls.Add(smokeIntensity);
+
             reclamationAppearanceListControl = CreateReclamationListBox(
                 "WwReclamationAppearances",
                 "Appearance Presets",
@@ -308,6 +341,22 @@ namespace Worldwright
             button.Action = action;
             SetReclamationControlText(button, title, tooltip);
             return button;
+        }
+
+        private IMyTerminalControlSlider CreateReclamationSmokeChannelSlider(
+            string id,
+            string title,
+            Func<ReclamationSpawnerConfig, float> getter,
+            string operation)
+        {
+            var slider = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlSlider, IMyTerminalBlock>(id);
+            slider.Visible = IsReclamationSpawner;
+            slider.SetLimits(0f, 255f);
+            slider.Getter = block => getter(ReadReclamationSpawnerConfig(block));
+            slider.Setter = (block, value) => RequestReclamationOperation(block, operation, number: value);
+            slider.Writer = (block, output) => output.Append(getter(ReadReclamationSpawnerConfig(block)).ToString("0", CultureInfo.InvariantCulture));
+            SetReclamationControlText(slider, title, "RGB color channel from 0 to 255.");
+            return slider;
         }
 
         private void RegisterReclamationAction(
@@ -542,6 +591,14 @@ namespace Worldwright
             items.Add(new MyTerminalControlComboBoxItem { Key = (long)ReclamationSequenceMode.Random, Value = MyStringId.GetOrCompute("Random") });
         }
 
+        private static void PopulateReclamationSmokeModes(List<MyTerminalControlComboBoxItem> items)
+        {
+            items.Clear();
+            items.Add(new MyTerminalControlComboBoxItem { Key = (long)ReclamationSmokeMode.Off, Value = MyStringId.GetOrCompute("Off") });
+            items.Add(new MyTerminalControlComboBoxItem { Key = (long)ReclamationSmokeMode.Always, Value = MyStringId.GetOrCompute("Always") });
+            items.Add(new MyTerminalControlComboBoxItem { Key = (long)ReclamationSmokeMode.Bursts, Value = MyStringId.GetOrCompute("Bursts") });
+        }
+
         private void AppendReclamationSpawnerInfo(IMyTerminalBlock block, StringBuilder output)
         {
             if (!IsReclamationSpawner(block))
@@ -554,12 +611,22 @@ namespace Worldwright
             output.Append("Automatic interval: ").Append(config.AutomaticIntervalSeconds.ToString("0.0", CultureInfo.InvariantCulture)).AppendLine(" s");
             output.Append("Rotation variance: ").Append(config.RotationVariance.ToString("0", CultureInfo.InvariantCulture)).AppendLine("%");
             output.Append("Integrity: ").Append(config.MinimumIntegrity.ToString("0", CultureInfo.InvariantCulture)).Append("-").Append(config.MaximumIntegrity.ToString("0", CultureInfo.InvariantCulture)).AppendLine("%");
+            output.Append("Smoke: ").Append(config.SmokeMode).Append(" RGB(")
+                .Append(config.SmokeRed.ToString("0", CultureInfo.InvariantCulture)).Append(", ")
+                .Append(config.SmokeGreen.ToString("0", CultureInfo.InvariantCulture)).Append(", ")
+                .Append(config.SmokeBlue.ToString("0", CultureInfo.InvariantCulture)).Append(") ")
+                .Append(config.SmokeIntensity.ToString("0", CultureInfo.InvariantCulture)).AppendLine("%");
             output.Append("Appearances: ").AppendLine(config.AppearancePresets.Count.ToString(CultureInfo.InvariantCulture));
             output.Append("Entries: ").AppendLine(config.Entries.Count.ToString(CultureInfo.InvariantCulture));
 
             PendingReclamationSpawn pending;
             if (pendingReclamationSpawns.TryGetValue(block.EntityId, out pending))
-                output.Append("Status: Waiting for room (" + pending.DefinitionKey + ")").AppendLine();
+            {
+                if (pending.EarliestSpawnFrame > 0)
+                    output.Append("Status: Priming smoke (" + pending.DefinitionKey + ")").AppendLine();
+                else
+                    output.Append("Status: Waiting for room (" + pending.DefinitionKey + ")").AppendLine();
+            }
             else if (runningReclamationSpawners.ContainsKey(block.EntityId))
                 output.AppendLine("Status: Running automatically");
             else if (config.Entries.Count == 0)

@@ -12,6 +12,13 @@ namespace Worldwright
         Random = 2,
     }
 
+    internal enum ReclamationSmokeMode
+    {
+        Off = 0,
+        Always = 1,
+        Bursts = 2,
+    }
+
     internal sealed class ReclamationSpawnerConfig
     {
         internal const float DefaultVelocity = 1.5f;
@@ -27,6 +34,11 @@ namespace Worldwright
         internal float RotationVariance;
         internal float MinimumIntegrity = 100f;
         internal float MaximumIntegrity = 100f;
+        internal ReclamationSmokeMode SmokeMode = ReclamationSmokeMode.Off;
+        internal float SmokeRed;
+        internal float SmokeGreen;
+        internal float SmokeBlue;
+        internal float SmokeIntensity = 50f;
         internal int Cursor;
         internal bool Completed;
 
@@ -38,6 +50,9 @@ namespace Worldwright
 
         internal void Normalize()
         {
+            if (!Enum.IsDefined(typeof(ReclamationSmokeMode), SmokeMode))
+                SmokeMode = ReclamationSmokeMode.Off;
+
             OutwardVelocity = Math.Max(0f, Math.Min(WorldwrightSession.MaximumOutwardVelocity, OutwardVelocity));
             AutomaticIntervalSeconds = Math.Max(
                 WorldwrightSession.MinimumAutomaticIntervalSeconds,
@@ -45,6 +60,10 @@ namespace Worldwright
             RotationVariance = Math.Max(0f, Math.Min(100f, RotationVariance));
             MinimumIntegrity = Math.Max(10f, Math.Min(100f, MinimumIntegrity));
             MaximumIntegrity = Math.Max(10f, Math.Min(100f, MaximumIntegrity));
+            SmokeRed = Math.Max(0f, Math.Min(255f, SmokeRed));
+            SmokeGreen = Math.Max(0f, Math.Min(255f, SmokeGreen));
+            SmokeBlue = Math.Max(0f, Math.Min(255f, SmokeBlue));
+            SmokeIntensity = Math.Max(10f, Math.Min(100f, SmokeIntensity));
             if (MinimumIntegrity > MaximumIntegrity)
                 MaximumIntegrity = MinimumIntegrity;
 
@@ -94,6 +113,7 @@ namespace Worldwright
         internal Vector3D Up;
         internal ReclamationAppearancePreset Appearance;
         internal float IntegrityPercent;
+        internal int EarliestSpawnFrame;
     }
 
     internal sealed class RunningReclamationSpawner

@@ -13,6 +13,7 @@ namespace Worldwright
         private const ushort ReclamationSpawnerNetworkMessageId = 49301;
         private const string ReclamationRequestKind = "request";
         private const string ReclamationResponseKind = "response";
+        private const string ReclamationSmokeKind = "smoke";
 
         private bool reclamationNetworkRegistered;
 
@@ -94,6 +95,16 @@ namespace Worldwright
                 message.Kind.Equals(ReclamationRequestKind, StringComparison.OrdinalIgnoreCase))
             {
                 HandleReclamationRequest(message, sender);
+                return;
+            }
+
+            if (isFromServer &&
+                message.Kind.Equals(ReclamationSmokeKind, StringComparison.OrdinalIgnoreCase))
+            {
+                ApplySynchronizedReclamationSmokeState(
+                    message.BlockEntityId,
+                    message.Success,
+                    message.Number);
                 return;
             }
 
@@ -278,6 +289,34 @@ namespace Worldwright
                 if (config.MaximumIntegrity < config.MinimumIntegrity)
                     config.MinimumIntegrity = config.MaximumIntegrity;
             }
+            else if (operation.Equals("smoke-mode", StringComparison.OrdinalIgnoreCase))
+            {
+                if (!Enum.IsDefined(typeof(ReclamationSmokeMode), request.Index))
+                {
+                    response = "Unknown smoke mode.";
+                    return false;
+                }
+
+                config.SmokeMode = (ReclamationSmokeMode)request.Index;
+                if (config.SmokeMode != ReclamationSmokeMode.Bursts)
+                    EndReclamationBurstSmoke(block.EntityId, true);
+            }
+            else if (operation.Equals("smoke-red", StringComparison.OrdinalIgnoreCase))
+            {
+                config.SmokeRed = Math.Max(0f, Math.Min(255f, request.Number));
+            }
+            else if (operation.Equals("smoke-green", StringComparison.OrdinalIgnoreCase))
+            {
+                config.SmokeGreen = Math.Max(0f, Math.Min(255f, request.Number));
+            }
+            else if (operation.Equals("smoke-blue", StringComparison.OrdinalIgnoreCase))
+            {
+                config.SmokeBlue = Math.Max(0f, Math.Min(255f, request.Number));
+            }
+            else if (operation.Equals("smoke-intensity", StringComparison.OrdinalIgnoreCase))
+            {
+                config.SmokeIntensity = Math.Max(10f, Math.Min(100f, request.Number));
+            }
             else if (operation.Equals("add-appearance", StringComparison.OrdinalIgnoreCase))
             {
                 config.AppearancePresets.Add(CaptureReclamationAppearance(block));
@@ -307,6 +346,25 @@ namespace Worldwright
         {
             runningReclamationSpawners.Remove(blockEntityId);
             pendingReclamationSpawns.Remove(blockEntityId);
+            EndReclamationBurstSmoke(blockEntityId, true);
+        }
+
+        private void BroadcastReclamationSmokeState(long blockEntityId, bool active, float seconds)
+        {
+            if (MyAPIGateway.Multiplayer == null || !MyAPIGateway.Multiplayer.IsServer)
+                return;
+
+            var message = new ReclamationSpawnerNetworkMessage
+            {
+                Kind = ReclamationSmokeKind,
+                BlockEntityId = blockEntityId,
+                Success = active,
+                Number = seconds,
+            };
+
+            MyAPIGateway.Multiplayer.SendMessageToOthers(
+                ReclamationSpawnerNetworkMessageId,
+                SerializeReclamationMessage(message));
         }
 
         private static void Swap(List<string> entries, int left, int right)

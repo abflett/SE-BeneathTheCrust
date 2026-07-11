@@ -60,6 +60,7 @@ namespace Worldwright
 
         private void UnloadReclamationSpawners()
         {
+            UnloadReclamationSpawnerParticles();
             UnregisterReclamationSpawnerControls();
             UnregisterReclamationSpawnerNetwork();
             reclamationBlockCatalog.Clear();
@@ -258,6 +259,8 @@ namespace Worldwright
             pendingReclamationSpawns[block.EntityId] = request;
             if (TryCompletePendingReclamationSpawn(request))
                 message = "Spawned " + catalogEntry.DisplayName + ".";
+            else if (request.EarliestSpawnFrame > 0)
+                message = "Priming smoke before spawning " + catalogEntry.DisplayName + ".";
             else
                 message = "Waiting for enough room to spawn " + catalogEntry.DisplayName + ".";
 
@@ -352,6 +355,7 @@ namespace Worldwright
             if (!IsReclamationSpawner(block) || block.Closed || block.CubeGrid == null)
             {
                 pendingReclamationSpawns.Remove(pending.BlockEntityId);
+                EndReclamationBurstSmoke(pending.BlockEntityId, true);
                 return false;
             }
 
@@ -361,6 +365,7 @@ namespace Worldwright
                 !config.Entries[pending.SequenceIndex].Equals(pending.DefinitionKey, StringComparison.OrdinalIgnoreCase))
             {
                 pendingReclamationSpawns.Remove(pending.BlockEntityId);
+                EndReclamationBurstSmoke(pending.BlockEntityId, true);
                 RefreshReclamationSpawnerVisuals(block);
                 return false;
             }
@@ -369,6 +374,7 @@ namespace Worldwright
             if (!reclamationBlockCatalogByKey.TryGetValue(pending.DefinitionKey, out catalogEntry))
             {
                 pendingReclamationSpawns.Remove(pending.BlockEntityId);
+                EndReclamationBurstSmoke(pending.BlockEntityId, true);
                 RefreshReclamationSpawnerVisuals(block);
                 return false;
             }
@@ -383,7 +389,29 @@ namespace Worldwright
                 out spawnPosition,
                 out spawnClearance);
             if (!IsSpawnVolumeClear(block, ref spawnClearance))
+            {
+                if (pending.EarliestSpawnFrame > 0)
+                {
+                    pending.EarliestSpawnFrame = 0;
+                    EndReclamationBurstSmoke(pending.BlockEntityId, true);
+                }
+
                 return false;
+            }
+
+            var frame = MyAPIGateway.Session.GameplayFrameCounter;
+            if (config.SmokeMode == ReclamationSmokeMode.Bursts)
+            {
+                if (pending.EarliestSpawnFrame <= 0)
+                {
+                    pending.EarliestSpawnFrame = frame + ReclamationBurstSmokeFrames;
+                    BeginReclamationBurstSmoke(block, ReclamationBurstSmokeFrames, true);
+                    return false;
+                }
+
+                if (frame < pending.EarliestSpawnFrame)
+                    return false;
+            }
 
             if (!SpawnSingleBlockGrid(
                     block,
@@ -396,11 +424,14 @@ namespace Worldwright
                     config.OutwardVelocity))
             {
                 pendingReclamationSpawns.Remove(pending.BlockEntityId);
+                EndReclamationBurstSmoke(pending.BlockEntityId, true);
                 RefreshReclamationSpawnerVisuals(block);
                 return false;
             }
 
             pendingReclamationSpawns.Remove(pending.BlockEntityId);
+            if (config.SmokeMode == ReclamationSmokeMode.Bursts)
+                BeginReclamationBurstSmoke(block, ReclamationBurstSmokeFrames, true);
             AdvanceSequence(config, pending.SequenceIndex);
             WriteReclamationSpawnerConfig(block, config);
             ScheduleNextAutomaticSpawn(block, config);

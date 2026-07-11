@@ -78,6 +78,36 @@ namespace Worldwright
                     if (float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out maximumIntegrity))
                         config.MaximumIntegrity = maximumIntegrity;
                 }
+                else if (key.Equals("smokeMode", StringComparison.OrdinalIgnoreCase))
+                {
+                    ReclamationSmokeMode mode;
+                    if (Enum.TryParse(value, true, out mode))
+                        config.SmokeMode = mode;
+                }
+                else if (key.Equals("smokeRed", StringComparison.OrdinalIgnoreCase))
+                {
+                    float channel;
+                    if (float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out channel))
+                        config.SmokeRed = channel;
+                }
+                else if (key.Equals("smokeGreen", StringComparison.OrdinalIgnoreCase))
+                {
+                    float channel;
+                    if (float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out channel))
+                        config.SmokeGreen = channel;
+                }
+                else if (key.Equals("smokeBlue", StringComparison.OrdinalIgnoreCase))
+                {
+                    float channel;
+                    if (float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out channel))
+                        config.SmokeBlue = channel;
+                }
+                else if (key.Equals("smokeIntensity", StringComparison.OrdinalIgnoreCase))
+                {
+                    float intensity;
+                    if (float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out intensity))
+                        config.SmokeIntensity = intensity;
+                }
                 else if (key.Equals("appearance", StringComparison.OrdinalIgnoreCase))
                 {
                     ReclamationAppearancePreset preset;
@@ -144,6 +174,11 @@ namespace Worldwright
             output.Append("rotationVariance=").AppendLine(config.RotationVariance.ToString("0.###", CultureInfo.InvariantCulture));
             output.Append("minimumIntegrity=").AppendLine(config.MinimumIntegrity.ToString("0.###", CultureInfo.InvariantCulture));
             output.Append("maximumIntegrity=").AppendLine(config.MaximumIntegrity.ToString("0.###", CultureInfo.InvariantCulture));
+            output.Append("smokeMode=").AppendLine(config.SmokeMode.ToString());
+            output.Append("smokeRed=").AppendLine(config.SmokeRed.ToString("0.###", CultureInfo.InvariantCulture));
+            output.Append("smokeGreen=").AppendLine(config.SmokeGreen.ToString("0.###", CultureInfo.InvariantCulture));
+            output.Append("smokeBlue=").AppendLine(config.SmokeBlue.ToString("0.###", CultureInfo.InvariantCulture));
+            output.Append("smokeIntensity=").AppendLine(config.SmokeIntensity.ToString("0.###", CultureInfo.InvariantCulture));
             output.Append("cursor=").AppendLine(config.Cursor.ToString(CultureInfo.InvariantCulture));
             output.Append("completed=").AppendLine(config.Completed ? "true" : "false");
             for (var i = 0; i < config.Entries.Count; i++)
