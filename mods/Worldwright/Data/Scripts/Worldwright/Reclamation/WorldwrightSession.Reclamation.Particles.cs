@@ -9,7 +9,8 @@ namespace Worldwright
 {
     public sealed partial class WorldwrightSession
     {
-        private const string ReclamationSmokeParticleName = "ExhaustSmokeWhite";
+        private const string ReclamationSmokeParticleName = "Smoke_LargeGunShot";
+        private const float ReclamationMaximumSmokeBirthMultiplier = 20f;
         private const int ReclamationBurstSmokeFrames = 60;
         private const double ReclamationSmokeSurfaceOffset = 0.05;
 
@@ -79,7 +80,8 @@ namespace Worldwright
                 config.SmokeGreen / 255f,
                 config.SmokeBlue / 255f,
                 1f);
-            effect.UserBirthMultiplier = config.SmokeIntensity / 100f;
+            effect.UserBirthMultiplier =
+                config.SmokeIntensity / 100f * ReclamationMaximumSmokeBirthMultiplier;
             effect.UserFadeMultiplier = 1f;
         }
 
@@ -90,11 +92,11 @@ namespace Worldwright
             var position = block.GetPosition() +
                            outputDirection * (outputDepth + ReclamationSmokeSurfaceOffset);
 
-            // ExhaustSmokeWhite emits along its local Y axis, so Up points out through the grille.
+            // Smoke_LargeGunShot emits along local -Z, represented by MatrixD.Forward.
             return MatrixD.CreateWorld(
                 position,
-                Vector3D.Normalize(block.WorldMatrix.Up),
-                outputDirection);
+                outputDirection,
+                Vector3D.Normalize(block.WorldMatrix.Up));
         }
 
         private void BeginReclamationBurstSmoke(IMyTerminalBlock block, int frames, bool synchronize)
