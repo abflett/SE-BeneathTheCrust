@@ -314,6 +314,12 @@ namespace WkKn
                 return;
             }
 
+            if (args.Length == 3 && args[2].Equals("audit", StringComparison.OrdinalIgnoreCase))
+            {
+                ShowLayerAudit();
+                return;
+            }
+
             ShowAdminHelp();
         }
 
@@ -691,7 +697,8 @@ namespace WkKn
                 "Category index for world tuning and admin-only configuration.");
             ShowWkChatSection(
                 "Admin Commands",
-                "/wk admin unlockall - Complete all research for yourself without changing Proficiency");
+                "/wk admin unlockall - Complete all research for yourself without changing Proficiency",
+                "/wk admin audit - Display Working Knowledge Layer compatibility results");
             ShowWkChatSection(
                 "World Config Commands",
                 "/wk config world - Display world settings",

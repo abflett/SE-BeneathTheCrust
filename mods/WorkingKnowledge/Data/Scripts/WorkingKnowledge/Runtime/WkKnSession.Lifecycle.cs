@@ -46,6 +46,7 @@ namespace WkKn
 
         internal void LoadRuntimeData()
         {
+            runtimeLoadIssue = null;
             try
             {
                 LoadConfigStore();
@@ -57,7 +58,7 @@ namespace WkKn
             }
             catch (Exception exception)
             {
-                MyLog.Default.WriteLineAndConsole(LogPrefix + " failed to load runtime data: " + exception);
+                ReportRuntimeLoadFailure(exception);
             }
         }
 

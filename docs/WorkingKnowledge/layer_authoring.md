@@ -200,6 +200,9 @@ InteriorLight/ExampleLight = utility.interior_lighting
 - The layer is loaded with Working Knowledge and the source block mod.
 - In game, the blocks appear under the intended Working Knowledge schematic family in progression.
 - Low-Proficiency construction, repair, grinding, and salvage behavior applies to the layer blocks.
+- An admin can run `/wk admin audit` and see every expected mapping active with no issues.
+
+Audit details also appear in `SpaceEngineers.log` and the F11 mod-error screen. Existing layer files do not need changes for the audit.
 
 ## Real Example
 

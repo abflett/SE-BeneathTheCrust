@@ -11,12 +11,12 @@ namespace WkKn
     {
         private const string MappingFilePath = "Data/WorkingKnowledge/block_mappings.txt";
 
-        internal static Dictionary<string, ResearchCatalogEntry> LoadMappings()
+        internal static WorkingKnowledgeLayerAudit LoadMappings()
         {
-            var mappings = new Dictionary<string, ResearchCatalogEntry>(StringComparer.OrdinalIgnoreCase);
+            var audit = new WorkingKnowledgeLayerAudit();
 
             if (MyAPIGateway.Session == null || MyAPIGateway.Utilities == null || MyAPIGateway.Session.Mods == null)
-                return mappings;
+                return audit;
 
             for (var i = 0; i < MyAPIGateway.Session.Mods.Count; i++)
             {
@@ -24,13 +24,14 @@ namespace WkKn
                 if (!MyAPIGateway.Utilities.FileExistsInModLocation(MappingFilePath, mod))
                     continue;
 
-                LoadMappingsFromMod(mod, mappings);
+                audit.LayerCount++;
+                LoadMappingsFromMod(mod, audit);
             }
 
-            return mappings;
+            return audit;
         }
 
-        private static void LoadMappingsFromMod(MyObjectBuilder_Checkpoint.ModItem mod, Dictionary<string, ResearchCatalogEntry> mappings)
+        private static void LoadMappingsFromMod(MyObjectBuilder_Checkpoint.ModItem mod, WorkingKnowledgeLayerAudit audit)
         {
             try
             {
@@ -41,17 +42,17 @@ namespace WkKn
                     while ((line = reader.ReadLine()) != null)
                     {
                         lineNumber++;
-                        TryLoadMappingLine(mod, lineNumber, line, mappings);
+                        TryLoadMappingLine(mod, lineNumber, line, audit);
                     }
                 }
             }
             catch (Exception exception)
             {
-                MyLog.Default.WriteLineAndConsole(WkKnSession.LogPrefix + " failed to read WK layer mappings from " + GetModName(mod) + ": " + exception.Message);
+                audit.AddIssue("Could not read mappings from " + GetModName(mod) + ": " + exception.Message);
             }
         }
 
-        private static void TryLoadMappingLine(MyObjectBuilder_Checkpoint.ModItem mod, int lineNumber, string rawLine, Dictionary<string, ResearchCatalogEntry> mappings)
+        private static void TryLoadMappingLine(MyObjectBuilder_Checkpoint.ModItem mod, int lineNumber, string rawLine, WorkingKnowledgeLayerAudit audit)
         {
             var line = StripComment(rawLine).Trim();
             if (line.Length == 0)
@@ -60,26 +61,36 @@ namespace WkKn
             var equalsIndex = line.IndexOf('=');
             if (equalsIndex <= 0 || equalsIndex >= line.Length - 1)
             {
-                LogInvalidLine(mod, lineNumber, "expected Type/Subtype = schematic.id");
+                AddInvalidLineIssue(audit, mod, lineNumber, "expected Type/Subtype = schematic.id");
                 return;
             }
 
             var blockKey = line.Substring(0, equalsIndex).Trim();
             var researchId = line.Substring(equalsIndex + 1).Trim();
-            if (blockKey.Length == 0 || researchId.Length == 0 || blockKey.IndexOf('/') <= 0)
+            var slashIndex = blockKey.IndexOf('/');
+            if (blockKey.Length == 0 || researchId.Length == 0 || slashIndex <= 0 || slashIndex != blockKey.LastIndexOf('/') || slashIndex >= blockKey.Length - 1)
             {
-                LogInvalidLine(mod, lineNumber, "expected Type/Subtype = schematic.id");
+                AddInvalidLineIssue(audit, mod, lineNumber, "expected one complete Type/Subtype before '='");
                 return;
             }
 
             ResearchCatalogEntry entry;
             if (!TryCreateCatalogEntry(blockKey, researchId, out entry))
             {
-                LogInvalidLine(mod, lineNumber, "unknown Working Knowledge schematic id '" + researchId + "'");
+                AddInvalidLineIssue(audit, mod, lineNumber, "unknown Working Knowledge schematic id '" + researchId + "'");
                 return;
             }
 
-            mappings[blockKey] = entry;
+            var modName = GetModName(mod);
+            WorkingKnowledgeLayerMapping previous;
+            if (audit.Mappings.TryGetValue(blockKey, out previous))
+            {
+                audit.AddIssue(
+                    "Duplicate mapping for " + blockKey + " in " + modName + " line " + lineNumber +
+                    "; it replaces " + previous.Entry.ResearchId + " from " + previous.Source + ".");
+            }
+
+            audit.Mappings[blockKey] = new WorkingKnowledgeLayerMapping(entry, modName, lineNumber);
         }
 
         private static bool TryCreateCatalogEntry(string blockKey, string researchId, out ResearchCatalogEntry entry)
@@ -112,9 +123,9 @@ namespace WkKn
             return commentIndex < 0 ? line : line.Substring(0, commentIndex);
         }
 
-        private static void LogInvalidLine(MyObjectBuilder_Checkpoint.ModItem mod, int lineNumber, string reason)
+        private static void AddInvalidLineIssue(WorkingKnowledgeLayerAudit audit, MyObjectBuilder_Checkpoint.ModItem mod, int lineNumber, string reason)
         {
-            MyLog.Default.WriteLineAndConsole(WkKnSession.LogPrefix + " ignored WK layer mapping in " + GetModName(mod) + " line " + lineNumber + ": " + reason);
+            audit.AddIssue("Ignored mapping in " + GetModName(mod) + " line " + lineNumber + ": " + reason + ".");
         }
 
         private static string GetModName(MyObjectBuilder_Checkpoint.ModItem mod)

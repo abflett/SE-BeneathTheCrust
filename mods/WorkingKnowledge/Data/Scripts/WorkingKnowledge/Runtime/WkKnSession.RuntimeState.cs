@@ -76,6 +76,8 @@ namespace WkKn
         private readonly Dictionary<string, long> weldBotchWarningLastShownByKey = new Dictionary<string, long>(StringComparer.OrdinalIgnoreCase);
         private readonly WkProgressHudOverlay progressHudOverlay = new WkProgressHudOverlay(new VRageMath.Color(180, 255, 0), new VRageMath.Color(65, 255, 195));
         private readonly SchematicCatalog schematicCatalog = new SchematicCatalog();
+        private WorkingKnowledgeLayerAudit layerAudit = new WorkingKnowledgeLayerAudit();
+        private string runtimeLoadIssue;
         private readonly ResearchService researchService = new ResearchService(new ResearchProgressTuning(RequiredResearchProgress, ResearchProgressPrecision));
         private readonly ResearchSharingService researchSharingService = new ResearchSharingService(RequiredResearchProgress);
         private readonly ResearchDisplayService researchDisplayService = new ResearchDisplayService(RequiredResearchProgress);

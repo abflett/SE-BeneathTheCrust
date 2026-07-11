@@ -52,6 +52,7 @@ Public commands:
 - `/wk difficulty` - Show the current difficulty preset and modifiers.
 - `/wk difficulty help` - Show difficulty presets and custom settings.
 - `/wk admin` or `/wk admin help` - Show admin help categories.
+- `/wk admin audit` - Show runtime and compatibility-layer audit results.
 
 Admin-only config and tuning:
 
@@ -79,7 +80,7 @@ See [Working Knowledge configuration](../../docs/WorkingKnowledge/configuration.
 
 ## Current Status
 
-Working Knowledge is in its `0.11.x` public feedback release series.
+Working Knowledge is in its `0.12.x` public feedback release series.
 
 The current balance targets the default `medium` play experience. Public feedback, smoke testing, and survival playthrough tuning are the remaining focus before treating the mod as stable.
 
@@ -96,6 +97,7 @@ The mod currently includes:
 - Admin-configurable tuning through `/wk config`.
 - LCD apps and Research Pedestal workflows.
 - External Working Knowledge Layer support for mapping third-party block mods into schematic families.
+- Layer diagnostics in admin chat, the Space Engineers log, and the F11 mod-error screen.
 
 ## Compatibility
 
@@ -105,6 +107,7 @@ The mod currently includes:
 - Creative worlds and admin creative-mode testing are allowed to bypass schematic locks.
 - Text HUD API is used for the optional, player-configurable HUD progress overlay; core progression still falls back to chat and notifications if the framework is unavailable.
 - Other progression or research-overhaul mods are likely to conflict.
+- Public modded blocks without a Working Knowledge mapping remain outside its research and Proficiency systems. Use a compatibility layer when those blocks should participate.
 
 ## Project Docs
 

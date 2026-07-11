@@ -4,12 +4,13 @@ namespace WkKn
     {
         private void RebuildResearchDefinitions()
         {
-            VanillaResearchDefinitionBinder.Rebuild(
+            layerAudit = VanillaResearchDefinitionBinder.Rebuild(
                 schematicCatalog,
                 UnlockerBlockPrefix,
                 ResearchPedestalSubtype,
                 ResearchSciFiTerminalSubtype,
                 ControlInterfaceResearchGroupSubtype);
+            PublishLayerAudit();
         }
     }
 }

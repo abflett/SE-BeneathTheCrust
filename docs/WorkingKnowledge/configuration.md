@@ -171,12 +171,15 @@ Start with:
 
 ```text
 /wk admin
+/wk admin audit
 /wk config world
 /wk config world help
 /wk difficulty
 ```
 
-`/wk admin` is the admin command index. It points to the world config categories and the admin-only research, Proficiency, and difficulty help screens.
+`/wk admin` is the admin command index. It points to the world config categories and the admin-only research, Proficiency, difficulty, and layer-audit tools.
+
+`/wk admin audit` reports whether the runtime loaded, how many Working Knowledge layers were found, how many mappings became active, and any compatibility issues. Detailed issues also appear in `SpaceEngineers.log` and the F11 mod-error screen.
 
 World config commands:
 

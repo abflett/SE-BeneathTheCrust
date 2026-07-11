@@ -9,7 +9,7 @@ namespace WkKn
 {
     internal static class VanillaResearchDefinitionBinder
     {
-        internal static void Rebuild(
+        internal static WorkingKnowledgeLayerAudit Rebuild(
             SchematicCatalog schematicCatalog,
             string unlockerBlockPrefix,
             string researchPedestalSubtype,
@@ -21,7 +21,8 @@ namespace WkKn
 
             var blocks = GetResearchCandidateBlocks(unlockerBlockPrefix, researchPedestalSubtype, researchSciFiTerminalSubtype);
             var catalogByBlockKey = ResearchCatalog.BuildLookupByBlockKey();
-            AddLayerMappings(catalogByBlockKey);
+            var layerAudit = WorkingKnowledgeLayerMappingLoader.LoadMappings();
+            AddLayerMappings(catalogByBlockKey, layerAudit);
             schematicCatalog.LoadMetadata(ResearchCatalog.Entries);
 
             for (var i = 0; i < blocks.Count; i++)
@@ -34,30 +35,74 @@ namespace WkKn
                 var unlockerId = new MyDefinitionId(typeof(MyObjectBuilder_CubeBlock), catalogEntry.UnlockerSubtype);
                 var researchBlock = MyDefinitionManager.Static.GetResearchBlock(block.Id);
                 if (researchBlock == null)
+                {
+                    AddMissingResearchBlockIssue(layerAudit, block.Id);
                     continue;
+                }
 
                 var unlockerBlock = MyDefinitionManager.Static.GetCubeBlockDefinition(unlockerId);
                 var unlockerResearchGroup = MyDefinitionManager.Static.GetResearchGroup(catalogEntry.GroupSubtype);
                 if (unlockerBlock == null || unlockerResearchGroup == null)
+                {
+                    layerAudit.AddIssue(
+                        "Could not bind " + GetDefinitionKey(block.Id) + " because its Working Knowledge unlocker or research group is missing.");
                     continue;
+                }
 
                 researchBlock.UnlockedByGroups = new[] { catalogEntry.GroupSubtype };
                 unlockerResearchGroup.Members = new SerializableDefinitionId[] { unlockerId };
                 schematicCatalog.AddMappedBlock(catalogEntry, block.Id, unlockerId);
+                if (layerAudit.Mappings.ContainsKey(GetDefinitionKey(block.Id)) &&
+                    layerAudit.IsMappingEligible(GetDefinitionKey(block.Id)))
+                    layerAudit.ActiveMappingCount++;
             }
 
+            AddMissingBlockIssues(blocks, layerAudit);
+
             ConfigureResearchTerminalUnlocks(researchPedestalSubtype, researchSciFiTerminalSubtype, controlPanelResearchGroupSubtype);
+            return layerAudit;
         }
 
-        private static void AddLayerMappings(Dictionary<string, ResearchCatalogEntry> catalogByBlockKey)
+        private static void AddLayerMappings(Dictionary<string, ResearchCatalogEntry> catalogByBlockKey, WorkingKnowledgeLayerAudit layerAudit)
         {
-            var layerMappings = WorkingKnowledgeLayerMappingLoader.LoadMappings();
-            foreach (var mapping in layerMappings)
+            foreach (var mapping in layerAudit.Mappings)
             {
                 if (catalogByBlockKey.ContainsKey(mapping.Key))
+                {
+                    layerAudit.IgnoreMapping(mapping.Key);
+                    layerAudit.AddIssue(
+                        "Ignored " + mapping.Value.Source + " because " + mapping.Key + " already has a built-in Working Knowledge mapping.");
                     continue;
+                }
 
-                catalogByBlockKey.Add(mapping.Key, mapping.Value);
+                catalogByBlockKey.Add(mapping.Key, mapping.Value.Entry);
+            }
+        }
+
+        private static void AddMissingResearchBlockIssue(WorkingKnowledgeLayerAudit layerAudit, MyDefinitionId blockId)
+        {
+            WorkingKnowledgeLayerMapping mapping;
+            var key = GetDefinitionKey(blockId);
+            if (!layerAudit.Mappings.TryGetValue(key, out mapping))
+                return;
+
+            layerAudit.AddIssue(
+                key + " from " + mapping.Source + " has no ResearchBlocks.sbc entry and was not activated.");
+        }
+
+        private static void AddMissingBlockIssues(List<MyCubeBlockDefinition> blocks, WorkingKnowledgeLayerAudit layerAudit)
+        {
+            var loadedBlockKeys = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            for (var i = 0; i < blocks.Count; i++)
+                loadedBlockKeys.Add(GetDefinitionKey(blocks[i].Id));
+
+            foreach (var mapping in layerAudit.Mappings)
+            {
+                if (!loadedBlockKeys.Contains(mapping.Key))
+                {
+                    layerAudit.AddIssue(
+                        mapping.Key + " from " + mapping.Value.Source + " does not match a loaded public block.");
+                }
             }
         }
 

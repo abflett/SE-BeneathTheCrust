@@ -41,6 +41,7 @@ The planned sequence before `1.0.0` is:
 
 - `0.10.0` - better progress display. Complete.
 - `0.11.0` - external layer support for custom block mod integration. Complete.
+- `0.12.0` - compatibility-layer diagnostics and release validation. Complete.
 - `1.0.0` - current stabilization target after validation gates are satisfied.
 
 ## 0.10.0 Progress Display - Complete
@@ -86,6 +87,24 @@ Follow-up watch items:
 - Document any common block-pack layer patterns that emerge from playtesting.
 - Continue treating uncataloged modded blocks as compatibility cases rather than forcing ordinary players to configure them.
 
+## 0.12.0 Layer Diagnostics - Complete
+
+Goal: make layer problems easy to identify without changing the working layer format.
+
+Completed direction:
+
+- Added `/wk admin audit` for a short runtime and layer summary.
+- Added checks for missing blocks, missing research entries, malformed mappings, duplicates, and built-in conflicts.
+- Added detailed warnings to `SpaceEngineers.log` and the F11 mod-error screen.
+- Documented that uncataloged modded blocks stay outside Working Knowledge systems.
+- Added a release validation helper.
+
+Compatibility promise:
+
+- Existing layers remain valid.
+- The `block_mappings.txt` format is unchanged.
+- Existing Working Knowledge Layer Toolkit output does not need regeneration.
+
 ## 1.0.0 Release Checklist
 
 Goal: make Working Knowledge safe to recommend as a stable standalone progression mod.
@@ -119,6 +138,7 @@ Release validation commands:
 ```powershell
 .\tools\generate-working-knowledge-data.ps1
 .\tools\compile-mod-scripts.ps1 -ModName WkKn
+.\tools\validate-working-knowledge-release.ps1 -ExpectedVersion 1.0.0
 .\build.ps1 -ModName WkKn
 ```
 

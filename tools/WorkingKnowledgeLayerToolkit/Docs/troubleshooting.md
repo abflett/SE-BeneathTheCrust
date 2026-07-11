@@ -63,6 +63,14 @@ Also confirm every block has both:
 - a `Data/ResearchBlocks.sbc` entry
 - a `Data/WorkingKnowledge/block_mappings.txt` mapping
 
+In the loaded world, an admin can run:
+
+```text
+/wk admin audit
+```
+
+The command reports missing blocks, missing research entries, malformed mappings, duplicates, and built-in mapping conflicts. More than twelve issues are available in `SpaceEngineers.log` and the F11 mod-error screen.
+
 ## The Wrong Blocks Are Grouped Together
 
 Edit:

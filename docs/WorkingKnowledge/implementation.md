@@ -114,6 +114,18 @@ The session partials are split by responsibility:
 
 The internal script namespace, session class, world-storage filenames, LCD Custom Data sections, and generated game definition IDs use the short `WkKn` prefix.
 
+## Layer Diagnostics
+
+Layer mappings keep their source mod and line number while the runtime binds definitions.
+
+The audit checks mapping syntax, schematic IDs, duplicate mappings, built-in conflicts, loaded public blocks, required research-block definitions, and Working Knowledge unlockers/groups.
+
+- `/wk admin audit` shows the runtime state, layer count, active mapping count, and up to twelve issues in chat.
+- All issues are written to `SpaceEngineers.log`.
+- Issues are also registered as F11 mod warnings when the game supplies the Working Knowledge mod context.
+- Existing layer files remain compatible. Do not change the layer format for diagnostics alone.
+- Uncataloged modded blocks are skipped by research, Proficiency, welding, grinding, salvage, and placement enforcement.
+
 ## Research Data Loot
 
 Working Knowledge appends tiered data fragments to selected vanilla container type definitions at runtime. This replaces the retired static `ContainerTypes.sbc` override so vanilla and other mod loot definitions keep their own entries.
@@ -202,6 +214,7 @@ Use this small local check before committing gameplay changes:
 
 ```powershell
 .\tools\compile-mod-scripts.ps1 -ModName WkKn
+.\tools\validate-working-knowledge-release.ps1 -ExpectedVersion <version>
 .\build.ps1 -ModName WkKn
 ```
 

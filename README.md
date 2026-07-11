@@ -13,7 +13,7 @@ The project is being built as standalone mods first so each major system can be 
 - **Current playable layer:** `mods/WorkingKnowledge`
 - **Current scenario tooling layer:** `mods/Worldwright`
 - **Campaign state:** design and content foundation in `docs/`
-- **Current Working Knowledge line:** `0.11.0` public feedback with external layer support
+- **Current Working Knowledge line:** `0.12.0` public feedback with layer diagnostics
 - **Release target:** Working Knowledge `1.0.0` stable standalone release before campaign composition
 - **Development style:** fresh test worlds, clean defaults, and standalone mod roots until `1.0.0`
 

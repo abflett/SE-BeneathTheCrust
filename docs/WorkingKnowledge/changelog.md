@@ -2,6 +2,26 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
+## 0.12.0 - Layer Diagnostics
+
+Added diagnostics for Working Knowledge compatibility layers without changing the layer format or existing layer behavior.
+
+Admins can use `/wk admin audit` to see whether the runtime loaded correctly, how many layer mods were found, how many mappings became active, and any compatibility issues. The chat report shows the first twelve issues. Full details are also written to `SpaceEngineers.log` and registered as warnings in the F11 mod-error screen.
+
+The audit now identifies:
+
+- Malformed mapping lines and unknown schematic IDs.
+- Mappings for missing or non-public blocks.
+- Mappings missing their required `ResearchBlocks.sbc` entry.
+- Duplicate mappings supplied by multiple layers.
+- Layer mappings that conflict with a built-in Working Knowledge mapping.
+- Missing Working Knowledge unlocker definitions or research groups.
+- Unexpected runtime loading failures.
+
+Existing `block_mappings.txt` files remain compatible. The Working Knowledge Layer Toolkit output does not need to be regenerated.
+
+Added a release validation helper for script compilation, XML parsing, version documentation, thumbnail size, and temporary-file checks.
+
 ## 0.11.0 - External Layer Support
 
 Added support for small external **Working Knowledge Layer** mods that map third-party block definitions into Working Knowledge schematic families.
