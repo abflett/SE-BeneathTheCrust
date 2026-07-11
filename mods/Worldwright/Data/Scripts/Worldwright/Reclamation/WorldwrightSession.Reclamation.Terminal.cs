@@ -37,11 +37,6 @@ namespace Worldwright
             title.Visible = IsReclamationSpawner;
             reclamationSpawnerControls.Add(title);
 
-            var legacyWarning = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlLabel, IMyTerminalBlock>("WwBlockSpawnerLegacyWarning");
-            legacyWarning.Label = MyStringId.GetOrCompute("Legacy test block: replace with the new Block Spawner.");
-            legacyWarning.Visible = IsLegacyReclamationSpawner;
-            reclamationSpawnerControls.Add(legacyWarning);
-
             var customName = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlTextbox, IMyTerminalBlock>("WwBlockSpawnerName");
             customName.Visible = IsReclamationSpawner;
             customName.Getter = block => new StringBuilder(block.CustomName ?? string.Empty);

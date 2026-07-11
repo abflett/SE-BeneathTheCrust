@@ -42,8 +42,6 @@ This is not a safe zone replacement. It does not block movement, welding, termin
 
 The **Worldwright Block Spawner** is a large-grid functional terminal block shaped like a Light Armor Half Block. Its recessed side is the output side. It has no physical control screen, so open it from another terminal on the same construct.
 
-Early test blocks used the bare `TerminalBlock/WwReclamationSpawner` type. That definition remains hidden but loadable so saves do not lose the block. It did not reliably receive a terminal entity ID, however, so replace any block labelled **Worldwright Block Spawner (Legacy)** with the current `FunctionalBlock/WwBlockSpawner`. Existing early-test configuration can be copied from the legacy block's Custom Data if needed.
-
 The terminal provides:
 
 - A search field and filtered list of every loaded public cube-block definition.
@@ -71,7 +69,7 @@ Minimum and maximum integrity default to `100%`. Lower ranges create fully const
 
 To build an appearance list, paint and skin the Block Spawner with the vanilla paint tool, then press `Add Current Appearance`. Repaint it and add another preset as many times as needed. Each spawn randomly chooses one preset; duplicate presets add weight. When the list is empty, the current Block Spawner appearance is used directly.
 
-Spawner configuration is stored in the block's Custom Data under `[Worldwright.ReclamationSpawner]`. Worldwright preserves other Custom Data sections when updating this configuration.
+Spawner configuration is stored in the block's Custom Data under `[Worldwright.BlockSpawner]`. Worldwright preserves other Custom Data sections when updating this configuration.
 
 ## Planned Direction
 

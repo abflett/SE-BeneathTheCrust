@@ -7,7 +7,7 @@ namespace Worldwright
 {
     internal static class ReclamationSpawnerConfigCodec
     {
-        private const string SectionName = "Worldwright.ReclamationSpawner";
+        private const string SectionName = "Worldwright.BlockSpawner";
         private const string SectionHeader = "[" + SectionName + "]";
 
         internal static ReclamationSpawnerConfig Read(string customData)

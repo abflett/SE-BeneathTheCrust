@@ -25,7 +25,7 @@ This development release adds the first Worldwright Block Spawner for authored s
 - Adds an obvious Custom Name control for authored names such as `Reclamation Door Hatch`.
 - Renames the public block and terminal heading to Block Spawner.
 - Corrects the public block from the bare TerminalBlock type to a proper FunctionalBlock so it consistently receives an entity ID, saves terminal changes, and exposes toolbar actions.
-- Retains the early TerminalBlock subtype as a hidden legacy definition so existing saves continue to load and clearly marks those blocks for replacement.
+- Removes the broken early TerminalBlock subtype and old configuration section. Early test blocks must be removed and replaced.
 - Persists configuration on the spawner block while preserving unrelated Custom Data sections.
 
 Current testing boundaries:
