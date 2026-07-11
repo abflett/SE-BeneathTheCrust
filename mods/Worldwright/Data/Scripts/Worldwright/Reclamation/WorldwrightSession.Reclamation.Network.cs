@@ -64,8 +64,6 @@ namespace Worldwright
                 string response;
                 ExecuteReclamationOperation(block, request, true, 0, out response);
                 RefreshReclamationSpawnerVisuals(block);
-                if (!string.IsNullOrWhiteSpace(response) && IsNotifiedReclamationOperation(operation))
-                    ShowReclamationNotification(response, 2500);
                 return;
             }
 
@@ -114,8 +112,6 @@ namespace Worldwright
             {
                 var block = MyAPIGateway.Entities.GetEntityById(message.BlockEntityId) as IMyTerminalBlock;
                 RefreshReclamationSpawnerVisuals(block);
-                if (!message.Success || !string.IsNullOrWhiteSpace(message.Message))
-                    ShowReclamationNotification(message.Message, message.Success ? 2500 : 4000);
             }
         }
 
@@ -432,18 +428,5 @@ namespace Worldwright
             }
         }
 
-        private static void ShowReclamationNotification(string message, int milliseconds)
-        {
-            if (!string.IsNullOrWhiteSpace(message) && MyAPIGateway.Utilities != null)
-                MyAPIGateway.Utilities.ShowNotification(message, milliseconds, "White");
-        }
-
-        private static bool IsNotifiedReclamationOperation(string operation)
-        {
-            return operation.Equals("spawn", StringComparison.OrdinalIgnoreCase) ||
-                   operation.Equals("start", StringComparison.OrdinalIgnoreCase) ||
-                   operation.Equals("stop", StringComparison.OrdinalIgnoreCase) ||
-                   operation.Equals("reset", StringComparison.OrdinalIgnoreCase);
-        }
     }
 }
