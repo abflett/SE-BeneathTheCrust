@@ -2,6 +2,10 @@
 
 [Campaign README](../../README.md) | [Standalone mods index](../README.md)
 
+<p align="center">
+  <img src="../../docs/assets/worldwright-background.png" alt="An engineer using holographic construction tools to author a modular scenario room inside an industrial space station." />
+</p>
+
 **Worldwright** is a standalone Space Engineers scenario-authoring toolkit.
 
 It provides small, reusable tools for builders who want stronger control over tutorial spaces, stations, reclamation bays, and scripted scenario moments without making those tools specific to Beneath the Crust.
