@@ -44,7 +44,7 @@ This is not a safe zone replacement. It does not block movement, welding, termin
 
 ## Block Spawner
 
-The **Worldwright Block Spawner** is a large-grid functional terminal block shaped like a Light Armor Half Block. Its recessed side is the output side. It has no physical control screen, so open it from another terminal on the same construct.
+The **Worldwright Block Spawner** is a large-grid functional terminal block using the vanilla conveyor-sorter shell as a clear directional hatch. Its backward face is the output side. It has no physical control screen, so open it from another terminal on the same construct.
 
 The terminal provides:
 

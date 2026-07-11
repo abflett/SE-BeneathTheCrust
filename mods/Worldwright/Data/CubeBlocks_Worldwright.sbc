@@ -7,25 +7,13 @@
         <SubtypeId>WwBlockSpawner</SubtypeId>
       </Id>
       <DisplayName>Worldwright Block Spawner</DisplayName>
-      <Icon>Textures/GUI/Icons/Cubes/LightArmorSquareSlab.dds</Icon>
+      <Icon>Textures/GUI/Icons/Cubes/ConveyorSorterLarge.dds</Icon>
       <Description>Spawns configurable one-block grids for authored scenarios, tutorials, traps, and machinery.</Description>
       <CubeSize>Large</CubeSize>
-      <BlockTopology>Cube</BlockTopology>
+      <BlockTopology>TriangleMesh</BlockTopology>
       <Size x="1" y="1" z="1" />
       <ModelOffset x="0" y="0" z="0" />
-      <CubeDefinition>
-        <CubeTopology>HalfBox</CubeTopology>
-        <ShowEdges>true</ShowEdges>
-        <Sides>
-          <Side Model="Models\Cubes\Large\Armor\SquarePlateSlope2BaseFront.mwm" PatternWidth="1" PatternHeight="1" />
-          <Side Model="Models\Cubes\Large\Armor\SquarePlateCenter.mwm" PatternWidth="4" PatternHeight="2" />
-          <Side Model="Models\Cubes\Large\Armor\SquarePlateSlope2BaseFront.mwm" PatternWidth="1" PatternHeight="1" />
-          <Side Model="Models\Cubes\Large\Armor\SquarePlateSlope2BaseFront.mwm" PatternWidth="1" PatternHeight="1" />
-          <Side Model="Models\Cubes\Large\Armor\SquarePlate.mwm" PatternWidth="4" PatternHeight="2" />
-          <Side Model="Models\Cubes\Large\Armor\SquarePlateSlope2BaseFront.mwm" PatternWidth="1" PatternHeight="1" />
-        </Sides>
-      </CubeDefinition>
-      <PhysicsOption>Convex</PhysicsOption>
+      <Model>Models\Cubes\Large\ConveyorSorter.mwm</Model>
       <Components>
         <Component Subtype="SteelPlate" Count="10" />
         <Component Subtype="Construction" Count="5" />
@@ -34,16 +22,16 @@
       </Components>
       <CriticalComponent Subtype="Computer" Index="0" />
       <BuildProgressModels>
-        <Model BuildPercentUpperBound="0.33" File="Models\Cubes\Large\Armor\SquarePlateSlabConstruction_1.mwm" />
-        <Model BuildPercentUpperBound="0.66" File="Models\Cubes\Large\Armor\SquarePlateSlabConstruction_2.mwm" />
-        <Model BuildPercentUpperBound="1.00" File="Models\Cubes\Large\Armor\SquarePlateSlabConstruction_3.mwm" />
+        <Model BuildPercentUpperBound="0.33" File="Models\Cubes\Large\ConveyorSorterConstruction_1.mwm" />
+        <Model BuildPercentUpperBound="0.66" File="Models\Cubes\Large\ConveyorSorterConstruction_2.mwm" />
+        <Model BuildPercentUpperBound="1.00" File="Models\Cubes\Large\ConveyorSorterConstruction_3.mwm" />
       </BuildProgressModels>
       <MountPoints>
-        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="0.5" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
         <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
-        <MountPoint Side="Left" StartX="0" StartY="0" EndX="0.5" EndY="1" />
-        <MountPoint Side="Right" StartX="0.5" StartY="0" EndX="1" EndY="1" />
-        <MountPoint Side="Top" StartX="0" StartY="0.5" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
       </MountPoints>
       <ResourceSinkGroup>Utility</ResourceSinkGroup>
       <RequiredPowerInput>0.0001</RequiredPowerInput>

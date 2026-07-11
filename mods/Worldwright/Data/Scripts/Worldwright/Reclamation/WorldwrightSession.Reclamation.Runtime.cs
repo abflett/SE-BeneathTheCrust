@@ -472,7 +472,7 @@ namespace Worldwright
 
         private static Vector3D GetReclamationOutputDirection(IMyTerminalBlock spawner)
         {
-            // The vanilla HalfBox has its full mount face on Front. Its recessed/open half faces Backward.
+            // The sorter shell's backward face is the Block Spawner output side.
             return Vector3D.Normalize(spawner.WorldMatrix.Backward);
         }
 

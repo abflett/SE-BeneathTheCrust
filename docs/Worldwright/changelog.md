@@ -6,7 +6,7 @@ Public-facing release notes for the standalone **Worldwright** Space Engineers s
 
 This development release adds the first Worldwright Block Spawner for authored salvage bays, tutorials, traps, weapons, and other scenario machinery.
 
-- Adds a large-grid spawner using the vanilla Light Armor Half Block shape. The recessed side marks the output direction.
+- Adds a large-grid spawner using the vanilla conveyor-sorter shell as a directional hatch. Its backward face marks the output direction.
 - Searches all loaded public cube-block definitions, including blocks supplied by other loaded mods.
 - Stores an ordered sequence where duplicate entries produce repeated spawns.
 - Supports Once, Loop, and weighted Random sequence modes.
@@ -24,7 +24,7 @@ This development release adds the first Worldwright Block Spawner for authored s
 - Adds weighted appearance presets captured from the Block Spawner's current paint color and skin.
 - Adds an obvious Custom Name control for authored names such as `Reclamation Door Hatch`.
 - Renames the public block and terminal heading to Block Spawner.
-- Corrects the public block to use a concrete timer-backed terminal entity while retaining its Light Armor Half Block shape. This prevents grid rebuilds, cockpit entry, paint changes, and saves from collapsing it into a terminal-less armor block.
+- Corrects the public block to use a concrete timer-backed terminal entity with a real triangle-mesh model. This prevents grid rebuilds, cockpit entry, paint changes, and saves from collapsing it into a terminal-less armor block.
 - Hides the backing timer controls and actions so only the Block Spawner interface appears in the terminal and toolbar configuration.
 - Removes the broken early block types and old configuration section. Early test blocks must be removed and replaced.
 - Persists configuration on the spawner block while preserving unrelated Custom Data sections.
