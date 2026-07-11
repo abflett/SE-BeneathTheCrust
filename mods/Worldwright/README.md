@@ -81,7 +81,7 @@ The four vent indicators show spawner status: green counts through an automatic 
 
 Smoke Mode defaults to Off. Always continuously emits from the front grille, which can help conceal the hatch in a reclamation chute. Bursts waits until the next payload has enough room, emits smoke for one second, spawns the payload, and continues for one second afterward. If the output becomes obstructed during the lead-in, the burst is cancelled and primed again when the area clears. Red, Green, and Blue sliders accept `0-255`; all zero produces black smoke. Smoke Intensity changes particle density from `10-100%` without changing particle size.
 
-Smoke is created directly through Space Engineers' particle system. A single smoke generation receives the selected RGB multiplier, keeping the plume one consistent color instead of blending independently tinted smoke layers. The spawner remains a normal TerminalBlock, so its terminal panel and toolbar actions are unaffected. Burst state is synchronized from the server for multiplayer clients.
+Smoke is created directly through Space Engineers' particle system. The spawner remains a normal TerminalBlock, so its terminal panel and toolbar actions are unaffected. Burst state is synchronized from the server for multiplayer clients.
 
 ## Planned Direction
 
