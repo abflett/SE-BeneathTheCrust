@@ -2,6 +2,29 @@
 
 Public-facing release notes for the standalone **Worldwright** Space Engineers scenario-authoring toolkit.
 
+## 0.2.0 - Reclamation Spawner
+
+This development release adds the first Worldwright Reclamation Spawner for authored salvage bays, tutorials, traps, and other scenario machinery.
+
+- Adds a large-grid spawner using the vanilla Light Armor Half Block shape. The recessed side marks the output direction.
+- Searches all loaded public cube-block definitions, including blocks supplied by other loaded mods.
+- Stores an ordered sequence where duplicate entries produce repeated spawns.
+- Supports Once, Loop, and weighted Random sequence modes.
+- Adds Add, Remove, Move Up, and Move Down sequence controls.
+- Adds `Spawn Next` and `Reset Sequence` terminal buttons and toolbar actions for vanilla automation.
+- Waits for the complete next-block volume to clear instead of relying on a fixed cooldown.
+- Allows one pending spawn per spawner so repeated automation signals cannot create a hidden queue.
+- Spawns each entry as a fully built, unowned, dynamic one-block grid.
+- Adds a `0-100 m/s` outward velocity setting. Spawned grids inherit the source grid velocity before the configured outward velocity is applied.
+- Persists configuration on the spawner block while preserving unrelated Custom Data sections.
+
+Current testing boundaries:
+
+- Only individual block definitions are supported. Prefab and blueprint payloads remain future work.
+- Pending spawn requests are runtime state and are cancelled by a session reload or sequence edit.
+- Vanilla physics remains responsible for the final world-space grid speed.
+- The initial release provides a large-grid spawner only.
+
 ## 0.1.0 - Initial Protected Grid Tools
 
 Initial development release for testing Worldwright as a standalone scenario-authoring helper.

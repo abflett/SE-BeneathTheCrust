@@ -1,0 +1,290 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Sandbox.ModAPI;
+using VRage.Game;
+using VRage.Game.ModAPI;
+using VRage.Utils;
+
+namespace Worldwright
+{
+    public sealed partial class WorldwrightSession
+    {
+        private const ushort ReclamationSpawnerNetworkMessageId = 49301;
+        private const string ReclamationRequestKind = "request";
+        private const string ReclamationResponseKind = "response";
+
+        private bool reclamationNetworkRegistered;
+
+        private void RegisterReclamationSpawnerNetwork()
+        {
+            if (reclamationNetworkRegistered || MyAPIGateway.Multiplayer == null)
+                return;
+
+            MyAPIGateway.Multiplayer.RegisterSecureMessageHandler(
+                ReclamationSpawnerNetworkMessageId,
+                OnReclamationSpawnerNetworkMessage);
+            reclamationNetworkRegistered = true;
+        }
+
+        private void UnregisterReclamationSpawnerNetwork()
+        {
+            if (!reclamationNetworkRegistered || MyAPIGateway.Multiplayer == null)
+                return;
+
+            MyAPIGateway.Multiplayer.UnregisterSecureMessageHandler(
+                ReclamationSpawnerNetworkMessageId,
+                OnReclamationSpawnerNetworkMessage);
+            reclamationNetworkRegistered = false;
+        }
+
+        private void RequestReclamationOperation(
+            IMyTerminalBlock block,
+            string operation,
+            string text = null,
+            int index = -1,
+            float number = 0f)
+        {
+            if (!IsReclamationSpawner(block))
+                return;
+
+            var request = new ReclamationSpawnerNetworkMessage
+            {
+                Kind = ReclamationRequestKind,
+                Operation = operation,
+                BlockEntityId = block.EntityId,
+                Text = text,
+                Index = index,
+                Number = number,
+            };
+
+            if (MyAPIGateway.Multiplayer == null || MyAPIGateway.Multiplayer.IsServer)
+            {
+                string response;
+                ExecuteReclamationOperation(block, request, true, 0, out response);
+                RefreshReclamationSpawnerVisuals(block);
+                if (!string.IsNullOrWhiteSpace(response) && operation.Equals("spawn", StringComparison.OrdinalIgnoreCase))
+                    ShowReclamationNotification(response, 2500);
+                return;
+            }
+
+            MyAPIGateway.Multiplayer.SendMessageToServer(
+                ReclamationSpawnerNetworkMessageId,
+                SerializeReclamationMessage(request));
+        }
+
+        private void OnReclamationSpawnerNetworkMessage(
+            ushort handlerId,
+            byte[] messageBytes,
+            ulong sender,
+            bool isFromServer)
+        {
+            if (handlerId != ReclamationSpawnerNetworkMessageId)
+                return;
+
+            ReclamationSpawnerNetworkMessage message;
+            if (!TryDeserializeReclamationMessage(messageBytes, out message) ||
+                message == null ||
+                string.IsNullOrWhiteSpace(message.Kind))
+                return;
+
+            if (MyAPIGateway.Multiplayer != null &&
+                MyAPIGateway.Multiplayer.IsServer &&
+                !isFromServer &&
+                message.Kind.Equals(ReclamationRequestKind, StringComparison.OrdinalIgnoreCase))
+            {
+                HandleReclamationRequest(message, sender);
+                return;
+            }
+
+            if ((MyAPIGateway.Multiplayer == null || !MyAPIGateway.Multiplayer.IsServer) &&
+                isFromServer &&
+                message.Kind.Equals(ReclamationResponseKind, StringComparison.OrdinalIgnoreCase))
+            {
+                var block = MyAPIGateway.Entities.GetEntityById(message.BlockEntityId) as IMyTerminalBlock;
+                RefreshReclamationSpawnerVisuals(block);
+                if (!message.Success || !string.IsNullOrWhiteSpace(message.Message))
+                    ShowReclamationNotification(message.Message, message.Success ? 2500 : 4000);
+            }
+        }
+
+        private void HandleReclamationRequest(ReclamationSpawnerNetworkMessage request, ulong sender)
+        {
+            var block = MyAPIGateway.Entities.GetEntityById(request.BlockEntityId) as IMyTerminalBlock;
+            var identityId = ResolveReclamationIdentity(sender);
+            string responseText;
+            var success = ExecuteReclamationOperation(block, request, false, identityId, out responseText);
+
+            var response = new ReclamationSpawnerNetworkMessage
+            {
+                Kind = ReclamationResponseKind,
+                BlockEntityId = request.BlockEntityId,
+                Success = success,
+                Message = responseText,
+            };
+
+            MyAPIGateway.Multiplayer.SendMessageTo(
+                ReclamationSpawnerNetworkMessageId,
+                SerializeReclamationMessage(response),
+                sender);
+        }
+
+        private bool ExecuteReclamationOperation(
+            IMyTerminalBlock block,
+            ReclamationSpawnerNetworkMessage request,
+            bool trustedServerAction,
+            long identityId,
+            out string response)
+        {
+            response = string.Empty;
+            if (!IsReclamationSpawner(block) || block.Closed)
+            {
+                response = "Reclamation Spawner is not available.";
+                return false;
+            }
+
+            if (!trustedServerAction &&
+                (identityId == 0 || !block.HasPlayerAccess(identityId, MyRelationsBetweenPlayerAndBlock.NoOwnership)))
+            {
+                response = "You do not have access to this Reclamation Spawner.";
+                return false;
+            }
+
+            var operation = request.Operation ?? string.Empty;
+            if (operation.Equals("spawn", StringComparison.OrdinalIgnoreCase))
+                return QueueReclamationSpawn(block, out response);
+
+            var config = ReadReclamationSpawnerConfig(block);
+            if (operation.Equals("reset", StringComparison.OrdinalIgnoreCase))
+            {
+                config.ResetSequence();
+                pendingReclamationSpawns.Remove(block.EntityId);
+                response = "Spawn sequence reset.";
+            }
+            else if (operation.Equals("add", StringComparison.OrdinalIgnoreCase))
+            {
+                ReclamationBlockCatalogEntry entry;
+                if (string.IsNullOrWhiteSpace(request.Text) ||
+                    !reclamationBlockCatalogByKey.TryGetValue(request.Text, out entry))
+                {
+                    response = "Selected block definition is not loaded.";
+                    return false;
+                }
+
+                config.Entries.Add(entry.Key);
+                config.ResetSequence();
+                pendingReclamationSpawns.Remove(block.EntityId);
+            }
+            else if (operation.Equals("remove", StringComparison.OrdinalIgnoreCase))
+            {
+                if (request.Index < 0 || request.Index >= config.Entries.Count)
+                {
+                    response = "Select a sequence entry to remove.";
+                    return false;
+                }
+
+                config.Entries.RemoveAt(request.Index);
+                config.ResetSequence();
+                pendingReclamationSpawns.Remove(block.EntityId);
+            }
+            else if (operation.Equals("move-up", StringComparison.OrdinalIgnoreCase))
+            {
+                if (request.Index <= 0 || request.Index >= config.Entries.Count)
+                    return false;
+
+                Swap(config.Entries, request.Index, request.Index - 1);
+                config.ResetSequence();
+                pendingReclamationSpawns.Remove(block.EntityId);
+            }
+            else if (operation.Equals("move-down", StringComparison.OrdinalIgnoreCase))
+            {
+                if (request.Index < 0 || request.Index >= config.Entries.Count - 1)
+                    return false;
+
+                Swap(config.Entries, request.Index, request.Index + 1);
+                config.ResetSequence();
+                pendingReclamationSpawns.Remove(block.EntityId);
+            }
+            else if (operation.Equals("mode", StringComparison.OrdinalIgnoreCase))
+            {
+                if (!Enum.IsDefined(typeof(ReclamationSequenceMode), request.Index))
+                {
+                    response = "Unknown sequence mode.";
+                    return false;
+                }
+
+                config.Mode = (ReclamationSequenceMode)request.Index;
+                config.ResetSequence();
+                pendingReclamationSpawns.Remove(block.EntityId);
+            }
+            else if (operation.Equals("velocity", StringComparison.OrdinalIgnoreCase))
+            {
+                config.OutwardVelocity = Math.Max(0f, Math.Min(MaximumOutwardVelocity, request.Number));
+            }
+            else
+            {
+                response = "Unknown Reclamation Spawner operation.";
+                return false;
+            }
+
+            WriteReclamationSpawnerConfig(block, config);
+            RefreshReclamationSpawnerVisuals(block);
+            return true;
+        }
+
+        private static void Swap(List<string> entries, int left, int right)
+        {
+            var value = entries[left];
+            entries[left] = entries[right];
+            entries[right] = value;
+        }
+
+        private static long ResolveReclamationIdentity(ulong sender)
+        {
+            var players = new List<IMyPlayer>();
+            MyAPIGateway.Players.GetPlayers(players);
+            for (var i = 0; i < players.Count; i++)
+            {
+                if (players[i] != null && players[i].SteamUserId == sender)
+                    return players[i].IdentityId;
+            }
+
+            return 0;
+        }
+
+        private static byte[] SerializeReclamationMessage(ReclamationSpawnerNetworkMessage message)
+        {
+            if (message == null || MyAPIGateway.Utilities == null)
+                return new byte[0];
+
+            return Encoding.UTF8.GetBytes(MyAPIGateway.Utilities.SerializeToXML(message));
+        }
+
+        private static bool TryDeserializeReclamationMessage(
+            byte[] messageBytes,
+            out ReclamationSpawnerNetworkMessage message)
+        {
+            message = null;
+            if (messageBytes == null || messageBytes.Length == 0 || MyAPIGateway.Utilities == null)
+                return false;
+
+            try
+            {
+                message = MyAPIGateway.Utilities.SerializeFromXML<ReclamationSpawnerNetworkMessage>(
+                    Encoding.UTF8.GetString(messageBytes));
+                return message != null;
+            }
+            catch (Exception exception)
+            {
+                MyLog.Default.WriteLineAndConsole("[Worldwright] failed to read spawner network message: " + exception.Message);
+                return false;
+            }
+        }
+
+        private static void ShowReclamationNotification(string message, int milliseconds)
+        {
+            if (!string.IsNullOrWhiteSpace(message) && MyAPIGateway.Utilities != null)
+                MyAPIGateway.Utilities.ShowNotification(message, milliseconds, "White");
+        }
+    }
+}

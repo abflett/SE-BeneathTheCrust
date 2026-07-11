@@ -2,7 +2,7 @@
 <ModItem>
   <Name>Worldwright</Name>
   <Description>Scenario authoring tools for protected stations, salvage bays, and staged tutorial spaces.</Description>
-  <Version>0.1.0</Version>
+  <Version>0.2.0</Version>
   <Makers>Beneath the Crust</Makers>
   <IncludeInExport>True</IncludeInExport>
 </ModItem>

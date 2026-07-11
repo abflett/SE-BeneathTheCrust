@@ -8,8 +8,8 @@ using VRage.Game.ObjectBuilders;
 
 namespace Worldwright
 {
-    [MySessionComponentDescriptor(MyUpdateOrder.NoUpdate)]
-    public sealed class WorldwrightSession : MySessionComponentBase
+    [MySessionComponentDescriptor(MyUpdateOrder.AfterSimulation)]
+    public sealed partial class WorldwrightSession : MySessionComponentBase
     {
         private const int DamageHandlerPriority = -100;
         private const int ProtectionCacheFrames = 120;
@@ -31,8 +31,19 @@ namespace Worldwright
             }
         }
 
+        public override void BeforeStart()
+        {
+            InitializeReclamationSpawners();
+        }
+
+        public override void UpdateAfterSimulation()
+        {
+            UpdatePendingReclamationSpawns();
+        }
+
         protected override void UnloadData()
         {
+            UnloadReclamationSpawners();
             protectionCache.Clear();
             blockBuffer.Clear();
         }

@@ -3,7 +3,16 @@
 
 Worldwright is a lightweight toolkit for authors who want stronger control over tutorial spaces, stations, reclamation bays, and staged scenario areas without making those tools specific to one campaign.
 
-The first release focuses on protected grids: stations or infrastructure that players can use, walk through, and build around, but cannot dismantle with grinders.
+Worldwright currently provides protected-grid tools and a configurable Reclamation Spawner for authored salvage bays and scenario machinery.
+
+[h2]Current Feature: Reclamation Spawner[/h2]
+The Worldwright Reclamation Spawner creates fully built, unowned one-block grids from its recessed side.
+
+Use its normal terminal controls to search loaded blocks, build an ordered sequence, choose Once, Loop, or Random behavior, and set an outward velocity from 0 to 100 m/s.
+
+Duplicate entries produce repeated blocks. In Random mode, duplicates also give that block more weight.
+
+The [b]Spawn Next[/b] and [b]Reset Sequence[/b] toolbar actions work with timer blocks and other vanilla automation. When the next block does not fit, one spawn request waits until the complete area clears instead of using a fixed cooldown.
 
 [h2]Current Feature: Protected Grids[/h2]
 Worldwright can cancel normal grinder damage against marked grids. This is useful for:
@@ -43,9 +52,9 @@ Keep protected scenario infrastructure separate from scrap grids.
 For example, a tutorial station can be protected while nearby broken panels, wreckage, containers, or practice grids remain unprotected and grindable.
 
 [h2]Status[/h2]
-Version 0.1.0 is the initial protected-grid tools release.
+Version 0.2.0 adds the first Reclamation Spawner alongside the protected-grid tools.
 
-Future Worldwright work may add reclamation-bay scrap spawning, trigger volumes, staged prefab drops, scenario reset helpers, and other reusable scenario-authoring tools.
+Future Worldwright work may add trigger volumes, staged prefab or blueprint drops, scenario reset helpers, and other reusable scenario-authoring tools.
 
 [h2]Project Links[/h2]
 [url=https://github.com/abflett/SE-BeneathTheCrust/tree/main/mods/Worldwright]Worldwright README[/url]
