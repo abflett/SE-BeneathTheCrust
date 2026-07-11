@@ -194,7 +194,7 @@ namespace Worldwright
                 else
                     output.Append(acceleration.ToString("0.00", CultureInfo.InvariantCulture)).Append(" m/s²");
             };
-            SetReclamationControlText(gravityAssist, "Gravity Assist", "Apply acceleration along the station grid's Down direction to each spawned payload for 60 seconds. Zero disables it.");
+            SetReclamationControlText(gravityAssist, "Gravity Assist", "Apply acceleration along the station grid's Down direction while a player is within 250 metres of each spawned payload. Zero disables it.");
             reclamationSpawnerControls.Add(gravityAssist);
 
             var smokeMode = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlCombobox, IMyTerminalBlock>("WwReclamationSmokeMode");
@@ -664,7 +664,7 @@ namespace Worldwright
             if (config.GravityAssistAcceleration <= 0.001f)
                 output.AppendLine("Off");
             else
-                output.Append(config.GravityAssistAcceleration.ToString("0.00", CultureInfo.InvariantCulture)).AppendLine(" m/s² for 60 s");
+                output.Append(config.GravityAssistAcceleration.ToString("0.00", CultureInfo.InvariantCulture)).AppendLine(" m/s² within 250 m");
             output.Append("Smoke: ").Append(config.SmokeMode).Append(" / ").Append(config.SmokeEffect).Append(" tint(")
                 .Append(config.SmokeRed.ToString("0", CultureInfo.InvariantCulture)).Append(", ")
                 .Append(config.SmokeGreen.ToString("0", CultureInfo.InvariantCulture)).Append(", ")

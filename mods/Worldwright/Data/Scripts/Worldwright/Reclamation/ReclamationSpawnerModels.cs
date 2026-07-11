@@ -144,7 +144,7 @@ namespace Worldwright
         internal long GridEntityId;
         internal Vector3D Direction;
         internal float Acceleration;
-        internal int ExpiresAtFrame;
+        internal bool HasNearbyPlayer = true;
     }
 
     public sealed class ReclamationSpawnerNetworkMessage

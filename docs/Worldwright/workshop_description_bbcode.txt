@@ -16,7 +16,7 @@ The [b]Spawn Next[/b] and [b]Reset Sequence[/b] toolbar actions work with timer 
 
 A configurable Clearance Scale lets scenario authors reduce conservative false blocking around slopes and half blocks, or add extra safety margin for less controlled machinery.
 
-Optional Gravity Assist can accelerate spawned payloads along the station grid's down direction for 60 seconds, allowing blocks to fall and settle in space-based reclamation chutes without affecting unrelated grids.
+Optional Gravity Assist can accelerate spawned payloads along the station grid's down direction while a player is within 250 metres, allowing blocks to fall and settle in space-based reclamation chutes without continuously simulating unattended payloads.
 
 Paint and skin the Block Spawner, then capture that appearance as a random preset. Multiple colors and skins, randomized integrity, and starting-rotation variance can make spawned parts look like varied used salvage.
 

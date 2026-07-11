@@ -58,7 +58,7 @@ The terminal provides:
 - A `0-100%` starting-rotation variance without angular velocity or continued spinning.
 - A random integrity range from `10-100%`.
 - A `0.25-2.00x` clearance scale for tightly authored or deliberately conservative spawn spaces.
-- Optional `0-9.81 m/s²` Gravity Assist applied to spawned payloads for 60 seconds.
+- Optional `0-9.81 m/s²` Gravity Assist applied while a player is within 250 metres of a spawned payload.
 - A weighted list of captured paint-and-skin appearance presets.
 - Optional directly rendered smoke with Off, Always, and Bursts modes.
 - A vanilla smoke-effect selector, optional experimental RGB tint multipliers, and particle-density controls without changing the spawner's terminal block type.
@@ -71,7 +71,7 @@ Clearance Scale defaults to `1.00x`, using the payload's full rotation-safe diag
 
 The new grid inherits the source grid's current linear velocity, then adds the configured velocity away from the recessed face. Worldwright deliberately does not clamp the resulting vector so local testing can show how vanilla world physics handles launches from a moving grid.
 
-Ordinary grids are not affected by vanilla artificial gravity generators unless they contain an Artificial Mass block. Gravity Assist provides a scoped alternative for reclamation chutes: zero disables it, while higher values accelerate only that spawner's payload grids along the source station grid's Down direction for 60 seconds. The assist is runtime state and ends early when a payload is destroyed, removed, or becomes static. `9.81 m/s²` approximates Earth gravity.
+Ordinary grids are not affected by vanilla artificial gravity generators unless they contain an Artificial Mass block. Gravity Assist provides a scoped alternative for reclamation chutes: zero disables it, while higher values accelerate only that spawner's payload grids along the source station grid's Down direction whenever a player is within 250 metres of that payload. Range checks run once per second. Assistance pauses when players leave and resumes if they return; destroyed, removed, or static payloads are discarded from tracking. The assist is runtime state and resets with the session. `9.81 m/s²` approximates Earth gravity.
 
 Automatic mode requests its first spawn immediately. After every successful spawn, it waits for the configured interval before requesting another. A blocked output pauses the sequence without building a queue. Once mode stops automatically at the end; Loop and Random continue until stopped. Automatic running is runtime state and starts stopped after a world reload.
 
