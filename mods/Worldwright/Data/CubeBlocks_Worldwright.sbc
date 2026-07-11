@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <CubeBlocks>
-    <Definition>
+    <Definition xsi:type="MyObjectBuilder_ExhaustBlockDefinition">
       <Id>
-        <TypeId>TerminalBlock</TypeId>
+        <TypeId>ExhaustBlock</TypeId>
         <SubtypeId>WwBlockSpawner</SubtypeId>
       </Id>
       <DisplayName>Worldwright Block Spawner</DisplayName>
@@ -44,6 +44,13 @@
       <EnableUseObjectSimpleTargeting>true</EnableUseObjectSimpleTargeting>
       <PCU>10</PCU>
       <IsAirTight>false</IsAirTight>
+      <AvailableEffects>
+        <string>WwBlackSmoke</string>
+        <string>WwDarkSmoke</string>
+        <string>WwReactorSmoke</string>
+        <string>WwWhiteSmoke</string>
+      </AvailableEffects>
+      <RequiredPowerInput>0.0002</RequiredPowerInput>
     </Definition>
   </CubeBlocks>
 </Definitions>

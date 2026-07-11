@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Definition xsi:type="MyObjectBuilder_ExhaustEffectDefinition">
+    <Id Type="MyObjectBuilder_ExhaustEffectDefinition" Subtype="WwBlackSmoke" />
+    <AvailableInSurvival>false</AvailableInSurvival>
+    <ExhaustPipes>
+      <Pipe>
+        <Name>SpawnerVent</Name>
+        <Dummy>vent_001</Dummy>
+        <Effect>ExhaustSmoke</Effect>
+        <EffectIntensity>1</EffectIntensity>
+        <PowerToRadius>1</PowerToRadius>
+        <PowerToBirth>1</PowerToBirth>
+        <PowerToVelocity>1</PowerToVelocity>
+        <PowerToColorIntensity>1</PowerToColorIntensity>
+        <PowerToLife>1</PowerToLife>
+      </Pipe>
+    </ExhaustPipes>
+  </Definition>
+  <Definition xsi:type="MyObjectBuilder_ExhaustEffectDefinition">
+    <Id Type="MyObjectBuilder_ExhaustEffectDefinition" Subtype="WwDarkSmoke" />
+    <AvailableInSurvival>false</AvailableInSurvival>
+    <ExhaustPipes>
+      <Pipe>
+        <Name>SpawnerVent</Name>
+        <Dummy>vent_001</Dummy>
+        <Effect>ExhaustCarSmoke</Effect>
+        <EffectIntensity>1</EffectIntensity>
+        <PowerToRadius>1</PowerToRadius>
+        <PowerToBirth>1</PowerToBirth>
+        <PowerToVelocity>1</PowerToVelocity>
+        <PowerToColorIntensity>1</PowerToColorIntensity>
+        <PowerToLife>1</PowerToLife>
+      </Pipe>
+    </ExhaustPipes>
+  </Definition>
+  <Definition xsi:type="MyObjectBuilder_ExhaustEffectDefinition">
+    <Id Type="MyObjectBuilder_ExhaustEffectDefinition" Subtype="WwReactorSmoke" />
+    <AvailableInSurvival>false</AvailableInSurvival>
+    <ExhaustPipes>
+      <Pipe>
+        <Name>SpawnerVent</Name>
+        <Dummy>vent_001</Dummy>
+        <Effect>ExhaustSmokeReactor</Effect>
+        <EffectIntensity>1</EffectIntensity>
+        <PowerToRadius>1</PowerToRadius>
+        <PowerToBirth>1</PowerToBirth>
+        <PowerToVelocity>1</PowerToVelocity>
+        <PowerToColorIntensity>1</PowerToColorIntensity>
+        <PowerToLife>1</PowerToLife>
+      </Pipe>
+    </ExhaustPipes>
+  </Definition>
+  <Definition xsi:type="MyObjectBuilder_ExhaustEffectDefinition">
+    <Id Type="MyObjectBuilder_ExhaustEffectDefinition" Subtype="WwWhiteSmoke" />
+    <AvailableInSurvival>false</AvailableInSurvival>
+    <ExhaustPipes>
+      <Pipe>
+        <Name>SpawnerVent</Name>
+        <Dummy>vent_001</Dummy>
+        <Effect>ExhaustSmokeWhite</Effect>
+        <EffectIntensity>1</EffectIntensity>
+        <PowerToRadius>1</PowerToRadius>
+        <PowerToBirth>1</PowerToBirth>
+        <PowerToVelocity>1</PowerToVelocity>
+        <PowerToColorIntensity>1</PowerToColorIntensity>
+        <PowerToLife>1</PowerToLife>
+      </Pipe>
+    </ExhaustPipes>
+  </Definition>
+</Definitions>

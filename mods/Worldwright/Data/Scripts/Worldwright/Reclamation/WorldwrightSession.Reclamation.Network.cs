@@ -278,6 +278,30 @@ namespace Worldwright
                 if (config.MaximumIntegrity < config.MinimumIntegrity)
                     config.MinimumIntegrity = config.MaximumIntegrity;
             }
+            else if (operation.Equals("exhaust-mode", StringComparison.OrdinalIgnoreCase))
+            {
+                if (!Enum.IsDefined(typeof(ReclamationExhaustMode), request.Index))
+                {
+                    response = "Unknown smoke mode.";
+                    return false;
+                }
+
+                config.ExhaustMode = (ReclamationExhaustMode)request.Index;
+            }
+            else if (operation.Equals("smoke-style", StringComparison.OrdinalIgnoreCase))
+            {
+                if (!Enum.IsDefined(typeof(ReclamationSmokeStyle), request.Index))
+                {
+                    response = "Unknown smoke style.";
+                    return false;
+                }
+
+                config.SmokeStyle = (ReclamationSmokeStyle)request.Index;
+            }
+            else if (operation.Equals("exhaust-intensity", StringComparison.OrdinalIgnoreCase))
+            {
+                config.ExhaustIntensity = Math.Max(10f, Math.Min(100f, request.Number));
+            }
             else if (operation.Equals("add-appearance", StringComparison.OrdinalIgnoreCase))
             {
                 config.AppearancePresets.Add(CaptureReclamationAppearance(block));

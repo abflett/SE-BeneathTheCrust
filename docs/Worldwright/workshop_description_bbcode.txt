@@ -16,6 +16,8 @@ The [b]Spawn Next[/b] and [b]Reset Sequence[/b] toolbar actions work with timer 
 
 Paint and skin the Block Spawner, then capture that appearance as a random preset. Multiple colors and skins, randomized integrity, and starting-rotation variance can make spawned parts look like varied used salvage.
 
+Optional exhaust smoke can remain off, run continuously, or puff while spawning and remain active while a blocked request waits for clearance. Choose black, dark vehicle, reactor, or white smoke and adjust its intensity.
+
 [h2]Current Feature: Protected Grids[/h2]
 Worldwright can cancel normal grinder damage against marked grids. This is useful for:
 

@@ -29,7 +29,11 @@ This development release adds the first Worldwright Block Spawner for authored s
 - Measures the hatch model's actual output depth and adds a safe launch gap before checking clearance.
 - Uses the payload's full diagonal as a rotation-independent clearance radius, preventing large randomly rotated blocks from falsely jamming as the source grid changes world orientation.
 - Adds four status indicators for automatic interval progress, blocked output, invalid configuration, completed Once sequences, ready state, and empty sequences.
+- Adds optional exhaust smoke with Off, Always, and While Spawning modes. Immediate spawns produce a short puff, while blocked requests continue smoking until they can complete.
+- Adds black, dark vehicle, reactor, and white vanilla smoke styles with adjustable intensity.
+- Uses the vanilla exhaust-block system behind the Air Vent shell so smoke is managed by the game rather than a custom particle simulation.
 - Removes the broken early block types and old configuration section. Early test blocks must be removed and replaced.
+- Changes the development spawner's underlying block type again to support real exhaust effects. Existing test spawners must be removed and replaced.
 - Persists configuration on the spawner block while preserving unrelated Custom Data sections.
 
 Current testing boundaries:
