@@ -16,7 +16,7 @@ The pre-`1.0.0` feedback track is about making Working Knowledge comfortable in 
 
 Feature backlog:
 
-- Add a safer way to map custom block mods into Working Knowledge schematic groups.
+- Complete extensible schematic groups and explicit layer remapping for `0.13.0`.
 - Keep player-facing config simple enough that ordinary players do not need to edit config to enjoy the mod.
 - Keep advanced config useful for server owners, modpacks, and balance tuning.
 
@@ -29,9 +29,9 @@ Fix and polish backlog:
 
 Compatibility and test backlog:
 
-- Verify how uncataloged modded blocks behave today.
-- Confirm modded blocks do not unintentionally become locked, blocked, or partially restricted.
-- Document modded block behavior clearly so players know whether configuration is required.
+- Preserve existing mapping-only layers while adding the optional `0.13.0` group-definition format.
+- Validate deterministic conflicts and overrides across several loaded layers.
+- Confirm uncataloged modded blocks continue to remain outside Working Knowledge systems.
 - Keep the current hidden-unlocker tradeoff documented: hidden unlockers may appear in G-menu search for "Schematics", but are not survival-buildable.
 - Run focused smoke tests after gameplay changes and broader validation before version bumps.
 
@@ -42,6 +42,7 @@ The planned sequence before `1.0.0` is:
 - `0.10.0` - better progress display. Complete.
 - `0.11.0` - external layer support for custom block mod integration. Complete.
 - `0.12.0` - compatibility-layer diagnostics, runtime cleanup, and release validation. Complete.
+- `0.13.0` - extensible schematic groups and layer-controlled block remapping. Planned.
 - `1.0.0` - current stabilization target after validation gates are satisfied.
 
 ## 0.10.0 Progress Display - Complete
@@ -108,6 +109,38 @@ Compatibility promise:
 - The `block_mappings.txt` format is unchanged.
 - Existing Working Knowledge Layer Toolkit output does not need regeneration.
 
+## 0.13.0 Extensible Schematic Groups - Planned
+
+Goal: allow compatibility layers to extend the Working Knowledge research model instead of only assigning blocks to built-in schematic groups.
+
+Planned capabilities:
+
+- Allow a layer to define new schematic groups with its own stable ID, display name, tier, unlocker, and related metadata.
+- Allow block mappings to target either built-in or layer-defined schematic groups.
+- Allow an explicit layer override to move a block from its built-in Working Knowledge group into another group.
+- Allow layer authors to reorganize supported third-party blocks across several custom groups instead of forcing one existing group to contain an entire block pack.
+- Update the Working Knowledge Layer Toolkit so it can create, edit, validate, and generate custom schematic groups and override mappings.
+- Include generated research definitions and unlockers required for custom groups in toolkit output.
+- Show custom groups correctly in research, Proficiency, admin commands, the Research Pedestal, LCD apps, HUD progress, data rewards, and save data.
+
+Compatibility and safety requirements:
+
+- Existing `0.11.x` and `0.12.x` layers must continue to load without regeneration.
+- Built-in mappings remain authoritative unless a layer uses an explicit override mechanism.
+- Duplicate custom group IDs, conflicting block overrides, missing unlockers, invalid tiers, and incomplete group metadata must produce clear audit results.
+- Conflict resolution must be deterministic and visible through `/wk admin audit`, F11, and `SpaceEngineers.log`.
+- Layer load order must not silently decide which conflicting override wins.
+- Custom group IDs and persisted research IDs must remain stable after a layer is published.
+- Removing or renaming a published custom group must fail safely and be documented as a save-compatibility concern.
+
+Design work required before implementation:
+
+- Define a small versioned group-definition format for layer mods.
+- Define explicit syntax and precedence for overriding built-in block mappings.
+- Decide how layer-provided unlocker definitions are named and validated without ID collisions.
+- Extend the toolkit schema, templates, editing workflow, troubleshooting guidance, and generated validation.
+- Add focused tests for multiple layers defining groups, mapping the same block, overriding built-in mappings, and loading existing legacy layers.
+
 ## 1.0.0 Release Checklist
 
 Goal: make Working Knowledge safe to recommend as a stable standalone progression mod.
@@ -116,6 +149,8 @@ Feature readiness:
 
 - `0.10.0` progress display work is complete.
 - `0.11.0` external layer support is complete.
+- `0.12.0` layer diagnostics and runtime cleanup are complete.
+- `0.13.0` extensible schematic groups and block remapping are complete and validated.
 - Player-facing feedback defaults are comfortable for normal survival play.
 - Modded block behavior is documented clearly.
 
