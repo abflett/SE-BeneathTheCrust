@@ -177,7 +177,7 @@ namespace Worldwright
             smokeMode.ComboBoxContent = PopulateReclamationSmokeModes;
             smokeMode.Getter = block => (long)ReadReclamationSpawnerConfig(block).SmokeMode;
             smokeMode.Setter = (block, value) => RequestReclamationOperation(block, "smoke-mode", index: (int)value);
-            SetReclamationControlText(smokeMode, "Smoke Mode", "Off, continuous smoke, or a one-second burst before and after each spawn.");
+            SetReclamationControlText(smokeMode, "Smoke Mode", "Off, continuous smoke, or a two-second buildup that stops emitting when the payload spawns.");
             reclamationSpawnerControls.Add(smokeMode);
 
             var smokeEffect = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlCombobox, IMyTerminalBlock>("WwReclamationSmokeEffect");

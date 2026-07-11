@@ -404,8 +404,8 @@ namespace Worldwright
             {
                 if (pending.EarliestSpawnFrame <= 0)
                 {
-                    pending.EarliestSpawnFrame = frame + ReclamationBurstSmokeFrames;
-                    BeginReclamationBurstSmoke(block, ReclamationBurstSmokeFrames, true);
+                    pending.EarliestSpawnFrame = frame + ReclamationBurstSmokeLeadFrames;
+                    BeginReclamationBurstSmoke(block, ReclamationBurstSmokeLeadFrames, true);
                     return false;
                 }
 
@@ -431,7 +431,7 @@ namespace Worldwright
 
             pendingReclamationSpawns.Remove(pending.BlockEntityId);
             if (config.SmokeMode == ReclamationSmokeMode.Bursts)
-                BeginReclamationBurstSmoke(block, ReclamationBurstSmokeFrames, true);
+                EndReclamationBurstSmoke(block.EntityId, true);
             AdvanceSequence(config, pending.SequenceIndex);
             WriteReclamationSpawnerConfig(block, config);
             ScheduleNextAutomaticSpawn(block, config);
