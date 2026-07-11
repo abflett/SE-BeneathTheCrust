@@ -386,6 +386,7 @@ namespace Worldwright
                 catalogEntry.Definition,
                 pending.Forward,
                 pending.Up,
+                config.ClearanceScale,
                 out spawnPosition,
                 out spawnClearance);
             if (!IsSpawnVolumeClear(block, ref spawnClearance))
@@ -475,6 +476,7 @@ namespace Worldwright
             MyCubeBlockDefinition payloadDefinition,
             Vector3D payloadForward,
             Vector3D payloadUp,
+            float clearanceScale,
             out Vector3D position,
             out BoundingSphereD clearanceSphere)
         {
@@ -486,12 +488,13 @@ namespace Worldwright
                 payloadDefinition.Size.X * payloadGridSize * 0.5,
                 payloadDefinition.Size.Y * payloadGridSize * 0.5,
                 payloadDefinition.Size.Z * payloadGridSize * 0.5);
-            var clearanceRadius = payloadHalf.Length() + SpawnBoundsPadding;
+            var payloadRadius = payloadHalf.Length() + SpawnBoundsPadding;
+            var clearanceRadius = payloadRadius * Math.Max(0.25f, Math.Min(2f, clearanceScale));
 
             var spawnerOutputDepth = GetReclamationSpawnerOutputDepth(spawner, outputDirection);
             var payloadCenter = spawner.GetPosition() +
                                 outputDirection *
-                                (spawnerOutputDepth + clearanceRadius + SpawnSurfaceClearance);
+                                (spawnerOutputDepth + payloadRadius + SpawnSurfaceClearance);
 
             var payloadMin = -payloadDefinition.Center;
             var localCenterCells = new Vector3D(

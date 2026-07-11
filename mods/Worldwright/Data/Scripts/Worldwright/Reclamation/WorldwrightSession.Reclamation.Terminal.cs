@@ -172,6 +172,15 @@ namespace Worldwright
             SetReclamationControlText(maximumIntegrity, "Maximum Integrity", "Highest random integrity assigned to a spawned block.");
             reclamationSpawnerControls.Add(maximumIntegrity);
 
+            var clearanceScale = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlSlider, IMyTerminalBlock>("WwReclamationClearanceScale");
+            clearanceScale.Visible = IsReclamationSpawner;
+            clearanceScale.SetLimits(0.25f, 2f);
+            clearanceScale.Getter = block => ReadReclamationSpawnerConfig(block).ClearanceScale;
+            clearanceScale.Setter = (block, value) => RequestReclamationOperation(block, "clearance-scale", number: value);
+            clearanceScale.Writer = (block, output) => output.Append(ReadReclamationSpawnerConfig(block).ClearanceScale.ToString("0.00", CultureInfo.InvariantCulture)).Append("x");
+            SetReclamationControlText(clearanceScale, "Clearance Scale", "Scale the conservative payload clearance test. Values below 1 can fit authored slopes and half blocks but may allow payload collisions; values above 1 add safety margin.");
+            reclamationSpawnerControls.Add(clearanceScale);
+
             var smokeMode = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlCombobox, IMyTerminalBlock>("WwReclamationSmokeMode");
             smokeMode.Visible = IsReclamationSpawner;
             smokeMode.ComboBoxContent = PopulateReclamationSmokeModes;
@@ -634,6 +643,7 @@ namespace Worldwright
             output.Append("Automatic interval: ").Append(config.AutomaticIntervalSeconds.ToString("0.0", CultureInfo.InvariantCulture)).AppendLine(" s");
             output.Append("Rotation variance: ").Append(config.RotationVariance.ToString("0", CultureInfo.InvariantCulture)).AppendLine("%");
             output.Append("Integrity: ").Append(config.MinimumIntegrity.ToString("0", CultureInfo.InvariantCulture)).Append("-").Append(config.MaximumIntegrity.ToString("0", CultureInfo.InvariantCulture)).AppendLine("%");
+            output.Append("Clearance scale: ").Append(config.ClearanceScale.ToString("0.00", CultureInfo.InvariantCulture)).AppendLine("x");
             output.Append("Smoke: ").Append(config.SmokeMode).Append(" / ").Append(config.SmokeEffect).Append(" tint(")
                 .Append(config.SmokeRed.ToString("0", CultureInfo.InvariantCulture)).Append(", ")
                 .Append(config.SmokeGreen.ToString("0", CultureInfo.InvariantCulture)).Append(", ")

@@ -285,6 +285,10 @@ namespace Worldwright
                 if (config.MaximumIntegrity < config.MinimumIntegrity)
                     config.MinimumIntegrity = config.MaximumIntegrity;
             }
+            else if (operation.Equals("clearance-scale", StringComparison.OrdinalIgnoreCase))
+            {
+                config.ClearanceScale = Math.Max(0.25f, Math.Min(2f, request.Number));
+            }
             else if (operation.Equals("smoke-mode", StringComparison.OrdinalIgnoreCase))
             {
                 if (!Enum.IsDefined(typeof(ReclamationSmokeMode), request.Index))

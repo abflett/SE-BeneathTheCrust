@@ -14,6 +14,8 @@ Duplicate entries produce repeated blocks. In Random mode, duplicates also give 
 
 The [b]Spawn Next[/b] and [b]Reset Sequence[/b] toolbar actions work with timer blocks and other vanilla automation. Optional Start, Stop, and interval controls can also run a sequence from a single sensor trigger. When the next block does not fit, one spawn request waits until the complete area clears instead of using a fixed cooldown.
 
+A configurable Clearance Scale lets scenario authors reduce conservative false blocking around slopes and half blocks, or add extra safety margin for less controlled machinery.
+
 Paint and skin the Block Spawner, then capture that appearance as a random preset. Multiple colors and skins, randomized integrity, and starting-rotation variance can make spawned parts look like varied used salvage.
 
 Optional smoke can remain off, run continuously to conceal a hatch, or build for one second before stopping as each payload spawns. Choose among several vanilla exhaust effects, adjust particle density, or experiment with optional RGB tint multipliers without replacing the spawner's normal terminal or toolbar behavior.

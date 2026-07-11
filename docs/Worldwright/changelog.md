@@ -28,6 +28,7 @@ This development release adds the first Worldwright Block Spawner for authored s
 - Places each payload by its real geometric center instead of assuming the spawned grid origin is centered, preventing even-sized and asymmetric blocks from appearing partly inside the hatch.
 - Measures the hatch model's actual output depth and adds a safe launch gap before checking clearance.
 - Uses the payload's full diagonal as a rotation-independent clearance radius, preventing large randomly rotated blocks from falsely jamming as the source grid changes world orientation.
+- Adds an author-controlled `0.25-2.00x` Clearance Scale. It scales only the conservative occupancy test, allowing tighter slope and half-block chutes without moving payloads closer to the hatch.
 - Adds four status indicators for automatic interval progress, blocked output, invalid configuration, completed Once sequences, ready state, and empty sequences.
 - Keeps Block Spawner operations silent instead of showing player-facing toast notifications; status remains available through the vent indicators and terminal details.
 - Adds directly rendered smoke while preserving the stable TerminalBlock-based spawner and all toolbar actions.

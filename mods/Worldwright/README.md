@@ -57,6 +57,7 @@ The terminal provides:
 - An outward velocity slider from `0` to the vanilla grid speed of `100 m/s`.
 - A `0-100%` starting-rotation variance without angular velocity or continued spinning.
 - A random integrity range from `10-100%`.
+- A `0.25-2.00x` clearance scale for tightly authored or deliberately conservative spawn spaces.
 - A weighted list of captured paint-and-skin appearance presets.
 - Optional directly rendered smoke with Off, Always, and Bursts modes.
 - A vanilla smoke-effect selector, optional experimental RGB tint multipliers, and particle-density controls without changing the spawner's terminal block type.
@@ -64,6 +65,8 @@ The terminal provides:
 Each list entry represents one spawn. Add the same block three times when it should appear three times. Duplicate entries also act as weighting in Random mode.
 
 `Spawn Next` requests one grid containing one fully built, unowned block. If the required volume is occupied, the request waits until the area clears. Repeated requests do not build an invisible queue; each spawner holds at most one waiting request.
+
+Clearance Scale defaults to `1.00x`, using the payload's full rotation-safe diagonal. Lower values shrink only the occupancy test, which can prevent false blocking around slopes, corners, and half blocks, but may permit real payload collisions. Higher values add extra safety margin. Spawn placement itself always uses the full payload radius, so reducing clearance does not move the payload back inside the hatch.
 
 The new grid inherits the source grid's current linear velocity, then adds the configured velocity away from the recessed face. Worldwright deliberately does not clamp the resulting vector so local testing can show how vanilla world physics handles launches from a moving grid.
 

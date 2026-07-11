@@ -42,6 +42,7 @@ namespace Worldwright
         internal float RotationVariance;
         internal float MinimumIntegrity = 100f;
         internal float MaximumIntegrity = 100f;
+        internal float ClearanceScale = 1f;
         internal ReclamationSmokeMode SmokeMode = ReclamationSmokeMode.Off;
         internal ReclamationSmokeEffect SmokeEffect = ReclamationSmokeEffect.DefaultExhaust;
         internal float SmokeRed = 255f;
@@ -71,6 +72,7 @@ namespace Worldwright
             RotationVariance = Math.Max(0f, Math.Min(100f, RotationVariance));
             MinimumIntegrity = Math.Max(10f, Math.Min(100f, MinimumIntegrity));
             MaximumIntegrity = Math.Max(10f, Math.Min(100f, MaximumIntegrity));
+            ClearanceScale = Math.Max(0.25f, Math.Min(2f, ClearanceScale));
             SmokeRed = Math.Max(0f, Math.Min(255f, SmokeRed));
             SmokeGreen = Math.Max(0f, Math.Min(255f, SmokeGreen));
             SmokeBlue = Math.Max(0f, Math.Min(255f, SmokeBlue));
