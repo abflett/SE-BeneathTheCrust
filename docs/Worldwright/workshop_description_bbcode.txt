@@ -3,16 +3,18 @@
 
 Worldwright is a lightweight toolkit for authors who want stronger control over tutorial spaces, stations, reclamation bays, and staged scenario areas without making those tools specific to one campaign.
 
-Worldwright currently provides protected-grid tools and a configurable Reclamation Spawner for authored salvage bays and scenario machinery.
+Worldwright currently provides protected-grid tools and a configurable Block Spawner for authored salvage bays and scenario machinery.
 
-[h2]Current Feature: Reclamation Spawner[/h2]
-The Worldwright Reclamation Spawner creates fully built, unowned one-block grids from its recessed side.
+[h2]Current Feature: Block Spawner[/h2]
+The Worldwright Block Spawner creates fully built, unowned one-block grids from its recessed side.
 
 Use its normal terminal controls to search loaded blocks, build an ordered sequence, choose Once, Loop, or Random behavior, and set an outward velocity from 0 to 100 m/s.
 
 Duplicate entries produce repeated blocks. In Random mode, duplicates also give that block more weight.
 
-The [b]Spawn Next[/b] and [b]Reset Sequence[/b] toolbar actions work with timer blocks and other vanilla automation. When the next block does not fit, one spawn request waits until the complete area clears instead of using a fixed cooldown.
+The [b]Spawn Next[/b] and [b]Reset Sequence[/b] toolbar actions work with timer blocks and other vanilla automation. Optional Start, Stop, and interval controls can also run a sequence from a single sensor trigger. When the next block does not fit, one spawn request waits until the complete area clears instead of using a fixed cooldown.
+
+Paint and skin the Block Spawner, then capture that appearance as a random preset. Multiple colors and skins, randomized integrity, and starting-rotation variance can make spawned parts look like varied used salvage.
 
 [h2]Current Feature: Protected Grids[/h2]
 Worldwright can cancel normal grinder damage against marked grids. This is useful for:
@@ -52,7 +54,7 @@ Keep protected scenario infrastructure separate from scrap grids.
 For example, a tutorial station can be protected while nearby broken panels, wreckage, containers, or practice grids remain unprotected and grindable.
 
 [h2]Status[/h2]
-Version 0.2.0 adds the first Reclamation Spawner alongside the protected-grid tools.
+Version 0.2.0 adds the first Block Spawner alongside the protected-grid tools.
 
 Future Worldwright work may add trigger volumes, staged prefab or blueprint drops, scenario reset helpers, and other reusable scenario-authoring tools.
 

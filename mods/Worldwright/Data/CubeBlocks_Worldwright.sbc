@@ -6,9 +6,9 @@
         <TypeId>TerminalBlock</TypeId>
         <SubtypeId>WwReclamationSpawner</SubtypeId>
       </Id>
-      <DisplayName>Worldwright Reclamation Spawner</DisplayName>
+      <DisplayName>Worldwright Block Spawner</DisplayName>
       <Icon>Textures/GUI/Icons/Cubes/LightArmorSquareSlab.dds</Icon>
-      <Description>Spawns ordered one-block grids for reclamation bays and authored scenario machinery.</Description>
+      <Description>Spawns configurable one-block grids for authored scenarios, tutorials, traps, and machinery.</Description>
       <CubeSize>Large</CubeSize>
       <BlockTopology>Cube</BlockTopology>
       <Size x="1" y="1" z="1" />

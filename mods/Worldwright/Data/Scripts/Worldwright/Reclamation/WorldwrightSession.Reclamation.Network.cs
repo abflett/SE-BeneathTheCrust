@@ -63,7 +63,7 @@ namespace Worldwright
                 string response;
                 ExecuteReclamationOperation(block, request, true, 0, out response);
                 RefreshReclamationSpawnerVisuals(block);
-                if (!string.IsNullOrWhiteSpace(response) && operation.Equals("spawn", StringComparison.OrdinalIgnoreCase))
+                if (!string.IsNullOrWhiteSpace(response) && IsNotifiedReclamationOperation(operation))
                     ShowReclamationNotification(response, 2500);
                 return;
             }
@@ -139,14 +139,14 @@ namespace Worldwright
             response = string.Empty;
             if (!IsReclamationSpawner(block) || block.Closed)
             {
-                response = "Reclamation Spawner is not available.";
+                response = "Block Spawner is not available.";
                 return false;
             }
 
             if (!trustedServerAction &&
                 (identityId == 0 || !block.HasPlayerAccess(identityId, MyRelationsBetweenPlayerAndBlock.NoOwnership)))
             {
-                response = "You do not have access to this Reclamation Spawner.";
+                response = "You do not have access to this Block Spawner.";
                 return false;
             }
 
@@ -155,10 +155,45 @@ namespace Worldwright
                 return QueueReclamationSpawn(block, out response);
 
             var config = ReadReclamationSpawnerConfig(block);
+            if (operation.Equals("start", StringComparison.OrdinalIgnoreCase))
+            {
+                if (config.Entries.Count == 0)
+                {
+                    response = "The spawn sequence is empty.";
+                    return false;
+                }
+
+                if (config.Mode == ReclamationSequenceMode.Once && config.Completed)
+                {
+                    response = "The Once sequence is complete. Reset it before starting again.";
+                    return false;
+                }
+
+                runningReclamationSpawners[block.EntityId] = new RunningReclamationSpawner
+                {
+                    BlockEntityId = block.EntityId,
+                    NextSpawnFrame = MyAPIGateway.Session.GameplayFrameCounter,
+                };
+
+                string spawnResponse;
+                var success = QueueReclamationSpawn(block, out spawnResponse);
+                response = success ? "Automatic spawning started. " + spawnResponse : spawnResponse;
+                if (!success)
+                    runningReclamationSpawners.Remove(block.EntityId);
+                RefreshReclamationSpawnerVisuals(block);
+                return success;
+            }
+            if (operation.Equals("stop", StringComparison.OrdinalIgnoreCase))
+            {
+                StopAutomaticReclamationSpawning(block.EntityId);
+                response = "Automatic spawning stopped.";
+                RefreshReclamationSpawnerVisuals(block);
+                return true;
+            }
             if (operation.Equals("reset", StringComparison.OrdinalIgnoreCase))
             {
                 config.ResetSequence();
-                pendingReclamationSpawns.Remove(block.EntityId);
+                StopAutomaticReclamationSpawning(block.EntityId);
                 response = "Spawn sequence reset.";
             }
             else if (operation.Equals("add", StringComparison.OrdinalIgnoreCase))
@@ -173,7 +208,7 @@ namespace Worldwright
 
                 config.Entries.Add(entry.Key);
                 config.ResetSequence();
-                pendingReclamationSpawns.Remove(block.EntityId);
+                StopAutomaticReclamationSpawning(block.EntityId);
             }
             else if (operation.Equals("remove", StringComparison.OrdinalIgnoreCase))
             {
@@ -185,7 +220,7 @@ namespace Worldwright
 
                 config.Entries.RemoveAt(request.Index);
                 config.ResetSequence();
-                pendingReclamationSpawns.Remove(block.EntityId);
+                StopAutomaticReclamationSpawning(block.EntityId);
             }
             else if (operation.Equals("move-up", StringComparison.OrdinalIgnoreCase))
             {
@@ -194,7 +229,7 @@ namespace Worldwright
 
                 Swap(config.Entries, request.Index, request.Index - 1);
                 config.ResetSequence();
-                pendingReclamationSpawns.Remove(block.EntityId);
+                StopAutomaticReclamationSpawning(block.EntityId);
             }
             else if (operation.Equals("move-down", StringComparison.OrdinalIgnoreCase))
             {
@@ -203,7 +238,7 @@ namespace Worldwright
 
                 Swap(config.Entries, request.Index, request.Index + 1);
                 config.ResetSequence();
-                pendingReclamationSpawns.Remove(block.EntityId);
+                StopAutomaticReclamationSpawning(block.EntityId);
             }
             else if (operation.Equals("mode", StringComparison.OrdinalIgnoreCase))
             {
@@ -215,21 +250,63 @@ namespace Worldwright
 
                 config.Mode = (ReclamationSequenceMode)request.Index;
                 config.ResetSequence();
-                pendingReclamationSpawns.Remove(block.EntityId);
+                StopAutomaticReclamationSpawning(block.EntityId);
             }
             else if (operation.Equals("velocity", StringComparison.OrdinalIgnoreCase))
             {
                 config.OutwardVelocity = Math.Max(0f, Math.Min(MaximumOutwardVelocity, request.Number));
             }
+            else if (operation.Equals("interval", StringComparison.OrdinalIgnoreCase))
+            {
+                config.AutomaticIntervalSeconds = Math.Max(
+                    MinimumAutomaticIntervalSeconds,
+                    Math.Min(MaximumAutomaticIntervalSeconds, request.Number));
+            }
+            else if (operation.Equals("rotation", StringComparison.OrdinalIgnoreCase))
+            {
+                config.RotationVariance = Math.Max(0f, Math.Min(100f, request.Number));
+            }
+            else if (operation.Equals("minimum-integrity", StringComparison.OrdinalIgnoreCase))
+            {
+                config.MinimumIntegrity = Math.Max(10f, Math.Min(100f, request.Number));
+                if (config.MinimumIntegrity > config.MaximumIntegrity)
+                    config.MaximumIntegrity = config.MinimumIntegrity;
+            }
+            else if (operation.Equals("maximum-integrity", StringComparison.OrdinalIgnoreCase))
+            {
+                config.MaximumIntegrity = Math.Max(10f, Math.Min(100f, request.Number));
+                if (config.MaximumIntegrity < config.MinimumIntegrity)
+                    config.MinimumIntegrity = config.MaximumIntegrity;
+            }
+            else if (operation.Equals("add-appearance", StringComparison.OrdinalIgnoreCase))
+            {
+                config.AppearancePresets.Add(CaptureReclamationAppearance(block));
+            }
+            else if (operation.Equals("remove-appearance", StringComparison.OrdinalIgnoreCase))
+            {
+                if (request.Index < 0 || request.Index >= config.AppearancePresets.Count)
+                {
+                    response = "Select an appearance preset to remove.";
+                    return false;
+                }
+
+                config.AppearancePresets.RemoveAt(request.Index);
+            }
             else
             {
-                response = "Unknown Reclamation Spawner operation.";
+                response = "Unknown Block Spawner operation.";
                 return false;
             }
 
             WriteReclamationSpawnerConfig(block, config);
             RefreshReclamationSpawnerVisuals(block);
             return true;
+        }
+
+        private void StopAutomaticReclamationSpawning(long blockEntityId)
+        {
+            runningReclamationSpawners.Remove(blockEntityId);
+            pendingReclamationSpawns.Remove(blockEntityId);
         }
 
         private static void Swap(List<string> entries, int left, int right)
@@ -285,6 +362,14 @@ namespace Worldwright
         {
             if (!string.IsNullOrWhiteSpace(message) && MyAPIGateway.Utilities != null)
                 MyAPIGateway.Utilities.ShowNotification(message, milliseconds, "White");
+        }
+
+        private static bool IsNotifiedReclamationOperation(string operation)
+        {
+            return operation.Equals("spawn", StringComparison.OrdinalIgnoreCase) ||
+                   operation.Equals("start", StringComparison.OrdinalIgnoreCase) ||
+                   operation.Equals("stop", StringComparison.OrdinalIgnoreCase) ||
+                   operation.Equals("reset", StringComparison.OrdinalIgnoreCase);
         }
     }
 }

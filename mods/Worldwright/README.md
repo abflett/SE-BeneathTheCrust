@@ -11,7 +11,7 @@ It provides small, reusable tools for builders who want stronger control over tu
 - Protected grids can block grinder damage without using a safe zone.
 - Separate scrap or tutorial grids remain grindable if they are not protected.
 - Protection is server-side and applies to normal grinder damage.
-- Reclamation Spawners create ordered one-block dynamic grids for authored bays and scenario machinery.
+- Block Spawners create configurable one-block dynamic grids for authored bays and scenario machinery.
 - Spawner sequences support duplicate entries, search across loaded public blocks, and Once, Loop, or Random selection.
 - Timer blocks and other vanilla automation can use the spawner's `Spawn Next` and `Reset Sequence` toolbar actions.
 
@@ -38,9 +38,9 @@ The name token is intentionally simple so scenario scripts, admin tools, or buil
 
 This is not a safe zone replacement. It does not block movement, welding, terminal access, weapon damage, collisions, or ownership changes.
 
-## Reclamation Spawner
+## Block Spawner
 
-The **Worldwright Reclamation Spawner** is a large-grid terminal block shaped like a Light Armor Half Block. Its recessed side is the output side. It has no physical control screen, so open it from another terminal on the same construct.
+The **Worldwright Block Spawner** is a large-grid terminal block shaped like a Light Armor Half Block. Its recessed side is the output side. It has no physical control screen, so open it from another terminal on the same construct. The internal subtype remains `WwReclamationSpawner` so blocks placed during early testing continue to load.
 
 The terminal provides:
 
@@ -49,13 +49,25 @@ The terminal provides:
 - `Once`, `Loop`, and `Random` sequence modes.
 - A `Spawn Next` button and toolbar action.
 - A `Reset Sequence` button and toolbar action.
+- Optional automatic Start and Stop controls with a configurable `0.1-60 second` interval.
 - An outward velocity slider from `0` to the vanilla grid speed of `100 m/s`.
+- A `0-100%` starting-rotation variance without angular velocity or continued spinning.
+- A random integrity range from `10-100%`.
+- A weighted list of captured paint-and-skin appearance presets.
 
 Each list entry represents one spawn. Add the same block three times when it should appear three times. Duplicate entries also act as weighting in Random mode.
 
 `Spawn Next` requests one grid containing one fully built, unowned block. If the required volume is occupied, the request waits until the area clears. Repeated requests do not build an invisible queue; each spawner holds at most one waiting request.
 
 The new grid inherits the source grid's current linear velocity, then adds the configured velocity away from the recessed face. Worldwright deliberately does not clamp the resulting vector so local testing can show how vanilla world physics handles launches from a moving grid.
+
+Automatic mode requests its first spawn immediately. After every successful spawn, it waits for the configured interval before requesting another. A blocked output pauses the sequence without building a queue. Once mode stops automatically at the end; Loop and Random continue until stopped. Automatic running is runtime state and starts stopped after a world reload.
+
+Rotation variance changes only the grid's starting orientation. Zero percent keeps every payload aligned with the Block Spawner. One hundred percent chooses a completely random three-dimensional orientation. The chosen rotation remains fixed while that spawn waits for clearance.
+
+Minimum and maximum integrity default to `100%`. Lower ranges create fully constructed but damaged parts. Every pending spawn chooses one integrity value and keeps it while waiting.
+
+To build an appearance list, paint and skin the Block Spawner with the vanilla paint tool, then press `Add Current Appearance`. Repaint it and add another preset as many times as needed. Each spawn randomly chooses one preset; duplicate presets add weight. When the list is empty, the current Block Spawner appearance is used directly.
 
 Spawner configuration is stored in the block's Custom Data under `[Worldwright.ReclamationSpawner]`. Worldwright preserves other Custom Data sections when updating this configuration.
 

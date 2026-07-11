@@ -16,6 +16,8 @@ namespace Worldwright
     public sealed partial class WorldwrightSession
     {
         internal const float MaximumOutwardVelocity = 100f;
+        internal const float MinimumAutomaticIntervalSeconds = 0.1f;
+        internal const float MaximumAutomaticIntervalSeconds = 60f;
 
         private const string ReclamationSpawnerSubtype = "WwReclamationSpawner";
         private const int PendingSpawnPollFrames = 10;
@@ -30,6 +32,9 @@ namespace Worldwright
         private readonly Dictionary<long, PendingReclamationSpawn> pendingReclamationSpawns =
             new Dictionary<long, PendingReclamationSpawn>();
 
+        private readonly Dictionary<long, RunningReclamationSpawner> runningReclamationSpawners =
+            new Dictionary<long, RunningReclamationSpawner>();
+
         private readonly Dictionary<long, string> reclamationSearchByBlock =
             new Dictionary<long, string>();
 
@@ -37,6 +42,9 @@ namespace Worldwright
             new Dictionary<long, string>();
 
         private readonly Dictionary<long, int> selectedSequenceIndexByBlock =
+            new Dictionary<long, int>();
+
+        private readonly Dictionary<long, int> selectedAppearanceIndexByBlock =
             new Dictionary<long, int>();
 
         private readonly Random reclamationRandom = new Random();
@@ -56,9 +64,11 @@ namespace Worldwright
             reclamationBlockCatalog.Clear();
             reclamationBlockCatalogByKey.Clear();
             pendingReclamationSpawns.Clear();
+            runningReclamationSpawners.Clear();
             reclamationSearchByBlock.Clear();
             selectedCatalogEntryByBlock.Clear();
             selectedSequenceIndexByBlock.Clear();
+            selectedAppearanceIndexByBlock.Clear();
         }
 
         private void BuildReclamationBlockCatalog()
@@ -145,12 +155,46 @@ namespace Worldwright
                 return;
 
             nextPendingSpawnPollFrame = frame + PendingSpawnPollFrames;
-            if (pendingReclamationSpawns.Count == 0)
-                return;
+            if (pendingReclamationSpawns.Count > 0)
+            {
+                var pending = new List<PendingReclamationSpawn>(pendingReclamationSpawns.Values);
+                for (var i = 0; i < pending.Count; i++)
+                    TryCompletePendingReclamationSpawn(pending[i]);
+            }
 
-            var pending = new List<PendingReclamationSpawn>(pendingReclamationSpawns.Values);
-            for (var i = 0; i < pending.Count; i++)
-                TryCompletePendingReclamationSpawn(pending[i]);
+            if (runningReclamationSpawners.Count > 0)
+                UpdateRunningReclamationSpawners(frame);
+        }
+
+        private void UpdateRunningReclamationSpawners(int frame)
+        {
+            var running = new List<RunningReclamationSpawner>(runningReclamationSpawners.Values);
+            for (var i = 0; i < running.Count; i++)
+            {
+                var state = running[i];
+                if (state.NextSpawnFrame > frame || pendingReclamationSpawns.ContainsKey(state.BlockEntityId))
+                    continue;
+
+                var block = MyAPIGateway.Entities.GetEntityById(state.BlockEntityId) as IMyTerminalBlock;
+                if (!IsReclamationSpawner(block) || block.Closed)
+                {
+                    runningReclamationSpawners.Remove(state.BlockEntityId);
+                    continue;
+                }
+
+                var config = ReadReclamationSpawnerConfig(block);
+                if (config.Entries.Count == 0 ||
+                    (config.Mode == ReclamationSequenceMode.Once && config.Completed))
+                {
+                    runningReclamationSpawners.Remove(state.BlockEntityId);
+                    RefreshReclamationSpawnerVisuals(block);
+                    continue;
+                }
+
+                string ignored;
+                if (!QueueReclamationSpawn(block, out ignored))
+                    runningReclamationSpawners.Remove(state.BlockEntityId);
+            }
         }
 
         private bool QueueReclamationSpawn(IMyTerminalBlock block, out string message)
@@ -158,7 +202,7 @@ namespace Worldwright
             message = string.Empty;
             if (!IsReclamationSpawner(block) || block.Closed || block.CubeGrid == null)
             {
-                message = "Reclamation Spawner is not available.";
+                message = "Block Spawner is not available.";
                 return false;
             }
 
@@ -200,7 +244,10 @@ namespace Worldwright
                 BlockEntityId = block.EntityId,
                 DefinitionKey = catalogEntry.Key,
                 SequenceIndex = sequenceIndex,
+                Appearance = SelectAppearance(block, config),
+                IntegrityPercent = SelectIntegrity(config),
             };
+            SelectSpawnOrientation(block, config.RotationVariance, out request.Forward, out request.Up);
 
             pendingReclamationSpawns[block.EntityId] = request;
             if (TryCompletePendingReclamationSpawn(request))
@@ -221,6 +268,73 @@ namespace Worldwright
                 return reclamationRandom.Next(config.Entries.Count);
 
             return Math.Max(0, Math.Min(config.Entries.Count - 1, config.Cursor));
+        }
+
+        private ReclamationAppearancePreset SelectAppearance(
+            IMyTerminalBlock spawner,
+            ReclamationSpawnerConfig config)
+        {
+            if (config.AppearancePresets.Count == 0)
+                return CaptureReclamationAppearance(spawner);
+
+            var selected = config.AppearancePresets[reclamationRandom.Next(config.AppearancePresets.Count)];
+            return new ReclamationAppearancePreset
+            {
+                ColorMaskHsv = selected.ColorMaskHsv,
+                SkinSubtypeId = selected.SkinSubtypeId,
+            };
+        }
+
+        private float SelectIntegrity(ReclamationSpawnerConfig config)
+        {
+            if (config.MaximumIntegrity <= config.MinimumIntegrity)
+                return config.MinimumIntegrity;
+
+            return config.MinimumIntegrity +
+                   (float)reclamationRandom.NextDouble() * (config.MaximumIntegrity - config.MinimumIntegrity);
+        }
+
+        private void SelectSpawnOrientation(
+            IMyTerminalBlock spawner,
+            float variancePercent,
+            out Vector3D forward,
+            out Vector3D up)
+        {
+            var amount = Math.Max(0f, Math.Min(1f, variancePercent / 100f));
+            if (amount <= 0f)
+            {
+                forward = GetReclamationOutputDirection(spawner);
+                up = Vector3D.Normalize(spawner.WorldMatrix.Up);
+                return;
+            }
+
+            var u1 = reclamationRandom.NextDouble();
+            var u2 = reclamationRandom.NextDouble();
+            var u3 = reclamationRandom.NextDouble();
+            var randomRotation = new Quaternion(
+                (float)(Math.Sqrt(1d - u1) * Math.Sin(MathHelper.TwoPi * u2)),
+                (float)(Math.Sqrt(1d - u1) * Math.Cos(MathHelper.TwoPi * u2)),
+                (float)(Math.Sqrt(u1) * Math.Sin(MathHelper.TwoPi * u3)),
+                (float)(Math.Sqrt(u1) * Math.Cos(MathHelper.TwoPi * u3)));
+            var blendedRotation = Quaternion.Slerp(Quaternion.Identity, randomRotation, amount);
+            var localRotation = Matrix.CreateFromQuaternion(blendedRotation);
+            var baseRotation = MatrixD.CreateWorld(
+                Vector3D.Zero,
+                GetReclamationOutputDirection(spawner),
+                Vector3D.Normalize(spawner.WorldMatrix.Up));
+
+            forward = Vector3D.Normalize(Vector3D.TransformNormal(localRotation.Forward, baseRotation));
+            up = Vector3D.Normalize(Vector3D.TransformNormal(localRotation.Up, baseRotation));
+        }
+
+        private static ReclamationAppearancePreset CaptureReclamationAppearance(IMyTerminalBlock block)
+        {
+            var builder = block != null ? block.GetObjectBuilderCubeBlock(true) : null;
+            return new ReclamationAppearancePreset
+            {
+                ColorMaskHsv = builder != null ? (Vector3)builder.ColorMaskHSV : Vector3.Zero,
+                SkinSubtypeId = builder != null ? builder.SkinSubtypeId : string.Empty,
+            };
         }
 
         private bool TryCompletePendingReclamationSpawn(PendingReclamationSpawn pending)
@@ -255,11 +369,25 @@ namespace Worldwright
 
             Vector3D spawnPosition;
             BoundingBoxD spawnBounds;
-            CalculateSpawnPlacement(block, catalogEntry.Definition, out spawnPosition, out spawnBounds);
+            CalculateSpawnPlacement(
+                block,
+                catalogEntry.Definition,
+                pending.Forward,
+                pending.Up,
+                out spawnPosition,
+                out spawnBounds);
             if (!IsSpawnVolumeClear(block, ref spawnBounds))
                 return false;
 
-            if (!SpawnSingleBlockGrid(block, catalogEntry.Definition, spawnPosition, config.OutwardVelocity))
+            if (!SpawnSingleBlockGrid(
+                    block,
+                    catalogEntry.Definition,
+                    spawnPosition,
+                    pending.Forward,
+                    pending.Up,
+                    pending.Appearance,
+                    pending.IntegrityPercent,
+                    config.OutwardVelocity))
             {
                 pendingReclamationSpawns.Remove(pending.BlockEntityId);
                 RefreshReclamationSpawnerVisuals(block);
@@ -269,8 +397,25 @@ namespace Worldwright
             pendingReclamationSpawns.Remove(pending.BlockEntityId);
             AdvanceSequence(config, pending.SequenceIndex);
             WriteReclamationSpawnerConfig(block, config);
+            ScheduleNextAutomaticSpawn(block, config);
             RefreshReclamationSpawnerVisuals(block);
             return true;
+        }
+
+        private void ScheduleNextAutomaticSpawn(IMyTerminalBlock block, ReclamationSpawnerConfig config)
+        {
+            RunningReclamationSpawner running;
+            if (!runningReclamationSpawners.TryGetValue(block.EntityId, out running))
+                return;
+
+            if (config.Mode == ReclamationSequenceMode.Once && config.Completed)
+            {
+                runningReclamationSpawners.Remove(block.EntityId);
+                return;
+            }
+
+            var intervalFrames = Math.Max(1, (int)Math.Ceiling(config.AutomaticIntervalSeconds * 60f));
+            running.NextSpawnFrame = MyAPIGateway.Session.GameplayFrameCounter + intervalFrames;
         }
 
         private static void AdvanceSequence(ReclamationSpawnerConfig config, int spawnedIndex)
@@ -291,12 +436,15 @@ namespace Worldwright
         private static void CalculateSpawnPlacement(
             IMyTerminalBlock spawner,
             MyCubeBlockDefinition payloadDefinition,
+            Vector3D payloadForward,
+            Vector3D payloadUp,
             out Vector3D position,
             out BoundingBoxD bounds)
         {
-            var forward = GetReclamationOutputDirection(spawner);
-            var up = Vector3D.Normalize(spawner.WorldMatrix.Up);
-            var right = Vector3D.Normalize(spawner.WorldMatrix.Right);
+            var outputDirection = GetReclamationOutputDirection(spawner);
+            var forward = Vector3D.Normalize(payloadForward);
+            var up = Vector3D.Normalize(payloadUp);
+            var right = Vector3D.Normalize(Vector3D.Cross(forward, up));
             var payloadGridSize = payloadDefinition.CubeSize == MyCubeSize.Large ? 2.5 : 0.5;
             var payloadHalf = new Vector3D(
                 payloadDefinition.Size.X * payloadGridSize * 0.5,
@@ -304,7 +452,12 @@ namespace Worldwright
                 payloadDefinition.Size.Z * payloadGridSize * 0.5);
 
             var spawnerHalfDepth = spawner.CubeGrid.GridSize * 0.5;
-            position = spawner.GetPosition() + forward * (spawnerHalfDepth + payloadHalf.Z + SpawnClearancePadding);
+            var projectedPayloadDepth =
+                Math.Abs(Vector3D.Dot(right, outputDirection)) * payloadHalf.X +
+                Math.Abs(Vector3D.Dot(up, outputDirection)) * payloadHalf.Y +
+                Math.Abs(Vector3D.Dot(forward, outputDirection)) * payloadHalf.Z;
+            position = spawner.GetPosition() +
+                       outputDirection * (spawnerHalfDepth + projectedPayloadDepth + SpawnClearancePadding);
 
             var worldHalf = new Vector3D(
                 Math.Abs(right.X) * payloadHalf.X + Math.Abs(up.X) * payloadHalf.Y + Math.Abs(forward.X) * payloadHalf.Z,
@@ -393,6 +546,10 @@ namespace Worldwright
             IMyTerminalBlock spawner,
             MyCubeBlockDefinition definition,
             Vector3D position,
+            Vector3D forward,
+            Vector3D up,
+            ReclamationAppearancePreset appearance,
+            float integrityPercent,
             float outwardVelocity)
         {
             try
@@ -408,11 +565,12 @@ namespace Worldwright
                     Base6Directions.Direction.Forward,
                     Base6Directions.Direction.Up);
                 blockBuilder.BuildPercent = 1f;
-                blockBuilder.IntegrityPercent = 1f;
+                blockBuilder.IntegrityPercent = Math.Max(0.1f, Math.Min(1f, integrityPercent / 100f));
                 blockBuilder.Owner = 0;
                 blockBuilder.BuiltBy = 0;
                 blockBuilder.ShareMode = MyOwnershipShareModeEnum.None;
-                blockBuilder.ColorMaskHSV = spawner.SlimBlock.ColorMaskHSV;
+                blockBuilder.ColorMaskHSV = appearance != null ? appearance.ColorMaskHsv : spawner.SlimBlock.ColorMaskHSV;
+                blockBuilder.SkinSubtypeId = appearance != null ? appearance.SkinSubtypeId : string.Empty;
 
                 var gridBuilder = new MyObjectBuilder_CubeGrid
                 {
@@ -422,8 +580,8 @@ namespace Worldwright
                     PersistentFlags = MyPersistentEntityFlags2.CastShadows | MyPersistentEntityFlags2.InScene,
                     PositionAndOrientation = new MyPositionAndOrientation(
                         position,
-                        (Vector3)GetReclamationOutputDirection(spawner),
-                        (Vector3)spawner.WorldMatrix.Up),
+                        (Vector3)forward,
+                        (Vector3)up),
                     CubeBlocks = new List<MyObjectBuilder_CubeBlock> { blockBuilder },
                 };
 
@@ -441,7 +599,7 @@ namespace Worldwright
             }
             catch (Exception exception)
             {
-                MyLog.Default.WriteLineAndConsole("[Worldwright] failed to spawn reclamation block: " + exception.Message);
+                MyLog.Default.WriteLineAndConsole("[Worldwright] failed to spawn block: " + exception.Message);
                 return false;
             }
         }

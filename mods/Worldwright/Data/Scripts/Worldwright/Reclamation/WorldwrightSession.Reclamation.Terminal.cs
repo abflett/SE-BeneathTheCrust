@@ -4,9 +4,11 @@ using System.Globalization;
 using System.Text;
 using Sandbox.ModAPI;
 using Sandbox.ModAPI.Interfaces.Terminal;
+using VRage.Game;
 using VRage.Game.ModAPI;
 using VRage.ModAPI;
 using VRage.Utils;
+using VRageMath;
 
 namespace Worldwright
 {
@@ -23,6 +25,7 @@ namespace Worldwright
 
         private IMyTerminalControlListbox reclamationCatalogListControl;
         private IMyTerminalControlListbox reclamationSequenceListControl;
+        private IMyTerminalControlListbox reclamationAppearanceListControl;
 
         private void RegisterReclamationSpawnerControls()
         {
@@ -30,9 +33,16 @@ namespace Worldwright
                 return;
 
             var title = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlLabel, IMyTerminalBlock>("WwReclamationTitle");
-            title.Label = MyStringId.GetOrCompute("Reclamation Spawner");
+            title.Label = MyStringId.GetOrCompute("Block Spawner");
             title.Visible = IsReclamationSpawner;
             reclamationSpawnerControls.Add(title);
+
+            var customName = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlTextbox, IMyTerminalBlock>("WwBlockSpawnerName");
+            customName.Visible = IsReclamationSpawner;
+            customName.Getter = block => new StringBuilder(block.CustomName ?? string.Empty);
+            customName.Setter = (block, value) => block.CustomName = value != null ? value.ToString() : string.Empty;
+            SetReclamationControlText(customName, "Custom Name", "Name this Block Spawner for terminal lists and story purposes.");
+            reclamationSpawnerControls.Add(customName);
 
             var separator = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlSeparator, IMyTerminalBlock>("WwReclamationSeparator");
             separator.Visible = IsReclamationSpawner;
@@ -105,6 +115,27 @@ namespace Worldwright
                 "Return the sequence to its first entry and cancel any waiting spawn.",
                 block => RequestReclamationOperation(block, "reset")));
 
+            var interval = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlSlider, IMyTerminalBlock>("WwReclamationInterval");
+            interval.Visible = IsReclamationSpawner;
+            interval.SetLimits(MinimumAutomaticIntervalSeconds, MaximumAutomaticIntervalSeconds);
+            interval.Getter = block => ReadReclamationSpawnerConfig(block).AutomaticIntervalSeconds;
+            interval.Setter = (block, value) => RequestReclamationOperation(block, "interval", number: value);
+            interval.Writer = (block, output) => output.Append(ReadReclamationSpawnerConfig(block).AutomaticIntervalSeconds.ToString("0.0", CultureInfo.InvariantCulture)).Append(" s");
+            SetReclamationControlText(interval, "Automatic Interval", "Minimum delay after each successful automatic spawn.");
+            reclamationSpawnerControls.Add(interval);
+
+            reclamationSpawnerControls.Add(CreateReclamationButton(
+                "WwReclamationStart",
+                "Start Automatic",
+                "Start spawning immediately, then continue using the automatic interval.",
+                block => RequestReclamationOperation(block, "start")));
+
+            reclamationSpawnerControls.Add(CreateReclamationButton(
+                "WwReclamationStop",
+                "Stop Automatic",
+                "Stop automatic spawning and cancel a spawn that is waiting for room.",
+                block => RequestReclamationOperation(block, "stop")));
+
             var velocity = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlSlider, IMyTerminalBlock>("WwReclamationVelocity");
             velocity.Visible = IsReclamationSpawner;
             velocity.SetLimits(0f, MaximumOutwardVelocity);
@@ -113,6 +144,54 @@ namespace Worldwright
             velocity.Writer = (block, output) => output.Append(ReadReclamationSpawnerConfig(block).OutwardVelocity.ToString("0.0", CultureInfo.InvariantCulture)).Append(" m/s");
             SetReclamationControlText(velocity, "Outward Velocity", "Velocity relative to the spawner grid. Vanilla world physics decides the final speed cap.");
             reclamationSpawnerControls.Add(velocity);
+
+            var rotation = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlSlider, IMyTerminalBlock>("WwReclamationRotation");
+            rotation.Visible = IsReclamationSpawner;
+            rotation.SetLimits(0f, 100f);
+            rotation.Getter = block => ReadReclamationSpawnerConfig(block).RotationVariance;
+            rotation.Setter = (block, value) => RequestReclamationOperation(block, "rotation", number: value);
+            rotation.Writer = (block, output) => output.Append(ReadReclamationSpawnerConfig(block).RotationVariance.ToString("0", CultureInfo.InvariantCulture)).Append("%");
+            SetReclamationControlText(rotation, "Rotation Variance", "Zero stays aligned; 100 percent gives a completely random starting orientation without spin.");
+            reclamationSpawnerControls.Add(rotation);
+
+            var minimumIntegrity = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlSlider, IMyTerminalBlock>("WwReclamationMinimumIntegrity");
+            minimumIntegrity.Visible = IsReclamationSpawner;
+            minimumIntegrity.SetLimits(10f, 100f);
+            minimumIntegrity.Getter = block => ReadReclamationSpawnerConfig(block).MinimumIntegrity;
+            minimumIntegrity.Setter = (block, value) => RequestReclamationOperation(block, "minimum-integrity", number: value);
+            minimumIntegrity.Writer = (block, output) => output.Append(ReadReclamationSpawnerConfig(block).MinimumIntegrity.ToString("0", CultureInfo.InvariantCulture)).Append("%");
+            SetReclamationControlText(minimumIntegrity, "Minimum Integrity", "Lowest random integrity assigned to a spawned block.");
+            reclamationSpawnerControls.Add(minimumIntegrity);
+
+            var maximumIntegrity = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlSlider, IMyTerminalBlock>("WwReclamationMaximumIntegrity");
+            maximumIntegrity.Visible = IsReclamationSpawner;
+            maximumIntegrity.SetLimits(10f, 100f);
+            maximumIntegrity.Getter = block => ReadReclamationSpawnerConfig(block).MaximumIntegrity;
+            maximumIntegrity.Setter = (block, value) => RequestReclamationOperation(block, "maximum-integrity", number: value);
+            maximumIntegrity.Writer = (block, output) => output.Append(ReadReclamationSpawnerConfig(block).MaximumIntegrity.ToString("0", CultureInfo.InvariantCulture)).Append("%");
+            SetReclamationControlText(maximumIntegrity, "Maximum Integrity", "Highest random integrity assigned to a spawned block.");
+            reclamationSpawnerControls.Add(maximumIntegrity);
+
+            reclamationAppearanceListControl = CreateReclamationListBox(
+                "WwReclamationAppearances",
+                "Appearance Presets",
+                "One paint color and skin is chosen randomly for every spawn. Duplicate presets add weight.",
+                6,
+                PopulateReclamationAppearances,
+                SelectReclamationAppearance);
+            reclamationSpawnerControls.Add(reclamationAppearanceListControl);
+
+            reclamationSpawnerControls.Add(CreateReclamationButton(
+                "WwReclamationAddAppearance",
+                "Add Current Appearance",
+                "Capture the Block Spawner's current paint color and skin as a random preset.",
+                block => RequestReclamationOperation(block, "add-appearance")));
+
+            reclamationSpawnerControls.Add(CreateReclamationButton(
+                "WwReclamationRemoveAppearance",
+                "Remove Appearance",
+                "Remove only the selected appearance preset.",
+                RemoveSelectedReclamationAppearance));
 
             RegisterReclamationAction(
                 "WwReclamationSpawnNext",
@@ -127,6 +206,20 @@ namespace Worldwright
                 "Textures\\GUI\\Icons\\Actions\\Reset.dds",
                 block => RequestReclamationOperation(block, "reset"),
                 (block, output) => output.Append("Reset"));
+
+            RegisterReclamationAction(
+                "WwReclamationStartAutomatic",
+                "Start Automatic",
+                "Textures\\GUI\\Icons\\Actions\\Start.dds",
+                block => RequestReclamationOperation(block, "start"),
+                (block, output) => output.Append(runningReclamationSpawners.ContainsKey(block.EntityId) ? "Running" : "Start"));
+
+            RegisterReclamationAction(
+                "WwReclamationStopAutomatic",
+                "Stop Automatic",
+                "Textures\\GUI\\Icons\\Actions\\SwitchOff.dds",
+                block => RequestReclamationOperation(block, "stop"),
+                (block, output) => output.Append("Stop"));
 
             MyAPIGateway.TerminalControls.CustomControlGetter += AddReclamationSpawnerControlsToTerminal;
             MyAPIGateway.TerminalControls.CustomActionGetter += FilterReclamationSpawnerActions;
@@ -157,6 +250,7 @@ namespace Worldwright
             reclamationSpawnerControls.Clear();
             reclamationCatalogListControl = null;
             reclamationSequenceListControl = null;
+            reclamationAppearanceListControl = null;
         }
 
         private void AddReclamationSpawnerControlsToTerminal(IMyTerminalBlock block, List<IMyTerminalControl> controls)
@@ -374,6 +468,69 @@ namespace Worldwright
             RequestReclamationOperation(block, "move-down", index: index);
         }
 
+        private void PopulateReclamationAppearances(
+            IMyTerminalBlock block,
+            List<MyTerminalControlListBoxItem> items,
+            List<MyTerminalControlListBoxItem> selectedItems)
+        {
+            items.Clear();
+            selectedItems.Clear();
+
+            var config = ReadReclamationSpawnerConfig(block);
+            int selectedIndex;
+            if (!selectedAppearanceIndexByBlock.TryGetValue(block.EntityId, out selectedIndex))
+                selectedIndex = -1;
+
+            for (var i = 0; i < config.AppearancePresets.Count; i++)
+            {
+                var preset = config.AppearancePresets[i];
+                var color = ColorExtensions.HSVtoColor(MyColorPickerConstants.HSVOffsetToHSV(preset.ColorMaskHsv));
+                var skin = string.IsNullOrWhiteSpace(preset.SkinSubtypeId) ? "Default" : preset.SkinSubtypeId;
+                var label = (i + 1).ToString(CultureInfo.InvariantCulture) + ". #" +
+                            color.R.ToString("X2", CultureInfo.InvariantCulture) +
+                            color.G.ToString("X2", CultureInfo.InvariantCulture) +
+                            color.B.ToString("X2", CultureInfo.InvariantCulture) +
+                            " — " + skin;
+                var item = new MyTerminalControlListBoxItem(
+                    MyStringId.GetOrCompute(label),
+                    MyStringId.GetOrCompute("Captured paint color and skin"),
+                    i);
+                items.Add(item);
+                if (i == selectedIndex)
+                    selectedItems.Add(item);
+            }
+
+            if (config.AppearancePresets.Count == 0)
+            {
+                items.Add(new MyTerminalControlListBoxItem(
+                    MyStringId.GetOrCompute("Current Block Spawner appearance"),
+                    MyStringId.GetOrCompute("No presets: each spawn uses the spawner's current paint and skin."),
+                    -1));
+            }
+        }
+
+        private void SelectReclamationAppearance(IMyTerminalBlock block, List<MyTerminalControlListBoxItem> selected)
+        {
+            if (selected == null || selected.Count == 0 || !(selected[0].UserData is int))
+            {
+                selectedAppearanceIndexByBlock.Remove(block.EntityId);
+                return;
+            }
+
+            var index = (int)selected[0].UserData;
+            if (index >= 0)
+                selectedAppearanceIndexByBlock[block.EntityId] = index;
+            else
+                selectedAppearanceIndexByBlock.Remove(block.EntityId);
+        }
+
+        private void RemoveSelectedReclamationAppearance(IMyTerminalBlock block)
+        {
+            int index;
+            if (selectedAppearanceIndexByBlock.TryGetValue(block.EntityId, out index))
+                RequestReclamationOperation(block, "remove-appearance", index: index);
+        }
+
         private static void PopulateReclamationModes(List<MyTerminalControlComboBoxItem> items)
         {
             items.Clear();
@@ -388,14 +545,20 @@ namespace Worldwright
                 return;
 
             var config = ReadReclamationSpawnerConfig(block);
-            output.AppendLine("Worldwright Reclamation Spawner");
+            output.AppendLine("Worldwright Block Spawner");
             output.Append("Mode: ").AppendLine(config.Mode.ToString());
             output.Append("Velocity: ").Append(config.OutwardVelocity.ToString("0.0", CultureInfo.InvariantCulture)).AppendLine(" m/s");
+            output.Append("Automatic interval: ").Append(config.AutomaticIntervalSeconds.ToString("0.0", CultureInfo.InvariantCulture)).AppendLine(" s");
+            output.Append("Rotation variance: ").Append(config.RotationVariance.ToString("0", CultureInfo.InvariantCulture)).AppendLine("%");
+            output.Append("Integrity: ").Append(config.MinimumIntegrity.ToString("0", CultureInfo.InvariantCulture)).Append("-").Append(config.MaximumIntegrity.ToString("0", CultureInfo.InvariantCulture)).AppendLine("%");
+            output.Append("Appearances: ").AppendLine(config.AppearancePresets.Count.ToString(CultureInfo.InvariantCulture));
             output.Append("Entries: ").AppendLine(config.Entries.Count.ToString(CultureInfo.InvariantCulture));
 
             PendingReclamationSpawn pending;
             if (pendingReclamationSpawns.TryGetValue(block.EntityId, out pending))
                 output.Append("Status: Waiting for room (" + pending.DefinitionKey + ")").AppendLine();
+            else if (runningReclamationSpawners.ContainsKey(block.EntityId))
+                output.AppendLine("Status: Running automatically");
             else if (config.Entries.Count == 0)
                 output.AppendLine("Status: Empty sequence");
             else if (config.Mode == ReclamationSequenceMode.Once && config.Completed)
@@ -410,6 +573,8 @@ namespace Worldwright
                 reclamationCatalogListControl.UpdateVisual();
             if (reclamationSequenceListControl != null)
                 reclamationSequenceListControl.UpdateVisual();
+            if (reclamationAppearanceListControl != null)
+                reclamationAppearanceListControl.UpdateVisual();
 
             if (block != null)
             {
