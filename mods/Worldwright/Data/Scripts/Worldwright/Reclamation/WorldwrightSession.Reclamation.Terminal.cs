@@ -180,19 +180,27 @@ namespace Worldwright
             SetReclamationControlText(smokeMode, "Smoke Mode", "Off, continuous smoke, or a one-second burst before and after each spawn.");
             reclamationSpawnerControls.Add(smokeMode);
 
+            var smokeEffect = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlCombobox, IMyTerminalBlock>("WwReclamationSmokeEffect");
+            smokeEffect.Visible = IsReclamationSpawner;
+            smokeEffect.ComboBoxContent = PopulateReclamationSmokeEffects;
+            smokeEffect.Getter = block => (long)ReadReclamationSpawnerConfig(block).SmokeEffect;
+            smokeEffect.Setter = (block, value) => RequestReclamationOperation(block, "smoke-effect", index: (int)value);
+            SetReclamationControlText(smokeEffect, "Smoke Effect", "Choose an unmodified vanilla exhaust particle effect.");
+            reclamationSpawnerControls.Add(smokeEffect);
+
             reclamationSpawnerControls.Add(CreateReclamationSmokeChannelSlider(
                 "WwReclamationSmokeRed",
-                "Smoke Red",
+                "Red Tint Multiplier",
                 config => config.SmokeRed,
                 "smoke-red"));
             reclamationSpawnerControls.Add(CreateReclamationSmokeChannelSlider(
                 "WwReclamationSmokeGreen",
-                "Smoke Green",
+                "Green Tint Multiplier",
                 config => config.SmokeGreen,
                 "smoke-green"));
             reclamationSpawnerControls.Add(CreateReclamationSmokeChannelSlider(
                 "WwReclamationSmokeBlue",
-                "Smoke Blue",
+                "Blue Tint Multiplier",
                 config => config.SmokeBlue,
                 "smoke-blue"));
 
@@ -204,6 +212,12 @@ namespace Worldwright
             smokeIntensity.Writer = (block, output) => output.Append(ReadReclamationSpawnerConfig(block).SmokeIntensity.ToString("0", CultureInfo.InvariantCulture)).Append("%");
             SetReclamationControlText(smokeIntensity, "Smoke Intensity", "Controls how many smoke particles are emitted without changing their size.");
             reclamationSpawnerControls.Add(smokeIntensity);
+
+            reclamationSpawnerControls.Add(CreateReclamationButton(
+                "WwReclamationResetSmokeTint",
+                "Reset Smoke Tint",
+                "Restore neutral 255, 255, 255 multipliers so the selected vanilla effect uses its authored colors.",
+                block => RequestReclamationOperation(block, "reset-smoke-tint")));
 
             reclamationAppearanceListControl = CreateReclamationListBox(
                 "WwReclamationAppearances",
@@ -355,7 +369,7 @@ namespace Worldwright
             slider.Getter = block => getter(ReadReclamationSpawnerConfig(block));
             slider.Setter = (block, value) => RequestReclamationOperation(block, operation, number: value);
             slider.Writer = (block, output) => output.Append(getter(ReadReclamationSpawnerConfig(block)).ToString("0", CultureInfo.InvariantCulture));
-            SetReclamationControlText(slider, title, "RGB color channel from 0 to 255.");
+            SetReclamationControlText(slider, title, "Experimental 0-255 multiplier for this channel. This filters the particle's authored colors; it does not set an absolute RGB color.");
             return slider;
         }
 
@@ -599,6 +613,15 @@ namespace Worldwright
             items.Add(new MyTerminalControlComboBoxItem { Key = (long)ReclamationSmokeMode.Bursts, Value = MyStringId.GetOrCompute("Bursts") });
         }
 
+        private static void PopulateReclamationSmokeEffects(List<MyTerminalControlComboBoxItem> items)
+        {
+            items.Clear();
+            items.Add(new MyTerminalControlComboBoxItem { Key = (long)ReclamationSmokeEffect.DefaultExhaust, Value = MyStringId.GetOrCompute("Default Exhaust") });
+            items.Add(new MyTerminalControlComboBoxItem { Key = (long)ReclamationSmokeEffect.WhiteExhaust, Value = MyStringId.GetOrCompute("White Exhaust") });
+            items.Add(new MyTerminalControlComboBoxItem { Key = (long)ReclamationSmokeEffect.VehicleExhaust, Value = MyStringId.GetOrCompute("Vehicle Exhaust") });
+            items.Add(new MyTerminalControlComboBoxItem { Key = (long)ReclamationSmokeEffect.ReactorExhaust, Value = MyStringId.GetOrCompute("Reactor Exhaust") });
+        }
+
         private void AppendReclamationSpawnerInfo(IMyTerminalBlock block, StringBuilder output)
         {
             if (!IsReclamationSpawner(block))
@@ -611,7 +634,7 @@ namespace Worldwright
             output.Append("Automatic interval: ").Append(config.AutomaticIntervalSeconds.ToString("0.0", CultureInfo.InvariantCulture)).AppendLine(" s");
             output.Append("Rotation variance: ").Append(config.RotationVariance.ToString("0", CultureInfo.InvariantCulture)).AppendLine("%");
             output.Append("Integrity: ").Append(config.MinimumIntegrity.ToString("0", CultureInfo.InvariantCulture)).Append("-").Append(config.MaximumIntegrity.ToString("0", CultureInfo.InvariantCulture)).AppendLine("%");
-            output.Append("Smoke: ").Append(config.SmokeMode).Append(" RGB(")
+            output.Append("Smoke: ").Append(config.SmokeMode).Append(" / ").Append(config.SmokeEffect).Append(" tint(")
                 .Append(config.SmokeRed.ToString("0", CultureInfo.InvariantCulture)).Append(", ")
                 .Append(config.SmokeGreen.ToString("0", CultureInfo.InvariantCulture)).Append(", ")
                 .Append(config.SmokeBlue.ToString("0", CultureInfo.InvariantCulture)).Append(") ")

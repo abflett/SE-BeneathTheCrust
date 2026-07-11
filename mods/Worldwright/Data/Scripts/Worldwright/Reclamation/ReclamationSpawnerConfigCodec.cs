@@ -84,6 +84,12 @@ namespace Worldwright
                     if (Enum.TryParse(value, true, out mode))
                         config.SmokeMode = mode;
                 }
+                else if (key.Equals("smokeEffect", StringComparison.OrdinalIgnoreCase))
+                {
+                    ReclamationSmokeEffect effect;
+                    if (Enum.TryParse(value, true, out effect))
+                        config.SmokeEffect = effect;
+                }
                 else if (key.Equals("smokeRed", StringComparison.OrdinalIgnoreCase))
                 {
                     float channel;
@@ -175,6 +181,7 @@ namespace Worldwright
             output.Append("minimumIntegrity=").AppendLine(config.MinimumIntegrity.ToString("0.###", CultureInfo.InvariantCulture));
             output.Append("maximumIntegrity=").AppendLine(config.MaximumIntegrity.ToString("0.###", CultureInfo.InvariantCulture));
             output.Append("smokeMode=").AppendLine(config.SmokeMode.ToString());
+            output.Append("smokeEffect=").AppendLine(config.SmokeEffect.ToString());
             output.Append("smokeRed=").AppendLine(config.SmokeRed.ToString("0.###", CultureInfo.InvariantCulture));
             output.Append("smokeGreen=").AppendLine(config.SmokeGreen.ToString("0.###", CultureInfo.InvariantCulture));
             output.Append("smokeBlue=").AppendLine(config.SmokeBlue.ToString("0.###", CultureInfo.InvariantCulture));

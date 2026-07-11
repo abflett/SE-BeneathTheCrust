@@ -59,7 +59,7 @@ The terminal provides:
 - A random integrity range from `10-100%`.
 - A weighted list of captured paint-and-skin appearance presets.
 - Optional directly rendered smoke with Off, Always, and Bursts modes.
-- RGB smoke color and particle-density controls without changing the spawner's terminal block type.
+- A vanilla smoke-effect selector, optional experimental RGB tint multipliers, and particle-density controls without changing the spawner's terminal block type.
 
 Each list entry represents one spawn. Add the same block three times when it should appear three times. Duplicate entries also act as weighting in Random mode.
 
@@ -79,9 +79,9 @@ Spawner configuration is stored in the block's Custom Data under `[Worldwright.B
 
 The four vent indicators show spawner status: green counts through an automatic interval, amber means the next payload is waiting for clearance, red reports a damaged spawner or missing block definition, purple marks a completed Once sequence, dim cyan means ready, and unlit means the sequence is empty.
 
-Smoke Mode defaults to Off. Always continuously emits from the front grille, which can help conceal the hatch in a reclamation chute. Bursts waits until the next payload has enough room, emits smoke for one second, spawns the payload, and continues for one second afterward. If the output becomes obstructed during the lead-in, the burst is cancelled and primed again when the area clears. Red, Green, and Blue sliders accept `0-255`; all zero produces black smoke. Smoke Intensity changes particle density from `10-100%` without changing particle size.
+Smoke Mode defaults to Off. Always continuously emits from the front grille, which can help conceal the hatch in a reclamation chute. Bursts waits until the next payload has enough room, emits smoke for one second, spawns the payload, and continues for one second afterward. If the output becomes obstructed during the lead-in, the burst is cancelled and primed again when the area clears. Smoke Effect selects Default, White, Vehicle, or Reactor exhaust using the vanilla authored appearance. Red, Green, and Blue Tint Multiplier sliders accept `0-255`; neutral `255,255,255` preserves the selected effect, while lower values filter its authored channels. Reset Smoke Tint restores the neutral values. Smoke Intensity changes particle density from `10-100%` without changing particle size.
 
-Smoke is created directly through Space Engineers' particle system. The spawner remains a normal TerminalBlock, so its terminal panel and toolbar actions are unaffected. Burst state is synchronized from the server for multiplayer clients.
+Smoke is created directly through Space Engineers' particle system. Effect, tint, and intensity changes recreate the emitter so GPU particles cannot retain a stale live setting. The spawner remains a normal TerminalBlock, so its terminal panel and toolbar actions are unaffected. Burst state is synchronized from the server for multiplayer clients.
 
 ## Planned Direction
 

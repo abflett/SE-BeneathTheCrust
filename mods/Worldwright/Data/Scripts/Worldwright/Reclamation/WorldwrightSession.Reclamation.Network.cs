@@ -301,6 +301,16 @@ namespace Worldwright
                 if (config.SmokeMode != ReclamationSmokeMode.Bursts)
                     EndReclamationBurstSmoke(block.EntityId, true);
             }
+            else if (operation.Equals("smoke-effect", StringComparison.OrdinalIgnoreCase))
+            {
+                if (!Enum.IsDefined(typeof(ReclamationSmokeEffect), request.Index))
+                {
+                    response = "Unknown smoke effect.";
+                    return false;
+                }
+
+                config.SmokeEffect = (ReclamationSmokeEffect)request.Index;
+            }
             else if (operation.Equals("smoke-red", StringComparison.OrdinalIgnoreCase))
             {
                 config.SmokeRed = Math.Max(0f, Math.Min(255f, request.Number));
@@ -316,6 +326,12 @@ namespace Worldwright
             else if (operation.Equals("smoke-intensity", StringComparison.OrdinalIgnoreCase))
             {
                 config.SmokeIntensity = Math.Max(10f, Math.Min(100f, request.Number));
+            }
+            else if (operation.Equals("reset-smoke-tint", StringComparison.OrdinalIgnoreCase))
+            {
+                config.SmokeRed = 255f;
+                config.SmokeGreen = 255f;
+                config.SmokeBlue = 255f;
             }
             else if (operation.Equals("add-appearance", StringComparison.OrdinalIgnoreCase))
             {

@@ -19,6 +19,14 @@ namespace Worldwright
         Bursts = 2,
     }
 
+    internal enum ReclamationSmokeEffect
+    {
+        DefaultExhaust = 0,
+        WhiteExhaust = 1,
+        VehicleExhaust = 2,
+        ReactorExhaust = 3,
+    }
+
     internal sealed class ReclamationSpawnerConfig
     {
         internal const float DefaultVelocity = 1.5f;
@@ -35,9 +43,10 @@ namespace Worldwright
         internal float MinimumIntegrity = 100f;
         internal float MaximumIntegrity = 100f;
         internal ReclamationSmokeMode SmokeMode = ReclamationSmokeMode.Off;
-        internal float SmokeRed;
-        internal float SmokeGreen;
-        internal float SmokeBlue;
+        internal ReclamationSmokeEffect SmokeEffect = ReclamationSmokeEffect.DefaultExhaust;
+        internal float SmokeRed = 255f;
+        internal float SmokeGreen = 255f;
+        internal float SmokeBlue = 255f;
         internal float SmokeIntensity = 50f;
         internal int Cursor;
         internal bool Completed;
@@ -52,6 +61,8 @@ namespace Worldwright
         {
             if (!Enum.IsDefined(typeof(ReclamationSmokeMode), SmokeMode))
                 SmokeMode = ReclamationSmokeMode.Off;
+            if (!Enum.IsDefined(typeof(ReclamationSmokeEffect), SmokeEffect))
+                SmokeEffect = ReclamationSmokeEffect.DefaultExhaust;
 
             OutwardVelocity = Math.Max(0f, Math.Min(WorldwrightSession.MaximumOutwardVelocity, OutwardVelocity));
             AutomaticIntervalSeconds = Math.Max(

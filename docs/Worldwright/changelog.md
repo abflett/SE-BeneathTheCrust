@@ -31,7 +31,9 @@ This development release adds the first Worldwright Block Spawner for authored s
 - Adds four status indicators for automatic interval progress, blocked output, invalid configuration, completed Once sequences, ready state, and empty sequences.
 - Adds directly rendered smoke while preserving the stable TerminalBlock-based spawner and all toolbar actions.
 - Adds Off, Always, and Bursts smoke modes. Bursts emits for one second before and after a spawn, and only begins its lead-in after the full payload volume is clear.
-- Adds `0-255` RGB smoke controls and a `10-100%` particle-density control. Black smoke is the default color.
+- Adds Default, White, Vehicle, and Reactor vanilla smoke-effect choices.
+- Adds optional `0-255` RGB tint multipliers and a `10-100%` particle-density control. Neutral `255,255,255` preserves the selected effect's authored colors.
+- Recreates an active emitter when its effect, tint, or intensity changes so the new values apply immediately instead of relying on unreliable live GPU-particle updates.
 - Synchronizes burst state from the server so multiplayer clients render the same timed effect.
 - Removes the broken early block types and old configuration section. Early test blocks must be removed and replaced.
 - Persists configuration on the spawner block while preserving unrelated Custom Data sections.

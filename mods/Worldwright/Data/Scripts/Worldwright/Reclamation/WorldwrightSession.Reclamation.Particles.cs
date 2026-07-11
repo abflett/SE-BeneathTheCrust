@@ -9,12 +9,14 @@ namespace Worldwright
 {
     public sealed partial class WorldwrightSession
     {
-        private const string ReclamationSmokeParticleName = "ExhaustSmokeWhite";
         private const int ReclamationBurstSmokeFrames = 60;
         private const double ReclamationSmokeSurfaceOffset = 0.05;
 
         private readonly Dictionary<long, MyParticleEffect> reclamationSmokeEffects =
             new Dictionary<long, MyParticleEffect>();
+
+        private readonly Dictionary<long, ReclamationSmokeRenderSettings> reclamationSmokeRenderSettings =
+            new Dictionary<long, ReclamationSmokeRenderSettings>();
 
         private readonly Dictionary<long, int> reclamationBurstSmokeUntilFrame =
             new Dictionary<long, int>();
@@ -58,22 +60,40 @@ namespace Worldwright
         {
             var effectMatrix = CreateReclamationSmokeMatrix(block);
             MyParticleEffect effect;
+            ReclamationSmokeRenderSettings appliedSettings;
+            if (reclamationSmokeEffects.TryGetValue(block.EntityId, out effect) &&
+                reclamationSmokeRenderSettings.TryGetValue(block.EntityId, out appliedSettings) &&
+                !appliedSettings.Matches(config))
+            {
+                StopReclamationSmokeEffect(block.EntityId, true);
+                effect = null;
+            }
+
             if (!reclamationSmokeEffects.TryGetValue(block.EntityId, out effect) || effect == null)
             {
                 var position = effectMatrix.Translation;
                 if (!MyParticlesManager.TryCreateParticleEffect(
-                        ReclamationSmokeParticleName,
+                        GetReclamationSmokeParticleName(config.SmokeEffect),
                         ref effectMatrix,
                         ref position,
                         uint.MaxValue,
                         out effect))
                     return;
 
+                ApplyReclamationSmokeSettings(effect, config);
                 effect.Play();
                 reclamationSmokeEffects[block.EntityId] = effect;
+                reclamationSmokeRenderSettings[block.EntityId] =
+                    ReclamationSmokeRenderSettings.FromConfig(config);
             }
 
             effect.WorldMatrix = effectMatrix;
+        }
+
+        private static void ApplyReclamationSmokeSettings(
+            MyParticleEffect effect,
+            ReclamationSpawnerConfig config)
+        {
             effect.UserColorMultiplier = new Vector4(
                 config.SmokeRed / 255f,
                 config.SmokeGreen / 255f,
@@ -81,6 +101,21 @@ namespace Worldwright
                 1f);
             effect.UserBirthMultiplier = config.SmokeIntensity / 100f;
             effect.UserFadeMultiplier = 1f;
+        }
+
+        private static string GetReclamationSmokeParticleName(ReclamationSmokeEffect effect)
+        {
+            switch (effect)
+            {
+                case ReclamationSmokeEffect.WhiteExhaust:
+                    return "ExhaustSmokeWhite";
+                case ReclamationSmokeEffect.VehicleExhaust:
+                    return "ExhaustCarSmoke";
+                case ReclamationSmokeEffect.ReactorExhaust:
+                    return "ExhaustSmokeReactor";
+                default:
+                    return "ExhaustSmoke";
+            }
         }
 
         private static MatrixD CreateReclamationSmokeMatrix(IMyTerminalBlock block)
@@ -143,6 +178,7 @@ namespace Worldwright
                 return;
 
             reclamationSmokeEffects.Remove(blockEntityId);
+            reclamationSmokeRenderSettings.Remove(blockEntityId);
             if (effect == null)
                 return;
 
@@ -159,7 +195,38 @@ namespace Worldwright
                 StopReclamationSmokeEffect(entityIds[i], true);
 
             reclamationSmokeEffects.Clear();
+            reclamationSmokeRenderSettings.Clear();
             reclamationBurstSmokeUntilFrame.Clear();
+        }
+
+        private sealed class ReclamationSmokeRenderSettings
+        {
+            internal ReclamationSmokeEffect Effect;
+            internal float Red;
+            internal float Green;
+            internal float Blue;
+            internal float Intensity;
+
+            internal bool Matches(ReclamationSpawnerConfig config)
+            {
+                return Effect == config.SmokeEffect &&
+                       Math.Abs(Red - config.SmokeRed) < 0.01f &&
+                       Math.Abs(Green - config.SmokeGreen) < 0.01f &&
+                       Math.Abs(Blue - config.SmokeBlue) < 0.01f &&
+                       Math.Abs(Intensity - config.SmokeIntensity) < 0.01f;
+            }
+
+            internal static ReclamationSmokeRenderSettings FromConfig(ReclamationSpawnerConfig config)
+            {
+                return new ReclamationSmokeRenderSettings
+                {
+                    Effect = config.SmokeEffect,
+                    Red = config.SmokeRed,
+                    Green = config.SmokeGreen,
+                    Blue = config.SmokeBlue,
+                    Intensity = config.SmokeIntensity,
+                };
+            }
         }
     }
 }
