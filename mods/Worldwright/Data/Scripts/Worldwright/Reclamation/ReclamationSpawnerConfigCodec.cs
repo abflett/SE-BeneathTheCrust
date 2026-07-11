@@ -78,24 +78,6 @@ namespace Worldwright
                     if (float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out maximumIntegrity))
                         config.MaximumIntegrity = maximumIntegrity;
                 }
-                else if (key.Equals("exhaustMode", StringComparison.OrdinalIgnoreCase))
-                {
-                    ReclamationExhaustMode mode;
-                    if (Enum.TryParse(value, true, out mode))
-                        config.ExhaustMode = mode;
-                }
-                else if (key.Equals("smokeStyle", StringComparison.OrdinalIgnoreCase))
-                {
-                    ReclamationSmokeStyle style;
-                    if (Enum.TryParse(value, true, out style))
-                        config.SmokeStyle = style;
-                }
-                else if (key.Equals("exhaustIntensity", StringComparison.OrdinalIgnoreCase))
-                {
-                    float intensity;
-                    if (float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out intensity))
-                        config.ExhaustIntensity = intensity;
-                }
                 else if (key.Equals("appearance", StringComparison.OrdinalIgnoreCase))
                 {
                     ReclamationAppearancePreset preset;
@@ -162,9 +144,6 @@ namespace Worldwright
             output.Append("rotationVariance=").AppendLine(config.RotationVariance.ToString("0.###", CultureInfo.InvariantCulture));
             output.Append("minimumIntegrity=").AppendLine(config.MinimumIntegrity.ToString("0.###", CultureInfo.InvariantCulture));
             output.Append("maximumIntegrity=").AppendLine(config.MaximumIntegrity.ToString("0.###", CultureInfo.InvariantCulture));
-            output.Append("exhaustMode=").AppendLine(config.ExhaustMode.ToString());
-            output.Append("smokeStyle=").AppendLine(config.SmokeStyle.ToString());
-            output.Append("exhaustIntensity=").AppendLine(config.ExhaustIntensity.ToString("0.###", CultureInfo.InvariantCulture));
             output.Append("cursor=").AppendLine(config.Cursor.ToString(CultureInfo.InvariantCulture));
             output.Append("completed=").AppendLine(config.Completed ? "true" : "false");
             for (var i = 0; i < config.Entries.Count; i++)

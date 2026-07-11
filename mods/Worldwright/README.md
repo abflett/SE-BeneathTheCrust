@@ -58,8 +58,6 @@ The terminal provides:
 - A `0-100%` starting-rotation variance without angular velocity or continued spinning.
 - A random integrity range from `10-100%`.
 - A weighted list of captured paint-and-skin appearance presets.
-- Optional exhaust smoke that is off, always active, or active during a spawn and while waiting for clearance.
-- Black, dark vehicle, reactor, and white smoke styles with adjustable intensity.
 
 Each list entry represents one spawn. Add the same block three times when it should appear three times. Duplicate entries also act as weighting in Random mode.
 
@@ -78,8 +76,6 @@ To build an appearance list, paint and skin the Block Spawner with the vanilla p
 Spawner configuration is stored in the block's Custom Data under `[Worldwright.BlockSpawner]`. Worldwright preserves other Custom Data sections when updating this configuration.
 
 The four vent indicators show spawner status: green counts through an automatic interval, amber means the next payload is waiting for clearance, red reports a damaged spawner or missing block definition, purple marks a completed Once sequence, dim cyan means ready, and unlit means the sequence is empty.
-
-Smoke Mode can leave the effect off, run it continuously, or produce smoke while spawning. While Spawning includes a short puff for an immediate spawn and keeps smoking if a request is blocked. Smoke Style selects one of four vanilla particle palettes, and Smoke Intensity scales the selected effect from `10-100%`. Space Engineers exhaust particles do not expose arbitrary RGB tinting, so the style list provides the practical color choices.
 
 ## Planned Direction
 

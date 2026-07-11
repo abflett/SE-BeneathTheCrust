@@ -172,31 +172,6 @@ namespace Worldwright
             SetReclamationControlText(maximumIntegrity, "Maximum Integrity", "Highest random integrity assigned to a spawned block.");
             reclamationSpawnerControls.Add(maximumIntegrity);
 
-            var exhaustMode = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlCombobox, IMyTerminalBlock>("WwReclamationExhaustMode");
-            exhaustMode.Visible = IsReclamationSpawner;
-            exhaustMode.ComboBoxContent = PopulateReclamationExhaustModes;
-            exhaustMode.Getter = block => (long)ReadReclamationSpawnerConfig(block).ExhaustMode;
-            exhaustMode.Setter = (block, value) => RequestReclamationOperation(block, "exhaust-mode", index: (int)value);
-            SetReclamationControlText(exhaustMode, "Smoke Mode", "Off, always active, or active while a spawn is occurring or waiting for clearance.");
-            reclamationSpawnerControls.Add(exhaustMode);
-
-            var smokeStyle = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlCombobox, IMyTerminalBlock>("WwReclamationSmokeStyle");
-            smokeStyle.Visible = IsReclamationSpawner;
-            smokeStyle.ComboBoxContent = PopulateReclamationSmokeStyles;
-            smokeStyle.Getter = block => (long)ReadReclamationSpawnerConfig(block).SmokeStyle;
-            smokeStyle.Setter = (block, value) => RequestReclamationOperation(block, "smoke-style", index: (int)value);
-            SetReclamationControlText(smokeStyle, "Smoke Style", "Choose a vanilla smoke palette. Particle effects do not support arbitrary paint colors.");
-            reclamationSpawnerControls.Add(smokeStyle);
-
-            var exhaustIntensity = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlSlider, IMyTerminalBlock>("WwReclamationExhaustIntensity");
-            exhaustIntensity.Visible = IsReclamationSpawner;
-            exhaustIntensity.SetLimits(10f, 100f);
-            exhaustIntensity.Getter = block => ReadReclamationSpawnerConfig(block).ExhaustIntensity;
-            exhaustIntensity.Setter = (block, value) => RequestReclamationOperation(block, "exhaust-intensity", number: value);
-            exhaustIntensity.Writer = (block, output) => output.Append(ReadReclamationSpawnerConfig(block).ExhaustIntensity.ToString("0", CultureInfo.InvariantCulture)).Append("%");
-            SetReclamationControlText(exhaustIntensity, "Smoke Intensity", "Scale the selected vanilla smoke effect from 10 to 100 percent.");
-            reclamationSpawnerControls.Add(exhaustIntensity);
-
             reclamationAppearanceListControl = CreateReclamationListBox(
                 "WwReclamationAppearances",
                 "Appearance Presets",
@@ -567,23 +542,6 @@ namespace Worldwright
             items.Add(new MyTerminalControlComboBoxItem { Key = (long)ReclamationSequenceMode.Random, Value = MyStringId.GetOrCompute("Random") });
         }
 
-        private static void PopulateReclamationExhaustModes(List<MyTerminalControlComboBoxItem> items)
-        {
-            items.Clear();
-            items.Add(new MyTerminalControlComboBoxItem { Key = (long)ReclamationExhaustMode.Off, Value = MyStringId.GetOrCompute("Off") });
-            items.Add(new MyTerminalControlComboBoxItem { Key = (long)ReclamationExhaustMode.Always, Value = MyStringId.GetOrCompute("Always") });
-            items.Add(new MyTerminalControlComboBoxItem { Key = (long)ReclamationExhaustMode.WhileSpawning, Value = MyStringId.GetOrCompute("While Spawning") });
-        }
-
-        private static void PopulateReclamationSmokeStyles(List<MyTerminalControlComboBoxItem> items)
-        {
-            items.Clear();
-            items.Add(new MyTerminalControlComboBoxItem { Key = (long)ReclamationSmokeStyle.Black, Value = MyStringId.GetOrCompute("Black Smoke") });
-            items.Add(new MyTerminalControlComboBoxItem { Key = (long)ReclamationSmokeStyle.Dark, Value = MyStringId.GetOrCompute("Dark Vehicle Smoke") });
-            items.Add(new MyTerminalControlComboBoxItem { Key = (long)ReclamationSmokeStyle.Reactor, Value = MyStringId.GetOrCompute("Reactor Smoke") });
-            items.Add(new MyTerminalControlComboBoxItem { Key = (long)ReclamationSmokeStyle.White, Value = MyStringId.GetOrCompute("White Smoke") });
-        }
-
         private void AppendReclamationSpawnerInfo(IMyTerminalBlock block, StringBuilder output)
         {
             if (!IsReclamationSpawner(block))
@@ -596,7 +554,6 @@ namespace Worldwright
             output.Append("Automatic interval: ").Append(config.AutomaticIntervalSeconds.ToString("0.0", CultureInfo.InvariantCulture)).AppendLine(" s");
             output.Append("Rotation variance: ").Append(config.RotationVariance.ToString("0", CultureInfo.InvariantCulture)).AppendLine("%");
             output.Append("Integrity: ").Append(config.MinimumIntegrity.ToString("0", CultureInfo.InvariantCulture)).Append("-").Append(config.MaximumIntegrity.ToString("0", CultureInfo.InvariantCulture)).AppendLine("%");
-            output.Append("Smoke: ").Append(config.ExhaustMode).Append(" / ").Append(config.SmokeStyle).Append(" / ").Append(config.ExhaustIntensity.ToString("0", CultureInfo.InvariantCulture)).AppendLine("%");
             output.Append("Appearances: ").AppendLine(config.AppearancePresets.Count.ToString(CultureInfo.InvariantCulture));
             output.Append("Entries: ").AppendLine(config.Entries.Count.ToString(CultureInfo.InvariantCulture));
 
@@ -625,8 +582,6 @@ namespace Worldwright
             if (block != null)
             {
                 TrackReclamationSpawnerEmissives(block);
-                if (MyAPIGateway.Session != null)
-                    ApplyReclamationSpawnerExhaust(block, MyAPIGateway.Session.GameplayFrameCounter);
                 block.SetDetailedInfoDirty();
                 block.RefreshCustomInfo();
             }

@@ -12,21 +12,6 @@ namespace Worldwright
         Random = 2,
     }
 
-    internal enum ReclamationExhaustMode
-    {
-        Off = 0,
-        Always = 1,
-        WhileSpawning = 2,
-    }
-
-    internal enum ReclamationSmokeStyle
-    {
-        Black = 0,
-        Dark = 1,
-        Reactor = 2,
-        White = 3,
-    }
-
     internal sealed class ReclamationSpawnerConfig
     {
         internal const float DefaultVelocity = 1.5f;
@@ -42,9 +27,6 @@ namespace Worldwright
         internal float RotationVariance;
         internal float MinimumIntegrity = 100f;
         internal float MaximumIntegrity = 100f;
-        internal ReclamationExhaustMode ExhaustMode = ReclamationExhaustMode.Off;
-        internal ReclamationSmokeStyle SmokeStyle = ReclamationSmokeStyle.Black;
-        internal float ExhaustIntensity = 50f;
         internal int Cursor;
         internal bool Completed;
 
@@ -56,13 +38,6 @@ namespace Worldwright
 
         internal void Normalize()
         {
-            if (!Enum.IsDefined(typeof(ReclamationSequenceMode), Mode))
-                Mode = ReclamationSequenceMode.Once;
-            if (!Enum.IsDefined(typeof(ReclamationExhaustMode), ExhaustMode))
-                ExhaustMode = ReclamationExhaustMode.Off;
-            if (!Enum.IsDefined(typeof(ReclamationSmokeStyle), SmokeStyle))
-                SmokeStyle = ReclamationSmokeStyle.Black;
-
             OutwardVelocity = Math.Max(0f, Math.Min(WorldwrightSession.MaximumOutwardVelocity, OutwardVelocity));
             AutomaticIntervalSeconds = Math.Max(
                 WorldwrightSession.MinimumAutomaticIntervalSeconds,
@@ -70,7 +45,6 @@ namespace Worldwright
             RotationVariance = Math.Max(0f, Math.Min(100f, RotationVariance));
             MinimumIntegrity = Math.Max(10f, Math.Min(100f, MinimumIntegrity));
             MaximumIntegrity = Math.Max(10f, Math.Min(100f, MaximumIntegrity));
-            ExhaustIntensity = Math.Max(10f, Math.Min(100f, ExhaustIntensity));
             if (MinimumIntegrity > MaximumIntegrity)
                 MaximumIntegrity = MinimumIntegrity;
 

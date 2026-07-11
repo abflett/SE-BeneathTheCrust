@@ -39,7 +39,6 @@ namespace Worldwright
         public override void UpdateAfterSimulation()
         {
             UpdateReclamationSpawnerEmissives();
-            UpdateReclamationSpawnerExhausts();
             UpdatePendingReclamationSpawns();
         }
 

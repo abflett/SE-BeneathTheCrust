@@ -60,7 +60,6 @@ namespace Worldwright
 
         private void UnloadReclamationSpawners()
         {
-            UnloadReclamationSpawnerExhausts();
             UnregisterReclamationSpawnerControls();
             UnregisterReclamationSpawnerNetwork();
             reclamationBlockCatalog.Clear();
@@ -124,7 +123,7 @@ namespace Worldwright
 
         private static bool IsReclamationSpawnerDefinition(MyDefinitionId id)
         {
-            return id.TypeId.ToString().Equals("MyObjectBuilder_ExhaustBlock", StringComparison.OrdinalIgnoreCase) &&
+            return id.TypeId.ToString().Equals("MyObjectBuilder_TerminalBlock", StringComparison.OrdinalIgnoreCase) &&
                    id.SubtypeName.Equals(BlockSpawnerSubtype, StringComparison.OrdinalIgnoreCase);
         }
 
@@ -133,7 +132,7 @@ namespace Worldwright
             if (block == null)
                 return false;
 
-            return block.BlockDefinition.TypeIdString.Equals("MyObjectBuilder_ExhaustBlock", StringComparison.OrdinalIgnoreCase) &&
+            return block.BlockDefinition.TypeIdString.Equals("MyObjectBuilder_TerminalBlock", StringComparison.OrdinalIgnoreCase) &&
                    block.BlockDefinition.SubtypeName.Equals(BlockSpawnerSubtype, StringComparison.OrdinalIgnoreCase);
         }
 
@@ -257,7 +256,6 @@ namespace Worldwright
             SelectSpawnOrientation(block, config.RotationVariance, out request.Forward, out request.Up);
 
             pendingReclamationSpawns[block.EntityId] = request;
-            BeginReclamationSpawnExhaust(block);
             if (TryCompletePendingReclamationSpawn(request))
                 message = "Spawned " + catalogEntry.DisplayName + ".";
             else
