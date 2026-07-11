@@ -69,6 +69,9 @@ namespace Worldwright
             selectedCatalogEntryByBlock.Clear();
             selectedSequenceIndexByBlock.Clear();
             selectedAppearanceIndexByBlock.Clear();
+            reclamationEmissiveBlocks.Clear();
+            reclamationEmissiveEntityBuffer.Clear();
+            reclamationEmissiveBlockBuffer.Clear();
         }
 
         private void BuildReclamationBlockCatalog()
@@ -119,7 +122,7 @@ namespace Worldwright
 
         private static bool IsReclamationSpawnerDefinition(MyDefinitionId id)
         {
-            return id.TypeId.ToString().Equals("MyObjectBuilder_TimerBlock", StringComparison.OrdinalIgnoreCase) &&
+            return id.TypeId.ToString().Equals("MyObjectBuilder_TerminalBlock", StringComparison.OrdinalIgnoreCase) &&
                    id.SubtypeName.Equals(BlockSpawnerSubtype, StringComparison.OrdinalIgnoreCase);
         }
 
@@ -128,7 +131,7 @@ namespace Worldwright
             if (block == null)
                 return false;
 
-            return block.BlockDefinition.TypeIdString.Equals("MyObjectBuilder_TimerBlock", StringComparison.OrdinalIgnoreCase) &&
+            return block.BlockDefinition.TypeIdString.Equals("MyObjectBuilder_TerminalBlock", StringComparison.OrdinalIgnoreCase) &&
                    block.BlockDefinition.SubtypeName.Equals(BlockSpawnerSubtype, StringComparison.OrdinalIgnoreCase);
         }
 
@@ -472,8 +475,8 @@ namespace Worldwright
 
         private static Vector3D GetReclamationOutputDirection(IMyTerminalBlock spawner)
         {
-            // The sorter shell's backward face is the Block Spawner output side.
-            return Vector3D.Normalize(spawner.WorldMatrix.Backward);
+            // The half vent mounts on Back; its visible grille and output face point Forward.
+            return Vector3D.Normalize(spawner.WorldMatrix.Forward);
         }
 
         private static bool IsSpawnVolumeClear(IMyTerminalBlock spawner, ref BoundingBoxD bounds)

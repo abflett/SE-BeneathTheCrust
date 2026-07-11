@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <CubeBlocks>
-    <Definition xsi:type="MyObjectBuilder_TimerBlockDefinition">
+    <Definition>
       <Id>
-        <TypeId>TimerBlock</TypeId>
+        <TypeId>TerminalBlock</TypeId>
         <SubtypeId>WwBlockSpawner</SubtypeId>
       </Id>
       <DisplayName>Worldwright Block Spawner</DisplayName>
-      <Icon>Textures/GUI/Icons/Cubes/ConveyorSorterLarge.dds</Icon>
+      <Icon>Textures/GUI/Icons/Cubes/WallFanVentHalf.dds</Icon>
       <Description>Spawns configurable one-block grids for authored scenarios, tutorials, traps, and machinery.</Description>
       <CubeSize>Large</CubeSize>
       <BlockTopology>TriangleMesh</BlockTopology>
       <Size x="1" y="1" z="1" />
       <ModelOffset x="0" y="0" z="0" />
-      <Model>Models\Cubes\Large\ConveyorSorter.mwm</Model>
+      <Model>Models\Cubes\Large\WallFanVentHalf.mwm</Model>
       <Components>
         <Component Subtype="SteelPlate" Count="10" />
         <Component Subtype="Construction" Count="5" />
@@ -22,19 +22,17 @@
       </Components>
       <CriticalComponent Subtype="Computer" Index="0" />
       <BuildProgressModels>
-        <Model BuildPercentUpperBound="0.33" File="Models\Cubes\Large\ConveyorSorterConstruction_1.mwm" />
-        <Model BuildPercentUpperBound="0.66" File="Models\Cubes\Large\ConveyorSorterConstruction_2.mwm" />
-        <Model BuildPercentUpperBound="1.00" File="Models\Cubes\Large\ConveyorSorterConstruction_3.mwm" />
+        <Model BuildPercentUpperBound="0.33" File="Models\Cubes\Large\WallFanVentHalfConstruction_1.mwm" />
+        <Model BuildPercentUpperBound="0.66" File="Models\Cubes\Large\WallFanVentHalfConstruction_2.mwm" />
+        <Model BuildPercentUpperBound="1.00" File="Models\Cubes\Large\WallFanVentHalfConstruction_3.mwm" />
       </BuildProgressModels>
       <MountPoints>
-        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
-        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
-        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
-        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
-        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0.5" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" Default="true" />
+        <MountPoint Side="Left" StartX="0.5" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="0.5" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="0.5" />
       </MountPoints>
-      <ResourceSinkGroup>Utility</ResourceSinkGroup>
-      <RequiredPowerInput>0.0001</RequiredPowerInput>
       <EdgeType>Light</EdgeType>
       <BuildTimeSeconds>6</BuildTimeSeconds>
       <DisassembleRatio>2.5</DisassembleRatio>
@@ -43,6 +41,7 @@
       <MirroringY>Z</MirroringY>
       <MirroringZ>Y</MirroringZ>
       <Public>true</Public>
+      <EnableUseObjectSimpleTargeting>true</EnableUseObjectSimpleTargeting>
       <PCU>10</PCU>
       <IsAirTight>false</IsAirTight>
     </Definition>

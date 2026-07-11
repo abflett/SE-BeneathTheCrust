@@ -233,7 +233,7 @@ namespace Worldwright
                 MyAPIGateway.TerminalControls.CustomActionGetter -= FilterReclamationSpawnerActions;
 
                 for (var i = 0; i < reclamationSpawnerActions.Count; i++)
-                    MyAPIGateway.TerminalControls.RemoveAction<SpaceEngineers.Game.ModAPI.IMyTimerBlock>(reclamationSpawnerActions[i]);
+                    MyAPIGateway.TerminalControls.RemoveAction<IMyTerminalBlock>(reclamationSpawnerActions[i]);
             }
 
             foreach (var entityId in reclamationInfoSubscribedBlocks)
@@ -317,7 +317,7 @@ namespace Worldwright
             Action<IMyTerminalBlock> actionDelegate,
             Action<IMyTerminalBlock, StringBuilder> writer)
         {
-            var action = MyAPIGateway.TerminalControls.CreateAction<SpaceEngineers.Game.ModAPI.IMyTimerBlock>(id);
+            var action = MyAPIGateway.TerminalControls.CreateAction<IMyTerminalBlock>(id);
             action.Name = new StringBuilder(name);
             action.Icon = icon;
             action.Action = actionDelegate;
@@ -325,7 +325,7 @@ namespace Worldwright
             action.Writer = writer;
             action.ValidForGroups = true;
             reclamationSpawnerActions.Add(action);
-            MyAPIGateway.TerminalControls.AddAction<SpaceEngineers.Game.ModAPI.IMyTimerBlock>(action);
+            MyAPIGateway.TerminalControls.AddAction<IMyTerminalBlock>(action);
         }
 
         private static void SetReclamationControlText(IMyTerminalControl control, string title, string tooltip)
@@ -581,6 +581,7 @@ namespace Worldwright
 
             if (block != null)
             {
+                TrackReclamationSpawnerEmissives(block);
                 block.SetDetailedInfoDirty();
                 block.RefreshCustomInfo();
             }

@@ -44,7 +44,7 @@ This is not a safe zone replacement. It does not block movement, welding, termin
 
 ## Block Spawner
 
-The **Worldwright Block Spawner** is a large-grid functional terminal block using the vanilla conveyor-sorter shell as a clear directional hatch. Its backward face is the output side. It has no physical control screen, so open it from another terminal on the same construct.
+The **Worldwright Block Spawner** is a compact large-grid terminal block using the vanilla half air-vent shell as a directional hatch. Payloads leave through the visible grille on its front face, and its built-in access panel opens the Block Spawner settings directly.
 
 The terminal provides:
 
@@ -74,6 +74,8 @@ Minimum and maximum integrity default to `100%`. Lower ranges create fully const
 To build an appearance list, paint and skin the Block Spawner with the vanilla paint tool, then press `Add Current Appearance`. Repaint it and add another preset as many times as needed. Each spawn randomly chooses one preset; duplicate presets add weight. When the list is empty, the current Block Spawner appearance is used directly.
 
 Spawner configuration is stored in the block's Custom Data under `[Worldwright.BlockSpawner]`. Worldwright preserves other Custom Data sections when updating this configuration.
+
+The four vent indicators show spawner status: green counts through an automatic interval, amber means the next payload is waiting for clearance, red reports a damaged spawner or missing block definition, purple marks a completed Once sequence, dim cyan means ready, and unlit means the sequence is empty.
 
 ## Planned Direction
 
