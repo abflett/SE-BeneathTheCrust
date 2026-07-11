@@ -323,6 +323,10 @@ namespace Worldwright
             {
                 config.SmokeIntensity = Math.Max(10f, Math.Min(100f, request.Number));
             }
+            else if (operation.Equals("smoke-softness", StringComparison.OrdinalIgnoreCase))
+            {
+                config.SmokeSoftness = Math.Max(5f, Math.Min(100f, request.Number));
+            }
             else if (operation.Equals("reset-smoke-tint", StringComparison.OrdinalIgnoreCase))
             {
                 config.SmokeRed = 255f;

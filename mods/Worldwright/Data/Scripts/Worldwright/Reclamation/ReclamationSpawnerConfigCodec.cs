@@ -114,6 +114,12 @@ namespace Worldwright
                     if (float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out intensity))
                         config.SmokeIntensity = intensity;
                 }
+                else if (key.Equals("smokeSoftness", StringComparison.OrdinalIgnoreCase))
+                {
+                    float softness;
+                    if (float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out softness))
+                        config.SmokeSoftness = softness;
+                }
                 else if (key.Equals("appearance", StringComparison.OrdinalIgnoreCase))
                 {
                     ReclamationAppearancePreset preset;
@@ -186,6 +192,7 @@ namespace Worldwright
             output.Append("smokeGreen=").AppendLine(config.SmokeGreen.ToString("0.###", CultureInfo.InvariantCulture));
             output.Append("smokeBlue=").AppendLine(config.SmokeBlue.ToString("0.###", CultureInfo.InvariantCulture));
             output.Append("smokeIntensity=").AppendLine(config.SmokeIntensity.ToString("0.###", CultureInfo.InvariantCulture));
+            output.Append("smokeSoftness=").AppendLine(config.SmokeSoftness.ToString("0.###", CultureInfo.InvariantCulture));
             output.Append("cursor=").AppendLine(config.Cursor.ToString(CultureInfo.InvariantCulture));
             output.Append("completed=").AppendLine(config.Completed ? "true" : "false");
             for (var i = 0; i < config.Entries.Count; i++)

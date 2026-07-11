@@ -48,6 +48,7 @@ namespace Worldwright
         internal float SmokeGreen = 255f;
         internal float SmokeBlue = 255f;
         internal float SmokeIntensity = 50f;
+        internal float SmokeSoftness = 100f;
         internal int Cursor;
         internal bool Completed;
 
@@ -75,6 +76,7 @@ namespace Worldwright
             SmokeGreen = Math.Max(0f, Math.Min(255f, SmokeGreen));
             SmokeBlue = Math.Max(0f, Math.Min(255f, SmokeBlue));
             SmokeIntensity = Math.Max(10f, Math.Min(100f, SmokeIntensity));
+            SmokeSoftness = Math.Max(5f, Math.Min(100f, SmokeSoftness));
             if (MinimumIntegrity > MaximumIntegrity)
                 MaximumIntegrity = MinimumIntegrity;
 
