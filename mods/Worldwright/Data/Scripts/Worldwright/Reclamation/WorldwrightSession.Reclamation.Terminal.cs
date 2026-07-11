@@ -213,15 +213,6 @@ namespace Worldwright
             SetReclamationControlText(smokeIntensity, "Smoke Intensity", "Controls how many smoke particles are emitted without changing their size.");
             reclamationSpawnerControls.Add(smokeIntensity);
 
-            var smokeSoftness = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlSlider, IMyTerminalBlock>("WwReclamationSmokeSoftness");
-            smokeSoftness.Visible = IsReclamationSpawner;
-            smokeSoftness.SetLimits(5f, 100f);
-            smokeSoftness.Getter = block => ReadReclamationSpawnerConfig(block).SmokeSoftness;
-            smokeSoftness.Setter = (block, value) => RequestReclamationOperation(block, "smoke-softness", number: value);
-            smokeSoftness.Writer = (block, output) => output.Append(ReadReclamationSpawnerConfig(block).SmokeSoftness.ToString("0", CultureInfo.InvariantCulture)).Append("%");
-            SetReclamationControlText(smokeSoftness, "Smoke Softness", "Lower values reduce smoke fading where particles overlap nearby blocks. Very low values can reveal hard intersections.");
-            reclamationSpawnerControls.Add(smokeSoftness);
-
             reclamationSpawnerControls.Add(CreateReclamationButton(
                 "WwReclamationResetSmokeTint",
                 "Reset Smoke Tint",
@@ -647,8 +638,7 @@ namespace Worldwright
                 .Append(config.SmokeRed.ToString("0", CultureInfo.InvariantCulture)).Append(", ")
                 .Append(config.SmokeGreen.ToString("0", CultureInfo.InvariantCulture)).Append(", ")
                 .Append(config.SmokeBlue.ToString("0", CultureInfo.InvariantCulture)).Append(") ")
-                .Append(config.SmokeIntensity.ToString("0", CultureInfo.InvariantCulture)).Append("% intensity / ")
-                .Append(config.SmokeSoftness.ToString("0", CultureInfo.InvariantCulture)).AppendLine("% softness");
+                .Append(config.SmokeIntensity.ToString("0", CultureInfo.InvariantCulture)).AppendLine("%");
             output.Append("Appearances: ").AppendLine(config.AppearancePresets.Count.ToString(CultureInfo.InvariantCulture));
             output.Append("Entries: ").AppendLine(config.Entries.Count.ToString(CultureInfo.InvariantCulture));
 

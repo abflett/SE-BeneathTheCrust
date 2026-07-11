@@ -100,7 +100,6 @@ namespace Worldwright
                 config.SmokeBlue / 255f,
                 1f);
             effect.UserBirthMultiplier = config.SmokeIntensity / 100f;
-            effect.SoftParticleDistanceScaleMultiplier = config.SmokeSoftness / 100f;
             effect.UserFadeMultiplier = 1f;
         }
 
@@ -207,7 +206,6 @@ namespace Worldwright
             internal float Green;
             internal float Blue;
             internal float Intensity;
-            internal float Softness;
 
             internal bool Matches(ReclamationSpawnerConfig config)
             {
@@ -215,8 +213,7 @@ namespace Worldwright
                        Math.Abs(Red - config.SmokeRed) < 0.01f &&
                        Math.Abs(Green - config.SmokeGreen) < 0.01f &&
                        Math.Abs(Blue - config.SmokeBlue) < 0.01f &&
-                       Math.Abs(Intensity - config.SmokeIntensity) < 0.01f &&
-                       Math.Abs(Softness - config.SmokeSoftness) < 0.01f;
+                       Math.Abs(Intensity - config.SmokeIntensity) < 0.01f;
             }
 
             internal static ReclamationSmokeRenderSettings FromConfig(ReclamationSpawnerConfig config)
@@ -228,7 +225,6 @@ namespace Worldwright
                     Green = config.SmokeGreen,
                     Blue = config.SmokeBlue,
                     Intensity = config.SmokeIntensity,
-                    Softness = config.SmokeSoftness,
                 };
             }
         }
