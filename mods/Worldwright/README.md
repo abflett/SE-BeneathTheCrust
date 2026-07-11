@@ -44,7 +44,7 @@ This is not a safe zone replacement. It does not block movement, welding, termin
 
 ## Block Spawner
 
-The **Worldwright Block Spawner** is a compact large-grid terminal block using the vanilla half air-vent shell as a directional hatch. Payloads leave through the visible grille on its front face, and its built-in access panel opens the Block Spawner settings directly.
+The **Worldwright Block Spawner** is a compact large-grid terminal block using the standard vanilla Air Vent shell as a directional hatch. Payloads leave through the visible grille on its front face, and its built-in access panel opens the Block Spawner settings directly.
 
 The terminal provides:
 

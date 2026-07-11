@@ -6,7 +6,7 @@ Public-facing release notes for the standalone **Worldwright** Space Engineers s
 
 This development release adds the first Worldwright Block Spawner for authored salvage bays, tutorials, traps, weapons, and other scenario machinery.
 
-- Adds a compact large-grid spawner using the vanilla half air-vent shell as a directional hatch. Payloads leave through its visible front grille, and the built-in access panel opens its settings directly.
+- Adds a compact large-grid spawner using the standard vanilla Air Vent shell as a directional hatch. Payloads leave through its visible front grille, and the built-in access panel opens its settings directly.
 - Searches all loaded public cube-block definitions, including blocks supplied by other loaded mods.
 - Stores an ordered sequence where duplicate entries produce repeated spawns.
 - Supports Once, Loop, and weighted Random sequence modes.
@@ -25,6 +25,8 @@ This development release adds the first Worldwright Block Spawner for authored s
 - Adds an obvious Custom Name control for authored names such as `Reclamation Door Hatch`.
 - Renames the public block and terminal heading to Block Spawner.
 - Uses a persistent triangle-mesh TerminalBlock entity so grid rebuilds, cockpit entry, paint changes, and saves cannot collapse it into terminal-less armor.
+- Places each payload by its real geometric center instead of assuming the spawned grid origin is centered, preventing even-sized and asymmetric blocks from appearing partly inside the hatch.
+- Measures the hatch model's actual output depth and adds a safe launch gap before checking clearance.
 - Adds four status indicators for automatic interval progress, blocked output, invalid configuration, completed Once sequences, ready state, and empty sequences.
 - Removes the broken early block types and old configuration section. Early test blocks must be removed and replaced.
 - Persists configuration on the spawner block while preserving unrelated Custom Data sections.

@@ -21,7 +21,8 @@ namespace Worldwright
 
         private const string BlockSpawnerSubtype = "WwBlockSpawner";
         private const int PendingSpawnPollFrames = 10;
-        private const double SpawnClearancePadding = 0.05;
+        private const double SpawnSurfaceClearance = 0.5;
+        private const double SpawnBoundsPadding = 0.1;
 
         private readonly List<ReclamationBlockCatalogEntry> reclamationBlockCatalog =
             new List<ReclamationBlockCatalogEntry>();
@@ -456,21 +457,52 @@ namespace Worldwright
                 payloadDefinition.Size.Y * payloadGridSize * 0.5,
                 payloadDefinition.Size.Z * payloadGridSize * 0.5);
 
-            var spawnerHalfDepth = spawner.CubeGrid.GridSize * 0.5;
+            var spawnerOutputDepth = GetReclamationSpawnerOutputDepth(spawner, outputDirection);
             var projectedPayloadDepth =
                 Math.Abs(Vector3D.Dot(right, outputDirection)) * payloadHalf.X +
                 Math.Abs(Vector3D.Dot(up, outputDirection)) * payloadHalf.Y +
                 Math.Abs(Vector3D.Dot(forward, outputDirection)) * payloadHalf.Z;
-            position = spawner.GetPosition() +
-                       outputDirection * (spawnerHalfDepth + projectedPayloadDepth + SpawnClearancePadding);
+            var payloadCenter = spawner.GetPosition() +
+                                outputDirection *
+                                (spawnerOutputDepth + projectedPayloadDepth + SpawnSurfaceClearance);
+
+            var payloadMin = -payloadDefinition.Center;
+            var localCenterCells = new Vector3D(
+                payloadMin.X + (payloadDefinition.Size.X - 1) * 0.5,
+                payloadMin.Y + (payloadDefinition.Size.Y - 1) * 0.5,
+                payloadMin.Z + (payloadDefinition.Size.Z - 1) * 0.5);
+            var payloadOrientation = MatrixD.CreateWorld(Vector3D.Zero, forward, up);
+            var payloadCenterOffset = Vector3D.TransformNormal(
+                localCenterCells * payloadGridSize,
+                payloadOrientation);
+            position = payloadCenter - payloadCenterOffset;
 
             var worldHalf = new Vector3D(
                 Math.Abs(right.X) * payloadHalf.X + Math.Abs(up.X) * payloadHalf.Y + Math.Abs(forward.X) * payloadHalf.Z,
                 Math.Abs(right.Y) * payloadHalf.X + Math.Abs(up.Y) * payloadHalf.Y + Math.Abs(forward.Y) * payloadHalf.Z,
                 Math.Abs(right.Z) * payloadHalf.X + Math.Abs(up.Z) * payloadHalf.Y + Math.Abs(forward.Z) * payloadHalf.Z);
 
-            worldHalf += new Vector3D(SpawnClearancePadding);
-            bounds = new BoundingBoxD(position - worldHalf, position + worldHalf);
+            worldHalf += new Vector3D(SpawnBoundsPadding);
+            bounds = new BoundingBoxD(payloadCenter - worldHalf, payloadCenter + worldHalf);
+        }
+
+        private static double GetReclamationSpawnerOutputDepth(
+            IMyTerminalBlock spawner,
+            Vector3D outputDirection)
+        {
+            var localBounds = spawner.LocalAABB;
+            var inverseOrientation = MatrixD.Transpose(spawner.WorldMatrix.GetOrientation());
+            var localOutputDirection = Vector3D.Normalize(
+                Vector3D.TransformNormal(outputDirection, inverseOrientation));
+            var localCenter = (Vector3D)localBounds.Center;
+            var localHalf = (Vector3D)localBounds.HalfExtents;
+
+            return Math.Max(
+                0.0,
+                Vector3D.Dot(localCenter, localOutputDirection) +
+                Math.Abs(localOutputDirection.X) * localHalf.X +
+                Math.Abs(localOutputDirection.Y) * localHalf.Y +
+                Math.Abs(localOutputDirection.Z) * localHalf.Z);
         }
 
         private static Vector3D GetReclamationOutputDirection(IMyTerminalBlock spawner)
