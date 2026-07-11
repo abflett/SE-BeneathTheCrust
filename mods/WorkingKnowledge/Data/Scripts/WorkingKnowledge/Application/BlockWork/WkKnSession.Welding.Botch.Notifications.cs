@@ -208,5 +208,23 @@ namespace WkKn
             return builder.Length == 0 ? null : builder.ToString();
         }
 
+        private static string GetWeldBotchBlockDisplayName(VRage.Game.ModAPI.IMySlimBlock slimBlock)
+        {
+            var definition = slimBlock == null ? null : slimBlock.BlockDefinition as MyCubeBlockDefinition;
+            if (definition == null)
+                return "Block";
+
+            if (!string.IsNullOrWhiteSpace(definition.DisplayNameText))
+                return definition.DisplayNameText;
+
+            return WeldBotchComponentRecoveryService.HumanizeSubtypeName(definition.Id.SubtypeName);
+        }
+
+        private static string GetWeldBotchWarningKey(long identityId, string researchId, VRage.Game.ModAPI.IMySlimBlock slimBlock)
+        {
+            return identityId.ToString(CultureInfo.InvariantCulture) + ":" +
+                   (string.IsNullOrWhiteSpace(researchId) ? "unknown" : researchId) + ":" +
+                   (GetWeldBlockKey(slimBlock) ?? "unknown");
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
-## 0.12.0 - Layer Diagnostics
+## 0.12.0 - Layer Diagnostics And Runtime Cleanup
 
 Added diagnostics for Working Knowledge compatibility layers without changing the layer format or existing layer behavior.
 
@@ -22,7 +22,17 @@ Existing `block_mappings.txt` files remain compatible. The Working Knowledge Lay
 
 Added a release validation helper for script compilation, XML parsing, version documentation, and thumbnail size.
 
-Split the large welding-botch implementation into focused partial files for chance and damage settlement, notifications, component recovery, and component valuation. This is a code-organization change only; the gameplay formulas and operation order are unchanged.
+Cleaned up the runtime architecture without changing public or save-facing contracts.
+
+- Removed four lifecycle forwarding classes that only routed calls back into the session component.
+- Kept the session component as the Space Engineers composition root and lifecycle adapter.
+- Extracted welding-botch chance calculation into a standalone policy.
+- Extracted mounted-component accounting, forgiveness, inventory return, and fallback drops into a recovery service.
+- Kept only botch orchestration and player feedback on focused session partials.
+- Centralized XML multiplayer serialization while preserving the existing message IDs and XML payloads.
+- Centralized shared block-radius geometry used by tool attribution and recovered-component drops.
+
+There are no breaking changes in this cleanup. Existing saves, Working Knowledge Layers, toolkit output, storage XML, commands, definition IDs, LCD Custom Data, and multiplayer message IDs remain compatible.
 
 ## 0.11.0 - External Layer Support
 

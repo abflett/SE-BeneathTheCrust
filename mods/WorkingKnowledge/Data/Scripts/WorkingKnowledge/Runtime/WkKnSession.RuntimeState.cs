@@ -94,6 +94,8 @@ namespace WkKn
         private readonly ProficiencyNotificationService proficiencyNotificationService = new ProficiencyNotificationService();
         private readonly SalvageRecoveryPolicy salvageRecoveryPolicy = new SalvageRecoveryPolicy(RequiredResearchProgress);
         private readonly WeldBuildCapPolicy weldBuildCapPolicy = new WeldBuildCapPolicy(RequiredResearchProgress, ProficiencyBuildCapExponent, WeldCapTolerance);
+        private readonly WeldBotchChancePolicy weldBotchChancePolicy = new WeldBotchChancePolicy(RequiredResearchProgress, WeldCapTolerance);
+        private readonly WeldBotchComponentRecoveryService weldBotchComponentRecovery = new WeldBotchComponentRecoveryService(WeldCapTolerance);
         private readonly BlockIntegrityMonitor blockIntegrityMonitor = new BlockIntegrityMonitor(WeldCapTolerance);
         private readonly BlockWorkRuntimeState blockWorkState = new BlockWorkRuntimeState();
         private readonly Dictionary<long, ResearchPedestalView> researchPedestalViewsByBlock = new Dictionary<long, ResearchPedestalView>();

@@ -100,7 +100,17 @@ Balance source:
 
 ## Runtime Shape
 
-The session partials are split by responsibility:
+`WkKnSession` is the Space Engineers entry point and composition root. Its lifecycle overrides call the runtime module methods directly. Do not add forwarding classes that only pass a session reference around and call back into the same session.
+
+Use these pragmatic boundaries:
+
+- Session partials are adapters and orchestration for Space Engineers callbacks, shared runtime state, chat/UI presentation, and engine-side settlement.
+- Deterministic gameplay decisions belong in standalone policies or services.
+- Stores own persistence data manipulation; session partials own world-storage I/O.
+- Integration helpers own repeated transport, parsing, or game-API mechanics.
+- Add an interface only when there is a real alternate implementation or test seam. Do not create one-to-one abstractions for their own sake.
+
+The session adapters are grouped by responsibility:
 
 - Lifecycle, save/load, multiplayer messages, and local feedback routing.
 - Research progress, faction/player archives, research data consumables, and vanilla research mirroring.
@@ -114,12 +124,15 @@ The session partials are split by responsibility:
 
 The internal script namespace, session class, world-storage filenames, LCD Custom Data sections, and generated game definition IDs use the short `WkKn` prefix.
 
-Welding botch code is further split by concern:
+Welding botch boundaries:
 
-- `WkKnSession.Welding.Botch.cs` - chance, damage, and raw-damage debt settlement.
+- `WkKnSession.Welding.Botch.cs` - engine orchestration, damage application, and raw-damage debt settlement.
 - `WkKnSession.Welding.Botch.Notifications.cs` - warning aggregation and player feedback.
-- `WkKnSession.Welding.Botch.Recovery.cs` - mounted-component loss, forgiveness, returns, and drops.
-- `WkKnSession.Welding.Botch.ComponentValues.cs` - component valuation, sorting, and display helpers.
+- `WeldBotchChancePolicy.cs` - deterministic chance and Proficiency-cap decisions.
+- `WeldBotchComponentRecoveryService.cs` - mounted-component accounting, valuation, forgiveness, inventory return, and fallback drops.
+- `BlockGeometry.cs` - shared slim-block world-size calculation.
+
+Multiplayer XML encoding and guarded decoding live in `XmlNetworkSerializer.cs`. Message ownership, sender validation, IDs, and request/response routing remain in their feature adapters.
 
 ## Layer Diagnostics
 

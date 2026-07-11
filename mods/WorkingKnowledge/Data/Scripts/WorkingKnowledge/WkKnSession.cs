@@ -7,56 +7,51 @@ namespace WkKn
     [MySessionComponentDescriptor(MyUpdateOrder.BeforeSimulation | MyUpdateOrder.AfterSimulation)]
     public partial class WkKnSession : MySessionComponentBase
     {
-        private WorkingKnowledgeRuntime runtime;
+        private bool runtimeActive;
 
         public override void Init(MyObjectBuilder_SessionComponent sessionComponent)
         {
-            Runtime.Init(sessionComponent);
+            if (runtimeActive)
+                return;
+
+            runtimeActive = true;
+            RegisterGameEventHandlers();
+            InitializeRuntimeModules(sessionComponent);
         }
 
         public override void LoadData()
         {
-            Runtime.LoadData();
+            LoadRuntimeData();
         }
 
         public override void BeforeStart()
         {
-            Runtime.BeforeStart();
+            StartRuntime();
         }
 
         public override void SaveData()
         {
-            Runtime.SaveData();
+            SaveRuntimeData();
         }
 
         public override void UpdateBeforeSimulation()
         {
-            Runtime.UpdateBeforeSimulation();
+            UpdateRuntimeBeforeSimulation();
         }
 
         public override void UpdateAfterSimulation()
         {
-            Runtime.UpdateAfterSimulation();
+            UpdateRuntimeAfterSimulation();
         }
 
         protected override void UnloadData()
         {
-            if (runtime != null)
-            {
-                runtime.Unload();
-                runtime = null;
-            }
-        }
+            if (!runtimeActive)
+                return;
 
-        private WorkingKnowledgeRuntime Runtime
-        {
-            get
-            {
-                if (runtime == null)
-                    runtime = WorkingKnowledgeRuntime.Create(this);
-
-                return runtime;
-            }
+            UnregisterGameEventHandlers();
+            UnloadRuntimeModules();
+            runtimeActive = false;
         }
     }
 }

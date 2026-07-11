@@ -66,7 +66,7 @@ namespace WkKn
             VRageMath.BoundingBoxD targetBox;
             slimBlock.GetWorldBoundingBox(out targetBox, true);
 
-            var targetRadius = GetSlimBlockWorldRadius(slimBlock);
+            var targetRadius = BlockGeometry.GetWorldRadius(slimBlock);
             var best = new WeldAttributionCandidate();
             TryConsiderNearestHandWelderContextForBlock(targetBox, ref best);
             TryConsiderNearestShipWelderContextForBlock(slimBlock, targetCenter, targetBox, targetRadius, ref best);
@@ -247,17 +247,6 @@ namespace WkKn
                 return ShipWelderFallbackSensorRadius;
 
             return definition.SensorRadius;
-        }
-
-        private static double GetSlimBlockWorldRadius(IMySlimBlock slimBlock)
-        {
-            if (slimBlock == null || slimBlock.CubeGrid == null)
-                return 0.0;
-
-            var x = Math.Max(1, slimBlock.Max.X - slimBlock.Min.X + 1);
-            var y = Math.Max(1, slimBlock.Max.Y - slimBlock.Min.Y + 1);
-            var z = Math.Max(1, slimBlock.Max.Z - slimBlock.Min.Z + 1);
-            return slimBlock.CubeGrid.GridSize * Math.Sqrt((x * x) + (y * y) + (z * z)) * 0.5;
         }
 
         private bool TryResolveGrindContext(long attackerId, out MyInventory outputInventory, out long operatorIdentityId)

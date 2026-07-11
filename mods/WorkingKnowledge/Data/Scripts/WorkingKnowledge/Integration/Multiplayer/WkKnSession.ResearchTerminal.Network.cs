@@ -1,9 +1,7 @@
 using System;
-using System.Text;
 using Sandbox.Game.Entities;
 using Sandbox.ModAPI;
 using VRage.Game.ModAPI;
-using VRage.Utils;
 
 namespace WkKn
 {
@@ -38,7 +36,7 @@ namespace WkKn
                 BlockEntityId = block.EntityId,
             };
 
-            MyAPIGateway.Multiplayer.SendMessageToServer(ResearchTerminalSyncNetworkMessageId, SerializeResearchTerminalSyncMessage(message));
+            MyAPIGateway.Multiplayer.SendMessageToServer(ResearchTerminalSyncNetworkMessageId, XmlNetworkSerializer.Serialize(message));
         }
 
         private void OnResearchTerminalSyncMessage(ushort handlerId, byte[] messageBytes, ulong sender, bool isFromServer)
@@ -47,7 +45,7 @@ namespace WkKn
                 return;
 
             ResearchTerminalSyncMessage message;
-            if (!TryDeserializeResearchTerminalSyncMessage(messageBytes, out message) || message == null || string.IsNullOrWhiteSpace(message.Kind))
+            if (!XmlNetworkSerializer.TryDeserialize(messageBytes, "research terminal sync message", out message) || message == null || string.IsNullOrWhiteSpace(message.Kind))
                 return;
 
             if (MyAPIGateway.Multiplayer != null &&
@@ -83,7 +81,7 @@ namespace WkKn
             };
 
             if (MyAPIGateway.Multiplayer != null)
-                MyAPIGateway.Multiplayer.SendMessageTo(ResearchTerminalSyncNetworkMessageId, SerializeResearchTerminalSyncMessage(response), sender);
+                MyAPIGateway.Multiplayer.SendMessageTo(ResearchTerminalSyncNetworkMessageId, XmlNetworkSerializer.Serialize(response), sender);
         }
 
         private void ApplyResearchTerminalSyncResponse(ResearchTerminalSyncMessage message)
@@ -94,30 +92,5 @@ namespace WkKn
             ShowWkChatSection("Research Sync", message.Message);
         }
 
-        private static byte[] SerializeResearchTerminalSyncMessage(ResearchTerminalSyncMessage message)
-        {
-            if (message == null || MyAPIGateway.Utilities == null)
-                return new byte[0];
-
-            return Encoding.UTF8.GetBytes(MyAPIGateway.Utilities.SerializeToXML(message));
-        }
-
-        private static bool TryDeserializeResearchTerminalSyncMessage(byte[] messageBytes, out ResearchTerminalSyncMessage message)
-        {
-            message = null;
-            if (messageBytes == null || messageBytes.Length == 0 || MyAPIGateway.Utilities == null)
-                return false;
-
-            try
-            {
-                message = MyAPIGateway.Utilities.SerializeFromXML<ResearchTerminalSyncMessage>(Encoding.UTF8.GetString(messageBytes));
-                return message != null;
-            }
-            catch (Exception exception)
-            {
-                MyLog.Default.WriteLineAndConsole(LogPrefix + " failed to read research terminal sync message: " + exception.Message);
-                return false;
-            }
-        }
     }
 }

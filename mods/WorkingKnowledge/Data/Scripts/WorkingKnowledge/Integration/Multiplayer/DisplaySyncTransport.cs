@@ -1,7 +1,5 @@
 using System;
-using System.Text;
 using Sandbox.ModAPI;
-using VRage.Utils;
 
 namespace WkKn
 {
@@ -64,7 +62,7 @@ namespace WkKn
                 return;
 
             lastRequestTick = simulationTick;
-            MyAPIGateway.Multiplayer.SendMessageToServer(messageId, Serialize(createRequest()));
+            MyAPIGateway.Multiplayer.SendMessageToServer(messageId, XmlNetworkSerializer.Serialize(createRequest()));
         }
 
         internal void SendTo(ulong recipientSteamId, TMessage message)
@@ -72,7 +70,7 @@ namespace WkKn
             if (recipientSteamId == 0 || MyAPIGateway.Multiplayer == null || !MyAPIGateway.Multiplayer.IsServer)
                 return;
 
-            MyAPIGateway.Multiplayer.SendMessageTo(messageId, Serialize(message), recipientSteamId);
+            MyAPIGateway.Multiplayer.SendMessageTo(messageId, XmlNetworkSerializer.Serialize(message), recipientSteamId);
         }
 
         private void OnNetworkMessage(ushort handlerId, byte[] messageBytes, ulong sender, bool isFromServer)
@@ -81,7 +79,7 @@ namespace WkKn
                 return;
 
             TMessage message;
-            if (!TryDeserialize(messageBytes, out message) || message == null)
+            if (!XmlNetworkSerializer.TryDeserialize(messageBytes, logName + " sync message", out message) || message == null)
                 return;
 
             var kind = getKind(message);
@@ -103,31 +101,5 @@ namespace WkKn
                 applyResponse(message);
         }
 
-        private byte[] Serialize(TMessage message)
-        {
-            if (message == null || MyAPIGateway.Utilities == null)
-                return new byte[0];
-
-            return Encoding.UTF8.GetBytes(MyAPIGateway.Utilities.SerializeToXML(message));
-        }
-
-        private bool TryDeserialize(byte[] messageBytes, out TMessage message)
-        {
-            message = null;
-            if (messageBytes == null || messageBytes.Length == 0 || MyAPIGateway.Utilities == null)
-                return false;
-
-            try
-            {
-                var xml = Encoding.UTF8.GetString(messageBytes);
-                message = MyAPIGateway.Utilities.SerializeFromXML<TMessage>(xml);
-                return message != null;
-            }
-            catch (Exception exception)
-            {
-                MyLog.Default.WriteLineAndConsole(WkKnSession.LogPrefix + " failed to read " + logName + " sync message: " + exception.Message);
-                return false;
-            }
-        }
     }
 }

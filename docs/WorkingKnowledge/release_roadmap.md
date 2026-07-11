@@ -41,7 +41,7 @@ The planned sequence before `1.0.0` is:
 
 - `0.10.0` - better progress display. Complete.
 - `0.11.0` - external layer support for custom block mod integration. Complete.
-- `0.12.0` - compatibility-layer diagnostics and release validation. Complete.
+- `0.12.0` - compatibility-layer diagnostics, runtime cleanup, and release validation. Complete.
 - `1.0.0` - current stabilization target after validation gates are satisfied.
 
 ## 0.10.0 Progress Display - Complete
@@ -87,7 +87,7 @@ Follow-up watch items:
 - Document any common block-pack layer patterns that emerge from playtesting.
 - Continue treating uncataloged modded blocks as compatibility cases rather than forcing ordinary players to configure them.
 
-## 0.12.0 Layer Diagnostics - Complete
+## 0.12.0 Layer Diagnostics And Runtime Cleanup - Complete
 
 Goal: make layer problems easy to identify without changing the working layer format.
 
@@ -98,7 +98,9 @@ Completed direction:
 - Added detailed warnings to `SpaceEngineers.log` and the F11 mod-error screen.
 - Documented that uncataloged modded blocks stay outside Working Knowledge systems.
 - Added a release validation helper.
-- Split welding-botch code into smaller partial files without changing gameplay behavior.
+- Removed empty runtime forwarding layers and kept the session component as the direct composition root.
+- Extracted botch chance and component recovery into cohesive policies/services while keeping session partials focused on orchestration and feedback.
+- Centralized repeated multiplayer XML serialization and shared block geometry.
 
 Compatibility promise:
 

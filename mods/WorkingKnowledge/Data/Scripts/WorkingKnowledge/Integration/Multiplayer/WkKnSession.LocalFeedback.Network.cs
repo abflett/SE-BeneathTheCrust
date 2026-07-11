@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Sandbox.Game;
 using Sandbox.ModAPI;
 using VRage.Game.ModAPI;
@@ -144,7 +143,7 @@ namespace WkKn
             if (player == null || player.SteamUserId == 0)
                 return;
 
-            MyAPIGateway.Multiplayer.SendMessageTo(LocalFeedbackNetworkMessageId, SerializeLocalFeedbackMessage(message), player.SteamUserId);
+            MyAPIGateway.Multiplayer.SendMessageTo(LocalFeedbackNetworkMessageId, XmlNetworkSerializer.Serialize(message), player.SteamUserId);
         }
 
         private void OnLocalFeedbackNetworkMessage(ushort handlerId, byte[] messageBytes, ulong sender, bool isFromServer)
@@ -153,7 +152,7 @@ namespace WkKn
                 return;
 
             LocalFeedbackMessage message;
-            if (!TryDeserializeLocalFeedbackMessage(messageBytes, out message) || message == null)
+            if (!XmlNetworkSerializer.TryDeserialize(messageBytes, "local feedback message", out message) || message == null)
                 return;
 
             if (message.IdentityId != 0 && !IsLocalIdentity(message.IdentityId))
@@ -195,31 +194,5 @@ namespace WkKn
             MyVisualScriptLogicProvider.PlaySingleSoundAtPositionLocal(soundSubtype, position);
         }
 
-        private static byte[] SerializeLocalFeedbackMessage(LocalFeedbackMessage message)
-        {
-            if (message == null || MyAPIGateway.Utilities == null)
-                return new byte[0];
-
-            return Encoding.UTF8.GetBytes(MyAPIGateway.Utilities.SerializeToXML(message));
-        }
-
-        private static bool TryDeserializeLocalFeedbackMessage(byte[] messageBytes, out LocalFeedbackMessage message)
-        {
-            message = null;
-            if (messageBytes == null || messageBytes.Length == 0 || MyAPIGateway.Utilities == null)
-                return false;
-
-            try
-            {
-                var xml = Encoding.UTF8.GetString(messageBytes);
-                message = MyAPIGateway.Utilities.SerializeFromXML<LocalFeedbackMessage>(xml);
-                return message != null;
-            }
-            catch (Exception exception)
-            {
-                MyLog.Default.WriteLineAndConsole(LogPrefix + " failed to read local feedback message: " + exception.Message);
-                return false;
-            }
-        }
     }
 }
