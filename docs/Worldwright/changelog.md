@@ -27,6 +27,7 @@ This development release adds the first Worldwright Block Spawner for authored s
 - Uses a persistent triangle-mesh TerminalBlock entity so grid rebuilds, cockpit entry, paint changes, and saves cannot collapse it into terminal-less armor.
 - Places each payload by its real geometric center instead of assuming the spawned grid origin is centered, preventing even-sized and asymmetric blocks from appearing partly inside the hatch.
 - Measures the hatch model's actual output depth and adds a safe launch gap before checking clearance.
+- Uses the payload's full diagonal as a rotation-independent clearance radius, preventing large randomly rotated blocks from falsely jamming as the source grid changes world orientation.
 - Adds four status indicators for automatic interval progress, blocked output, invalid configuration, completed Once sequences, ready state, and empty sequences.
 - Removes the broken early block types and old configuration section. Early test blocks must be removed and replaced.
 - Persists configuration on the spawner block while preserving unrelated Custom Data sections.

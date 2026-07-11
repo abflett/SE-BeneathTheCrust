@@ -374,15 +374,15 @@ namespace Worldwright
             }
 
             Vector3D spawnPosition;
-            BoundingBoxD spawnBounds;
+            BoundingSphereD spawnClearance;
             CalculateSpawnPlacement(
                 block,
                 catalogEntry.Definition,
                 pending.Forward,
                 pending.Up,
                 out spawnPosition,
-                out spawnBounds);
-            if (!IsSpawnVolumeClear(block, ref spawnBounds))
+                out spawnClearance);
+            if (!IsSpawnVolumeClear(block, ref spawnClearance))
                 return false;
 
             if (!SpawnSingleBlockGrid(
@@ -445,26 +445,22 @@ namespace Worldwright
             Vector3D payloadForward,
             Vector3D payloadUp,
             out Vector3D position,
-            out BoundingBoxD bounds)
+            out BoundingSphereD clearanceSphere)
         {
             var outputDirection = GetReclamationOutputDirection(spawner);
             var forward = Vector3D.Normalize(payloadForward);
             var up = Vector3D.Normalize(payloadUp);
-            var right = Vector3D.Normalize(Vector3D.Cross(forward, up));
             var payloadGridSize = payloadDefinition.CubeSize == MyCubeSize.Large ? 2.5 : 0.5;
             var payloadHalf = new Vector3D(
                 payloadDefinition.Size.X * payloadGridSize * 0.5,
                 payloadDefinition.Size.Y * payloadGridSize * 0.5,
                 payloadDefinition.Size.Z * payloadGridSize * 0.5);
+            var clearanceRadius = payloadHalf.Length() + SpawnBoundsPadding;
 
             var spawnerOutputDepth = GetReclamationSpawnerOutputDepth(spawner, outputDirection);
-            var projectedPayloadDepth =
-                Math.Abs(Vector3D.Dot(right, outputDirection)) * payloadHalf.X +
-                Math.Abs(Vector3D.Dot(up, outputDirection)) * payloadHalf.Y +
-                Math.Abs(Vector3D.Dot(forward, outputDirection)) * payloadHalf.Z;
             var payloadCenter = spawner.GetPosition() +
                                 outputDirection *
-                                (spawnerOutputDepth + projectedPayloadDepth + SpawnSurfaceClearance);
+                                (spawnerOutputDepth + clearanceRadius + SpawnSurfaceClearance);
 
             var payloadMin = -payloadDefinition.Center;
             var localCenterCells = new Vector3D(
@@ -476,14 +472,7 @@ namespace Worldwright
                 localCenterCells * payloadGridSize,
                 payloadOrientation);
             position = payloadCenter - payloadCenterOffset;
-
-            var worldHalf = new Vector3D(
-                Math.Abs(right.X) * payloadHalf.X + Math.Abs(up.X) * payloadHalf.Y + Math.Abs(forward.X) * payloadHalf.Z,
-                Math.Abs(right.Y) * payloadHalf.X + Math.Abs(up.Y) * payloadHalf.Y + Math.Abs(forward.Y) * payloadHalf.Z,
-                Math.Abs(right.Z) * payloadHalf.X + Math.Abs(up.Z) * payloadHalf.Y + Math.Abs(forward.Z) * payloadHalf.Z);
-
-            worldHalf += new Vector3D(SpawnBoundsPadding);
-            bounds = new BoundingBoxD(payloadCenter - worldHalf, payloadCenter + worldHalf);
+            clearanceSphere = new BoundingSphereD(payloadCenter, clearanceRadius);
         }
 
         private static double GetReclamationSpawnerOutputDepth(
@@ -511,9 +500,11 @@ namespace Worldwright
             return Vector3D.Normalize(spawner.WorldMatrix.Forward);
         }
 
-        private static bool IsSpawnVolumeClear(IMyTerminalBlock spawner, ref BoundingBoxD bounds)
+        private static bool IsSpawnVolumeClear(
+            IMyTerminalBlock spawner,
+            ref BoundingSphereD clearanceSphere)
         {
-            var entities = MyAPIGateway.Entities.GetEntitiesInAABB(ref bounds);
+            var entities = MyAPIGateway.Entities.GetEntitiesInSphere(ref clearanceSphere);
             for (var i = 0; i < entities.Count; i++)
             {
                 var entity = entities[i];
@@ -523,7 +514,7 @@ namespace Worldwright
                 var grid = entity as IMyCubeGrid;
                 if (grid != null)
                 {
-                    if (GridHasBlockInBounds(grid, spawner, ref bounds))
+                    if (GridHasBlockInSphere(grid, spawner, ref clearanceSphere))
                         return false;
 
                     continue;
@@ -532,48 +523,26 @@ namespace Worldwright
                 if (entity is IMyVoxelBase)
                     continue;
 
-                if (entity.WorldAABB.Intersects(bounds))
+                if (entity.WorldAABB.Intersects(clearanceSphere))
                     return false;
             }
 
             return true;
         }
 
-        private static bool GridHasBlockInBounds(
+        private static bool GridHasBlockInSphere(
             IMyCubeGrid grid,
             IMyTerminalBlock spawner,
-            ref BoundingBoxD worldBounds)
+            ref BoundingSphereD clearanceSphere)
         {
-            var min = new Vector3I(int.MaxValue);
-            var max = new Vector3I(int.MinValue);
-            for (var i = 0; i < 8; i++)
+            var blocks = grid.GetBlocksInsideSphere(ref clearanceSphere);
+            for (var i = 0; i < blocks.Count; i++)
             {
-                var corner = new Vector3D(
-                    (i & 1) == 0 ? worldBounds.Min.X : worldBounds.Max.X,
-                    (i & 2) == 0 ? worldBounds.Min.Y : worldBounds.Max.Y,
-                    (i & 4) == 0 ? worldBounds.Min.Z : worldBounds.Max.Z);
-                var cell = grid.WorldToGridInteger(corner);
-                min = Vector3I.Min(min, cell);
-                max = Vector3I.Max(max, cell);
-            }
+                var fatBlock = blocks[i].FatBlock;
+                if (fatBlock != null && fatBlock.EntityId == spawner.EntityId)
+                    continue;
 
-            for (var x = min.X; x <= max.X; x++)
-            {
-                for (var y = min.Y; y <= max.Y; y++)
-                {
-                    for (var z = min.Z; z <= max.Z; z++)
-                    {
-                        var slimBlock = grid.GetCubeBlock(new Vector3I(x, y, z));
-                        if (slimBlock == null)
-                            continue;
-
-                        var fatBlock = slimBlock.FatBlock;
-                        if (fatBlock != null && fatBlock.EntityId == spawner.EntityId)
-                            continue;
-
-                        return true;
-                    }
-                }
+                return true;
             }
 
             return false;
