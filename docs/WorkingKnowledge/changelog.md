@@ -22,6 +22,8 @@ Existing `block_mappings.txt` files remain compatible. The Working Knowledge Lay
 
 Added a release validation helper for script compilation, XML parsing, version documentation, and thumbnail size.
 
+Split the large welding-botch implementation into focused partial files for chance and damage settlement, notifications, component recovery, and component valuation. This is a code-organization change only; the gameplay formulas and operation order are unchanged.
+
 ## 0.11.0 - External Layer Support
 
 Added support for small external **Working Knowledge Layer** mods that map third-party block definitions into Working Knowledge schematic families.

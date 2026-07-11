@@ -114,6 +114,13 @@ The session partials are split by responsibility:
 
 The internal script namespace, session class, world-storage filenames, LCD Custom Data sections, and generated game definition IDs use the short `WkKn` prefix.
 
+Welding botch code is further split by concern:
+
+- `WkKnSession.Welding.Botch.cs` - chance, damage, and raw-damage debt settlement.
+- `WkKnSession.Welding.Botch.Notifications.cs` - warning aggregation and player feedback.
+- `WkKnSession.Welding.Botch.Recovery.cs` - mounted-component loss, forgiveness, returns, and drops.
+- `WkKnSession.Welding.Botch.ComponentValues.cs` - component valuation, sorting, and display helpers.
+
 ## Layer Diagnostics
 
 Layer mappings keep their source mod and line number while the runtime binds definitions.

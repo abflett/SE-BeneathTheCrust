@@ -98,6 +98,7 @@ Completed direction:
 - Added detailed warnings to `SpaceEngineers.log` and the F11 mod-error screen.
 - Documented that uncataloged modded blocks stay outside Working Knowledge systems.
 - Added a release validation helper.
+- Split welding-botch code into smaller partial files without changing gameplay behavior.
 
 Compatibility promise:
 
