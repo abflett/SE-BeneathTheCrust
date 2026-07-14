@@ -2,13 +2,15 @@
 
 Most users should run `Start.ps1` first. The script scans the source mod, finds block IDs, asks for schematic groups, and writes the layer files for you.
 
-After generation, there are only three files most users may need to review:
+After generation, mapping-only layers have three files most users may need to review:
 
 ```text
 modinfo.sbc
 Data/ResearchBlocks.sbc
 Data/WorkingKnowledge/block_mappings.txt
 ```
+
+Layers with custom groups also have `schematic_groups.txt` plus three generated `.sbc` definition files. Prefer rerunning the toolkit when adding a group; manual editing requires keeping all four files aligned.
 
 ## modinfo.sbc
 
@@ -119,6 +121,25 @@ structure.industrial
 
 Use [Schematic Groups](schematic_groups.md) to choose valid IDs.
 
+To intentionally replace a built-in mapping, add the explicit prefix:
+
+```text
+override BatteryBlock/LargeBlockBatteryBlock = example.power_storage
+```
+
+## schematic_groups.txt
+
+This optional versioned file defines groups owned by the layer:
+
+```text
+version = 1
+example.power_storage | Example Power Storage Schematics | Uncommon | WkKnLayer_Example_power_storage | WkKnUnlocker_Example_power_storage
+```
+
+The five fields are stable ID, display name, tier, vanilla research-group subtype, and hidden unlocker subtype. The stable ID is stored in saves. Renaming it after publication creates a different schematic and leaves the old saved record inactive.
+
+Keep the generated `ResearchUnlockerGroups.sbc`, `ResearchUnlockers.sbc`, and `PhysicalItems_ResearchSchematics.sbc` entries synchronized with this metadata.
+
 ## When Is The Type Not CubeBlock?
 
 The type is whatever the source block definition says after removing `MyObjectBuilder_`.
@@ -180,3 +201,5 @@ The script creates these files for you. Manual editing is mainly for:
 - changing a few outlier blocks to a better schematic group
 - updating the layer after the source mod changes block IDs
 - building a layer by copying `ExampleMod`
+
+After any edit, run `Validate.ps1 -LayerPath <layer folder>`, then use `/wk admin audit` in a test world.

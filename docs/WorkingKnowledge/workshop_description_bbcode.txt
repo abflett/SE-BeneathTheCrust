@@ -95,7 +95,7 @@ Working Knowledge changes how block knowledge, schematic unlocks, grinding resea
 Progression overhauls are the most likely to overlap. Mods that bypass block placement restrictions, rewrite grinding or welding, or heavily change salvage flow may also affect the intended experience.
 
 [h3]Custom Block Compatibility Layers[/h3]
-Custom block mods can be connected to Working Knowledge with small layer mods. The layer toolkit scans block mods, assigns blocks to schematic families, and generates the needed research and mapping files.
+Custom block mods can be connected to Working Knowledge with small layer mods. Layers can use built-in schematic families, define their own stable research groups, or explicitly reorganize built-in blocks. The layer toolkit scans block mods and generates the mappings, unlockers, research definitions, and exact Data Schematics required by custom groups.
 
 Admins can use [b]/wk admin audit[/b] to check loaded layers. Detailed compatibility warnings also appear in the Space Engineers log and F11 mod-error screen.
 

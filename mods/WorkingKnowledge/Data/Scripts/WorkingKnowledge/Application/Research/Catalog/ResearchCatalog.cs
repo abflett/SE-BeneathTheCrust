@@ -48,6 +48,18 @@ namespace WkKn
             return catalogByBlockKey;
         }
 
+        internal static Dictionary<string, ResearchCatalogEntry> BuildLookupByResearchId()
+        {
+            var catalogByResearchId = new Dictionary<string, ResearchCatalogEntry>(StringComparer.OrdinalIgnoreCase);
+            foreach (var entry in Entries)
+            {
+                if (!catalogByResearchId.ContainsKey(entry.ResearchId))
+                    catalogByResearchId.Add(entry.ResearchId, entry);
+            }
+
+            return catalogByResearchId;
+        }
+
         private static ResearchCatalogEntry[] ParseEntries(string data)
         {
             var metadataByResearchId = ParseMetadata(ResearchMetadataData);

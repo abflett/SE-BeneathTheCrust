@@ -4,6 +4,26 @@ Use these IDs in `Data/WorkingKnowledge/block_mappings.txt`.
 
 The toolkit script reads the same list from `Data/schematic_groups.json`.
 
+## Custom Groups
+
+`Start.ps1` can define custom groups and generate their required files. Manual authors use `Data/WorkingKnowledge/schematic_groups.txt`:
+
+```text
+version = 1
+# stable id | display name | tier | research group subtype | unlocker subtype
+example.power_storage | Example Power Storage Schematics | Uncommon | WkKnLayer_Example_power_storage | WkKnUnlocker_Example_power_storage
+```
+
+Valid tiers are `Common`, `Uncommon`, `Rare`, `Prototech`, and `None`. The ID is stored in research and Proficiency saves. Keep the ID, research group subtype, and unlocker subtype unchanged after publishing.
+
+Each custom group also needs matching entries in:
+
+- `Data/ResearchUnlockerGroups.sbc`
+- `Data/ResearchUnlockers.sbc`
+- `Data/PhysicalItems_ResearchSchematics.sbc`
+
+The toolkit generates these definitions. Use namespaced IDs, never reuse a built-in ID, and run `Validate.ps1` after manual edits.
+
 | ID | Display Name | Tier | Common Use |
 |---|---|---|---|
 | `armor.heavy` | Heavy Armor Schematics | Uncommon | Heavy armor and heavy structural armor variants. |

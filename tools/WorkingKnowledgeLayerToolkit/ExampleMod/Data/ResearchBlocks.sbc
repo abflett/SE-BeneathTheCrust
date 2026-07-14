@@ -9,5 +9,9 @@
       <Id Type="InteriorLight" Subtype="ExampleTrussLight" />
       <UnlockedByGroups />
     </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="BatteryBlock" Subtype="LargeBlockBatteryBlock" />
+      <UnlockedByGroups />
+    </ResearchBlock>
   </ResearchBlocks>
 </Definitions>

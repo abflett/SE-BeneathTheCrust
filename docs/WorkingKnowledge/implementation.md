@@ -136,7 +136,11 @@ Multiplayer XML encoding and guarded decoding live in `XmlNetworkSerializer.cs`.
 
 ## Layer Diagnostics
 
-Layer mappings keep their source mod and line number while the runtime binds definitions.
+Layer mappings and custom schematic groups keep their source mod and line number while the runtime binds definitions.
+
+`Data/WorkingKnowledge/schematic_groups.txt` is an optional versioned format. Version 1 rows contain stable research ID, display name, tier, research-group subtype, and unlocker subtype. Legacy mapping-only layers remain valid. `block_mappings.txt` keeps its original syntax and adds an explicit `override ` prefix for built-in remaps.
+
+The loader gathers every group and mapping claim before resolving any of them. Duplicate group IDs, definition-ID collisions, and multiple claims for one block are rejected as sets. It never chooses a winner from session mod order. Built-in block mappings remain authoritative unless exactly one valid explicit override claims the block.
 
 The audit checks mapping syntax, schematic IDs, duplicate mappings, built-in conflicts, loaded public blocks, required research-block definitions, and Working Knowledge unlockers/groups.
 
@@ -144,6 +148,8 @@ The audit checks mapping syntax, schematic IDs, duplicate mappings, built-in con
 - All issues are written to `SpaceEngineers.log`.
 - Issues are also registered as F11 mod warnings when the game supplies the Working Knowledge mod context.
 - Existing layer files remain compatible. Do not change the layer format for diagnostics alone.
+- Custom group IDs are the persisted research and Proficiency IDs. Published IDs and their definition subtypes are save contracts and must not be renamed.
+- Custom unlocker subtypes must use the `WkKnUnlocker_` prefix so generated unlockers remain outside the public block candidate catalog.
 - Uncataloged modded blocks are skipped by research, Proficiency, welding, grinding, salvage, and placement enforcement.
 
 ## Research Data Loot

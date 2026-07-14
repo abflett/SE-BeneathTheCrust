@@ -16,7 +16,7 @@ The pre-`1.0.0` feedback track is about making Working Knowledge comfortable in 
 
 Feature backlog:
 
-- Complete extensible schematic groups and explicit layer remapping for `0.13.0`.
+- Validate extensible schematic groups and explicit layer remapping through public feedback.
 - Keep player-facing config simple enough that ordinary players do not need to edit config to enjoy the mod.
 - Keep advanced config useful for server owners, modpacks, and balance tuning.
 
@@ -29,8 +29,8 @@ Fix and polish backlog:
 
 Compatibility and test backlog:
 
-- Preserve existing mapping-only layers while adding the optional `0.13.0` group-definition format.
-- Validate deterministic conflicts and overrides across several loaded layers.
+- Preserve existing mapping-only layers alongside the optional `0.13.0` group-definition format.
+- Continue validating deterministic conflicts and overrides across real loaded layer stacks.
 - Confirm uncataloged modded blocks continue to remain outside Working Knowledge systems.
 - Keep the current hidden-unlocker tradeoff documented: hidden unlockers may appear in G-menu search for "Schematics", but are not survival-buildable.
 - Run focused smoke tests after gameplay changes and broader validation before version bumps.
@@ -42,7 +42,7 @@ The planned sequence before `1.0.0` is:
 - `0.10.0` - better progress display. Complete.
 - `0.11.0` - external layer support for custom block mod integration. Complete.
 - `0.12.0` - compatibility-layer diagnostics, runtime cleanup, and release validation. Complete.
-- `0.13.0` - extensible schematic groups and layer-controlled block remapping. Planned.
+- `0.13.0` - extensible schematic groups and layer-controlled block remapping. Complete.
 - `1.0.0` - current stabilization target after validation gates are satisfied.
 
 ## 0.10.0 Progress Display - Complete
@@ -109,37 +109,33 @@ Compatibility promise:
 - The `block_mappings.txt` format is unchanged.
 - Existing Working Knowledge Layer Toolkit output does not need regeneration.
 
-## 0.13.0 Extensible Schematic Groups - Planned
+## 0.13.0 Extensible Schematic Groups - Complete
 
 Goal: allow compatibility layers to extend the Working Knowledge research model instead of only assigning blocks to built-in schematic groups.
 
-Planned capabilities:
+Completed direction:
 
-- Allow a layer to define new schematic groups with its own stable ID, display name, tier, unlocker, and related metadata.
-- Allow block mappings to target either built-in or layer-defined schematic groups.
-- Allow an explicit layer override to move a block from its built-in Working Knowledge group into another group.
-- Allow layer authors to reorganize supported third-party blocks across several custom groups instead of forcing one existing group to contain an entire block pack.
-- Update the Working Knowledge Layer Toolkit so it can create, edit, validate, and generate custom schematic groups and override mappings.
-- Include generated research definitions and unlockers required for custom groups in toolkit output.
-- Show custom groups correctly in research, Proficiency, admin commands, the Research Pedestal, LCD apps, HUD progress, data rewards, and save data.
+- Added versioned `schematic_groups.txt` metadata with stable ID, display name, tier, research-group subtype, and unlocker subtype.
+- Allowed mappings to target built-in or layer-defined groups.
+- Added `override Type/Subtype = schematic.id` for intentional built-in remapping while keeping normal mappings non-authoritative.
+- Integrated custom groups through the shared runtime catalog used by research, Proficiency, commands, Pedestal/LCD/HUD displays, fragments, exact Data Schematics, and persistence.
+- Extended the toolkit to generate custom group metadata, vanilla research groups, hidden unlockers, exact Data Schematics, and explicit override mappings.
+- Added `Validate.ps1` for generated or manually edited layer folders and updated the copyable example and authoring docs.
 
-Compatibility and safety requirements:
+Compatibility and safety behavior:
 
-- Existing `0.11.x` and `0.12.x` layers must continue to load without regeneration.
-- Built-in mappings remain authoritative unless a layer uses an explicit override mechanism.
-- Duplicate custom group IDs, conflicting block overrides, missing unlockers, invalid tiers, and incomplete group metadata must produce clear audit results.
-- Conflict resolution must be deterministic and visible through `/wk admin audit`, F11, and `SpaceEngineers.log`.
-- Layer load order must not silently decide which conflicting override wins.
-- Custom group IDs and persisted research IDs must remain stable after a layer is published.
-- Removing or renaming a published custom group must fail safely and be documented as a save-compatibility concern.
+- Existing `0.11.x` and `0.12.x` mapping-only layers load without regeneration.
+- Built-in mappings remain authoritative unless exactly one valid explicit override claims the block.
+- Duplicate custom IDs, definition-ID collisions, conflicting block claims, missing definitions, invalid tiers, and incomplete metadata produce audit issues.
+- Ambiguous groups and block claims are rejected as sets, so layer load order never selects a winner.
+- Audit results are visible through `/wk admin audit`, F11, and `SpaceEngineers.log`.
+- Removing or renaming a published custom ID leaves old saved records inert rather than crashing; authors are warned that IDs are save contracts.
 
-Design work required before implementation:
+Follow-up validation:
 
-- Define a small versioned group-definition format for layer mods.
-- Define explicit syntax and precedence for overriding built-in block mappings.
-- Decide how layer-provided unlocker definitions are named and validated without ID collisions.
-- Extend the toolkit schema, templates, editing workflow, troubleshooting guidance, and generated validation.
-- Add focused tests for multiple layers defining groups, mapping the same block, overriding built-in mappings, and loading existing legacy layers.
+- Test several real custom-group layers together in Space Engineers, including conflicting IDs and overrides.
+- Confirm the generated hidden unlockers and exact Data Schematics remain definition-clean under common diagnostic mods.
+- Keep legacy ARC Truss layer validation in the release check path.
 
 ## 1.0.0 Release Checklist
 

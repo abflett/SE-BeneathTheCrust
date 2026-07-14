@@ -2,7 +2,7 @@
 
 This toolkit creates small compatibility layer mods for **Working Knowledge**.
 
-A layer maps blocks from another Space Engineers block mod into Working Knowledge schematic groups. Once mapped, those blocks can participate in Working Knowledge research gates, vanilla progression unlocks, Proficiency, welding, repair, grinding, and salvage behavior.
+A layer maps blocks from another Space Engineers block mod into built-in or layer-defined Working Knowledge schematic groups. It can also explicitly remap built-in blocks. Once mapped, those blocks can participate in Working Knowledge research gates, vanilla progression unlocks, Proficiency, welding, repair, grinding, and salvage behavior.
 
 This folder is designed to be zipped and distributed as a standalone toolkit. It should work after being unzipped anywhere on disk.
 
@@ -35,6 +35,7 @@ Start.bat
 ## What Is Included
 
 - `Start.ps1` - interactive layer generator.
+- `Validate.ps1` - validates generated or manually edited layers.
 - `Start.bat` - simple launcher for `Start.ps1`.
 - `ExampleMod/` - copyable example layer mod for manual editing.
 - `Docs/` - [toolkit documentation](Docs/README.md), mapping format, schematic group, manual authoring, and troubleshooting notes.
@@ -58,6 +59,10 @@ WKL-ExampleBlockMod/
     ResearchBlocks.sbc
     WorkingKnowledge/
       block_mappings.txt
+      schematic_groups.txt       # when custom groups are defined
+    ResearchUnlockerGroups.sbc   # when custom groups are defined
+    ResearchUnlockers.sbc        # when custom groups are defined
+    PhysicalItems_ResearchSchematics.sbc # when custom groups are defined
   Publishing/
     changelog.md
     workshop_description_bbcode.txt
@@ -68,3 +73,9 @@ Load order for manual local testing:
 1. Working Knowledge
 2. The source block mod
 3. The generated Working Knowledge Layer mod
+
+After generation or editing, validate the layer:
+
+```powershell
+.\Validate.ps1 -LayerPath "C:\Path\To\WKL-ExampleBlockMod"
+```

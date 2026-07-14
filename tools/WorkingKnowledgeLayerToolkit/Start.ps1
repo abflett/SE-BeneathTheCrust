@@ -98,6 +98,16 @@ function Get-SafeLayerFolderName {
     return $safe
 }
 
+function Get-SafeSubtypeToken {
+    param([Parameter(Mandatory = $true)][string] $Value)
+
+    $token = ($Value -replace '[^A-Za-z0-9]+', '_').Trim('_')
+    if ([string]::IsNullOrWhiteSpace($token)) {
+        return 'custom'
+    }
+    return $token
+}
+
 function Get-Text {
     param([AllowNull()][object] $Node)
 
@@ -240,6 +250,9 @@ function Get-BlockDefinitions {
 
             $id = Get-DefinitionId $definition.Id
             if ($null -eq $id) {
+                continue
+            }
+            if ($id.Subtype.StartsWith('WkKnUnlocker_', [System.StringComparison]::OrdinalIgnoreCase)) {
                 continue
             }
 
@@ -423,8 +436,7 @@ function Get-BlockSetCandidates {
         $blocks = @($allBlocks | Where-Object { -not $KnownWorkingKnowledgeBlockKeys.Contains($_.Key) })
         $coveredBlockCount = $allBlocks.Count - $blocks.Count
         if ($blocks.Count -eq 0) {
-            Write-Host ("Skipping block set: {0} - all {1} public blocks are already covered by Working Knowledge." -f $name, $allBlocks.Count)
-            continue
+            Write-Host ("Found block set: {0} - all {1} public blocks are already covered and can be explicitly remapped." -f $name, $allBlocks.Count)
         }
         if ($coveredBlockCount -gt 0) {
             Write-Host ("Ignoring {0} block(s) already covered by Working Knowledge." -f $coveredBlockCount)
@@ -434,6 +446,7 @@ function Get-BlockSetCandidates {
             Name = $name
             Path = $candidateRoot
             Blocks = $blocks
+            AllBlocks = $allBlocks
             BlockCount = $blocks.Count
             PublicBlockCount = $allBlocks.Count
             CoveredBlockCount = $coveredBlockCount
@@ -605,6 +618,85 @@ function Select-SchematicGroup {
     }
 }
 
+function Select-SchematicTier {
+    $tiers = @('Common', 'Uncommon', 'Rare', 'Prototech', 'None')
+    while ($true) {
+        Write-Host ''
+        for ($i = 0; $i -lt $tiers.Count; $i++) {
+            Write-Host ("[{0}] {1}" -f ($i + 1), $tiers[$i])
+        }
+        $choice = Read-Host 'Choose custom group tier [Common]'
+        if ([string]::IsNullOrWhiteSpace($choice)) {
+            return 'Common'
+        }
+        $index = 0
+        if ([int]::TryParse($choice, [ref] $index) -and $index -ge 1 -and $index -le $tiers.Count) {
+            return $tiers[$index - 1]
+        }
+        $match = @($tiers | Where-Object { $_ -ieq $choice })
+        if ($match.Count -eq 1) {
+            return $match[0]
+        }
+        Write-Host 'Enter a shown number or tier name.'
+    }
+}
+
+function New-CustomSchematicGroups {
+    param([Parameter(Mandatory = $true)][string] $Namespace)
+
+    $groups = [System.Collections.Generic.List[object]]::new()
+    $answer = Read-Host 'Define custom schematic groups for this layer? [y/N]'
+    if ($answer -notmatch '^[Yy]') {
+        return @()
+    }
+
+    $namespaceToken = Get-SafeSubtypeToken -Value $Namespace
+    while ($true) {
+        Write-Host ''
+        $id = (Read-Host 'Stable custom schematic ID (example: examplemod.power)').Trim()
+        if ($id -notmatch '^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$') {
+            Write-Host 'Use letters, digits, dots, underscores, or hyphens; begin and end with a letter or digit.'
+            continue
+        }
+        if (@($groups | Where-Object { $_.id -ieq $id }).Count -gt 0) {
+            Write-Host 'That custom schematic ID is already present.'
+            continue
+        }
+
+        $defaultDisplayName = (($id -split '[._-]+' | ForEach-Object {
+            if ($_.Length -eq 0) { return }
+            $_.Substring(0, 1).ToUpperInvariant() + $_.Substring(1)
+        }) -join ' ') + ' Schematics'
+        $displayName = Read-Host "Display name [$defaultDisplayName]"
+        if ([string]::IsNullOrWhiteSpace($displayName)) {
+            $displayName = $defaultDisplayName
+        }
+        if ($displayName.Contains('|') -or $displayName.Contains('#')) {
+            Write-Host "Display names cannot contain '|' or '#'."
+            continue
+        }
+
+        $tier = Select-SchematicTier
+        $idToken = Get-SafeSubtypeToken -Value $id
+        $groups.Add([pscustomobject]@{
+            id = $id
+            displayName = $displayName
+            tier = $tier
+            hint = 'Custom schematic group defined by this layer.'
+            groupSubtype = "WkKnLayer_${namespaceToken}_${idToken}"
+            unlockerSubtype = "WkKnUnlocker_${namespaceToken}_${idToken}"
+            isCustom = $true
+        }) | Out-Null
+
+        $more = Read-Host 'Add another custom schematic group? [y/N]'
+        if ($more -notmatch '^[Yy]') {
+            break
+        }
+    }
+
+    return @($groups)
+}
+
 function Convert-ToResearchBlockEntries {
     param([Parameter(Mandatory = $true)][object[]] $Mappings)
 
@@ -627,17 +719,96 @@ function Convert-ToMappingLines {
 
     $lines = [System.Collections.Generic.List[string]]::new()
     foreach ($mapping in $Mappings) {
-        $lines.Add(('{0} = {1}' -f $mapping.Key, $mapping.SchematicId)) | Out-Null
+        $prefix = if ($mapping.IsOverride) { 'override ' } else { '' }
+        $lines.Add(('{0}{1} = {2}' -f $prefix, $mapping.Key, $mapping.SchematicId)) | Out-Null
     }
 
     return ($lines -join [Environment]::NewLine)
+}
+
+function Convert-ToCustomGroupLines {
+    param([Parameter(Mandatory = $true)][object[]] $Groups)
+
+    return (($Groups | ForEach-Object {
+        '{0} | {1} | {2} | {3} | {4}' -f $_.id, $_.displayName, $_.tier, $_.groupSubtype, $_.unlockerSubtype
+    }) -join [Environment]::NewLine)
+}
+
+function Convert-ToResearchGroupEntries {
+    param([Parameter(Mandatory = $true)][object[]] $Groups)
+
+    return (($Groups | ForEach-Object {
+@"
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="$([System.Security.SecurityElement]::Escape($_.groupSubtype))" />
+      <Members />
+    </ResearchGroup>
+"@
+    }) -join [Environment]::NewLine).TrimEnd()
+}
+
+function Convert-ToUnlockerEntries {
+    param([Parameter(Mandatory = $true)][object[]] $Groups)
+
+    return (($Groups | ForEach-Object {
+        $subtype = [System.Security.SecurityElement]::Escape($_.unlockerSubtype)
+        $displayName = [System.Security.SecurityElement]::Escape($_.displayName)
+@"
+    <Definition>
+      <Id><TypeId>CubeBlock</TypeId><SubtypeId>$subtype</SubtypeId></Id>
+      <DisplayName>$displayName</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public><GuiVisible>false</GuiVisible>
+      <Description>Custom Working Knowledge schematic unlocker supplied by a compatibility layer.</Description>
+      <BlockPairName>$subtype</BlockPairName>
+      <CubeSize>Small</CubeSize><BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" /><ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components><Component Subtype="WkKnDataFragmentComponent" Count="100" /></Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels><Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" /></BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio><EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds><PCU>1</PCU><IsAirTight>false</IsAirTight>
+    </Definition>
+"@
+    }) -join [Environment]::NewLine).TrimEnd()
+}
+
+function Convert-ToSchematicItemEntries {
+    param([Parameter(Mandatory = $true)][object[]] $Groups)
+
+    return (($Groups | ForEach-Object {
+        $subtype = 'WkKnSchematic_' + (Get-SafeSubtypeToken -Value $_.id)
+        $displayName = [System.Security.SecurityElement]::Escape(($_.displayName -replace ' Schematics$', '') + ' Data Schematic')
+        $description = [System.Security.SecurityElement]::Escape("A durable data schematic that can teach $($_.displayName). It is returned after use so it can be shared.")
+@"
+    <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
+      <Id><TypeId>ConsumableItem</TypeId><SubtypeId>$subtype</SubtypeId></Id>
+      <DisplayName>$displayName</DisplayName><Description>$description</Description>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Size><X>0.2</X><Y>0.1</Y><Z>0.2</Z></Size><Mass>0.2</Mass><Volume>0.05</Volume>
+      <Model>Models\Items\Datapad_Item.mwm</Model><PhysicalMaterial>Metal</PhysicalMaterial>
+      <Stats><Stat Name="RadiationImmunity" Value="1" Time="1" /></Stats><UseSound>PlayUsePowerKit</UseSound>
+      <DepositAllEnabled>false</DepositAllEnabled><CanPlayerOrder>false</CanPlayerOrder><CanPlayerOffer>false</CanPlayerOffer>
+    </PhysicalItem>
+"@
+    }) -join [Environment]::NewLine).TrimEnd()
 }
 
 function Validate-GeneratedLayer {
     param(
         [Parameter(Mandatory = $true)][string] $OutputPath,
         [Parameter(Mandatory = $true)][object[]] $Mappings,
-        [Parameter(Mandatory = $true)][object[]] $Groups
+        [Parameter(Mandatory = $true)][object[]] $Groups,
+        [Parameter(Mandatory = $true)][AllowEmptyCollection()][object[]] $CustomGroups
     )
 
     [xml] $researchXml = Get-Content -LiteralPath (Join-Path $OutputPath 'Data\ResearchBlocks.sbc') -Raw
@@ -653,6 +824,16 @@ function Validate-GeneratedLayer {
     foreach ($mapping in $Mappings) {
         if (-not $knownIds.Contains($mapping.SchematicId)) {
             throw "Unknown schematic ID in generated mapping: $($mapping.SchematicId)"
+        }
+    }
+
+    if ($CustomGroups.Count -gt 0) {
+        foreach ($relativePath in @('Data\ResearchUnlockerGroups.sbc', 'Data\ResearchUnlockers.sbc', 'Data\PhysicalItems_ResearchSchematics.sbc')) {
+            [xml] (Get-Content -LiteralPath (Join-Path $OutputPath $relativePath) -Raw) | Out-Null
+        }
+        $groupFile = Get-Content -LiteralPath (Join-Path $OutputPath 'Data\WorkingKnowledge\schematic_groups.txt')
+        if (($groupFile | Where-Object { $_ -match '^\s*version\s*=\s*1\s*$' }).Count -ne 1) {
+            throw 'Generated schematic_groups.txt does not declare version = 1.'
         }
     }
 }
@@ -686,13 +867,31 @@ else {
     'Selected Space Engineers block mods'
 }
 
-$blocks = @($selectedSets | ForEach-Object { $_.Blocks } | Sort-Object Key -Unique)
+$includeCovered = Read-Host 'Include blocks already mapped by Working Knowledge as explicit overrides? [y/N]'
+$useOverrides = $includeCovered -match '^[Yy]'
+$blocks = if ($useOverrides) {
+    @($selectedSets | ForEach-Object { $_.AllBlocks } | Sort-Object Key -Unique)
+}
+else {
+    @($selectedSets | ForEach-Object { $_.Blocks } | Sort-Object Key -Unique)
+}
+if ($blocks.Count -eq 0) {
+    throw 'The selected sets contain no new blocks. Run again and enable explicit overrides to remap built-in blocks.'
+}
 Write-Host ''
 Write-Host ("Selected {0} block set(s), containing {1} unique public block definitions." -f $selectedSets.Count, $blocks.Count)
 $blocks | Select-Object -First 20 Key, DisplayName, CubeSize, BlockPairName | Format-Table -AutoSize
 if ($blocks.Count -gt 20) {
     Write-Host "...and $($blocks.Count - 20) more."
 }
+
+$customGroups = @(New-CustomSchematicGroups -Namespace $sourceModName)
+foreach ($customGroup in $customGroups) {
+    if (@($groups | Where-Object { $_.id -ieq $customGroup.id }).Count -gt 0) {
+        throw "Custom schematic ID '$($customGroup.id)' conflicts with a built-in group. Choose a namespaced ID."
+    }
+}
+$groups = @($groups + $customGroups)
 
 $defaultGroupId = Select-SchematicGroup -Groups $groups -Prompt 'Choose the default schematic group for these blocks.' -DefaultId 'structure.industrial'
 
@@ -703,6 +902,7 @@ $mappings = @($blocks | ForEach-Object {
         DisplayName = $_.DisplayName
         CubeSize = $_.CubeSize
         BlockPairName = $_.BlockPairName
+        IsOverride = $knownWorkingKnowledgeBlockKeys.Contains($_.Key)
     }
 })
 
@@ -772,6 +972,10 @@ $tokens = @{
     AUTHOR = $author
     RESEARCH_BLOCKS = Convert-ToResearchBlockEntries -Mappings $mappings
     BLOCK_MAPPINGS = Convert-ToMappingLines -Mappings $mappings
+    SCHEMATIC_GROUPS = Convert-ToCustomGroupLines -Groups $customGroups
+    RESEARCH_GROUPS = Convert-ToResearchGroupEntries -Groups $customGroups
+    RESEARCH_UNLOCKERS = Convert-ToUnlockerEntries -Groups $customGroups
+    SCHEMATIC_ITEMS = Convert-ToSchematicItemEntries -Groups $customGroups
 }
 
 Write-Host ''
@@ -781,13 +985,20 @@ Write-TextNoBom -Path (Join-Path $outputPath 'README.md') -Text (Expand-Template
 Write-TextNoBom -Path (Join-Path $outputPath 'modinfo.sbc') -Text (Expand-Template -Text (Read-TextNoBom (Join-Path $TemplateRoot 'modinfo.sbc.template')) -Tokens $tokens)
 Write-TextNoBom -Path (Join-Path $outputPath 'Data\ResearchBlocks.sbc') -Text (Expand-Template -Text (Read-TextNoBom (Join-Path $TemplateRoot 'Data\ResearchBlocks.sbc.template')) -Tokens $tokens)
 Write-TextNoBom -Path (Join-Path $outputPath 'Data\WorkingKnowledge\block_mappings.txt') -Text (Expand-Template -Text (Read-TextNoBom (Join-Path $TemplateRoot 'Data\WorkingKnowledge\block_mappings.txt.template')) -Tokens $tokens)
+if ($customGroups.Count -gt 0) {
+    Write-TextNoBom -Path (Join-Path $outputPath 'Data\WorkingKnowledge\schematic_groups.txt') -Text (Expand-Template -Text (Read-TextNoBom (Join-Path $TemplateRoot 'Data\WorkingKnowledge\schematic_groups.txt.template')) -Tokens $tokens)
+    Write-TextNoBom -Path (Join-Path $outputPath 'Data\ResearchUnlockerGroups.sbc') -Text (Expand-Template -Text (Read-TextNoBom (Join-Path $TemplateRoot 'Data\ResearchUnlockerGroups.sbc.template')) -Tokens $tokens)
+    Write-TextNoBom -Path (Join-Path $outputPath 'Data\ResearchUnlockers.sbc') -Text (Expand-Template -Text (Read-TextNoBom (Join-Path $TemplateRoot 'Data\ResearchUnlockers.sbc.template')) -Tokens $tokens)
+    Write-TextNoBom -Path (Join-Path $outputPath 'Data\PhysicalItems_ResearchSchematics.sbc') -Text (Expand-Template -Text (Read-TextNoBom (Join-Path $TemplateRoot 'Data\PhysicalItems_ResearchSchematics.sbc.template')) -Tokens $tokens)
+}
 Write-TextNoBom -Path (Join-Path $outputPath 'Publishing\changelog.md') -Text (Expand-Template -Text (Read-TextNoBom (Join-Path $TemplateRoot 'Publishing\changelog.md.template')) -Tokens $tokens)
 Write-TextNoBom -Path (Join-Path $outputPath 'Publishing\workshop_description_bbcode.txt') -Text (Expand-Template -Text (Read-TextNoBom (Join-Path $TemplateRoot 'Publishing\workshop_description_bbcode.txt.template')) -Tokens $tokens)
 
-Validate-GeneratedLayer -OutputPath $outputPath -Mappings $mappings -Groups $groups
+Validate-GeneratedLayer -OutputPath $outputPath -Mappings $mappings -Groups $groups -CustomGroups $customGroups
 
 Write-Host ''
 Write-Host 'Done.'
 Write-Host "Generated layer: $outputPath"
 Write-Host "Mapped blocks: $($mappings.Count)"
-Write-Host 'Review Data/WorkingKnowledge/block_mappings.txt before publishing.'
+Write-Host "Custom schematic groups: $($customGroups.Count)"
+Write-Host 'Run .\Validate.ps1 -LayerPath <generated folder> after any manual edits.'

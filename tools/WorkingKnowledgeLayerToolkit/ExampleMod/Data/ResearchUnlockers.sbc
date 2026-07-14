@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CubeBlocks>
+    <Definition>
+      <Id><TypeId>CubeBlock</TypeId><SubtypeId>WkKnUnlocker_Example_truss_system</SubtypeId></Id>
+      <DisplayName>Example Truss System Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public><GuiVisible>false</GuiVisible>
+      <Description>Custom Working Knowledge schematic unlocker supplied by a compatibility layer.</Description>
+      <BlockPairName>WkKnUnlocker_Example_truss_system</BlockPairName>
+      <CubeSize>Small</CubeSize><BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" /><ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components><Component Subtype="WkKnDataFragmentComponent" Count="100" /></Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels><Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" /></BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio><EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds><PCU>1</PCU><IsAirTight>false</IsAirTight>
+    </Definition>
+    <Definition>
+      <Id><TypeId>CubeBlock</TypeId><SubtypeId>WkKnUnlocker_Example_power_storage</SubtypeId></Id>
+      <DisplayName>Example Power Storage Schematics</DisplayName>
+      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Public>true</Public><GuiVisible>false</GuiVisible>
+      <Description>Custom Working Knowledge schematic unlocker supplied by a compatibility layer.</Description>
+      <BlockPairName>WkKnUnlocker_Example_power_storage</BlockPairName>
+      <CubeSize>Small</CubeSize><BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" /><ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Items\Datapad_Item.mwm</Model>
+      <Components><Component Subtype="WkKnDataFragmentComponent" Count="100" /></Components>
+      <CriticalComponent Subtype="WkKnDataFragmentComponent" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+        <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <BuildProgressModels><Model BuildPercentUpperBound="1.00" File="Models\Items\Datapad_Item.mwm" /></BuildProgressModels>
+      <DeformationRatio>0.32</DeformationRatio><EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>3</BuildTimeSeconds><PCU>1</PCU><IsAirTight>false</IsAirTight>
+    </Definition>
+  </CubeBlocks>
+</Definitions>

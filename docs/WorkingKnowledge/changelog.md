@@ -2,6 +2,33 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
+## 0.13.0 - Extensible Schematic Groups
+
+Working Knowledge Layers can now extend the research model instead of assigning every supported block to one of the built-in schematic families.
+
+Layers may provide a versioned `Data/WorkingKnowledge/schematic_groups.txt` file. Each custom group declares a stable research ID, player-facing name, fragment tier, vanilla research-group subtype, and hidden unlocker subtype. Blocks mapped to those groups participate in the same research, Proficiency, construction, repair, grinding, salvage, admin command, Research Pedestal, LCD, HUD, Data Fragment, exact Data Schematic, and persistence paths as built-in families.
+
+Built-in block mappings remain authoritative by default. Layer authors can intentionally move one with explicit syntax:
+
+```text
+override Type/Subtype = custom.schematic.id
+```
+
+Conflict handling does not depend on mod load order. Duplicate custom IDs, colliding definition IDs, or multiple claims for one block are rejected as a set and reported through `/wk admin audit`, `SpaceEngineers.log`, and F11 warnings. Missing unlockers, research groups, research-block entries, exact schematic items, invalid tiers, and incomplete metadata also produce focused audit results.
+
+Existing mapping-only layers remain compatible without regeneration.
+
+The Working Knowledge Layer Toolkit now:
+
+- Creates custom schematic groups with generated vanilla research groups and hidden unlockers.
+- Generates durable exact Data Schematic definitions for custom groups.
+- Includes already-cataloged blocks only when an author chooses explicit overrides.
+- Supports manual editing through documented versioned files.
+- Validates mappings, override syntax, custom metadata, and matching `.sbc` definitions with `Validate.ps1`.
+- Includes an updated custom-group example while the existing ARC Truss layer continues to validate as a legacy mapping-only layer.
+
+Custom schematic IDs are save contracts. Authors should namespace them and must not rename or reuse them after publishing.
+
 ## 0.12.0 - Layer Diagnostics And Runtime Cleanup
 
 Added diagnostics for Working Knowledge compatibility layers without changing the layer format or existing layer behavior.

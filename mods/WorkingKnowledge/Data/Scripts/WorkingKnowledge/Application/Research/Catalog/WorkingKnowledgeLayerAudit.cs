@@ -8,12 +8,14 @@ namespace WkKn
         internal readonly ResearchCatalogEntry Entry;
         internal readonly string ModName;
         internal readonly int LineNumber;
+        internal readonly bool IsOverride;
 
-        internal WorkingKnowledgeLayerMapping(ResearchCatalogEntry entry, string modName, int lineNumber)
+        internal WorkingKnowledgeLayerMapping(ResearchCatalogEntry entry, string modName, int lineNumber, bool isOverride)
         {
             Entry = entry;
             ModName = modName;
             LineNumber = lineNumber;
+            IsOverride = isOverride;
         }
 
         internal string Source
@@ -28,6 +30,8 @@ namespace WkKn
             new Dictionary<string, WorkingKnowledgeLayerMapping>(StringComparer.OrdinalIgnoreCase);
         private readonly List<string> issues = new List<string>();
         private readonly HashSet<string> ignoredMappingKeys = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, WorkingKnowledgeLayerGroup> groups =
+            new Dictionary<string, WorkingKnowledgeLayerGroup>(StringComparer.OrdinalIgnoreCase);
 
         internal IDictionary<string, WorkingKnowledgeLayerMapping> Mappings
         {
@@ -39,9 +43,22 @@ namespace WkKn
             get { return issues; }
         }
 
+        internal IDictionary<string, WorkingKnowledgeLayerGroup> Groups
+        {
+            get { return groups; }
+        }
+
         internal int LayerCount { get; set; }
 
+        internal int MappingCount { get; set; }
+
+        internal int ActiveGroupCount { get; set; }
+
         internal int ActiveMappingCount { get; set; }
+
+        internal int OverrideCount { get; set; }
+
+        internal int ActiveOverrideCount { get; set; }
 
         internal void IgnoreMapping(string blockKey)
         {
@@ -57,6 +74,11 @@ namespace WkKn
         {
             if (!string.IsNullOrWhiteSpace(message))
                 issues.Add(message);
+        }
+
+        internal void SortIssues()
+        {
+            issues.Sort(StringComparer.OrdinalIgnoreCase);
         }
     }
 }

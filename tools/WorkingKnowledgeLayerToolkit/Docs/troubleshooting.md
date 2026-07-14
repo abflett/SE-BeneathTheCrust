@@ -42,7 +42,7 @@ It also skips unplaceable support definitions that are hidden from the G-menu, m
 
 If you select a parent folder, the toolkit only lists child mod folders that contain public cube block definitions. Mods with scripts, research mappings, blueprints, or non-block content but no public block definitions will not appear in the block-set list.
 
-The toolkit skips Working Knowledge itself. It also ignores block IDs already covered by Working Knowledge. Mods that only override vanilla blocks may be skipped because Working Knowledge already has research definitions and schematic mappings for those IDs.
+The toolkit skips Working Knowledge itself. It marks block IDs already covered by Working Knowledge and can include them when you choose explicit overrides. Mods that only replace vanilla definitions therefore appear with zero new blocks but can still be selected for remapping.
 
 ## The Mod List Uses Numbers Instead Of Names
 
@@ -69,7 +69,17 @@ In the loaded world, an admin can run:
 /wk admin audit
 ```
 
-The command reports missing blocks, missing research entries, malformed mappings, duplicates, and built-in mapping conflicts. More than twelve issues are available in `SpaceEngineers.log` and the F11 mod-error screen.
+The command reports missing blocks, missing research entries, malformed mappings/groups, duplicate IDs, definition collisions, conflicting block claims, missing custom definitions, and invalid built-in remaps. More than twelve issues are available in `SpaceEngineers.log` and the F11 mod-error screen.
+
+Run the offline validator first:
+
+```powershell
+.\Validate.ps1 -LayerPath "C:\Path\To\YourLayer"
+```
+
+## A Custom Group Is Inactive
+
+Confirm `schematic_groups.txt` begins with `version = 1`, has five pipe-separated fields, and uses a unique stable ID. Its research group, `WkKnUnlocker_...` block, and exact Data Schematic definitions must exist and match the declared subtypes. Cross-layer collisions are rejected rather than resolved by load order.
 
 ## The Wrong Blocks Are Grouped Together
 

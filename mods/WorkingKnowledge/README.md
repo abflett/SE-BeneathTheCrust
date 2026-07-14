@@ -80,7 +80,7 @@ See [Working Knowledge configuration](../../docs/WorkingKnowledge/configuration.
 
 ## Current Status
 
-Working Knowledge is in its `0.12.x` public feedback release series.
+Working Knowledge is in its `0.13.x` public feedback release series.
 
 The current balance targets the default `medium` play experience. Public feedback, smoke testing, and survival playthrough tuning are the remaining focus before treating the mod as stable.
 
@@ -97,6 +97,7 @@ The mod currently includes:
 - Admin-configurable tuning through `/wk config`.
 - LCD apps and Research Pedestal workflows.
 - External Working Knowledge Layer support for mapping third-party block mods into schematic families.
+- Versioned custom schematic groups and explicit layer-controlled remapping of built-in blocks.
 - Layer diagnostics in admin chat, the Space Engineers log, and the F11 mod-error screen.
 
 ## Compatibility

@@ -1,9 +1,11 @@
 # Working Knowledge Layer mapping file.
 # Format:
 # Type/Subtype = working.knowledge.schematic.id
+# override Type/Subtype = schematic.id replaces a built-in mapping.
 #
 # The Type/Subtype value must match the source block's SBC definition ID
 # after removing the MyObjectBuilder_ prefix from TypeId.
 
-CubeBlock/ExampleIndustrialTruss = structure.industrial
-InteriorLight/ExampleTrussLight = utility.interior_lighting
+CubeBlock/ExampleIndustrialTruss = example.truss_system
+InteriorLight/ExampleTrussLight = example.truss_system
+override BatteryBlock/LargeBlockBatteryBlock = example.power_storage

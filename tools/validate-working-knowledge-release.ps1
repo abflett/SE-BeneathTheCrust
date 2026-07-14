@@ -70,5 +70,9 @@ if (-not $SkipCompile) {
     }
 }
 
+$layerValidator = Join-Path $repoRoot 'tools\WorkingKnowledgeLayerToolkit\Validate.ps1'
+& $layerValidator -LayerPath (Join-Path $repoRoot 'tools\WorkingKnowledgeLayerToolkit\ExampleMod')
+& $layerValidator -LayerPath (Join-Path $repoRoot 'mods\WKL-ARCTrussSystem')
+
 Write-Host "Validated Working Knowledge $ExpectedVersion release files successfully."
 Write-Host "Parsed $($xmlFiles.Count) XML files; thumbnail is $($thumb.Length) bytes."

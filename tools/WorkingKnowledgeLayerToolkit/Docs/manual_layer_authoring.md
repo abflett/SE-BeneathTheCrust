@@ -73,9 +73,25 @@ CubeBlock/ExampleBlock = structure.industrial
 
 Use [schematic_groups.md](schematic_groups.md) to pick IDs.
 
+Prefix a mapping with `override` only when intentionally moving a block that already has a built-in Working Knowledge mapping:
+
+```text
+override BatteryBlock/LargeBlockBatteryBlock = example.power_storage
+```
+
+## 5. Optional: Define Custom Groups
+
+The copied `ExampleMod` demonstrates the versioned `schematic_groups.txt` format and its three generated definition files. Keep those files and replace the example IDs, or let `Start.ps1` generate them. Custom group IDs and definition subtypes are published save contracts and should never be renamed.
+
 For a slower walkthrough of these files, read [editing_generated_layers.md](editing_generated_layers.md).
 
-## 5. Test Load Order
+## 6. Validate And Test Load Order
+
+Run:
+
+```powershell
+.\Validate.ps1 -LayerPath "C:\Path\To\WKL-MyBlockPack"
+```
 
 Use this load order:
 

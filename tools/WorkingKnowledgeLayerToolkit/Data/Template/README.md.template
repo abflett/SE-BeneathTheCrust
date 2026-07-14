@@ -14,6 +14,8 @@ This mod provides vanilla research definitions for supported {{SOURCE_MOD_NAME}}
 
 - `Data/ResearchBlocks.sbc` - vanilla progression definitions for each supported block.
 - `Data/WorkingKnowledge/block_mappings.txt` - Working Knowledge schematic-family mappings.
+- `Data/WorkingKnowledge/schematic_groups.txt` - optional versioned custom schematic-group metadata.
+- `Data/ResearchUnlockerGroups.sbc`, `Data/ResearchUnlockers.sbc`, and `Data/PhysicalItems_ResearchSchematics.sbc` - generated definitions used by custom groups when present.
 
 ## Publishing Notes
 
@@ -23,3 +25,5 @@ Set Workshop requirements for:
 - {{SOURCE_MOD_NAME}}
 
 Publishing copy is available under `Publishing/`.
+
+After editing, run `WorkingKnowledgeLayerToolkit\Validate.ps1 -LayerPath <this folder>`.

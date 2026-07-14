@@ -40,7 +40,7 @@ All choices are numbered. Pick the custom-folder number if your source mod is so
 
 The script scans the selected folder for mods that contain public cube block definitions. For Steam Workshop folders named by Workshop item ID, it tries to look up the public Workshop title through Steam first. If that lookup fails, it reads `modinfo.sbc` when available, then falls back to the folder name.
 
-Working Knowledge itself is skipped automatically. Blocks already covered by Working Knowledge are also ignored. This is expected for mods that only override vanilla block definitions without adding new block IDs.
+Working Knowledge itself is skipped automatically. The script identifies blocks already covered by Working Knowledge and asks whether to exclude them or include them as explicit overrides. Leave them excluded unless the layer intentionally reorganizes built-in technology.
 
 Example:
 
@@ -61,7 +61,15 @@ Select one or more block sets:
 
 The all option is the default when more than one block set is found.
 
-## 5. Pick A Default Schematic Group
+## 5. Choose Built-In Remaps And Custom Groups
+
+The script asks whether to include already-mapped blocks. If enabled, their output lines use the required `override` prefix.
+
+It also asks whether the layer should define custom schematic groups. For each custom group, choose a stable ID, display name, and tier. The toolkit generates collision-resistant definition subtypes and all required `.sbc` files.
+
+Do not rename a custom group ID after publishing; research and Proficiency saves use it as their stable key.
+
+## 6. Pick A Default Schematic Group
 
 Most block packs are mostly one kind of block. Pick the best default group first.
 
@@ -75,13 +83,13 @@ Examples:
 
 The script assigns every found block to the default group.
 
-## 6. Override Outliers
+## 7. Change Outliers
 
 The script can walk through the found blocks and let you override only the blocks that do not fit the default.
 
 For example, a truss pack might mostly use `structure.industrial`, but a truss light should use `utility.interior_lighting`.
 
-## 7. Choose Output
+## 8. Choose Output
 
 Choose the output folder and layer folder name, such as:
 
@@ -99,18 +107,25 @@ The author/maker name is written to `modinfo.sbc`.
 
 The script creates a normal Space Engineers mod root in the output folder.
 
-## 8. Review And Test
+## 9. Review, Validate, And Test
 
 Open the generated files:
 
 ```text
 Data/ResearchBlocks.sbc
 Data/WorkingKnowledge/block_mappings.txt
+Data/WorkingKnowledge/schematic_groups.txt   (when custom groups were added)
 ```
 
 Use [Docs/mapping_format.md](Docs/mapping_format.md) and [Docs/schematic_groups.md](Docs/schematic_groups.md) if you want to adjust mappings by hand.
 
 For a plain-language explanation of the editable files, read [Docs/editing_generated_layers.md](Docs/editing_generated_layers.md).
+
+Validate the generated or edited folder:
+
+```powershell
+.\Validate.ps1 -LayerPath "C:\Path\To\WKL-ExampleBlockMod"
+```
 
 Then test with this load order:
 

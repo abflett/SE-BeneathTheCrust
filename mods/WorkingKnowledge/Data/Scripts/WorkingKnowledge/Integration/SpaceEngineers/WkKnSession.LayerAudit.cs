@@ -13,7 +13,9 @@ namespace WkKn
         {
             MyLog.Default.WriteLineAndConsole(
                 LogPrefix + " layer audit: " + layerAudit.LayerCount + " layer(s), " +
-                layerAudit.ActiveMappingCount + "/" + layerAudit.Mappings.Count + " mapping(s) active, " +
+                layerAudit.ActiveGroupCount + "/" + layerAudit.Groups.Count + " custom group(s) active, " +
+                layerAudit.ActiveMappingCount + "/" + layerAudit.MappingCount + " mapping(s) active, " +
+                layerAudit.ActiveOverrideCount + "/" + layerAudit.OverrideCount + " override(s) active, " +
                 layerAudit.Issues.Count + " issue(s).");
 
             var modContext = ModContext as MyModContext;
@@ -43,7 +45,9 @@ namespace WkKn
             {
                 "Runtime: " + (runtimeLoadIssue == null ? "ready" : "load failed"),
                 "Layers found: " + layerAudit.LayerCount,
-                "Mappings active: " + layerAudit.ActiveMappingCount + " of " + layerAudit.Mappings.Count,
+                "Custom groups active: " + layerAudit.ActiveGroupCount + " of " + layerAudit.Groups.Count,
+                "Mappings active: " + layerAudit.ActiveMappingCount + " of " + layerAudit.MappingCount,
+                "Explicit overrides active: " + layerAudit.ActiveOverrideCount + " of " + layerAudit.OverrideCount,
                 "Issues: " + layerAudit.Issues.Count,
             };
 
