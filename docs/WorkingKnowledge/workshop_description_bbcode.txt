@@ -1,7 +1,7 @@
 [h1]Working Knowledge[/h1]
 [h3]A salvage-first progression overhaul for Space Engineers survival.[/h3]
 
-Working Knowledge gives Space Engineers survival a new progression experience for players who already know the usual unlock path by heart.
+Working Knowledge gives veteran Space Engineers players a new survival progression experience.
 
 Instead of racing through a simple build-one-block chain, your engineer learns technology by recovering schematic data, decoding research fragments, and practicing the work. Wrecks, captured ships, abandoned stations, signals, and POIs become more than loot piles. They become opportunities to study unfamiliar machines and bring that knowledge back to your own base.
 
@@ -25,7 +25,7 @@ Learning the schematic is only part of the system. Proficiency tracks the practi
 [i]Technology is not just unlocked. It is learned.[/i]
 
 [h2]Recommended Way To Play[/h2]
-Working Knowledge's core progression can be played standalone, but the 0.10.0 HUD progress overlay uses [url=https://steamcommunity.com/sharedfiles/filedetails/?id=758597413]Text HUD API[/url] for compact on-screen progress rows. The mod is also designed around a physical salvage playstyle. The ideal experience is to pair it with tools that let you recover, move, and reuse parts instead of grinding every discovery into scrap.
+Working Knowledge works standalone. Its HUD progress overlay uses [url=https://steamcommunity.com/sharedfiles/filedetails/?id=758597413]Text HUD API[/url]. The intended physical salvage experience is even better with tools that recover, move, and reuse parts instead of grinding every discovery into scrap.
 
 [h3]Recommended Companions[/h3]
 [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=510790477]Advanced Welding[/url][/b]
@@ -33,8 +33,6 @@ Detach and reattach workflows make recovered machinery valuable in its current f
 
 [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2891367014]Improvised Experimentation[/url][/b]
 Moving, dragging, carrying, and repositioning wreckage gives salvage work more texture and makes damaged finds feel like physical problems to solve.
-
-Together, these mods make the core choice more interesting: preserve the part, move the part, repair around it, or sacrifice it for schematic progress.
 
 [h2]Challenge And Configuration[/h2]
 Working Knowledge is built to challenge veteran players, but it is not locked to one balance. It can support a focused research overhaul, a relaxed long-form survival world, or a demanding salvage campaign.
@@ -84,7 +82,7 @@ Start with:
 [h2]Recommended Setup[/h2]
 [list]
 [*]Best tested in a fresh survival world.
-[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=758597413]Text HUD API[/url] is used by the HUD progress overlay. Core progression still works without it, but the 0.10.0 progress bars need it loaded.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=758597413]Text HUD API[/url] is used by the HUD progress overlay. Core progression still works without it, but the progress bars need it loaded.
 [*]Advanced Welding and Improvised Experimentation are recommended for the intended salvage experience.
 [*]No DLC required, but Sparks of the Future owners also get the optional Research Sci-Fi Terminal.
 [/list]
