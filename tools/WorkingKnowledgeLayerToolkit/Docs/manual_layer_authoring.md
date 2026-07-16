@@ -37,7 +37,7 @@ The most important fields are:
 
 ## 3. Add ResearchBlocks.sbc Entries
 
-For each source block, add one entry:
+For each source block not already registered by Working Knowledge, add one entry. A layer that only moves existing Working Knowledge blocks can omit this file.
 
 ```xml
 <ResearchBlock xsi:type="ResearchBlock">
@@ -73,7 +73,7 @@ CubeBlock/ExampleBlock = structure.industrial
 
 Use [schematic_groups.md](schematic_groups.md) to pick IDs.
 
-Prefix a mapping with `override` only when intentionally moving a block that already has a built-in Working Knowledge mapping:
+The last valid mapping wins, including over built-in Working Knowledge assignments. The optional `override` prefix can document an intentional built-in move:
 
 ```text
 override BatteryBlock/LargeBlockBatteryBlock = example.power_storage

@@ -63,7 +63,7 @@ The all option is the default when more than one block set is found.
 
 ## 5. Choose Built-In Remaps And Custom Groups
 
-The script asks whether to include already-mapped blocks. If enabled, their output lines use the required `override` prefix.
+The script asks whether to include already-mapped blocks. If enabled, their output lines use the optional `override` prefix to make the intent clear. Normal mappings have the same load-order authority.
 
 It also asks whether the layer should define custom schematic groups. For each custom group, choose a stable ID, display name, and tier. The toolkit generates collision-resistant definition subtypes and all required `.sbc` files.
 
@@ -126,6 +126,14 @@ Validate the generated or edited folder:
 ```powershell
 .\Validate.ps1 -LayerPath "C:\Path\To\WKL-ExampleBlockMod"
 ```
+
+To preview two layers together in load order:
+
+```powershell
+.\Validate.ps1 -LayerPath @("C:\Path\To\WKL-HardArmor", "C:\Path\To\WKL-DenseArmor")
+```
+
+The last valid group declaration or block mapping wins.
 
 Then test with this load order:
 

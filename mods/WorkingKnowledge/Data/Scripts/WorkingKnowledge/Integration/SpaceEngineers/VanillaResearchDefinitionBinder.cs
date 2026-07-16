@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Sandbox.Common.ObjectBuilders;
-using Sandbox.Common.ObjectBuilders.Definitions;
 using Sandbox.Definitions;
 using VRage.Game;
 using VRage.ObjectBuilders;
@@ -21,13 +20,10 @@ namespace WkKn
             ClearVanillaResearch(unlockerBlockPrefix);
 
             var blocks = GetResearchCandidateBlocks(unlockerBlockPrefix, researchPedestalSubtype, researchSciFiTerminalSubtype);
-            var catalogByBlockKey = ResearchCatalog.BuildLookupByBlockKey();
             var layerAudit = WorkingKnowledgeLayerMappingLoader.LoadMappings();
-            var validCustomGroups = ValidateCustomGroups(layerAudit);
-            AddLayerMappings(catalogByBlockKey, validCustomGroups, layerAudit);
-            schematicCatalog.LoadMetadata(ResearchCatalog.Entries);
-            foreach (var group in layerAudit.Groups)
-                schematicCatalog.LoadMetadata(new[] { group.Value.Entry });
+            var catalogByBlockKey = BuildResolvedBuiltInCatalog(layerAudit);
+            AddLayerMappings(catalogByBlockKey, layerAudit);
+            schematicCatalog.LoadMetadata(layerAudit.ResolvedGroups.Values);
 
             for (var i = 0; i < blocks.Count; i++)
             {
@@ -57,8 +53,7 @@ namespace WkKn
                 unlockerResearchGroup.Members = new SerializableDefinitionId[] { unlockerId };
                 schematicCatalog.AddMappedBlock(catalogEntry, block.Id, unlockerId);
                 WorkingKnowledgeLayerMapping activeMapping;
-                if (layerAudit.Mappings.TryGetValue(GetDefinitionKey(block.Id), out activeMapping) &&
-                    layerAudit.IsMappingEligible(GetDefinitionKey(block.Id)))
+                if (layerAudit.Mappings.TryGetValue(GetDefinitionKey(block.Id), out activeMapping))
                 {
                     layerAudit.ActiveMappingCount++;
                     if (activeMapping.IsOverride)
@@ -69,60 +64,37 @@ namespace WkKn
             AddMissingBlockIssues(blocks, layerAudit);
 
             ConfigureResearchTerminalUnlocks(researchPedestalSubtype, researchSciFiTerminalSubtype, controlPanelResearchGroupSubtype);
-            layerAudit.SortIssues();
+            layerAudit.SortMessages();
             return layerAudit;
         }
 
-        private static HashSet<string> ValidateCustomGroups(WorkingKnowledgeLayerAudit layerAudit)
+        private static Dictionary<string, ResearchCatalogEntry> BuildResolvedBuiltInCatalog(WorkingKnowledgeLayerAudit layerAudit)
         {
-            var valid = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            foreach (var pair in layerAudit.Groups)
+            var resolved = new Dictionary<string, ResearchCatalogEntry>(StringComparer.OrdinalIgnoreCase);
+            foreach (var pair in ResearchCatalog.BuildLookupByBlockKey())
             {
-                var entry = pair.Value.Entry;
-                var unlockerId = new MyDefinitionId(typeof(MyObjectBuilder_CubeBlock), entry.UnlockerSubtype);
-                var unlocker = MyDefinitionManager.Static.GetCubeBlockDefinition(unlockerId);
-                var researchGroup = MyDefinitionManager.Static.GetResearchGroup(entry.GroupSubtype);
-                if (unlocker == null || researchGroup == null)
-                {
-                    layerAudit.AddIssue(
-                        "Custom group '" + entry.ResearchId + "' from " + pair.Value.Source +
-                        " is inactive because its unlocker block or research group definition is missing.");
+                ResearchCatalogEntry metadata;
+                if (!layerAudit.ResolvedGroups.TryGetValue(pair.Value.ResearchId, out metadata))
                     continue;
-                }
 
-                valid.Add(entry.ResearchId);
-                layerAudit.ActiveGroupCount++;
-
-                var schematicId = new MyDefinitionId(
-                    typeof(MyObjectBuilder_ConsumableItem),
-                    "WkKnSchematic_" + GetSafeSubtypeToken(entry.ResearchId));
-                if (MyDefinitionManager.Static.GetPhysicalItemDefinition(schematicId) == null)
-                {
-                    layerAudit.AddIssue(
-                        "Custom group '" + entry.ResearchId + "' from " + pair.Value.Source +
-                        " has no exact Data Schematic item definition; fragment rewards still work.");
-                }
+                resolved[pair.Key] = new ResearchCatalogEntry(
+                    pair.Key,
+                    metadata.ResearchId,
+                    metadata.DisplayName,
+                    metadata.Description,
+                    metadata.GroupSubtype,
+                    metadata.UnlockerSubtype,
+                    metadata.Tier);
             }
-
-            return valid;
+            return resolved;
         }
 
         private static void AddLayerMappings(
             Dictionary<string, ResearchCatalogEntry> catalogByBlockKey,
-            HashSet<string> validCustomGroups,
             WorkingKnowledgeLayerAudit layerAudit)
         {
             foreach (var mapping in layerAudit.Mappings)
-            {
-                if (layerAudit.Groups.ContainsKey(mapping.Value.Entry.ResearchId) &&
-                    !validCustomGroups.Contains(mapping.Value.Entry.ResearchId))
-                {
-                    layerAudit.IgnoreMapping(mapping.Key);
-                    continue;
-                }
-
                 catalogByBlockKey[mapping.Key] = mapping.Value.Entry;
-            }
         }
 
         private static void AddMissingResearchBlockIssue(WorkingKnowledgeLayerAudit layerAudit, MyDefinitionId blockId)
@@ -246,28 +218,5 @@ namespace WkKn
             return typeName;
         }
 
-        private static string GetSafeSubtypeToken(string value)
-        {
-            var builder = new System.Text.StringBuilder();
-            var lastWasSeparator = false;
-            for (var i = 0; i < value.Length; i++)
-            {
-                var c = value[i];
-                if (char.IsLetterOrDigit(c))
-                {
-                    builder.Append(c);
-                    lastWasSeparator = false;
-                }
-                else if (builder.Length > 0 && !lastWasSeparator)
-                {
-                    builder.Append('_');
-                    lastWasSeparator = true;
-                }
-            }
-
-            while (builder.Length > 0 && builder[builder.Length - 1] == '_')
-                builder.Length--;
-            return builder.ToString();
-        }
     }
 }

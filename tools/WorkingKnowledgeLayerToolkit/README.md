@@ -2,7 +2,7 @@
 
 This toolkit creates small compatibility layer mods for **Working Knowledge**.
 
-A layer maps blocks from another Space Engineers block mod into built-in or layer-defined Working Knowledge schematic groups. It can also explicitly remap built-in blocks. Once mapped, those blocks can participate in Working Knowledge research gates, vanilla progression unlocks, Proficiency, welding, repair, grinding, and salvage behavior.
+A layer maps blocks from another Space Engineers block mod into built-in or layer-defined Working Knowledge schematic groups. Layers may remap built-in blocks, and later valid layers win when assignments overlap. Once mapped, those blocks can participate in Working Knowledge research gates, vanilla progression unlocks, Proficiency, welding, repair, grinding, and salvage behavior.
 
 This folder is designed to be zipped and distributed as a standalone toolkit. It should work after being unzipped anywhere on disk.
 
@@ -36,6 +36,8 @@ Start.bat
 
 - `Start.ps1` - interactive layer generator.
 - `Validate.ps1` - validates generated or manually edited layers.
+- `Tests/Test-LayerResolution.ps1` - automated ordered conflict-resolution checks.
+- `Tests/Deploy-ConflictTestLayers.ps1` - deploys local Hard Armor and Dense Armor layers for the in-game `0.13.0` test plan.
 - `Start.bat` - simple launcher for `Start.ps1`.
 - `ExampleMod/` - copyable example layer mod for manual editing.
 - `Docs/` - [toolkit documentation](Docs/README.md), mapping format, schematic group, manual authoring, and troubleshooting notes.
@@ -79,3 +81,5 @@ After generation or editing, validate the layer:
 ```powershell
 .\Validate.ps1 -LayerPath "C:\Path\To\WKL-ExampleBlockMod"
 ```
+
+Pass multiple paths in world load order to preview group and block winners.

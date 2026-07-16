@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Sandbox.Common.ObjectBuilders;
+using Sandbox.Common.ObjectBuilders.Definitions;
+using Sandbox.Definitions;
 using Sandbox.ModAPI;
 using VRage.Game;
 
@@ -17,10 +20,17 @@ namespace WkKn
             internal ResearchCatalogEntry Entry;
             internal string ModName;
             internal int LineNumber;
+            internal int LoadIndex;
+            internal bool IsBuiltIn;
 
             internal string Source
             {
-                get { return ModName + " line " + LineNumber; }
+                get
+                {
+                    return IsBuiltIn
+                        ? "Working Knowledge built-in catalog"
+                        : ModName + " (load position " + (LoadIndex + 1) + ") line " + LineNumber;
+                }
             }
         }
 
@@ -30,11 +40,12 @@ namespace WkKn
             internal string ResearchId;
             internal string ModName;
             internal int LineNumber;
+            internal int LoadIndex;
             internal bool IsOverride;
 
             internal string Source
             {
-                get { return ModName + " line " + LineNumber; }
+                get { return ModName + " (load position " + (LoadIndex + 1) + ") line " + LineNumber; }
             }
         }
 
@@ -44,7 +55,7 @@ namespace WkKn
             if (MyAPIGateway.Session == null || MyAPIGateway.Utilities == null || MyAPIGateway.Session.Mods == null)
                 return audit;
 
-            var groupClaims = new List<GroupClaim>();
+            var groupClaims = BuildBuiltInGroupClaims();
             var mappingClaims = new List<MappingClaim>();
             for (var i = 0; i < MyAPIGateway.Session.Mods.Count; i++)
             {
@@ -56,23 +67,38 @@ namespace WkKn
 
                 audit.LayerCount++;
                 if (hasGroups)
-                    LoadGroupsFromMod(mod, groupClaims, audit);
+                    LoadGroupsFromMod(mod, i, groupClaims, audit);
                 if (hasMappings)
-                    LoadMappingsFromMod(mod, mappingClaims, audit);
+                    LoadMappingsFromMod(mod, i, mappingClaims, audit);
             }
 
-            var metadataByResearchId = ResearchCatalog.BuildLookupByResearchId();
-            ResolveGroups(groupClaims, metadataByResearchId, audit);
-            foreach (var group in audit.Groups)
-                metadataByResearchId.Add(group.Key, group.Value.Entry);
-
-            ResolveMappings(mappingClaims, metadataByResearchId, ResearchCatalog.BuildLookupByBlockKey(), audit);
-            audit.SortIssues();
+            ResolveGroups(groupClaims, audit);
+            ResolveMappings(mappingClaims, ResearchCatalog.BuildLookupByBlockKey(), audit);
+            audit.SortMessages();
             return audit;
+        }
+
+        private static List<GroupClaim> BuildBuiltInGroupClaims()
+        {
+            var claims = new List<GroupClaim>();
+            var line = 0;
+            foreach (var pair in ResearchCatalog.BuildLookupByResearchId())
+            {
+                claims.Add(new GroupClaim
+                {
+                    Entry = pair.Value,
+                    ModName = "Working Knowledge",
+                    LineNumber = ++line,
+                    LoadIndex = -1,
+                    IsBuiltIn = true,
+                });
+            }
+            return claims;
         }
 
         private static void LoadGroupsFromMod(
             MyObjectBuilder_Checkpoint.ModItem mod,
+            int loadIndex,
             List<GroupClaim> claims,
             WorkingKnowledgeLayerAudit audit)
         {
@@ -91,22 +117,23 @@ namespace WkKn
                 if (versionLine < 0 || !IsSupportedVersionLine(StripComment(rows[versionLine]).Trim()))
                 {
                     audit.AddIssue(
-                        "Ignored custom groups from " + modName +
+                        "Ignored group declarations from " + modName +
                         " because schematic_groups.txt must begin with 'version = " + SupportedGroupFormatVersion + "'.");
                     return;
                 }
 
                 for (var i = versionLine + 1; i < rows.Count; i++)
-                    TryLoadGroupLine(modName, i + 1, rows[i], claims, audit);
+                    TryLoadGroupLine(modName, loadIndex, i + 1, rows[i], claims, audit);
             }
             catch (Exception exception)
             {
-                audit.AddIssue("Could not read custom groups from " + modName + ": " + exception.Message);
+                audit.AddIssue("Could not read group declarations from " + modName + ": " + exception.Message);
             }
         }
 
         private static void TryLoadGroupLine(
             string modName,
+            int loadIndex,
             int lineNumber,
             string rawLine,
             List<GroupClaim> claims,
@@ -117,9 +144,14 @@ namespace WkKn
                 return;
 
             var fields = line.Split('|');
-            if (fields.Length != 5)
+            if (fields.Length != 5 && fields.Length != 6)
             {
-                AddInvalidGroupIssue(audit, modName, lineNumber, "expected id | display name | tier | research group subtype | unlocker subtype");
+                AddInvalidGroupIssue(
+                    audit,
+                    modName,
+                    loadIndex,
+                    lineNumber,
+                    "expected id | display name | tier | research group subtype | unlocker subtype [| description]");
                 return;
             }
 
@@ -129,22 +161,22 @@ namespace WkKn
             SchematicTier tier;
             if (!IsValidResearchId(fields[0]))
             {
-                AddInvalidGroupIssue(audit, modName, lineNumber, "invalid stable schematic id '" + fields[0] + "'");
+                AddInvalidGroupIssue(audit, modName, loadIndex, lineNumber, "invalid stable schematic id '" + fields[0] + "'");
                 return;
             }
             if (fields[1].Length == 0)
             {
-                AddInvalidGroupIssue(audit, modName, lineNumber, "display name is required");
+                AddInvalidGroupIssue(audit, modName, loadIndex, lineNumber, "display name is required");
                 return;
             }
             if (!TryParseTier(fields[2], out tier))
             {
-                AddInvalidGroupIssue(audit, modName, lineNumber, "invalid tier '" + fields[2] + "'");
+                AddInvalidGroupIssue(audit, modName, loadIndex, lineNumber, "invalid tier '" + fields[2] + "'");
                 return;
             }
             if (!IsValidDefinitionSubtype(fields[3]))
             {
-                AddInvalidGroupIssue(audit, modName, lineNumber, "invalid research group subtype '" + fields[3] + "'");
+                AddInvalidGroupIssue(audit, modName, loadIndex, lineNumber, "invalid research group subtype '" + fields[3] + "'");
                 return;
             }
             if (!IsValidDefinitionSubtype(fields[4]) ||
@@ -153,6 +185,7 @@ namespace WkKn
                 AddInvalidGroupIssue(
                     audit,
                     modName,
+                    loadIndex,
                     lineNumber,
                     "unlocker subtype must use the " + UnlockerSubtypePrefix + " prefix and contain only letters, digits, or underscores");
                 return;
@@ -160,83 +193,150 @@ namespace WkKn
 
             claims.Add(new GroupClaim
             {
-                Entry = new ResearchCatalogEntry(string.Empty, fields[0], fields[1], fields[3], fields[4], tier),
+                Entry = new ResearchCatalogEntry(
+                    string.Empty,
+                    fields[0],
+                    fields[1],
+                    fields.Length == 6 ? fields[5] : string.Empty,
+                    fields[3],
+                    fields[4],
+                    tier),
                 ModName = modName,
                 LineNumber = lineNumber,
+                LoadIndex = loadIndex,
+                IsBuiltIn = false,
             });
+            audit.DeclaredGroupCount++;
         }
 
-        private static void ResolveGroups(
-            List<GroupClaim> claims,
-            Dictionary<string, ResearchCatalogEntry> builtInGroups,
+        private static void ResolveGroups(List<GroupClaim> claims, WorkingKnowledgeLayerAudit audit)
+        {
+            claims.Sort(CompareGroupClaims);
+            var historyById = new Dictionary<string, List<GroupClaim>>(StringComparer.OrdinalIgnoreCase);
+            for (var i = 0; i < claims.Count; i++)
+            {
+                AddClaim(historyById, claims[i].Entry.ResearchId, claims[i]);
+            }
+
+            var winners = new List<GroupClaim>();
+            foreach (var history in historyById)
+            {
+                var winner = FindLastValidGroupClaim(history.Key, history.Value, audit);
+                if (winner == null)
+                    continue;
+
+                winners.Add(winner);
+                ReportGroupHistory(history.Key, history.Value, winner, audit);
+            }
+            winners.Sort(CompareGroupClaims);
+            var groupSubtypeOwner = new Dictionary<string, GroupClaim>(StringComparer.OrdinalIgnoreCase);
+            var unlockerSubtypeOwner = new Dictionary<string, GroupClaim>(StringComparer.OrdinalIgnoreCase);
+            var itemSubtypeOwner = new Dictionary<string, GroupClaim>(StringComparer.OrdinalIgnoreCase);
+            for (var i = 0; i < winners.Count; i++)
+            {
+                var winner = winners[i];
+                groupSubtypeOwner[winner.Entry.GroupSubtype] = winner;
+                unlockerSubtypeOwner[winner.Entry.UnlockerSubtype] = winner;
+                itemSubtypeOwner[GetSafeSubtypeToken(winner.Entry.ResearchId)] = winner;
+            }
+
+            for (var i = 0; i < winners.Count; i++)
+            {
+                var winner = winners[i];
+                if (!winner.IsBuiltIn)
+                {
+                    audit.Groups[winner.Entry.ResearchId] = new WorkingKnowledgeLayerGroup(
+                        winner.Entry,
+                        winner.ModName,
+                        winner.LineNumber,
+                        winner.LoadIndex);
+                }
+
+                GroupClaim groupOwner;
+                GroupClaim unlockerOwner;
+                GroupClaim itemOwner;
+                groupSubtypeOwner.TryGetValue(winner.Entry.GroupSubtype, out groupOwner);
+                unlockerSubtypeOwner.TryGetValue(winner.Entry.UnlockerSubtype, out unlockerOwner);
+                itemSubtypeOwner.TryGetValue(GetSafeSubtypeToken(winner.Entry.ResearchId), out itemOwner);
+                if (groupOwner != winner || unlockerOwner != winner || itemOwner != winner)
+                {
+                    audit.AddIssue(
+                        "Group '" + winner.Entry.ResearchId + "' from " + winner.Source +
+                        " is inactive because a later group owns one of its research group, unlocker, or exact-schematic definition IDs. " +
+                        "Winning owners: " + FormatGroupOwners(groupOwner, unlockerOwner, itemOwner) + ".");
+                    continue;
+                }
+
+                audit.ResolvedGroups[winner.Entry.ResearchId] = winner.Entry;
+                if (!winner.IsBuiltIn)
+                    audit.ActiveGroupCount++;
+
+                var schematicId = new MyDefinitionId(
+                    typeof(MyObjectBuilder_ConsumableItem),
+                    "WkKnSchematic_" + GetSafeSubtypeToken(winner.Entry.ResearchId));
+                if (MyDefinitionManager.Static.GetPhysicalItemDefinition(schematicId) == null)
+                {
+                    audit.AddIssue(
+                        "Group '" + winner.Entry.ResearchId + "' from " + winner.Source +
+                        " has no exact Data Schematic item definition; Data Fragment and block-work rewards still work.");
+                }
+            }
+        }
+
+        private static void ReportGroupHistory(
+            string researchId,
+            List<GroupClaim> history,
+            GroupClaim winner,
             WorkingKnowledgeLayerAudit audit)
         {
-            var claimsById = new Dictionary<string, List<GroupClaim>>(StringComparer.OrdinalIgnoreCase);
-            for (var i = 0; i < claims.Count; i++)
-                AddClaim(claimsById, claims[i].Entry.ResearchId, claims[i]);
+            if (history.Count <= 1)
+                return;
 
-            var candidates = new List<GroupClaim>();
-            foreach (var pair in claimsById)
+            var externalCount = 0;
+            var wiringChanged = false;
+            for (var i = 0; i < history.Count; i++)
             {
-                if (builtInGroups.ContainsKey(pair.Key))
-                {
-                    audit.AddIssue("Ignored custom group '" + pair.Key + "' because it conflicts with a built-in schematic ID.");
-                    continue;
-                }
-                if (pair.Value.Count != 1)
-                {
-                    audit.AddIssue("Ignored duplicate custom group ID '" + pair.Key + "' from " + FormatSources(pair.Value) + ".");
-                    continue;
-                }
-
-                candidates.Add(pair.Value[0]);
+                if (!history[i].IsBuiltIn)
+                    externalCount++;
+                if (i > 0 && !HasSameWiring(history[i - 1].Entry, history[i].Entry))
+                    wiringChanged = true;
             }
 
-            var invalidIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            var builtInEntries = new List<ResearchCatalogEntry>(builtInGroups.Values);
-            for (var i = 0; i < candidates.Count; i++)
+            if (externalCount == 0)
+                return;
+            if (history[0].IsBuiltIn)
+                audit.RedefinedGroupCount++;
+
+            var message =
+                "Group '" + researchId + "' was declared " + history.Count + " times; " +
+                winner.Source + " is the last valid declaration and wins. History: " + FormatGroupHistory(history) + ".";
+            audit.AddIssue(message + (wiringChanged ? " Vanilla research wiring also changed." : string.Empty));
+        }
+
+        private static GroupClaim FindLastValidGroupClaim(
+            string researchId,
+            List<GroupClaim> history,
+            WorkingKnowledgeLayerAudit audit)
+        {
+            for (var i = history.Count - 1; i >= 0; i--)
             {
-                var candidate = candidates[i];
-                for (var j = 0; j < builtInEntries.Count; j++)
-                {
-                    if (HasDefinitionCollision(candidate.Entry, builtInEntries[j]))
-                    {
-                        invalidIds.Add(candidate.Entry.ResearchId);
-                        audit.AddIssue(
-                            "Ignored custom group '" + candidate.Entry.ResearchId + "' from " + candidate.Source +
-                            " because its generated definition IDs collide with built-in group '" + builtInEntries[j].ResearchId + "'.");
-                        break;
-                    }
-                }
+                var claim = history[i];
+                var unlockerId = new MyDefinitionId(typeof(MyObjectBuilder_CubeBlock), claim.Entry.UnlockerSubtype);
+                var unlocker = MyDefinitionManager.Static.GetCubeBlockDefinition(unlockerId);
+                var researchGroup = MyDefinitionManager.Static.GetResearchGroup(claim.Entry.GroupSubtype);
+                if (unlocker != null && researchGroup != null)
+                    return claim;
 
-                for (var j = i + 1; j < candidates.Count; j++)
-                {
-                    if (!HasDefinitionCollision(candidate.Entry, candidates[j].Entry))
-                        continue;
-
-                    invalidIds.Add(candidate.Entry.ResearchId);
-                    invalidIds.Add(candidates[j].Entry.ResearchId);
-                    audit.AddIssue(
-                        "Ignored custom groups '" + candidate.Entry.ResearchId + "' and '" + candidates[j].Entry.ResearchId +
-                        "' because their generated definition IDs collide (" + candidate.Source + "; " + candidates[j].Source + ").");
-                }
+                audit.AddIssue(
+                    "Skipped group '" + researchId + "' from " + claim.Source +
+                    " because its unlocker block or research group definition is missing.");
             }
-
-            candidates.Sort((left, right) => string.Compare(left.Entry.ResearchId, right.Entry.ResearchId, StringComparison.OrdinalIgnoreCase));
-            for (var i = 0; i < candidates.Count; i++)
-            {
-                var candidate = candidates[i];
-                if (invalidIds.Contains(candidate.Entry.ResearchId))
-                    continue;
-
-                audit.Groups.Add(
-                    candidate.Entry.ResearchId,
-                    new WorkingKnowledgeLayerGroup(candidate.Entry, candidate.ModName, candidate.LineNumber));
-            }
+            return null;
         }
 
         private static void LoadMappingsFromMod(
             MyObjectBuilder_Checkpoint.ModItem mod,
+            int loadIndex,
             List<MappingClaim> claims,
             WorkingKnowledgeLayerAudit audit)
         {
@@ -249,7 +349,7 @@ namespace WkKn
                     while ((line = reader.ReadLine()) != null)
                     {
                         lineNumber++;
-                        TryLoadMappingLine(GetModName(mod), lineNumber, line, claims, audit);
+                        TryLoadMappingLine(GetModName(mod), loadIndex, lineNumber, line, claims, audit);
                     }
                 }
             }
@@ -261,6 +361,7 @@ namespace WkKn
 
         private static void TryLoadMappingLine(
             string modName,
+            int loadIndex,
             int lineNumber,
             string rawLine,
             List<MappingClaim> claims,
@@ -277,7 +378,7 @@ namespace WkKn
             var equalsIndex = line.IndexOf('=');
             if (equalsIndex <= 0 || equalsIndex >= line.Length - 1)
             {
-                AddInvalidMappingIssue(audit, modName, lineNumber, "expected [override] Type/Subtype = schematic.id");
+                AddInvalidMappingIssue(audit, modName, loadIndex, lineNumber, "expected [override] Type/Subtype = schematic.id");
                 return;
             }
 
@@ -287,7 +388,7 @@ namespace WkKn
             if (blockKey.Length == 0 || researchId.Length == 0 || slashIndex <= 0 ||
                 slashIndex != blockKey.LastIndexOf('/') || slashIndex >= blockKey.Length - 1)
             {
-                AddInvalidMappingIssue(audit, modName, lineNumber, "expected one complete Type/Subtype before '='");
+                AddInvalidMappingIssue(audit, modName, loadIndex, lineNumber, "expected one complete Type/Subtype before '='");
                 return;
             }
 
@@ -297,6 +398,7 @@ namespace WkKn
                 ResearchId = researchId,
                 ModName = modName,
                 LineNumber = lineNumber,
+                LoadIndex = loadIndex,
                 IsOverride = isOverride,
             });
             audit.MappingCount++;
@@ -306,55 +408,131 @@ namespace WkKn
 
         private static void ResolveMappings(
             List<MappingClaim> claims,
-            Dictionary<string, ResearchCatalogEntry> groupsById,
             Dictionary<string, ResearchCatalogEntry> builtInBlocks,
             WorkingKnowledgeLayerAudit audit)
         {
+            claims.Sort(CompareMappingClaims);
             var claimsByBlock = new Dictionary<string, List<MappingClaim>>(StringComparer.OrdinalIgnoreCase);
             for (var i = 0; i < claims.Count; i++)
                 AddClaim(claimsByBlock, claims[i].BlockKey, claims[i]);
 
             foreach (var pair in claimsByBlock)
             {
-                var blockClaims = pair.Value;
-                if (blockClaims.Count != 1)
+                var validClaims = new List<MappingClaim>();
+                for (var i = 0; i < pair.Value.Count; i++)
                 {
-                    audit.AddIssue("Ignored conflicting mappings for " + pair.Key + " from " + FormatSources(blockClaims) + ".");
-                    continue;
+                    if (audit.ResolvedGroups.ContainsKey(pair.Value[i].ResearchId))
+                    {
+                        validClaims.Add(pair.Value[i]);
+                    }
+                    else
+                    {
+                        audit.SkippedMappingCount++;
+                        audit.AddIssue(
+                            "Skipped " + pair.Value[i].Source + " mapping for " + pair.Key +
+                            " because schematic group '" + pair.Value[i].ResearchId + "' is unknown or inactive.");
+                    }
                 }
 
-                var claim = blockClaims[0];
+                if (validClaims.Count == 0)
+                    continue;
+
+                var winner = validClaims[validClaims.Count - 1];
                 ResearchCatalogEntry metadata;
-                if (!groupsById.TryGetValue(claim.ResearchId, out metadata))
-                {
-                    AddInvalidMappingIssue(audit, claim.ModName, claim.LineNumber, "unknown Working Knowledge schematic id '" + claim.ResearchId + "'");
-                    continue;
-                }
-
-                if (builtInBlocks.ContainsKey(claim.BlockKey) && !claim.IsOverride)
-                {
-                    audit.AddIssue(
-                        "Ignored " + claim.Source + " because " + claim.BlockKey +
-                        " has a built-in mapping; use the explicit 'override' prefix to remap it.");
-                    continue;
-                }
-
+                audit.ResolvedGroups.TryGetValue(winner.ResearchId, out metadata);
                 var entry = new ResearchCatalogEntry(
-                    claim.BlockKey,
+                    winner.BlockKey,
                     metadata.ResearchId,
                     metadata.DisplayName,
+                    metadata.Description,
                     metadata.GroupSubtype,
                     metadata.UnlockerSubtype,
                     metadata.Tier);
-                audit.Mappings.Add(claim.BlockKey, new WorkingKnowledgeLayerMapping(entry, claim.ModName, claim.LineNumber, claim.IsOverride));
+                audit.Mappings[winner.BlockKey] = new WorkingKnowledgeLayerMapping(
+                    entry,
+                    winner.ModName,
+                    winner.LineNumber,
+                    winner.LoadIndex,
+                    winner.IsOverride);
+
+                if (validClaims.Count > 1)
+                {
+                    audit.ConflictingBlockCount++;
+                    audit.AddIssue(
+                        winner.BlockKey + " was assigned by " + validClaims.Count + " layer mappings; " +
+                        winner.Source + " -> '" + winner.ResearchId + "' wins. History: " +
+                        FormatMappingHistory(validClaims) + ".");
+                }
+
+                ResearchCatalogEntry builtIn;
+                if (builtInBlocks.TryGetValue(winner.BlockKey, out builtIn) &&
+                    !string.Equals(builtIn.ResearchId, winner.ResearchId, StringComparison.OrdinalIgnoreCase))
+                {
+                    audit.BuiltInReplacementCount++;
+                    audit.AddNotice(
+                        winner.BlockKey + " moved from built-in group '" + builtIn.ResearchId +
+                        "' to '" + winner.ResearchId + "' by " + winner.Source + ".");
+                }
             }
         }
 
-        private static bool HasDefinitionCollision(ResearchCatalogEntry left, ResearchCatalogEntry right)
+        private static int CompareGroupClaims(GroupClaim left, GroupClaim right)
         {
-            return string.Equals(left.GroupSubtype, right.GroupSubtype, StringComparison.OrdinalIgnoreCase) ||
-                   string.Equals(left.UnlockerSubtype, right.UnlockerSubtype, StringComparison.OrdinalIgnoreCase) ||
-                   string.Equals(GetSafeSubtypeToken(left.ResearchId), GetSafeSubtypeToken(right.ResearchId), StringComparison.OrdinalIgnoreCase);
+            var loadCompare = left.LoadIndex.CompareTo(right.LoadIndex);
+            if (loadCompare != 0)
+                return loadCompare;
+            var lineCompare = left.LineNumber.CompareTo(right.LineNumber);
+            if (lineCompare != 0)
+                return lineCompare;
+            return string.Compare(left.Entry.ResearchId, right.Entry.ResearchId, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static int CompareMappingClaims(MappingClaim left, MappingClaim right)
+        {
+            var loadCompare = left.LoadIndex.CompareTo(right.LoadIndex);
+            if (loadCompare != 0)
+                return loadCompare;
+            return left.LineNumber.CompareTo(right.LineNumber);
+        }
+
+        private static bool HasSameWiring(ResearchCatalogEntry left, ResearchCatalogEntry right)
+        {
+            return string.Equals(left.GroupSubtype, right.GroupSubtype, StringComparison.OrdinalIgnoreCase) &&
+                   string.Equals(left.UnlockerSubtype, right.UnlockerSubtype, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static string FormatGroupHistory(List<GroupClaim> history)
+        {
+            var values = new List<string>();
+            for (var i = 0; i < history.Count; i++)
+                values.Add(history[i].Source + " -> '" + history[i].Entry.DisplayName + "'");
+            return string.Join("; ", values.ToArray());
+        }
+
+        private static string FormatMappingHistory(List<MappingClaim> history)
+        {
+            var values = new List<string>();
+            for (var i = 0; i < history.Count; i++)
+                values.Add(history[i].Source + " -> '" + history[i].ResearchId + "'");
+            return string.Join("; ", values.ToArray());
+        }
+
+        private static string FormatGroupOwners(GroupClaim groupOwner, GroupClaim unlockerOwner, GroupClaim itemOwner)
+        {
+            var values = new List<string>();
+            AddUniqueOwner(values, groupOwner);
+            AddUniqueOwner(values, unlockerOwner);
+            AddUniqueOwner(values, itemOwner);
+            return string.Join("; ", values.ToArray());
+        }
+
+        private static void AddUniqueOwner(List<string> values, GroupClaim owner)
+        {
+            if (owner == null)
+                return;
+            var value = "'" + owner.Entry.ResearchId + "' from " + owner.Source;
+            if (!values.Contains(value))
+                values.Add(value);
         }
 
         private static string GetSafeSubtypeToken(string value)
@@ -375,7 +553,6 @@ namespace WkKn
                     lastWasSeparator = true;
                 }
             }
-
             while (result.Length > 0 && result[result.Length - 1] == '_')
                 result.Length--;
             return result.ToString();
@@ -385,7 +562,6 @@ namespace WkKn
         {
             if (string.IsNullOrWhiteSpace(value) || !char.IsLetterOrDigit(value[0]) || !char.IsLetterOrDigit(value[value.Length - 1]))
                 return false;
-
             for (var i = 0; i < value.Length; i++)
             {
                 var c = value[i];
@@ -455,19 +631,6 @@ namespace WkKn
             values.Add(claim);
         }
 
-        private static string FormatSources<T>(List<T> claims) where T : class
-        {
-            var sources = new List<string>();
-            for (var i = 0; i < claims.Count; i++)
-            {
-                var group = claims[i] as GroupClaim;
-                var mapping = claims[i] as MappingClaim;
-                sources.Add(group != null ? group.Source : mapping.Source);
-            }
-            sources.Sort(StringComparer.OrdinalIgnoreCase);
-            return string.Join(", ", sources.ToArray());
-        }
-
         private static string StripComment(string line)
         {
             if (line == null)
@@ -476,14 +639,28 @@ namespace WkKn
             return commentIndex < 0 ? line : line.Substring(0, commentIndex);
         }
 
-        private static void AddInvalidGroupIssue(WorkingKnowledgeLayerAudit audit, string modName, int lineNumber, string reason)
+        private static void AddInvalidGroupIssue(
+            WorkingKnowledgeLayerAudit audit,
+            string modName,
+            int loadIndex,
+            int lineNumber,
+            string reason)
         {
-            audit.AddIssue("Ignored custom group in " + modName + " line " + lineNumber + ": " + reason + ".");
+            audit.AddIssue(
+                "Ignored group declaration in " + modName + " (load position " + (loadIndex + 1) + ") line " +
+                lineNumber + ": " + reason + ".");
         }
 
-        private static void AddInvalidMappingIssue(WorkingKnowledgeLayerAudit audit, string modName, int lineNumber, string reason)
+        private static void AddInvalidMappingIssue(
+            WorkingKnowledgeLayerAudit audit,
+            string modName,
+            int loadIndex,
+            int lineNumber,
+            string reason)
         {
-            audit.AddIssue("Ignored mapping in " + modName + " line " + lineNumber + ": " + reason + ".");
+            audit.AddIssue(
+                "Ignored mapping in " + modName + " (load position " + (loadIndex + 1) + ") line " +
+                lineNumber + ": " + reason + ".");
         }
 
         private static string GetModName(MyObjectBuilder_Checkpoint.ModItem mod)

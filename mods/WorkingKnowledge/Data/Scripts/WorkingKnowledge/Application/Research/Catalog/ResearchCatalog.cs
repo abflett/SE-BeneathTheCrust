@@ -12,13 +12,15 @@ namespace WkKn
         private struct ResearchCatalogMetadata
         {
             public readonly string DisplayName;
+            public readonly string Description;
             public readonly string GroupSubtype;
             public readonly string UnlockerSubtype;
             public readonly SchematicTier Tier;
 
-            public ResearchCatalogMetadata(string displayName, string groupSubtype, string unlockerSubtype, SchematicTier tier)
+            public ResearchCatalogMetadata(string displayName, string description, string groupSubtype, string unlockerSubtype, SchematicTier tier)
             {
                 DisplayName = displayName;
+                Description = description;
                 GroupSubtype = groupSubtype;
                 UnlockerSubtype = unlockerSubtype;
                 Tier = tier;
@@ -80,6 +82,7 @@ namespace WkKn
                     fields[0],
                     fields[1],
                     metadata.DisplayName,
+                    metadata.Description,
                     metadata.GroupSubtype,
                     metadata.UnlockerSubtype,
                     metadata.Tier);
@@ -101,6 +104,7 @@ namespace WkKn
 
                 result[fields[0]] = new ResearchCatalogMetadata(
                     fields[1],
+                    string.Empty,
                     fields[2],
                     fields[3],
                     ParseTier(fields[4]));

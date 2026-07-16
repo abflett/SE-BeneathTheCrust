@@ -22,6 +22,6 @@ Before copying this folder, read `../Docs/editing_generated_layers.md` for a slo
 
 Use `../Docs/schematic_groups.md` to choose schematic IDs.
 
-The battery mapping demonstrates the explicit `override` prefix required to replace a built-in Working Knowledge mapping. Remove it when copying the example unless that remap is intentional.
+The battery mapping demonstrates the optional `override` prefix used to document an intentional replacement of a built-in Working Knowledge mapping. A normal mapping has the same load-order authority.
 
 After editing, run `..\Validate.ps1 -LayerPath .` from this folder's parent toolkit directory.

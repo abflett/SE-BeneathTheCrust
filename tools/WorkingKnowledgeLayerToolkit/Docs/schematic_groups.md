@@ -10,11 +10,13 @@ The toolkit script reads the same list from `Data/schematic_groups.json`.
 
 ```text
 version = 1
-# stable id | display name | tier | research group subtype | unlocker subtype
-example.power_storage | Example Power Storage Schematics | Uncommon | WkKnLayer_Example_power_storage | WkKnUnlocker_Example_power_storage
+# stable id | display name | tier | research group subtype | unlocker subtype | optional description
+example.power_storage | Example Power Storage Schematics | Uncommon | WkKnLayer_Example_power_storage | WkKnUnlocker_Example_power_storage | Schematics for reinforced power storage.
 ```
 
 Valid tiers are `Common`, `Uncommon`, `Rare`, `Prototech`, and `None`. The ID is stored in research and Proficiency saves. Keep the ID, research group subtype, and unlocker subtype unchanged after publishing.
+
+Later layers may redeclare the same ID to change its name, description, tier, or wiring while preserving the persisted identity. The last declaration with valid research-group and unlocker wiring wins and is reported by the audit; an incomplete later declaration is skipped.
 
 Each custom group also needs matching entries in:
 

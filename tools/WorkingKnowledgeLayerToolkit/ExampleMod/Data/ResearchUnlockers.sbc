@@ -6,7 +6,7 @@
       <DisplayName>Example Truss System Schematics</DisplayName>
       <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
       <Public>true</Public><GuiVisible>false</GuiVisible>
-      <Description>Custom Working Knowledge schematic unlocker supplied by a compatibility layer.</Description>
+      <Description>Schematics for the example mod's structural trusses and integrated lighting.</Description>
       <BlockPairName>WkKnUnlocker_Example_truss_system</BlockPairName>
       <CubeSize>Small</CubeSize><BlockTopology>TriangleMesh</BlockTopology>
       <Size x="1" y="1" z="1" /><ModelOffset x="0" y="0" z="0" />
@@ -30,7 +30,7 @@
       <DisplayName>Example Power Storage Schematics</DisplayName>
       <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
       <Public>true</Public><GuiVisible>false</GuiVisible>
-      <Description>Custom Working Knowledge schematic unlocker supplied by a compatibility layer.</Description>
+      <Description>Schematics for the example layer's reassigned large battery.</Description>
       <BlockPairName>WkKnUnlocker_Example_power_storage</BlockPairName>
       <CubeSize>Small</CubeSize><BlockTopology>TriangleMesh</BlockTopology>
       <Size x="1" y="1" z="1" /><ModelOffset x="0" y="0" z="0" />

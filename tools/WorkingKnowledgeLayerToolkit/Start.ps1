@@ -677,12 +677,23 @@ function New-CustomSchematicGroups {
         }
 
         $tier = Select-SchematicTier
+        $descriptionSubject = ($displayName -replace ' Schematics$', '').ToLowerInvariant()
+        $defaultDescription = "Schematics for $descriptionSubject systems supplied by this compatibility layer."
+        $description = Read-Host "Description [$defaultDescription]"
+        if ([string]::IsNullOrWhiteSpace($description)) {
+            $description = $defaultDescription
+        }
+        if ($description.Contains('|') -or $description.Contains('#')) {
+            Write-Host "Descriptions cannot contain '|' or '#'."
+            continue
+        }
         $idToken = Get-SafeSubtypeToken -Value $id
         $groups.Add([pscustomobject]@{
             id = $id
             displayName = $displayName
             tier = $tier
             hint = 'Custom schematic group defined by this layer.'
+            description = $description
             groupSubtype = "WkKnLayer_${namespaceToken}_${idToken}"
             unlockerSubtype = "WkKnUnlocker_${namespaceToken}_${idToken}"
             isCustom = $true
@@ -730,7 +741,7 @@ function Convert-ToCustomGroupLines {
     param([Parameter(Mandatory = $true)][object[]] $Groups)
 
     return (($Groups | ForEach-Object {
-        '{0} | {1} | {2} | {3} | {4}' -f $_.id, $_.displayName, $_.tier, $_.groupSubtype, $_.unlockerSubtype
+        '{0} | {1} | {2} | {3} | {4} | {5}' -f $_.id, $_.displayName, $_.tier, $_.groupSubtype, $_.unlockerSubtype, $_.description
     }) -join [Environment]::NewLine)
 }
 
@@ -759,7 +770,7 @@ function Convert-ToUnlockerEntries {
       <DisplayName>$displayName</DisplayName>
       <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
       <Public>true</Public><GuiVisible>false</GuiVisible>
-      <Description>Custom Working Knowledge schematic unlocker supplied by a compatibility layer.</Description>
+      <Description>$([System.Security.SecurityElement]::Escape($_.description))</Description>
       <BlockPairName>$subtype</BlockPairName>
       <CubeSize>Small</CubeSize><BlockTopology>TriangleMesh</BlockTopology>
       <Size x="1" y="1" z="1" /><ModelOffset x="0" y="0" z="0" />
@@ -788,7 +799,7 @@ function Convert-ToSchematicItemEntries {
     return (($Groups | ForEach-Object {
         $subtype = 'WkKnSchematic_' + (Get-SafeSubtypeToken -Value $_.id)
         $displayName = [System.Security.SecurityElement]::Escape(($_.displayName -replace ' Schematics$', '') + ' Data Schematic')
-        $description = [System.Security.SecurityElement]::Escape("A durable data schematic that can teach $($_.displayName). It is returned after use so it can be shared.")
+        $description = [System.Security.SecurityElement]::Escape("$($_.description) This durable data schematic is returned after use so it can be shared.")
 @"
     <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
       <Id><TypeId>ConsumableItem</TypeId><SubtypeId>$subtype</SubtypeId></Id>
@@ -995,6 +1006,7 @@ Write-TextNoBom -Path (Join-Path $outputPath 'Publishing\changelog.md') -Text (E
 Write-TextNoBom -Path (Join-Path $outputPath 'Publishing\workshop_description_bbcode.txt') -Text (Expand-Template -Text (Read-TextNoBom (Join-Path $TemplateRoot 'Publishing\workshop_description_bbcode.txt.template')) -Tokens $tokens)
 
 Validate-GeneratedLayer -OutputPath $outputPath -Mappings $mappings -Groups $groups -CustomGroups $customGroups
+& (Join-Path $ScriptRoot 'Validate.ps1') -LayerPath $outputPath
 
 Write-Host ''
 Write-Host 'Done.'

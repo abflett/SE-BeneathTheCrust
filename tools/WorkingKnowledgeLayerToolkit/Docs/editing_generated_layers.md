@@ -41,7 +41,7 @@ The other fields can usually stay as generated:
 
 ## ResearchBlocks.sbc
 
-`ResearchBlocks.sbc` tells Space Engineers vanilla progression that these blocks can be unlocked by research groups.
+`ResearchBlocks.sbc` tells Space Engineers vanilla progression that blocks introduced by another mod can be unlocked by research groups. A hand-authored layer that only reassigns blocks already registered by Working Knowledge can rely on the base definitions and omit this file.
 
 It looks more intimidating than it is. Each block is one repeated entry:
 
@@ -121,7 +121,7 @@ structure.industrial
 
 Use [Schematic Groups](schematic_groups.md) to choose valid IDs.
 
-To intentionally replace a built-in mapping, add the explicit prefix:
+To document an intentional replacement of a built-in mapping, add the optional prefix:
 
 ```text
 override BatteryBlock/LargeBlockBatteryBlock = example.power_storage
@@ -136,7 +136,7 @@ version = 1
 example.power_storage | Example Power Storage Schematics | Uncommon | WkKnLayer_Example_power_storage | WkKnUnlocker_Example_power_storage
 ```
 
-The five fields are stable ID, display name, tier, vanilla research-group subtype, and hidden unlocker subtype. The stable ID is stored in saves. Renaming it after publication creates a different schematic and leaves the old saved record inactive.
+The first five fields are stable ID, display name, tier, vanilla research-group subtype, and hidden unlocker subtype. A trailing description is optional. The stable ID is stored in saves. Renaming it after publication creates a different schematic and leaves the old saved record inactive; redefining the same ID in a later layer preserves that identity while replacing its metadata.
 
 Keep the generated `ResearchUnlockerGroups.sbc`, `ResearchUnlockers.sbc`, and `PhysicalItems_ResearchSchematics.sbc` entries synchronized with this metadata.
 
@@ -190,7 +190,7 @@ Data/WorkingKnowledge/block_mappings.txt
   CubeBlock/ExampleIndustrialTruss = structure.industrial
 ```
 
-If a block appears in `block_mappings.txt` but not `ResearchBlocks.sbc`, Working Knowledge can understand the mapping, but vanilla progression may not expose the block correctly.
+If a block from another mod appears in `block_mappings.txt` but not `ResearchBlocks.sbc`, Working Knowledge can understand the mapping, but vanilla progression may not expose the block correctly. Blocks already registered by Working Knowledge do not need a duplicate entry.
 
 If a block appears in `ResearchBlocks.sbc` but not `block_mappings.txt`, vanilla progression knows the block exists, but Working Knowledge does not know which schematic family to use.
 
@@ -202,4 +202,4 @@ The script creates these files for you. Manual editing is mainly for:
 - updating the layer after the source mod changes block IDs
 - building a layer by copying `ExampleMod`
 
-After any edit, run `Validate.ps1 -LayerPath <layer folder>`, then use `/wk admin audit` in a test world.
+After any edit, run `Validate.ps1 -LayerPath <layer folder>`. Pass several paths to preview their load-order winners, then use `/wk admin audit` in a test world.

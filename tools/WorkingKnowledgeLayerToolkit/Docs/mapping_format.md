@@ -21,15 +21,15 @@ InteriorLight/ExampleTrussLight = utility.interior_lighting
 
 The right side may also be an ID from the same layer's versioned `schematic_groups.txt` file.
 
-## Explicit Built-In Overrides
+## Built-In Overrides
 
-A normal mapping cannot replace a built-in Working Knowledge mapping. Prefix an intentional remap with `override`:
+A normal mapping can replace a built-in Working Knowledge assignment. Authors may prefix an intentional remap with `override` to document their intent:
 
 ```text
 override BatteryBlock/LargeBlockBatteryBlock = example.power_storage
 ```
 
-Use the prefix only when the block is already cataloged by Working Knowledge. If multiple loaded layers claim the same block, every claim is rejected so load order cannot silently select a winner.
+The prefix does not change priority. If multiple loaded layers claim the same block, the last valid mapping in mod load order wins. `/wk admin audit` records the assignment history and winner.
 
 ## Block IDs
 
@@ -78,11 +78,13 @@ CubeBlock/ExampleIndustrialTruss = structure.industrial
 
 ## Matching ResearchBlocks.sbc
 
-Every mapped block should also have a matching entry in:
+Every mapped block from another mod should also have a matching entry in:
 
 ```text
 Data/ResearchBlocks.sbc
 ```
+
+If a layer only reassigns blocks already registered by Working Knowledge, the base mod supplies those entries and the layer can omit this file.
 
 Example:
 
@@ -95,4 +97,4 @@ Example:
 
 Leave `UnlockedByGroups` empty. Working Knowledge binds mapped blocks to the correct generated unlocker groups at runtime.
 
-Run `Validate.ps1 -LayerPath <layer folder>` after editing. In game, `/wk admin audit` reports loaded-definition and cross-layer conflicts that an offline validator cannot see.
+Run `Validate.ps1 -LayerPath <layer folder>` after editing. To preview load-order winners, pass paths in the same order as the world mod list: `Validate.ps1 -LayerPath @(<first>, <second>)`. In game, `/wk admin audit` confirms the actual session order and loaded definitions.

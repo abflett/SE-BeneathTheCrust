@@ -1,6 +1,6 @@
 # Working Knowledge custom schematic groups, format version 1.
 # Keep published IDs and definition subtypes stable for save compatibility.
 version = 1
-# id | display name | tier | research group subtype | unlocker subtype
+# id | display name | tier | research group subtype | unlocker subtype | optional description
 
 {{SCHEMATIC_GROUPS}}

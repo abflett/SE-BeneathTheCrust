@@ -23,9 +23,9 @@ Steam should resolve downstream requirements such as Text HUD API through Workin
 
 ## Required Files
 
-A mapping-only layer needs two data files. Existing layers remain valid without changes.
+A mapping-only layer always needs `block_mappings.txt`. It also needs `ResearchBlocks.sbc` when it introduces blocks that Working Knowledge does not already register. Existing layers remain valid without changes.
 
-`Data/ResearchBlocks.sbc` tells vanilla Space Engineers that the target blocks are progression-aware research blocks. Without this file, Working Knowledge can still know the block ID exists in a text mapping, but vanilla progression will not expose the block correctly as part of a research unlock path.
+`Data/ResearchBlocks.sbc` tells vanilla Space Engineers that new target blocks are progression-aware research blocks. A layer that only moves blocks already registered by Working Knowledge can rely on the base definitions and omit this file. A layer for blocks from another mod must include it so vanilla progression can expose those blocks as part of a research unlock path.
 
 `Data/WorkingKnowledge/block_mappings.txt` tells Working Knowledge which schematic family each block should use.
 
@@ -68,22 +68,22 @@ CubeBlock/Arc_Truss_I = structure.industrial
 InteriorLight/Arc_Truss_LF = utility.interior_lighting
 ```
 
-Built-in Working Knowledge mappings are authoritative. Remapping a built-in block requires the explicit `override` prefix:
+Working Knowledge mappings are the base assignments. Any loaded layer can replace them with a normal mapping. The optional `override` prefix documents that the remap is intentional:
 
 ```text
 override CubeBlock/LargeBlockBatteryBlock = example.power_storage
 ```
 
-Do not use `override` for ordinary third-party blocks. If more than one loaded layer claims the same block, Working Knowledge rejects all claims for that block; mod load order never chooses a winner.
+If more than one layer claims the same block, the last valid mapping in Space Engineers mod load order wins. Reversing the two layers reverses the winner. A mapping to an unknown or inactive group is skipped, leaving the previous valid assignment active.
 
 ## Custom Group Format
 
-Custom groups live in `Data/WorkingKnowledge/schematic_groups.txt`. The first content line is the format version, followed by one five-field row per group:
+Custom groups live in `Data/WorkingKnowledge/schematic_groups.txt`. The first content line is the format version, followed by one row per group. A sixth description field is optional:
 
 ```text
 version = 1
-# stable id | display name | tier | research group subtype | unlocker subtype
-example.power_storage | Example Power Storage Schematics | Uncommon | WkKnLayer_Example_power_storage | WkKnUnlocker_Example_power_storage
+# stable id | display name | tier | research group subtype | unlocker subtype | optional description
+example.power_storage | Example Power Storage Schematics | Uncommon | WkKnLayer_Example_power_storage | WkKnUnlocker_Example_power_storage | Schematics for reinforced power-storage systems.
 ```
 
 Valid tiers are `Common`, `Uncommon`, `Rare`, `Prototech`, and `None`. The schematic ID is the persisted research and Proficiency key. Never rename a published ID. The group and unlocker subtypes must match the layer's `.sbc` definitions, must be globally unique, and should also remain stable. Unlocker subtypes must begin with `WkKnUnlocker_`.
@@ -96,17 +96,17 @@ The toolkit generates:
 
 Custom groups automatically flow through the runtime catalog, so mapped blocks appear in research, Proficiency, commands, Pedestal/LCD/HUD displays, fragment rewards, exact schematic rewards, and persisted stores.
 
-## Conflict Rules
+## Load-Order Rules
 
-Working Knowledge rejects ambiguous definitions instead of using load order:
+Working Knowledge records every claim and resolves it in load order:
 
-- A custom ID that duplicates another layer or a built-in ID is inactive.
-- Custom groups with colliding research-group, unlocker, or exact-schematic definition IDs are inactive.
-- Multiple mappings or overrides for one block are all inactive.
-- A normal mapping cannot replace a built-in mapping; only `override` can.
-- Missing group, unlocker, block, or `ResearchBlocks.sbc` definitions leave the affected group or mapping inactive.
+- A later valid declaration of the same group ID replaces its display name, description, tier, and declared wiring. If its required wiring is missing, it is skipped and the previous valid declaration remains active.
+- A later valid block mapping replaces the built-in or earlier layer assignment.
+- If different group IDs share a research-group, unlocker, or exact-schematic definition ID, only the later group remains active.
+- A mapping targeting an unknown, displaced, or incomplete group is skipped and the previous valid block assignment remains.
+- Missing block definitions, or missing `ResearchBlocks.sbc` entries for blocks not already registered by Working Knowledge, prevent that mapping from activating in game.
 
-Run `/wk admin audit` after changing a layer. The same issues are written to `SpaceEngineers.log` and F11 warnings.
+Run `/wk admin audit` after changing layer order. Expected base overrides are notices in the log. Multi-layer winners, risky group redefinitions, skipped claims, and missing definitions are warnings in chat, `SpaceEngineers.log`, and F11.
 
 The `Type/Subtype` value must match the block definition ID after removing the `MyObjectBuilder_` prefix from the type.
 
@@ -127,7 +127,7 @@ CubeBlock/ExampleBlock = structure.industrial
 
 ## ResearchBlocks.sbc Format
 
-Add one `ResearchBlock` entry per supported block:
+Add one `ResearchBlock` entry per supported block that Working Knowledge does not already register:
 
 ```xml
 <ResearchBlock xsi:type="ResearchBlock">
@@ -216,7 +216,7 @@ The toolkit also includes:
 - `Docs/mapping_format.md` - mapping file rules.
 - `Docs/schematic_groups.md` - current schematic group IDs and usage hints.
 - `Data/Template/` - internal templates used by the script.
-- `Validate.ps1` - checks mappings, custom metadata, definition files, and built-in override syntax after generation or manual editing.
+- `Validate.ps1` - checks one layer or an ordered stack, resolves load-order winners, and validates custom metadata and definitions.
 
 Repository-maintenance helpers still exist for batch or scripted work:
 
@@ -247,11 +247,11 @@ InteriorLight/ExampleLight = utility.interior_lighting
 
 ## Validation Checklist
 
-- The layer has `ResearchBlocks.sbc` entries for every mapped block.
+- The layer has `ResearchBlocks.sbc` entries for every mapped block not already registered by Working Knowledge.
 - Every mapped block ID exists in the source block mod.
 - Every schematic ID in `block_mappings.txt` appears in the current schematic ID table.
 - Every custom group has stable metadata plus matching research-group, unlocker, and exact-schematic definitions.
-- Every built-in remap uses the explicit `override` prefix.
+- Intended built-in remaps may use the optional `override` prefix for readability.
 - The layer is loaded with Working Knowledge and the source block mod.
 - In game, the blocks appear under the intended Working Knowledge schematic family in progression.
 - Low-Proficiency construction, repair, grinding, and salvage behavior applies to the layer blocks.

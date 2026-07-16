@@ -7,16 +7,17 @@ namespace WkKn
 {
     public partial class WkKnSession
     {
-        private const int LayerAuditChatIssueLimit = 12;
+        private const int LayerAuditChatEntryLimit = 12;
 
         private void PublishLayerAudit()
         {
             MyLog.Default.WriteLineAndConsole(
                 LogPrefix + " layer audit: " + layerAudit.LayerCount + " layer(s), " +
-                layerAudit.ActiveGroupCount + "/" + layerAudit.Groups.Count + " custom group(s) active, " +
+                layerAudit.ActiveGroupCount + "/" + layerAudit.Groups.Count + " layer group winner(s) active, " +
                 layerAudit.ActiveMappingCount + "/" + layerAudit.MappingCount + " mapping(s) active, " +
-                layerAudit.ActiveOverrideCount + "/" + layerAudit.OverrideCount + " override(s) active, " +
-                layerAudit.Issues.Count + " issue(s).");
+                layerAudit.BuiltInReplacementCount + " built-in assignment(s) replaced, " +
+                layerAudit.ConflictingBlockCount + " multi-layer block conflict(s), " +
+                layerAudit.Issues.Count + " warning(s), " + layerAudit.Notices.Count + " notice(s).");
 
             var modContext = ModContext as MyModContext;
             for (var i = 0; i < layerAudit.Issues.Count; i++)
@@ -26,6 +27,9 @@ namespace WkKn
                 if (modContext != null)
                     MyDefinitionErrors.Add(modContext, message, TErrorSeverity.Warning, false);
             }
+
+            for (var i = 0; i < layerAudit.Notices.Count; i++)
+                MyLog.Default.WriteLineAndConsole(LogPrefix + " layer audit notice: " + layerAudit.Notices[i]);
         }
 
         private void ReportRuntimeLoadFailure(Exception exception)
@@ -45,31 +49,34 @@ namespace WkKn
             {
                 "Runtime: " + (runtimeLoadIssue == null ? "ready" : "load failed"),
                 "Layers found: " + layerAudit.LayerCount,
-                "Custom groups active: " + layerAudit.ActiveGroupCount + " of " + layerAudit.Groups.Count,
+                "Layer group winners active: " + layerAudit.ActiveGroupCount + " of " + layerAudit.Groups.Count,
+                "Built-in groups redefined: " + layerAudit.RedefinedGroupCount,
                 "Mappings active: " + layerAudit.ActiveMappingCount + " of " + layerAudit.MappingCount,
-                "Explicit overrides active: " + layerAudit.ActiveOverrideCount + " of " + layerAudit.OverrideCount,
-                "Issues: " + layerAudit.Issues.Count,
+                "Built-in block assignments replaced: " + layerAudit.BuiltInReplacementCount,
+                "Multi-layer block conflicts: " + layerAudit.ConflictingBlockCount,
+                "Mappings skipped: " + layerAudit.SkippedMappingCount,
+                "Warnings: " + layerAudit.Issues.Count + "; notices: " + layerAudit.Notices.Count,
             };
 
             if (runtimeLoadIssue != null)
                 lines.Add("Runtime issue: " + runtimeLoadIssue);
 
-            if (layerAudit.Issues.Count == 0)
-            {
-                lines.Add("No layer compatibility issues were found.");
-            }
-            else
-            {
-                var shown = Math.Min(LayerAuditChatIssueLimit, layerAudit.Issues.Count);
-                for (var i = 0; i < shown; i++)
-                    lines.Add("- " + layerAudit.Issues[i]);
+            var shown = 0;
+            for (var i = 0; i < layerAudit.Issues.Count && shown < LayerAuditChatEntryLimit; i++, shown++)
+                lines.Add("- Warning: " + layerAudit.Issues[i]);
 
-                if (shown < layerAudit.Issues.Count)
-                {
-                    lines.Add(
-                        (layerAudit.Issues.Count - shown) +
-                        " more issue(s) are available in the F11 mod-error screen and SpaceEngineers.log.");
-                }
+            for (var i = 0; i < layerAudit.Notices.Count && shown < LayerAuditChatEntryLimit; i++, shown++)
+                lines.Add("- Notice: " + layerAudit.Notices[i]);
+
+            if (layerAudit.Issues.Count == 0)
+                lines.Add("No unresolved layer compatibility warnings were found.");
+
+            var remaining = layerAudit.Issues.Count + layerAudit.Notices.Count - shown;
+            if (remaining > 0)
+            {
+                lines.Add(
+                    remaining + " more audit entr" + (remaining == 1 ? "y is" : "ies are") +
+                    " available in SpaceEngineers.log; warnings also appear in F11.");
             }
 
             ShowWkChatSection("Layer Audit", lines);

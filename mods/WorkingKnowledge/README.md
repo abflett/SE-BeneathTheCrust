@@ -97,7 +97,7 @@ The mod currently includes:
 - Admin-configurable tuning through `/wk config`.
 - LCD apps and Research Pedestal workflows.
 - External Working Knowledge Layer support for mapping third-party block mods into schematic families.
-- Versioned custom schematic groups and explicit layer-controlled remapping of built-in blocks.
+- Versioned custom schematic groups and load-order-controlled remapping of built-in or earlier layer assignments.
 - Layer diagnostics in admin chat, the Space Engineers log, and the F11 mod-error screen.
 
 ## Compatibility

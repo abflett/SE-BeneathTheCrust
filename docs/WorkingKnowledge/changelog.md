@@ -8,13 +8,17 @@ Working Knowledge Layers can now extend the research model instead of assigning 
 
 Layers may provide a versioned `Data/WorkingKnowledge/schematic_groups.txt` file. Each custom group declares a stable research ID, player-facing name, fragment tier, vanilla research-group subtype, and hidden unlocker subtype. Blocks mapped to those groups participate in the same research, Proficiency, construction, repair, grinding, salvage, admin command, Research Pedestal, LCD, HUD, Data Fragment, exact Data Schematic, and persistence paths as built-in families.
 
-Built-in block mappings remain authoritative by default. Layer authors can intentionally move one with explicit syntax:
+Working Knowledge now acts as the base assignment layer. Later compatibility layers may move built-in or modded blocks with the normal mapping syntax. The optional `override` prefix remains available to document intent:
 
 ```text
 override Type/Subtype = custom.schematic.id
 ```
 
-Conflict handling does not depend on mod load order. Duplicate custom IDs, colliding definition IDs, or multiple claims for one block are rejected as a set and reported through `/wk admin audit`, `SpaceEngineers.log`, and F11 warnings. Missing unlockers, research groups, research-block entries, exact schematic items, invalid tiers, and incomplete metadata also produce focused audit results.
+When assignments overlap, the last valid mapping in Space Engineers mod load order wins. The audit records the complete assignment history and winning layer. A malformed mapping or incomplete same-ID group declaration is skipped so the previous valid assignment or declaration remains active.
+
+Later layers may also redeclare an existing schematic ID to change its display name, optional description, tier, or vanilla research wiring while preserving the saved research identity. When different IDs collide on a research group, unlocker, or exact Data Schematic definition, the later group owns that definition and the displaced group becomes inactive.
+
+Expected replacements of built-in assignments are audit notices. Multi-layer block claims, group redefinitions, skipped mappings, missing definitions, and risky wiring changes produce warnings through `/wk admin audit`, `SpaceEngineers.log`, and F11.
 
 Existing mapping-only layers remain compatible without regeneration.
 
@@ -22,9 +26,10 @@ The Working Knowledge Layer Toolkit now:
 
 - Creates custom schematic groups with generated vanilla research groups and hidden unlockers.
 - Generates durable exact Data Schematic definitions for custom groups.
-- Includes already-cataloged blocks only when an author chooses explicit overrides.
-- Supports manual editing through documented versioned files.
-- Validates mappings, override syntax, custom metadata, and matching `.sbc` definitions with `Validate.ps1`.
+- Includes already-cataloged blocks when an author chooses to reorganize them and marks generated lines with optional `override` syntax.
+- Supports optional custom-group descriptions and manual editing through documented versioned files.
+- Validates one layer or an ordered stack, reports load-order winners, and checks matching `.sbc` definitions with `Validate.ps1`.
+- Includes automated Hard Armor/Dense Armor ordering, invalid-later-fallback, and same-ID metadata replacement tests.
 - Includes an updated custom-group example while the existing ARC Truss layer continues to validate as a legacy mapping-only layer.
 
 Custom schematic IDs are save contracts. Authors should namespace them and must not rename or reuse them after publishing.

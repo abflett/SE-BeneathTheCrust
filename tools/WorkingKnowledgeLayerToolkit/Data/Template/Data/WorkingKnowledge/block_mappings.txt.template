@@ -1,7 +1,7 @@
 # Working Knowledge Layer mapping file.
 # Format:
 # Type/Subtype = working.knowledge.schematic.id
-# override Type/Subtype = schematic.id  (required to replace a built-in mapping)
+# override Type/Subtype = schematic.id  (optional marker documenting override intent)
 #
 # Source mod: {{SOURCE_MOD_NAME}}
 

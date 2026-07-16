@@ -1,6 +1,6 @@
 # Working Knowledge custom schematic groups, format version 1.
 version = 1
-# id | display name | tier | research group subtype | unlocker subtype
+# id | display name | tier | research group subtype | unlocker subtype | optional description
 
-example.truss_system | Example Truss System Schematics | Common | WkKnLayer_Example_truss_system | WkKnUnlocker_Example_truss_system
-example.power_storage | Example Power Storage Schematics | Uncommon | WkKnLayer_Example_power_storage | WkKnUnlocker_Example_power_storage
+example.truss_system | Example Truss System Schematics | Common | WkKnLayer_Example_truss_system | WkKnUnlocker_Example_truss_system | Schematics for the example mod's structural trusses and integrated lighting.
+example.power_storage | Example Power Storage Schematics | Uncommon | WkKnLayer_Example_power_storage | WkKnUnlocker_Example_power_storage | Schematics for the example layer's reassigned large battery.

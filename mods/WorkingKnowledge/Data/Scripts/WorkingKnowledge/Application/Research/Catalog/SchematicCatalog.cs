@@ -30,12 +30,14 @@ namespace WkKn
             {
                 if (!displayNameByResearchId.ContainsKey(entry.ResearchId))
                     displayNameByResearchId.Add(entry.ResearchId, entry.DisplayName);
+                else
+                    displayNameByResearchId[entry.ResearchId] = entry.DisplayName;
             }
         }
 
         internal void AddMappedBlock(ResearchCatalogEntry entry, MyDefinitionId blockId, MyDefinitionId unlockerId)
         {
-            var target = new ResearchUnlockTarget(entry.ResearchId, entry.DisplayName, unlockerId, entry.Tier);
+            var target = new ResearchUnlockTarget(entry.ResearchId, entry.DisplayName, entry.Description, unlockerId, entry.Tier);
             targetByBlock[blockId] = target;
             AddBlockId(entry.ResearchId, blockId);
 

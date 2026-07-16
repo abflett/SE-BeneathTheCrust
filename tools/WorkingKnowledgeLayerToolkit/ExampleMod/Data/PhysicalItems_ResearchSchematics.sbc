@@ -4,7 +4,7 @@
     <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
       <Id><TypeId>ConsumableItem</TypeId><SubtypeId>WkKnSchematic_example_truss_system</SubtypeId></Id>
       <DisplayName>Example Truss System Data Schematic</DisplayName>
-      <Description>A durable data schematic that teaches Example Truss System Schematics and is returned after use.</Description>
+      <Description>Schematics for the example mod's structural trusses and integrated lighting. This durable data schematic is returned after use.</Description>
       <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
       <Size><X>0.2</X><Y>0.1</Y><Z>0.2</Z></Size><Mass>0.2</Mass><Volume>0.05</Volume>
       <Model>Models\Items\Datapad_Item.mwm</Model><PhysicalMaterial>Metal</PhysicalMaterial>
@@ -14,7 +14,7 @@
     <PhysicalItem xsi:type="MyObjectBuilder_ConsumableItemDefinition">
       <Id><TypeId>ConsumableItem</TypeId><SubtypeId>WkKnSchematic_example_power_storage</SubtypeId></Id>
       <DisplayName>Example Power Storage Data Schematic</DisplayName>
-      <Description>A durable data schematic that teaches Example Power Storage Schematics and is returned after use.</Description>
+      <Description>Schematics for the example layer's reassigned large battery. This durable data schematic is returned after use.</Description>
       <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
       <Size><X>0.2</X><Y>0.1</Y><Z>0.2</Z></Size><Mass>0.2</Mass><Volume>0.05</Volume>
       <Model>Models\Items\Datapad_Item.mwm</Model><PhysicalMaterial>Metal</PhysicalMaterial>

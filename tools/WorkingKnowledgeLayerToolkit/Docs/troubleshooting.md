@@ -58,10 +58,10 @@ Check load order:
 2. The source block mod
 3. The generated layer
 
-Also confirm every block has both:
+Also confirm every block has:
 
-- a `Data/ResearchBlocks.sbc` entry
 - a `Data/WorkingKnowledge/block_mappings.txt` mapping
+- a `Data/ResearchBlocks.sbc` entry if Working Knowledge does not already register that block
 
 In the loaded world, an admin can run:
 
@@ -69,7 +69,7 @@ In the loaded world, an admin can run:
 /wk admin audit
 ```
 
-The command reports missing blocks, missing research entries, malformed mappings/groups, duplicate IDs, definition collisions, conflicting block claims, missing custom definitions, and invalid built-in remaps. More than twelve issues are available in `SpaceEngineers.log` and the F11 mod-error screen.
+The command reports missing blocks, missing research entries, malformed mappings/groups, load-order winners, definition collisions, skipped claims, and missing custom definitions. Expected built-in replacements are log notices; resolved multi-layer conflicts and invalid claims also appear as warnings in F11.
 
 Run the offline validator first:
 
@@ -79,7 +79,7 @@ Run the offline validator first:
 
 ## A Custom Group Is Inactive
 
-Confirm `schematic_groups.txt` begins with `version = 1`, has five pipe-separated fields, and uses a unique stable ID. Its research group, `WkKnUnlocker_...` block, and exact Data Schematic definitions must exist and match the declared subtypes. Cross-layer collisions are rejected rather than resolved by load order.
+Confirm `schematic_groups.txt` begins with `version = 1`, has five pipe-separated fields plus an optional description, and uses a stable ID. Its research group, `WkKnUnlocker_...` block, and exact Data Schematic definitions must exist and match the declared subtypes. When different IDs collide on those definitions, the later group owns them and the earlier group becomes inactive.
 
 ## The Wrong Blocks Are Grouped Together
 
