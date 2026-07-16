@@ -422,14 +422,15 @@ function Get-BlockSetCandidates {
     $workshopTitles = Get-SteamWorkshopTitles -PublishedFileIds $workshopIds
 
     $sets = [System.Collections.Generic.List[object]]::new()
-    foreach ($candidateRoot in $candidateRoots) {
+    for ($candidateIndex = 0; $candidateIndex -lt $candidateRoots.Count; $candidateIndex++) {
+        $candidateRoot = $candidateRoots[$candidateIndex]
         $name = Get-ModDisplayName -Root $candidateRoot -WorkshopTitles $workshopTitles
         if (Test-IsWorkingKnowledgeSourceMod -Root $candidateRoot -DisplayName $name) {
-            Write-Host ("Skipping block set: {0} - this is Working Knowledge itself." -f $name)
             continue
         }
 
-        Write-Host ("Scanning block set: {0}" -f $name)
+        $percentComplete = [int](($candidateIndex + 1) * 100 / [Math]::Max(1, $candidateRoots.Count))
+        Write-Progress -Activity 'Scanning Space Engineers block sets' -Status $name -PercentComplete $percentComplete
         $allBlocks = @(Get-BlockDefinitions -Root $candidateRoot)
         if ($allBlocks.Count -eq 0) {
             continue
@@ -437,12 +438,6 @@ function Get-BlockSetCandidates {
 
         $blocks = @($allBlocks | Where-Object { -not $KnownWorkingKnowledgeBlockKeys.Contains($_.Key) })
         $coveredBlockCount = $allBlocks.Count - $blocks.Count
-        if ($blocks.Count -eq 0) {
-            Write-Host ("Found block set: {0} - all {1} public blocks are already covered and can be explicitly remapped." -f $name, $allBlocks.Count)
-        }
-        if ($coveredBlockCount -gt 0) {
-            Write-Host ("Ignoring {0} block(s) already covered by Working Knowledge." -f $coveredBlockCount)
-        }
 
         $sets.Add([pscustomobject]@{
             Name = $name
@@ -454,6 +449,7 @@ function Get-BlockSetCandidates {
             CoveredBlockCount = $coveredBlockCount
         }) | Out-Null
     }
+    Write-Progress -Activity 'Scanning Space Engineers block sets' -Completed
 
     return @($sets | Sort-Object Name)
 }
@@ -547,18 +543,40 @@ function Select-Path {
     }
 }
 
+function Get-VisibleBlockSets {
+    param(
+        [Parameter(Mandatory = $true)][object[]] $Sets,
+        [Parameter(Mandatory = $true)][bool] $IncludeCovered
+    )
+
+    if ($IncludeCovered) {
+        return @($Sets)
+    }
+
+    return @($Sets | Where-Object { $_.BlockCount -gt 0 })
+}
+
 function Select-BlockSets {
-    param([Parameter(Mandatory = $true)][object[]] $Sets)
+    param(
+        [Parameter(Mandatory = $true)][object[]] $Sets,
+        [switch] $IncludeCovered
+    )
 
     Write-Host ''
     Write-Host 'Select which block sets to include in this layer:'
     for ($i = 0; $i -lt $Sets.Count; $i++) {
-        $coverageNote = if ($Sets[$i].CoveredBlockCount -gt 0) { ", ignored $($Sets[$i].CoveredBlockCount) already covered" } else { '' }
-        Write-Host ("[{0}] {1} - contains {2} new public blocks{3}" -f ($i + 1), $Sets[$i].Name, $Sets[$i].BlockCount, $coverageNote)
+        if ($IncludeCovered) {
+            Write-Host ("[{0}] {1} - contains {2} public blocks ({3} new, {4} already covered)" -f
+                ($i + 1), $Sets[$i].Name, $Sets[$i].PublicBlockCount, $Sets[$i].BlockCount, $Sets[$i].CoveredBlockCount)
+        }
+        else {
+            Write-Host ("[{0}] {1} - contains {2} new public blocks" -f ($i + 1), $Sets[$i].Name, $Sets[$i].BlockCount)
+        }
         Write-Host ("    {0}" -f $Sets[$i].Path)
     }
     $allOption = $Sets.Count + 1
-    Write-Host ("[{0}] Select all block sets and all blocks" -f $allOption)
+    $allLabel = if ($IncludeCovered) { 'Select all shown block sets and all public blocks' } else { 'Select all shown block sets' }
+    Write-Host ("[{0}] {1}" -f $allOption, $allLabel)
 
     $defaultSelection = if ($Sets.Count -eq 1) { '1' } else { [string] $allOption }
 
@@ -869,6 +887,20 @@ if ($SelfTest) {
         -Mappings $exampleMappings `
         -Groups $exampleGroups `
         -CustomGroups $oneCustomGroup
+
+    $visibilityFixtures = @(
+        [pscustomobject]@{ Name = 'New'; BlockCount = 2; CoveredBlockCount = 0 },
+        [pscustomobject]@{ Name = 'CoveredOnly'; BlockCount = 0; CoveredBlockCount = 3 },
+        [pscustomobject]@{ Name = 'Mixed'; BlockCount = 4; CoveredBlockCount = 1 }
+    )
+    $defaultVisible = @(Get-VisibleBlockSets -Sets $visibilityFixtures -IncludeCovered $false)
+    $advancedVisible = @(Get-VisibleBlockSets -Sets $visibilityFixtures -IncludeCovered $true)
+    if ($defaultVisible.Count -ne 2 -or @($defaultVisible | Where-Object { $_.Name -eq 'CoveredOnly' }).Count -ne 0) {
+        throw 'Toolkit self-test failed: default block-set selection did not hide covered-only sets.'
+    }
+    if ($advancedVisible.Count -ne 3) {
+        throw 'Toolkit self-test failed: explicit remapping did not reveal covered-only sets.'
+    }
     Write-Host 'Working Knowledge Layer Toolkit generator self-test passed.'
     return
 }
@@ -888,10 +920,27 @@ Write-Host ''
 Write-Host 'Scanning for block sets. This can take a moment for large Workshop folders.'
 $blockSets = @(Get-BlockSetCandidates -ScanRoot $scanRoot -KnownWorkingKnowledgeBlockKeys $knownWorkingKnowledgeBlockKeys)
 if ($blockSets.Count -eq 0) {
-    throw 'No block sets with new public cube block definitions were found in the selected folder.'
+    throw 'No block sets with public cube block definitions were found in the selected folder.'
 }
 
-$selectedSets = @(Select-BlockSets -Sets $blockSets)
+$coveredSetCount = @($blockSets | Where-Object { $_.CoveredBlockCount -gt 0 }).Count
+$coveredOnlySetCount = @($blockSets | Where-Object { $_.BlockCount -eq 0 -and $_.CoveredBlockCount -gt 0 }).Count
+$useOverrides = $false
+if ($coveredSetCount -gt 0) {
+    Write-Host ''
+    if ($coveredOnlySetCount -gt 0) {
+        Write-Host ("{0} block set(s) contain only blocks already covered by Working Knowledge and are hidden by default." -f $coveredOnlySetCount)
+    }
+    $includeCovered = Read-Host 'Show and include already-covered blocks for explicit remapping? [y/N]'
+    $useOverrides = $includeCovered -match '^[Yy]'
+}
+
+$visibleBlockSets = @(Get-VisibleBlockSets -Sets $blockSets -IncludeCovered $useOverrides)
+if ($visibleBlockSets.Count -eq 0) {
+    throw 'No block sets with new public blocks remain. Run again and enable explicit remapping to include already-covered blocks.'
+}
+
+$selectedSets = @(Select-BlockSets -Sets $visibleBlockSets -IncludeCovered:$useOverrides)
 $sourceModName = if ($selectedSets.Count -eq 1) {
     [string] $selectedSets[0].Name
 }
@@ -902,8 +951,6 @@ else {
     'Selected Space Engineers block mods'
 }
 
-$includeCovered = Read-Host 'Include blocks already mapped by Working Knowledge as explicit overrides? [y/N]'
-$useOverrides = $includeCovered -match '^[Yy]'
 $blocks = if ($useOverrides) {
     @($selectedSets | ForEach-Object { $_.AllBlocks } | Sort-Object Key -Unique)
 }
@@ -911,7 +958,7 @@ else {
     @($selectedSets | ForEach-Object { $_.Blocks } | Sort-Object Key -Unique)
 }
 if ($blocks.Count -eq 0) {
-    throw 'The selected sets contain no new blocks. Run again and enable explicit overrides to remap built-in blocks.'
+    throw 'The selected sets contain no blocks for the chosen mapping mode.'
 }
 Write-Host ''
 Write-Host ("Selected {0} block set(s), containing {1} unique public block definitions." -f $selectedSets.Count, $blocks.Count)

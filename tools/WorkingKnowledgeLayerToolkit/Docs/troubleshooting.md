@@ -42,7 +42,7 @@ It also skips unplaceable support definitions that are hidden from the G-menu, m
 
 If you select a parent folder, the toolkit only lists child mod folders that contain public cube block definitions. Mods with scripts, research mappings, blueprints, or non-block content but no public block definitions will not appear in the block-set list.
 
-The toolkit skips Working Knowledge itself. It marks block IDs already covered by Working Knowledge and can include them when you choose explicit overrides. Mods that only replace vanilla definitions therefore appear with zero new blocks but can still be selected for remapping.
+The toolkit skips Working Knowledge itself. It marks block IDs already covered by Working Knowledge and hides covered-only block sets by default. Choose the explicit-remapping option after scanning to reveal those sets and include their covered blocks with the optional `override` marker.
 
 ## The Mod List Uses Numbers Instead Of Names
 
