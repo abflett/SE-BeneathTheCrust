@@ -1,4 +1,0 @@
-# Different save ID, deliberately reused vanilla research wiring.
-version = 1
-
-test.arc.shared_wiring | Shared Wiring Truss Schematics | Uncommon | WkKnLayer_ARCTruss_framework | WkKnUnlocker_ARCTruss_framework | Intentional wiring collision used to verify priority and safe fallback behavior.

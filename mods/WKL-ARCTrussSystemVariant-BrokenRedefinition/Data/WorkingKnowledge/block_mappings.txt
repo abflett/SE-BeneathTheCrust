@@ -1,2 +1,0 @@
-# This mapping remains usable through the lower-priority valid declaration.
-CubeBlock/TrussPillarT = arc.truss_framework

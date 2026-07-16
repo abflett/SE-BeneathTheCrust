@@ -1,4 +1,0 @@
-# Intentionally invalid: these group and unlocker subtype IDs do not exist.
-version = 1
-
-arc.truss_framework | Broken Truss Override Schematics | Rare | WkKnLayer_ARCTruss_missing | WkKnUnlocker_ARCTruss_missing | Intentionally incomplete replacement used to test fallback to the highest valid declaration.

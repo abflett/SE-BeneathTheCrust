@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ModItem>
-  <Name>WKL ARC Variant - Broken Redefinition</Name>
-  <Description>Intentional test layer: redeclares the ARC truss group with missing research wiring.</Description>
-  <Version>1.0.0</Version>
-  <Makers>Beneath the Crust</Makers>
-  <IncludeInExport>True</IncludeInExport>
-</ModItem>

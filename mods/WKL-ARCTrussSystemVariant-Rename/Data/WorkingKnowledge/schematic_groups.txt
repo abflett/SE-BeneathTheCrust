@@ -1,3 +1,0 @@
-version = 1
-
-arc.truss_framework | Advanced Truss Network Schematics | Rare | WkKnLayer_ARCTruss_framework | WkKnUnlocker_ARCTruss_framework | Advanced lattice analysis and reinforced truss-network fabrication.
