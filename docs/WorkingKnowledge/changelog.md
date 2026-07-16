@@ -20,6 +20,8 @@ Later layers may also redeclare an existing schematic ID to change its display n
 
 Expected replacements of built-in assignments are audit notices. Multi-layer block claims, group redefinitions, skipped mappings, missing definitions, and risky wiring changes produce warnings through `/wk admin audit`, `SpaceEngineers.log`, and F11.
 
+The in-game audit is split into colored, multiline sections for runtime information, schematic groups, mapping totals, grouped block moves, warnings, and runtime errors. Built-in replacements are condensed under headings such as `Moved to Truss Framework Schematics`, grouped by their original schematic family.
+
 Existing mapping-only layers remain compatible without regeneration.
 
 The Working Knowledge Layer Toolkit now:
@@ -30,7 +32,7 @@ The Working Knowledge Layer Toolkit now:
 - Supports optional custom-group descriptions and manual editing through documented versioned files.
 - Validates one layer or an ordered stack, reports load-order winners, and checks matching `.sbc` definitions with `Validate.ps1`.
 - Includes automated Hard Armor/Dense Armor ordering, invalid-later-fallback, and same-ID metadata replacement tests.
-- Includes an updated custom-group example while the existing ARC Truss layer continues to validate as a legacy mapping-only layer.
+- Includes an updated custom-group example and an ARC Truss layer that exercises a real custom group plus automatic reassignment of vanilla truss blocks without `override` markers.
 
 Custom schematic IDs are save contracts. Authors should namespace them and must not rename or reuse them after publishing.
 

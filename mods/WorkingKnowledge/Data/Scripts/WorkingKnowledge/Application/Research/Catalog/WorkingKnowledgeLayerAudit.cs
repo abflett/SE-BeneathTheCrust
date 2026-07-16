@@ -3,6 +3,32 @@ using System.Collections.Generic;
 
 namespace WkKn
 {
+    internal sealed class WorkingKnowledgeLayerMove
+    {
+        internal readonly string BlockKey;
+        internal readonly string FromResearchId;
+        internal readonly string FromDisplayName;
+        internal readonly string ToResearchId;
+        internal readonly string ToDisplayName;
+        internal readonly string Source;
+
+        internal WorkingKnowledgeLayerMove(
+            string blockKey,
+            string fromResearchId,
+            string fromDisplayName,
+            string toResearchId,
+            string toDisplayName,
+            string source)
+        {
+            BlockKey = blockKey;
+            FromResearchId = fromResearchId;
+            FromDisplayName = fromDisplayName;
+            ToResearchId = toResearchId;
+            ToDisplayName = toDisplayName;
+            Source = source;
+        }
+    }
+
     internal sealed class WorkingKnowledgeLayerMapping
     {
         internal readonly ResearchCatalogEntry Entry;
@@ -41,6 +67,7 @@ namespace WkKn
             new Dictionary<string, ResearchCatalogEntry>(StringComparer.OrdinalIgnoreCase);
         private readonly List<string> issues = new List<string>();
         private readonly List<string> notices = new List<string>();
+        private readonly List<WorkingKnowledgeLayerMove> moves = new List<WorkingKnowledgeLayerMove>();
 
         internal IDictionary<string, WorkingKnowledgeLayerMapping> Mappings
         {
@@ -67,6 +94,11 @@ namespace WkKn
             get { return notices; }
         }
 
+        internal IList<WorkingKnowledgeLayerMove> Moves
+        {
+            get { return moves; }
+        }
+
         internal int LayerCount { get; set; }
         internal int DeclaredGroupCount { get; set; }
         internal int ActiveGroupCount { get; set; }
@@ -91,10 +123,26 @@ namespace WkKn
                 notices.Add(message);
         }
 
+        internal void AddMove(WorkingKnowledgeLayerMove move)
+        {
+            if (move != null)
+                moves.Add(move);
+        }
+
         internal void SortMessages()
         {
             issues.Sort(StringComparer.OrdinalIgnoreCase);
             notices.Sort(StringComparer.OrdinalIgnoreCase);
+            moves.Sort((left, right) =>
+            {
+                var destinationCompare = string.Compare(left.ToDisplayName, right.ToDisplayName, StringComparison.OrdinalIgnoreCase);
+                if (destinationCompare != 0)
+                    return destinationCompare;
+                var sourceCompare = string.Compare(left.FromDisplayName, right.FromDisplayName, StringComparison.OrdinalIgnoreCase);
+                if (sourceCompare != 0)
+                    return sourceCompare;
+                return string.Compare(left.BlockKey, right.BlockKey, StringComparison.OrdinalIgnoreCase);
+            });
         }
     }
 }

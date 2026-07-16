@@ -7,7 +7,8 @@ namespace WkKn
 {
     public partial class WkKnSession
     {
-        private const int LayerAuditChatEntryLimit = 12;
+        private const int LayerAuditWarningEntryLimit = 12;
+        private const int LayerAuditMoveEntryLimitPerDestination = 40;
 
         private void PublishLayerAudit()
         {
@@ -45,41 +46,126 @@ namespace WkKn
 
         private void ShowLayerAudit()
         {
-            var lines = new List<string>
-            {
+            ShowWkChatSection(
+                "Layer Audit",
                 "Runtime: " + (runtimeLoadIssue == null ? "ready" : "load failed"),
                 "Layers found: " + layerAudit.LayerCount,
-                "Layer group winners active: " + layerAudit.ActiveGroupCount + " of " + layerAudit.Groups.Count,
-                "Built-in groups redefined: " + layerAudit.RedefinedGroupCount,
-                "Mappings active: " + layerAudit.ActiveMappingCount + " of " + layerAudit.MappingCount,
-                "Built-in block assignments replaced: " + layerAudit.BuiltInReplacementCount,
-                "Multi-layer block conflicts: " + layerAudit.ConflictingBlockCount,
-                "Mappings skipped: " + layerAudit.SkippedMappingCount,
-                "Warnings: " + layerAudit.Issues.Count + "; notices: " + layerAudit.Notices.Count,
-            };
+                "Warnings: " + layerAudit.Issues.Count + "; information notices: " + layerAudit.Notices.Count);
 
-            if (runtimeLoadIssue != null)
-                lines.Add("Runtime issue: " + runtimeLoadIssue);
+            ShowLayerAuditGroups();
+            ShowLayerAuditMappings();
+            ShowLayerAuditMoves();
 
-            var shown = 0;
-            for (var i = 0; i < layerAudit.Issues.Count && shown < LayerAuditChatEntryLimit; i++, shown++)
-                lines.Add("- Warning: " + layerAudit.Issues[i]);
-
-            for (var i = 0; i < layerAudit.Notices.Count && shown < LayerAuditChatEntryLimit; i++, shown++)
-                lines.Add("- Notice: " + layerAudit.Notices[i]);
-
-            if (layerAudit.Issues.Count == 0)
-                lines.Add("No unresolved layer compatibility warnings were found.");
-
-            var remaining = layerAudit.Issues.Count + layerAudit.Notices.Count - shown;
-            if (remaining > 0)
+            if (layerAudit.Issues.Count > 0)
             {
-                lines.Add(
-                    remaining + " more audit entr" + (remaining == 1 ? "y is" : "ies are") +
-                    " available in SpaceEngineers.log; warnings also appear in F11.");
+                var warningLines = new List<string>();
+                var shown = Math.Min(layerAudit.Issues.Count, LayerAuditWarningEntryLimit);
+                for (var i = 0; i < shown; i++)
+                    warningLines.Add("- " + layerAudit.Issues[i]);
+
+                var remaining = layerAudit.Issues.Count - shown;
+                if (remaining > 0)
+                    warningLines.Add(remaining + " more warning" + (remaining == 1 ? " is" : "s are") + " available in SpaceEngineers.log and F11.");
+
+                ShowWkColoredChatSection("Audit Warnings", warningLines, WkChatCautionColor);
             }
 
-            ShowWkChatSection("Layer Audit", lines);
+            if (runtimeLoadIssue != null)
+                ShowWkColoredChatSection("Audit Error", new[] { runtimeLoadIssue }, WkChatWarningColor);
+        }
+
+        private void ShowLayerAuditGroups()
+        {
+            var lines = new List<string>
+            {
+                "Active layer groups: " + layerAudit.ActiveGroupCount + " of " + layerAudit.Groups.Count,
+                "Built-in groups redefined: " + layerAudit.RedefinedGroupCount,
+            };
+
+            var groups = new List<WorkingKnowledgeLayerGroup>(layerAudit.Groups.Values);
+            groups.Sort((left, right) => string.Compare(left.Entry.DisplayName, right.Entry.DisplayName, StringComparison.OrdinalIgnoreCase));
+            for (var i = 0; i < groups.Count; i++)
+            {
+                var group = groups[i];
+                var active = layerAudit.ResolvedGroups.ContainsKey(group.Entry.ResearchId);
+                lines.Add(
+                    "- [" + group.Entry.Tier + "] " + group.Entry.DisplayName +
+                    " (" + group.Entry.ResearchId + ") - " + (active ? "active" : "inactive"));
+            }
+
+            if (groups.Count == 0)
+                lines.Add("- No layer-defined schematic groups.");
+
+            ShowWkColoredChatSection("Schematic Groups", lines, WkChatResearchColor);
+        }
+
+        private void ShowLayerAuditMappings()
+        {
+            ShowWkColoredChatSection(
+                "Block Mappings",
+                new[]
+                {
+                    "Active: " + layerAudit.ActiveMappingCount + " of " + layerAudit.MappingCount,
+                    "Moved from built-in groups: " + layerAudit.BuiltInReplacementCount,
+                    "Multi-layer conflicts: " + layerAudit.ConflictingBlockCount,
+                    "Skipped: " + layerAudit.SkippedMappingCount,
+                },
+                WkChatProficiencyColor);
+        }
+
+        private void ShowLayerAuditMoves()
+        {
+            var movesByDestination = new Dictionary<string, List<WorkingKnowledgeLayerMove>>(StringComparer.OrdinalIgnoreCase);
+            for (var i = 0; i < layerAudit.Moves.Count; i++)
+            {
+                var move = layerAudit.Moves[i];
+                List<WorkingKnowledgeLayerMove> destinationMoves;
+                if (!movesByDestination.TryGetValue(move.ToDisplayName, out destinationMoves))
+                {
+                    destinationMoves = new List<WorkingKnowledgeLayerMove>();
+                    movesByDestination.Add(move.ToDisplayName, destinationMoves);
+                }
+                destinationMoves.Add(move);
+            }
+
+            var destinations = new List<string>(movesByDestination.Keys);
+            destinations.Sort(StringComparer.OrdinalIgnoreCase);
+            for (var i = 0; i < destinations.Count; i++)
+                ShowLayerAuditMoveDestination(destinations[i], movesByDestination[destinations[i]]);
+        }
+
+        private void ShowLayerAuditMoveDestination(string destination, List<WorkingKnowledgeLayerMove> moves)
+        {
+            var movesBySource = new Dictionary<string, List<WorkingKnowledgeLayerMove>>(StringComparer.OrdinalIgnoreCase);
+            for (var i = 0; i < moves.Count; i++)
+            {
+                List<WorkingKnowledgeLayerMove> sourceMoves;
+                if (!movesBySource.TryGetValue(moves[i].FromDisplayName, out sourceMoves))
+                {
+                    sourceMoves = new List<WorkingKnowledgeLayerMove>();
+                    movesBySource.Add(moves[i].FromDisplayName, sourceMoves);
+                }
+                sourceMoves.Add(moves[i]);
+            }
+
+            var lines = new List<string>();
+            var sources = new List<string>(movesBySource.Keys);
+            sources.Sort(StringComparer.OrdinalIgnoreCase);
+            var shown = 0;
+            for (var i = 0; i < sources.Count && shown < LayerAuditMoveEntryLimitPerDestination; i++)
+            {
+                var sourceMoves = movesBySource[sources[i]];
+                sourceMoves.Sort((left, right) => string.Compare(left.BlockKey, right.BlockKey, StringComparison.OrdinalIgnoreCase));
+                lines.Add("From " + sources[i] + " (" + sourceMoves.Count + "):");
+                for (var j = 0; j < sourceMoves.Count && shown < LayerAuditMoveEntryLimitPerDestination; j++, shown++)
+                    lines.Add("- " + sourceMoves[j].BlockKey);
+            }
+
+            var remaining = moves.Count - shown;
+            if (remaining > 0)
+                lines.Add("- " + remaining + " more moved block" + (remaining == 1 ? "" : "s") + " listed in SpaceEngineers.log.");
+
+            ShowWkColoredChatSection("Moved to " + destination, lines, WkChatProgressHeaderColor);
         }
     }
 }

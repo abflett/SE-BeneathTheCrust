@@ -469,6 +469,13 @@ namespace WkKn
                     !string.Equals(builtIn.ResearchId, winner.ResearchId, StringComparison.OrdinalIgnoreCase))
                 {
                     audit.BuiltInReplacementCount++;
+                    audit.AddMove(new WorkingKnowledgeLayerMove(
+                        winner.BlockKey,
+                        builtIn.ResearchId,
+                        builtIn.DisplayName,
+                        winner.ResearchId,
+                        metadata.DisplayName,
+                        winner.Source));
                     audit.AddNotice(
                         winner.BlockKey + " moved from built-in group '" + builtIn.ResearchId +
                         "' to '" + winner.ResearchId + "' by " + winner.Source + ".");

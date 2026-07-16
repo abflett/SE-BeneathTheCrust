@@ -18,6 +18,7 @@ namespace WkKn
         private static readonly Color WkChatResearchColor = new Color(140, 220, 95);
         private static readonly Color WkChatProficiencyColor = new Color(95, 205, 230);
         private static readonly Color WkChatProgressHeaderColor = new Color(80, 215, 155);
+        private static readonly Color WkChatCautionColor = new Color(255, 170, 70);
         private static readonly Color WkChatWarningColor = new Color(235, 92, 80);
         private static readonly string[] ResearchCompletionMessages =
         {
@@ -43,6 +44,11 @@ namespace WkKn
 
         private void ShowWkChatSection(string heading, IEnumerable<string> lines)
         {
+            ShowWkColoredChatSection(heading, lines, WkChatInfoColor);
+        }
+
+        private void ShowWkColoredChatSection(string heading, IEnumerable<string> lines, Color color)
+        {
             if (string.IsNullOrWhiteSpace(heading) || lines == null)
                 return;
 
@@ -56,7 +62,7 @@ namespace WkKn
                 builder.Append(line);
             }
 
-            ShowWkColoredChatMessage(heading, builder.Length == 0 ? " " : builder.ToString(), WkChatInfoColor);
+            ShowWkColoredChatMessage(heading, builder.Length == 0 ? " " : builder.ToString(), color);
         }
 
         private void ShowWkWarningMessage(string message)
