@@ -8,7 +8,9 @@ Layers can also reorganize blocks already covered by Working Knowledge. When ass
 
 ## Download And Requirements
 
-Download the latest `WorkingKnowledgeLayerToolkit-<version>.zip` from the [SE-BeneathTheCrust releases page](https://github.com/abflett/SE-BeneathTheCrust/releases), then unzip it anywhere convenient.
+Download [WorkingKnowledgeLayerToolkit-1.1.0.zip](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.1.0/WorkingKnowledgeLayerToolkit-1.1.0.zip), then unzip it anywhere convenient.
+
+Use the [SE-BeneathTheCrust releases page](https://github.com/abflett/SE-BeneathTheCrust/releases) for release notes, older versions, and future updates.
 
 You need:
 

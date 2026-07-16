@@ -4,7 +4,7 @@ Working Knowledge layers are small compatibility mods that assign blocks from an
 
 Use a layer when a block mod should participate in Working Knowledge research, Proficiency, welding, grinding, repair, and salvage behavior without adding those block definitions directly to the main Working Knowledge catalog.
 
-The user-facing package for creating layers is the [Working Knowledge Layer Toolkit](../../tools/WorkingKnowledgeLayerToolkit/README.md). It is designed to be zipped and released as a standalone download so users can run an interactive script, copy an example mod, or read the included docs without needing this repository.
+The user-facing package for creating layers is the [Working Knowledge Layer Toolkit](../../tools/WorkingKnowledgeLayerToolkit/README.md). Users can [download version 1.1.0 directly](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.1.0/WorkingKnowledgeLayerToolkit-1.1.0.zip) or visit the [releases page](https://github.com/abflett/SE-BeneathTheCrust/releases) for release notes and future versions. The standalone zip includes the interactive script, example mod, validator, and documentation; users do not need to clone this repository.
 
 Maintainers publishing a new toolkit archive should follow the separate [toolkit release checklist](toolkit_release.md).
 

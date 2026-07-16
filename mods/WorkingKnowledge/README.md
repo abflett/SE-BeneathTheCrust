@@ -108,7 +108,7 @@ The mod currently includes:
 - Creative worlds and admin creative-mode testing are allowed to bypass schematic locks.
 - Text HUD API is used for the optional, player-configurable HUD progress overlay; core progression still falls back to chat and notifications if the framework is unavailable.
 - Other progression or research-overhaul mods are likely to conflict.
-- Public modded blocks without a Working Knowledge mapping remain outside its research and Proficiency systems. Use a compatibility layer when those blocks should participate.
+- Public modded blocks without a Working Knowledge mapping remain outside its research and Proficiency systems. Use a compatibility layer when those blocks should participate; the ready-to-use [Working Knowledge Layer Toolkit 1.1.0](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.1.0/WorkingKnowledgeLayerToolkit-1.1.0.zip) can generate one.
 
 ## Project Docs
 
@@ -116,6 +116,7 @@ The mod currently includes:
 - [Working Knowledge changelog](../../docs/WorkingKnowledge/changelog.md)
 - [Working Knowledge configuration](../../docs/WorkingKnowledge/configuration.md)
 - [Working Knowledge implementation reference](../../docs/WorkingKnowledge/implementation.md)
+- [Working Knowledge layer authoring](../../docs/WorkingKnowledge/layer_authoring.md)
 - [Working Knowledge inspirations and attribution](../../docs/WorkingKnowledge/inspirations.md)
 - [Working Knowledge release roadmap](../../docs/WorkingKnowledge/release_roadmap.md)
 - [Working Knowledge Workshop description](../../docs/WorkingKnowledge/workshop_description_bbcode.txt)

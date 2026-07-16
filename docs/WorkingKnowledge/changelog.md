@@ -39,6 +39,8 @@ The Working Knowledge Layer Toolkit now:
 
 Custom schematic IDs are save contracts. Authors should namespace them and must not rename or reuse them after publishing.
 
+The matching [Working Knowledge Layer Toolkit 1.1.0 release](https://github.com/abflett/SE-BeneathTheCrust/releases/tag/v1.1.0) is now public. Download the ready-to-use [WorkingKnowledgeLayerToolkit-1.1.0.zip](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.1.0/WorkingKnowledgeLayerToolkit-1.1.0.zip) without cloning the repository.
+
 ## 0.12.0 - Layer Diagnostics And Runtime Cleanup
 
 Added diagnostics for Working Knowledge compatibility layers without changing the layer format or existing layer behavior.

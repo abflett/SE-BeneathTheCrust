@@ -27,7 +27,7 @@ Planning scratchpads and generated draft JSON files should not live here once th
 
 - [WKL - ARC Truss System changelog](WKL-ARCTrussSystem/changelog.md) - public-facing release notes for the ARC Truss compatibility layer.
 - [WKL - ARC Truss System Workshop description](WKL-ARCTrussSystem/workshop_description_bbcode.txt) - public-facing Steam BBCode description.
-- [Working Knowledge Layer Toolkit](../tools/WorkingKnowledgeLayerToolkit/README.md) - standalone toolkit for generating or hand-authoring compatibility layers.
+- [Working Knowledge Layer Toolkit](../tools/WorkingKnowledgeLayerToolkit/README.md) - source documentation for generating or hand-authoring compatibility layers. The ready-to-use [version 1.1.0 toolkit zip](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.1.0/WorkingKnowledgeLayerToolkit-1.1.0.zip) is available from GitHub Releases.
 
 ## Worldwright
 

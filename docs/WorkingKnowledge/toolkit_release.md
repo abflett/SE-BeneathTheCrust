@@ -2,6 +2,12 @@
 
 Maintainer checklist for publishing the standalone toolkit archive. This is separate from publishing Working Knowledge itself or a generated compatibility layer.
 
+## Current Published Release
+
+- Release: [Working Knowledge Layer Toolkit 1.1.0](https://github.com/abflett/SE-BeneathTheCrust/releases/tag/v1.1.0)
+- Direct asset: [WorkingKnowledgeLayerToolkit-1.1.0.zip](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.1.0/WorkingKnowledgeLayerToolkit-1.1.0.zip)
+- General release history: [SE-BeneathTheCrust Releases](https://github.com/abflett/SE-BeneathTheCrust/releases)
+
 ## Release Identity
 
 - Update `tools/WorkingKnowledgeLayerToolkit/VERSION.txt` using `major.minor.patch`.

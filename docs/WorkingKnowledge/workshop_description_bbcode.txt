@@ -99,7 +99,9 @@ Custom block mods can be connected to Working Knowledge with small layer mods. L
 
 Admins can use [b]/wk admin audit[/b] to check loaded layers. Detailed compatibility warnings also appear in the Space Engineers log and F11 mod-error screen.
 
-[url=https://github.com/abflett/SE-BeneathTheCrust/tree/main/tools/WorkingKnowledgeLayerToolkit]Working Knowledge Layer Toolkit[/url]
+[url=https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.1.0/WorkingKnowledgeLayerToolkit-1.1.0.zip]Download Working Knowledge Layer Toolkit 1.1.0[/url]
+[url=https://github.com/abflett/SE-BeneathTheCrust/releases]Toolkit Releases And Updates[/url]
+[url=https://github.com/abflett/SE-BeneathTheCrust/tree/main/tools/WorkingKnowledgeLayerToolkit]Toolkit Source And Documentation[/url]
 
 [h2]Project Links[/h2]
 Working Knowledge is the first playable layer of the larger Space Engineers: Beneath the Crust campaign project.
