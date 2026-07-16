@@ -28,4 +28,10 @@ Set Workshop requirements for:
 
 Publishing copy is available under `Publishing/`.
 
-After editing, run `WorkingKnowledgeLayerToolkit\Validate.ps1 -LayerPath <this folder>`.
+From the unzipped toolkit folder, validate this layer after editing:
+
+```powershell
+.\Validate.ps1 -LayerPath "C:\Path\To\ThisLayerFolder"
+```
+
+Before publishing, test a fresh world, run `/wk admin audit`, verify save/reload and exit, and confirm custom fragment and exact Data Schematic behavior when custom groups are present.

@@ -136,9 +136,11 @@ version = 1
 example.power_storage | Example Power Storage Schematics | Uncommon | WkKnLayer_Example_power_storage | WkKnUnlocker_Example_power_storage
 ```
 
-The first five fields are stable ID, display name, tier, vanilla research-group subtype, and hidden unlocker subtype. A trailing description is optional. The stable ID is stored in saves. Renaming it after publication creates a different schematic and leaves the old saved record inactive; redefining the same ID in a higher-priority layer preserves that identity while replacing its metadata.
+The fields are stable ID, display name, tier, vanilla research-group subtype, hidden unlocker subtype, and an optional description. The stable ID is stored in saves. Renaming it after publication creates a different schematic and leaves the old saved record inactive; redefining the same ID in a higher-priority layer preserves that identity while replacing its metadata.
 
 Keep the generated `ResearchUnlockerGroups.sbc`, `ResearchUnlockers.sbc`, and `PhysicalItems_ResearchSchematics.sbc` entries synchronized with this metadata.
+
+See [Schematic Groups](schematic_groups.md) for tier behavior, field rules, and the exact Data Schematic subtype derived from the stable ID.
 
 ## When Is The Type Not CubeBlock?
 
@@ -202,4 +204,4 @@ The script creates these files for you. Manual editing is mainly for:
 - updating the layer after the source mod changes block IDs
 - building a layer by copying `ExampleMod`
 
-After any edit, run `Validate.ps1 -LayerPath <layer folder>`. Pass several paths from lowest to highest priority to preview their winners, then use `/wk admin audit` in a test world.
+After any edit, run `Validate.ps1 -LayerPath <layer folder>`. Pass several paths from lowest to highest priority to preview their winners, then use `/wk admin audit` in a test world. Complete [Publishing A Layer](publishing_layers.md) before releasing it.

@@ -1,57 +1,48 @@
 # Working Knowledge Layer Toolkit
 
-This toolkit creates small compatibility layer mods for **Working Knowledge**.
+Version **1.1.0**
 
-A layer maps blocks from another Space Engineers block mod into built-in or layer-defined Working Knowledge schematic groups. Layers may remap built-in blocks, and the highest-priority valid layer wins when assignments overlap. In the normal in-game Active Mods list, entries nearer the top have higher priority because Space Engineers loads that list from bottom to top. Once mapped, those blocks can participate in Working Knowledge research gates, vanilla progression unlocks, Proficiency, welding, repair, grinding, and salvage behavior.
+This Windows toolkit creates small compatibility layer mods for **Working Knowledge**. A layer assigns blocks from another Space Engineers mod to built-in or layer-defined schematic groups without copying that mod's blocks, models, or recipes.
 
-This folder is designed to be zipped and distributed as a standalone toolkit. It should work after being unzipped anywhere on disk.
+Layers can also reorganize blocks already covered by Working Knowledge. When assignments overlap, the highest-priority valid layer wins. In the normal in-game Active Mods list, entries nearer the top have higher priority.
 
-## Download
+## Download And Requirements
 
-Most users should download the ready-to-use zip:
+Download the latest `WorkingKnowledgeLayerToolkit-<version>.zip` from the [SE-BeneathTheCrust releases page](https://github.com/abflett/SE-BeneathTheCrust/releases), then unzip it anywhere convenient.
 
-[Download WorkingKnowledgeLayerToolkit-2026-07-09.zip](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.0.0/WorkingKnowledgeLayerToolkit-2026-07-09.zip)
+You need:
 
-If that direct link changes, use the project releases page:
+- Windows PowerShell 5.1, included with supported Windows installations.
+- A locally installed or downloaded Space Engineers block mod to scan.
+- Working Knowledge and the source block mod when testing the generated layer in game.
 
-[SE-BeneathTheCrust Releases](https://github.com/abflett/SE-BeneathTheCrust/releases)
+The toolkit does not need to be installed or placed inside this repository. Scanning is read-only. Files are written only to the output folder you choose. An internet connection is optional; it is used only to look up friendly Steam Workshop names, with local-name fallbacks when unavailable.
 
-After downloading, unzip the file anywhere convenient. The zip contains a `WorkingKnowledgeLayerToolkit` folder with the script, docs, and example mod.
+## Create A Layer
 
-## Start Here
-
-From the unzipped `WorkingKnowledgeLayerToolkit` folder, read [QUICKSTART.md](QUICKSTART.md), then run:
+Read [QUICKSTART.md](QUICKSTART.md), then run from the unzipped toolkit folder:
 
 ```powershell
 .\Start.ps1
 ```
 
-For users who prefer double-clicking from Explorer, run:
+You can instead double-click `Start.bat`. It launches the same script with a process-only execution-policy bypass.
 
-```text
-Start.bat
-```
+The generator scans public block definitions, lets you choose built-in or custom schematic groups, writes a complete Space Engineers mod folder, and validates it before finishing.
 
-## What Is Included
+## Edit Or Build A Layer Manually
 
-- `Start.ps1` - interactive layer generator.
-- `Validate.ps1` - validates generated or manually edited layers.
-- `Tests/Test-LayerResolution.ps1` - automated ordered conflict-resolution checks.
-- `Tests/Deploy-ConflictTestLayers.ps1` - deploys local Hard Armor and Dense Armor layers for the in-game `0.13.0` test plan.
-- `Start.bat` - simple launcher for `Start.ps1`.
-- `ExampleMod/` - copyable example layer mod for manual editing.
-- `Docs/` - [toolkit documentation](Docs/README.md), mapping format, schematic group, manual authoring, and troubleshooting notes.
-- `Data/` - internal toolkit data used by the script.
+- [Editing Generated Layers](Docs/editing_generated_layers.md) explains the files most authors may change.
+- [Mapping Format](Docs/mapping_format.md) defines block mapping syntax and priority.
+- [Schematic Groups](Docs/schematic_groups.md) lists built-in IDs and explains custom groups.
+- [Manual Layer Authoring](Docs/manual_layer_authoring.md) starts from the included `ExampleMod`.
+- [Troubleshooting](Docs/troubleshooting.md) covers scanning, validation, and in-game problems.
 
-Most users should only touch `Start.ps1`, `Start.bat`, `QUICKSTART.md`, `Docs/`, `ExampleMod/`, and the generated output mod.
-
-`Data/Template/` is the internal template used by the script. Edit it only if you are intentionally changing how generated layers are shaped.
-
-`Data/working_knowledge_block_keys.txt` is the built-in Working Knowledge block catalog. The script uses it to skip vanilla or already-supported block IDs, including mods that only override existing vanilla definitions.
+`Data/Template/` and the other files under `Data/` are generator internals. Normal layer authors should not edit them.
 
 ## Output
 
-Generated layers are normal Space Engineers mod roots. A typical output looks like:
+A mapping-only generated layer contains:
 
 ```text
 WKL-ExampleBlockMod/
@@ -61,25 +52,41 @@ WKL-ExampleBlockMod/
     ResearchBlocks.sbc
     WorkingKnowledge/
       block_mappings.txt
-      schematic_groups.txt       # when custom groups are defined
-    ResearchUnlockerGroups.sbc   # when custom groups are defined
-    ResearchUnlockers.sbc        # when custom groups are defined
-    PhysicalItems_ResearchSchematics.sbc # when custom groups are defined
   Publishing/
     changelog.md
     workshop_description_bbcode.txt
 ```
 
-Recommended normal in-game Active Mods list, shown top to bottom with highest priority first:
+When custom groups are defined, the generator also creates `schematic_groups.txt`, `ResearchUnlockerGroups.sbc`, `ResearchUnlockers.sbc`, and `PhysicalItems_ResearchSchematics.sbc`.
 
-1. The generated Working Knowledge Layer mod
+Use this normal in-game Active Mods list, shown top to bottom with highest priority first:
+
+1. The generated Working Knowledge layer
 2. The source block mod
 3. Working Knowledge
 
-After generation or editing, validate the layer:
+After any manual edit, validate the layer:
 
 ```powershell
 .\Validate.ps1 -LayerPath "C:\Path\To\WKL-ExampleBlockMod"
 ```
 
-Pass multiple paths from **lowest to highest priority** to preview group and block winners. The last path receives the highest numeric priority and wins valid conflicts. This is the reverse of how the normal in-game Active Mods list is read from top to bottom.
+Pass multiple paths from **lowest to highest priority** to preview conflict winners. The last path receives the highest numeric priority. This argument order is the reverse of reading the normal in-game Active Mods list from top to bottom.
+
+## Publish A Layer
+
+Follow [Publishing A Layer](Docs/publishing_layers.md). Generated `Publishing/` files provide starter Workshop copy and release notes, but the author must still set Workshop requirements for Working Knowledge and the source block mod.
+
+The offline validator checks layer syntax, definitions, wiring, and priority resolution. It cannot prove that a separately loaded source mod still contains every block. A fresh in-game test and `/wk admin audit` are required before publishing.
+
+## Toolkit Contents
+
+- `Start.ps1` and `Start.bat` - interactive generator and launcher.
+- `Validate.ps1` - standalone layer and conflict-stack validator.
+- `ExampleMod/` - complete copyable manual-authoring example; do not publish it unchanged.
+- `Docs/` - authoring, format, publishing, and troubleshooting guides.
+- `Tests/Test-LayerResolution.ps1` - automated priority and fallback checks.
+- `Tests/Deploy-ConflictTestLayers.ps1` - maintainer-only local conflict-fixture deployment.
+- `VERSION.txt` and `CHANGELOG.md` - toolkit release identity and history.
+
+Report toolkit problems on the [project issue tracker](https://github.com/abflett/SE-BeneathTheCrust/issues). Include the exact error, what you selected, and whether the source was a local mod or Workshop item. Do not attach another author's complete mod unless its license permits redistribution.

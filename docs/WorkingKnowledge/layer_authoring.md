@@ -6,6 +6,8 @@ Use a layer when a block mod should participate in Working Knowledge research, P
 
 The user-facing package for creating layers is the [Working Knowledge Layer Toolkit](../../tools/WorkingKnowledgeLayerToolkit/README.md). It is designed to be zipped and released as a standalone download so users can run an interactive script, copy an example mod, or read the included docs without needing this repository.
 
+Maintainers publishing a new toolkit archive should follow the separate [toolkit release checklist](toolkit_release.md).
+
 ## Recommended Shape
 
 Use this naming pattern:

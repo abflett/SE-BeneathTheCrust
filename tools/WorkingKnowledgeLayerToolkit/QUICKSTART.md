@@ -1,79 +1,50 @@
 # Quick Start
 
-Use this path if you want the toolkit to create a Working Knowledge Layer for a block mod.
+Use this guide to create a Working Knowledge compatibility layer for a Space Engineers block mod.
 
-## 1. Unzip The Toolkit
+## 1. Unzip And Run
 
-Unzip `WorkingKnowledgeLayerToolkit` anywhere convenient.
-
-The toolkit does not need to be inside the Beneath the Crust repository.
-
-## 2. Run The Script
-
-From PowerShell:
+Unzip the toolkit anywhere convenient. Run `Start.bat`, or open Windows PowerShell in the toolkit folder and run:
 
 ```powershell
 .\Start.ps1
 ```
 
-Or double-click:
+`Start.bat` uses a process-only execution-policy bypass; it does not change the computer's saved policy.
 
-```text
-Start.bat
-```
+## 2. Select A Folder To Scan
 
-If Windows blocks script execution, `Start.bat` runs PowerShell with a process-only bypass for this script.
+The numbered menu offers common locations:
 
-## 3. Select A Folder To Scan
+- `%APPDATA%\SpaceEngineers\Mods` for local mods.
+- `...\Steam\steamapps\workshop\content\244850` for downloaded Workshop mods.
+- A custom folder you type in.
 
-The script can look in common Space Engineers mod folders:
+`244850` is the Steam App ID for Space Engineers. You may select a single mod root or a parent containing multiple mod folders.
 
-- Local Space Engineers mods folder: `%APPDATA%\SpaceEngineers\Mods`
-- Steam Workshop Space Engineers mods folder, when it can be found: `...\Steam\steamapps\workshop\content\244850`
-- A custom folder you type in
+The scan output remains visible so you can see which folders were checked. Unreadable or non-block files are skipped.
 
-`244850` is the Steam App ID for Space Engineers. Steam uses that number as the Workshop content folder name.
+## 3. Select Block Sets
 
-All choices are numbered. Pick the custom-folder number if your source mod is somewhere else.
+The initial numbered list contains sets with at least one new public block. Sets containing only blocks already covered by Working Knowledge are hidden from this first list.
 
-## 4. Select Block Sets
+The last menu option shows all sets, including covered-only sets. Use that advanced view when you intentionally want to reorganize existing Working Knowledge blocks. Covered mappings are written with the optional `override` label for readability; the label does not change priority.
 
-The script scans the selected folder for mods that contain public cube block definitions. For Steam Workshop folders named by Workshop item ID, it tries to look up the public Workshop title through Steam first. If that lookup fails, it reads `modinfo.sbc` when available, then falls back to the folder name.
+Select one or more numbers separated by spaces, such as `1 3`. The displayed default is used when you press Enter.
 
-Working Knowledge itself is skipped automatically. The initial selection list shows block sets containing new blocks and hides covered-only sets. A final menu option redraws the list with every set and includes already-covered blocks as explicit overrides. Use that advanced view only when the layer intentionally reorganizes existing Working Knowledge technology.
+## 4. Choose Groups
 
-Example:
+The toolkit asks whether to define custom schematic groups. Most layers should first reuse the built-in list. Add a custom group when the source blocks represent a distinct technology that should have its own research, Proficiency, fragment, and exact Data Schematic identity.
 
-```text
-[1] Example Truss Pack - contains 24 new public blocks
-[2] Example Lights Pack - contains 5 new public blocks
-[3] Example Doors Pack - contains 15 new public blocks
-[4] Select all block sets and all blocks
-```
+For every custom group, choose:
 
-Select one or more block sets:
+- A stable namespaced ID, such as `author.arc.reinforced_truss`.
+- A player-facing display name and description.
+- A fragment tier: `Common`, `Uncommon`, `Rare`, `Prototech`, or `None`.
 
-```text
-1
-1 3
-4
-```
+Do not rename a published group ID or generated definition subtype. They are save and compatibility contracts.
 
-The all option is the default when more than one block set is found.
-
-## 5. Choose Built-In Remaps And Custom Groups
-
-The block-set menu includes an option to reveal already-mapped blocks. In that advanced view, covered-only sets are selectable and covered output lines use the optional `override` prefix to make the intent clear. Normal mappings have the same priority.
-
-It also asks whether the layer should define custom schematic groups. For each custom group, choose a stable ID, display name, and tier. The toolkit generates collision-resistant definition subtypes and all required `.sbc` files.
-
-Do not rename a custom group ID after publishing; research and Proficiency saves use it as their stable key.
-
-## 6. Pick A Default Schematic Group
-
-Most block packs are mostly one kind of block. Pick the best default group first.
-
-Examples:
+Next, choose the default group for the selected blocks. Common examples are:
 
 - Trusses, frames, beams, platforms: `structure.industrial`
 - Interior lights: `utility.interior_lighting`
@@ -81,64 +52,65 @@ Examples:
 - Doors: `structure.door`
 - Batteries: `power.battery`
 
-The script assigns every found block to the default group.
+## 5. Review Outliers
 
-## 7. Change Outliers
+If requested, the toolkit walks through blocks one at a time. Each block uses the same numbered style:
 
-The script can walk through the found blocks and let you override only the blocks that do not fit the default.
+1. Choose another group
+2. Stop reviewing overrides
+3. Keep the current group (default)
 
-Each block uses a numbered action menu: choose another group, stop reviewing, or keep the current assignment. Keeping the current assignment is option `3` and the Enter-key default.
+Press Enter to keep the current assignment.
 
-For example, a truss pack might mostly use `structure.industrial`, but a truss light should use `utility.interior_lighting`.
+## 6. Choose Output
 
-## 8. Choose Output
+Provide a display name, author, folder name, and output parent. The default output parent is normally `%APPDATA%\SpaceEngineers\Mods`, which makes the layer immediately available to local test worlds.
 
-Choose the output folder and layer folder name, such as:
-
-```text
-WKL-ExampleBlockMod
-```
-
-The script also asks for the layer display name and author/maker name. The recommended display name is:
+Recommended names:
 
 ```text
-Working Knowledge Layer - Name Of Source Mod
+Display: Working Knowledge Layer - Name Of Source Mod
+Folder:  WKL-NameOfSourceMod
 ```
 
-The author/maker name is written to `modinfo.sbc`.
+If the folder already exists, the toolkit asks before replacing generated files. It preserves unrelated files. If the new layer has no custom groups, obsolete custom-group files from an earlier generation are removed.
 
-The script creates a normal Space Engineers mod root in the output folder.
+## 7. Review And Validate
 
-## 9. Review, Validate, And Test
-
-Open the generated files:
+The generator validates the output automatically. The most commonly edited files are:
 
 ```text
 Data/ResearchBlocks.sbc
 Data/WorkingKnowledge/block_mappings.txt
-Data/WorkingKnowledge/schematic_groups.txt   (when custom groups were added)
+Data/WorkingKnowledge/schematic_groups.txt   (custom groups only)
 ```
 
-Use [Docs/mapping_format.md](Docs/mapping_format.md) and [Docs/schematic_groups.md](Docs/schematic_groups.md) if you want to adjust mappings by hand.
-
-For a plain-language explanation of the editable files, read [Docs/editing_generated_layers.md](Docs/editing_generated_layers.md).
-
-Validate the generated or edited folder:
+After manual edits, run from the toolkit folder:
 
 ```powershell
 .\Validate.ps1 -LayerPath "C:\Path\To\WKL-ExampleBlockMod"
 ```
 
-To preview two layers together, pass paths from lowest to highest priority:
+To preview conflicts, pass layers from lowest to highest priority:
 
 ```powershell
-.\Validate.ps1 -LayerPath @("C:\Path\To\WKL-HardArmor", "C:\Path\To\WKL-DenseArmor")
+.\Validate.ps1 -LayerPath @("C:\Path\To\WKL-Lower", "C:\Path\To\WKL-Higher")
 ```
 
-The last path has the highest numeric priority, so its valid group declarations and mappings win. In the normal in-game Active Mods list, put that desired winner above the conflicting layer.
+The last validator path wins valid conflicts. In the normal in-game Active Mods list, put that desired winner above the other layer.
 
-Then use this normal in-game Active Mods list, shown top to bottom:
+## 8. Test In Game
+
+Use this top-to-bottom Active Mods order:
 
 1. Your generated layer
 2. The source block mod
 3. Working Knowledge
+
+Use a fresh test world. Confirm the blocks are in the intended schematic groups, custom fragment and exact Data Schematic items appear when applicable, and save/reload works. Then run:
+
+```text
+/wk admin audit
+```
+
+Resolve unexpected warnings or errors before publishing. See [Publishing A Layer](Docs/publishing_layers.md) for the complete release checklist.

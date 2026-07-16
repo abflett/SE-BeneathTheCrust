@@ -19,11 +19,14 @@ For normal Steam Workshop use, add this layer mod to your world and Steam should
 [/list]
 
 [h2]Manual Or Offline Setup[/h2]
-If you are copying mods locally, using offline files, or building a manual modpack, include:
+If you are copying mods locally, using offline files, or building a manual modpack, use this top-to-bottom Active Mods order. Higher entries have higher priority:
 
-[code]Working Knowledge
+[code]{{LAYER_NAME}}
 {{SOURCE_MOD_NAME}}
-{{LAYER_NAME}}[/code]
+Working Knowledge[/code]
+
+[h2]Validation[/h2]
+This layer should be tested in a fresh world with the Working Knowledge admin audit before release. If another layer maps the same block, place the desired winner higher in the normal Active Mods list.
 
 [h2]Notes[/h2]
 This mod does not include {{SOURCE_MOD_NAME}} and does not add new blocks, models, recipes, or balance rules. It is only a compatibility layer.

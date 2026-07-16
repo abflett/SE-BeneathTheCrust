@@ -1,5 +1,11 @@
 # Troubleshooting
 
+## PowerShell Will Not Run The Script
+
+Double-click `Start.bat`. It starts Windows PowerShell with an execution-policy bypass that applies only to that process.
+
+If the toolkit was downloaded as a zip and Windows still blocks it, right-click the zip, open **Properties**, select **Unblock** when present, and extract it again. Do not lower the computer-wide execution policy just for this toolkit.
+
 ## What Is The 244850 Folder?
 
 `244850` is the Steam App ID for Space Engineers.
@@ -79,6 +85,8 @@ Run the offline validator first:
 .\Validate.ps1 -LayerPath "C:\Path\To\YourLayer"
 ```
 
+The validator can prove that the layer files agree with one another. It cannot inspect the definitions actually loaded in a world or guarantee that an updated source mod still contains each referenced block. `/wk admin audit` performs that runtime check.
+
 ## A Custom Group Is Inactive
 
 Confirm `schematic_groups.txt` begins with `version = 1`, has five pipe-separated fields plus an optional description, and uses a stable ID. Its research group, `WkKnUnlocker_...` block, and exact Data Schematic definitions must exist and match the declared subtypes. When different IDs collide on those definitions, the highest-priority valid group owns them and lower-priority groups become inactive.
@@ -99,7 +107,19 @@ Use [schematic_groups.md](schematic_groups.md) for valid IDs.
 
 If the source block mod changes subtype IDs, the layer may need to be regenerated or edited.
 
-Run the toolkit again against the updated source mod and compare the new `block_mappings.txt` with your existing layer.
+Run the toolkit again against the updated source mod, write to a different temporary folder, and compare the new `block_mappings.txt` with your existing layer. Do not rename published custom-group IDs or generated definition subtypes during an update.
+
+## Regenerating Into An Existing Folder
+
+The toolkit asks before replacing generated files. It does not delete unrelated files. When the new answers define no custom groups, it removes only the obsolete generated custom-group files so an older configuration cannot remain active by accident.
+
+For a published layer, generating into a separate comparison folder is safer than overwriting it directly.
+
+## Validation Reports A Warning
+
+Errors mean the layer is internally invalid and should not be published. Warnings describe conflicts, redefinitions, or fallbacks that may be intentional but need review. Validate all cooperating layers together in lowest-to-highest priority order to see the predicted winner.
+
+In game, audit details appear in chat for the command sender, `SpaceEngineers.log`, and the F11 mod-error screen. Include the relevant warning or error text when reporting a toolkit issue.
 
 ## The Layer Adds No Blocks
 

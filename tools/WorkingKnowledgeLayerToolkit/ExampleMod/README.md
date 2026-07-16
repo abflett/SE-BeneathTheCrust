@@ -26,4 +26,10 @@ Use `../Docs/schematic_groups.md` to choose schematic IDs.
 
 The battery mapping demonstrates the optional `override` prefix used to document an intentional replacement of a built-in Working Knowledge mapping. A normal mapping has the same priority.
 
-After editing, run `..\Validate.ps1 -LayerPath .` from this folder's parent toolkit directory.
+After editing, run this from the toolkit folder:
+
+```powershell
+.\Validate.ps1 -LayerPath .\ExampleMod
+```
+
+Before releasing a copied layer, complete [Publishing A Layer](../Docs/publishing_layers.md). Do not publish this example unchanged.

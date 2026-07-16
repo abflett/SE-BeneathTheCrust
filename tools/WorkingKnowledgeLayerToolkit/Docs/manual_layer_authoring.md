@@ -100,3 +100,5 @@ Use this normal in-game Active Mods list, shown top to bottom with highest prior
 3. Working Knowledge
 
 In game, check that the source blocks appear under the intended Working Knowledge schematic family and that construction, grinding, repair, and salvage behavior follows that family.
+
+Before releasing the result, complete [Publishing A Layer](publishing_layers.md), including a fresh-world test and `/wk admin audit`.

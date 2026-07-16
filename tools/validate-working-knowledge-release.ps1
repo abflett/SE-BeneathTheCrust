@@ -75,6 +75,7 @@ $layerValidator = Join-Path $repoRoot 'tools\WorkingKnowledgeLayerToolkit\Valida
 & $layerValidator -LayerPath (Join-Path $repoRoot 'tools\WorkingKnowledgeLayerToolkit\ExampleMod')
 & $layerValidator -LayerPath (Join-Path $repoRoot 'mods\WKL-ARCTrussSystem')
 & (Join-Path $repoRoot 'tools\WorkingKnowledgeLayerToolkit\Tests\Test-LayerResolution.ps1')
+& (Join-Path $repoRoot 'tools\package-working-knowledge-layer-toolkit.ps1')
 
 Write-Host "Validated Working Knowledge $ExpectedVersion release files successfully."
 Write-Host "Parsed $($xmlFiles.Count) XML files; thumbnail is $($thumb.Length) bytes."

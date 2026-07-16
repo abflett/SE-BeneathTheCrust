@@ -901,6 +901,24 @@ function Convert-ToSchematicItemEntries {
     }) -join [Environment]::NewLine).TrimEnd()
 }
 
+function Remove-GeneratedCustomGroupFiles {
+    param([Parameter(Mandatory = $true)][string] $OutputPath)
+
+    $generatedFiles = @(
+        'Data\WorkingKnowledge\schematic_groups.txt',
+        'Data\ResearchUnlockerGroups.sbc',
+        'Data\ResearchUnlockers.sbc',
+        'Data\PhysicalItems_ResearchSchematics.sbc'
+    )
+
+    foreach ($relativePath in $generatedFiles) {
+        $path = Join-Path $OutputPath $relativePath
+        if (Test-Path -LiteralPath $path -PathType Leaf) {
+            Remove-Item -LiteralPath $path -Force
+        }
+    }
+}
+
 function Validate-GeneratedLayer {
     param(
         [Parameter(Mandatory = $true)][string] $OutputPath,
@@ -977,6 +995,37 @@ if ($SelfTest) {
     )
     if (@($emptyOutputs | Where-Object { -not [string]::IsNullOrEmpty([string] $_) }).Count -gt 0) {
         throw 'Toolkit self-test failed: zero custom groups did not produce empty template sections.'
+    }
+    $cleanupFixture = Join-Path ([System.IO.Path]::GetTempPath()) ("WorkingKnowledgeLayerToolkit-{0}" -f [System.Guid]::NewGuid().ToString('N'))
+    try {
+        foreach ($relativePath in @(
+            'Data\WorkingKnowledge\schematic_groups.txt',
+            'Data\ResearchUnlockerGroups.sbc',
+            'Data\ResearchUnlockers.sbc',
+            'Data\PhysicalItems_ResearchSchematics.sbc',
+            'Data\WorkingKnowledge\manual_notes.txt'
+        )) {
+            Write-TextNoBom -Path (Join-Path $cleanupFixture $relativePath) -Text 'fixture'
+        }
+        Remove-GeneratedCustomGroupFiles -OutputPath $cleanupFixture
+        foreach ($relativePath in @(
+            'Data\WorkingKnowledge\schematic_groups.txt',
+            'Data\ResearchUnlockerGroups.sbc',
+            'Data\ResearchUnlockers.sbc',
+            'Data\PhysicalItems_ResearchSchematics.sbc'
+        )) {
+            if (Test-Path -LiteralPath (Join-Path $cleanupFixture $relativePath)) {
+                throw "Toolkit self-test failed: obsolete generated file was not removed: $relativePath"
+            }
+        }
+        if (-not (Test-Path -LiteralPath (Join-Path $cleanupFixture 'Data\WorkingKnowledge\manual_notes.txt') -PathType Leaf)) {
+            throw 'Toolkit self-test failed: custom-group cleanup removed an unrelated file.'
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $cleanupFixture) {
+            Remove-Item -LiteralPath $cleanupFixture -Recurse -Force
+        }
     }
     if ((Resolve-OutlierAction -Choice '') -ne 'Keep' -or
         (Resolve-OutlierAction -Choice '1') -ne 'Change' -or
@@ -1141,6 +1190,9 @@ if ($customGroups.Count -gt 0) {
     Write-TextNoBom -Path (Join-Path $outputPath 'Data\ResearchUnlockerGroups.sbc') -Text (Expand-Template -Text (Read-TextNoBom (Join-Path $TemplateRoot 'Data\ResearchUnlockerGroups.sbc.template')) -Tokens $tokens)
     Write-TextNoBom -Path (Join-Path $outputPath 'Data\ResearchUnlockers.sbc') -Text (Expand-Template -Text (Read-TextNoBom (Join-Path $TemplateRoot 'Data\ResearchUnlockers.sbc.template')) -Tokens $tokens)
     Write-TextNoBom -Path (Join-Path $outputPath 'Data\PhysicalItems_ResearchSchematics.sbc') -Text (Expand-Template -Text (Read-TextNoBom (Join-Path $TemplateRoot 'Data\PhysicalItems_ResearchSchematics.sbc.template')) -Tokens $tokens)
+}
+else {
+    Remove-GeneratedCustomGroupFiles -OutputPath $outputPath
 }
 Write-TextNoBom -Path (Join-Path $outputPath 'Publishing\changelog.md') -Text (Expand-Template -Text (Read-TextNoBom (Join-Path $TemplateRoot 'Publishing\changelog.md.template')) -Tokens $tokens)
 Write-TextNoBom -Path (Join-Path $outputPath 'Publishing\workshop_description_bbcode.txt') -Text (Expand-Template -Text (Read-TextNoBom (Join-Path $TemplateRoot 'Publishing\workshop_description_bbcode.txt.template')) -Tokens $tokens)

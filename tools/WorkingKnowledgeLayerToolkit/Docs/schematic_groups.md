@@ -16,6 +16,17 @@ example.power_storage | Example Power Storage Schematics | Uncommon | WkKnLayer_
 
 Valid tiers are `Common`, `Uncommon`, `Rare`, `Prototech`, and `None`. The ID is stored in research and Proficiency saves. Keep the ID, research group subtype, and unlocker subtype unchanged after publishing.
 
+The fields mean:
+
+1. **Stable ID** - namespaced Working Knowledge identity used by mappings, research, Proficiency, and saves.
+2. **Display name** - player-facing group name.
+3. **Tier** - the Data Fragment reward pool that may reveal this group. `None` excludes it from tiered fragment selection.
+4. **Research group subtype** - globally unique vanilla research-group definition used for runtime binding.
+5. **Unlocker subtype** - globally unique hidden block ID; it must begin with `WkKnUnlocker_`.
+6. **Description** - optional player-facing explanation.
+
+Use `Common`, `Uncommon`, `Rare`, or `Prototech` according to the intended fragment rarity. Use `None` only when a group should not be selected by random tiered Data Fragments. The toolkit still creates the durable exact Data Schematic for a custom `None` group.
+
 Higher-priority layers may redeclare the same ID to change its name, description, tier, or wiring while preserving the persisted identity. The highest-priority declaration with valid research-group and unlocker wiring wins and is reported by the audit; an incomplete higher-priority declaration is skipped.
 
 Each custom group also needs matching entries in:
@@ -25,6 +36,8 @@ Each custom group also needs matching entries in:
 - `Data/PhysicalItems_ResearchSchematics.sbc`
 
 The toolkit generates these definitions. Use namespaced IDs, never reuse a built-in ID, and run `Validate.ps1` after manual edits.
+
+The exact consumable subtype is deterministic: `WkKnSchematic_` plus the stable ID with punctuation converted to underscores. For example, `example.power_storage` produces `WkKnSchematic_example_power_storage`. Changing the stable ID therefore changes the consumable identity too.
 
 | ID | Display Name | Tier | Common Use |
 |---|---|---|---|
