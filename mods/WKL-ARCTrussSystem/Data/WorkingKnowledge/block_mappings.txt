@@ -2,22 +2,53 @@
 # Format:
 # Type/Subtype = working.knowledge.schematic.id
 #
-# ARC Truss System is treated as Industrial Structure Schematics.
+# ARC Truss System and the vanilla truss family are treated as
+# Truss Framework Schematics. The override marker documents that the
+# vanilla assignments are intentionally moved out of structure.industrial.
 
-CubeBlock/Arc_Truss_I = structure.industrial
-CubeBlock/Arc_Truss_RB = structure.industrial
-CubeBlock/Arc_Truss_3 = structure.industrial
-CubeBlock/Arc_Truss_4 = structure.industrial
-CubeBlock/Arc_Truss_5 = structure.industrial
-CubeBlock/Arc_Truss_6 = structure.industrial
-CubeBlock/Arc_Truss_4C = structure.industrial
-CubeBlock/Arc_Truss_VTM = structure.industrial
-CubeBlock/Arc_Truss_Ix2 = structure.industrial
-CubeBlock/Arc_Truss_Ix2_RB = structure.industrial
-CubeBlock/Arc_Truss_Ix2_RCB = structure.industrial
-CubeBlock/Arc_Truss_L = structure.industrial
-CubeBlock/Arc_Truss_L3 = structure.industrial
-InteriorLight/Arc_Truss_LF = utility.interior_lighting
-CubeBlock/Arc_Truss_SPM = structure.industrial
-CubeBlock/Arc_Truss_SPM2 = structure.industrial
-CubeBlock/Arc_Truss_EC = structure.industrial
+CubeBlock/Arc_Truss_I = arc.truss_framework
+CubeBlock/Arc_Truss_RB = arc.truss_framework
+CubeBlock/Arc_Truss_3 = arc.truss_framework
+CubeBlock/Arc_Truss_4 = arc.truss_framework
+CubeBlock/Arc_Truss_5 = arc.truss_framework
+CubeBlock/Arc_Truss_6 = arc.truss_framework
+CubeBlock/Arc_Truss_4C = arc.truss_framework
+CubeBlock/Arc_Truss_VTM = arc.truss_framework
+CubeBlock/Arc_Truss_Ix2 = arc.truss_framework
+CubeBlock/Arc_Truss_Ix2_RB = arc.truss_framework
+CubeBlock/Arc_Truss_Ix2_RCB = arc.truss_framework
+CubeBlock/Arc_Truss_L = arc.truss_framework
+CubeBlock/Arc_Truss_L3 = arc.truss_framework
+InteriorLight/Arc_Truss_LF = arc.truss_framework
+CubeBlock/Arc_Truss_SPM = arc.truss_framework
+CubeBlock/Arc_Truss_SPM2 = arc.truss_framework
+CubeBlock/Arc_Truss_EC = arc.truss_framework
+
+override CubeBlock/Truss = arc.truss_framework
+override CubeBlock/TrussAngled = arc.truss_framework
+override CubeBlock/TrussAngledSmall = arc.truss_framework
+override CubeBlock/TrussFloor = arc.truss_framework
+override CubeBlock/TrussFloorAngled = arc.truss_framework
+override CubeBlock/TrussFloorAngledInverted = arc.truss_framework
+override CubeBlock/TrussFloorHalf = arc.truss_framework
+override CubeBlock/TrussFloorT = arc.truss_framework
+override CubeBlock/TrussFloorX = arc.truss_framework
+override CubeBlock/TrussFrame = arc.truss_framework
+override CubeBlock/TrussHalf = arc.truss_framework
+override CubeBlock/TrussHalfSmall = arc.truss_framework
+override CubeBlock/TrussPillar = arc.truss_framework
+override CubeBlock/TrussPillarCorner = arc.truss_framework
+override CubeBlock/TrussPillarDiagonal = arc.truss_framework
+override CubeBlock/TrussPillarOffset = arc.truss_framework
+override CubeBlock/TrussPillarSlanted = arc.truss_framework
+override CubeBlock/TrussPillarSmall = arc.truss_framework
+override CubeBlock/TrussPillarT = arc.truss_framework
+override CubeBlock/TrussPillarX = arc.truss_framework
+override CubeBlock/TrussSloped = arc.truss_framework
+override CubeBlock/TrussSlopedFrame = arc.truss_framework
+override CubeBlock/TrussSlopedSmall = arc.truss_framework
+override CubeBlock/TrussSmall = arc.truss_framework
+override Decoy/TrussPillarDecoy = arc.truss_framework
+override InteriorLight/TrussPillarLight = arc.truss_framework
+override InteriorLight/TrussPillarLightSmall = arc.truss_framework
+override Ladder2/TrussLadder = arc.truss_framework
