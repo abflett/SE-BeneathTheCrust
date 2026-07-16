@@ -87,6 +87,8 @@ The script assigns every found block to the default group.
 
 The script can walk through the found blocks and let you override only the blocks that do not fit the default.
 
+Each block uses a numbered action menu: choose another group, stop reviewing, or keep the current assignment. Keeping the current assignment is option `3` and the Enter-key default.
+
 For example, a truss pack might mostly use `structure.industrial`, but a truss light should use `utility.interior_lighting`.
 
 ## 8. Choose Output

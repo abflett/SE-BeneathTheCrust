@@ -33,6 +33,7 @@ The Working Knowledge Layer Toolkit now:
 - Validates one layer or a stack passed from lowest to highest priority, reports winners, and checks matching `.sbc` definitions with `Validate.ps1`.
 - Handles mapping-only layers with zero custom groups and single custom-group version declarations correctly under Windows PowerShell strict mode, with generator self-tests during release validation.
 - Hides covered-only block sets from the normal selection list while retaining an explicit-remapping option that reveals them for advanced compatibility work.
+- Uses consistent numbered actions while reviewing outlier blocks, with keeping the current assignment as the Enter-key default.
 - Includes automated Hard Armor/Dense Armor ordering, invalid-later-fallback, and same-ID metadata replacement tests.
 - Includes an updated custom-group example and an ARC Truss layer that exercises a real custom group plus automatic reassignment of vanilla truss blocks without `override` markers.
 

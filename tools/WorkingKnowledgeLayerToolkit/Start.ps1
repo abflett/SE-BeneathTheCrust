@@ -675,6 +675,36 @@ function Select-SchematicGroup {
     }
 }
 
+function Resolve-OutlierAction {
+    param([Parameter(Mandatory = $true)][AllowEmptyString()][string] $Choice)
+
+    if ([string]::IsNullOrWhiteSpace($Choice)) {
+        return 'Keep'
+    }
+
+    switch ($Choice.Trim()) {
+        '1' { return 'Change' }
+        '2' { return 'Stop' }
+        '3' { return 'Keep' }
+        default { return $null }
+    }
+}
+
+function Select-OutlierAction {
+    while ($true) {
+        Write-Host '[1] Choose another schematic group'
+        Write-Host '[2] Stop reviewing outliers'
+        Write-Host '[3] Keep the current assignment (default)'
+        $choice = Read-Host 'Choose action [3]'
+        $action = Resolve-OutlierAction -Choice $choice
+        if ($null -ne $action) {
+            return $action
+        }
+
+        Write-Host 'Enter 1, 2, or 3.'
+    }
+}
+
 function Select-SchematicTier {
     $tiers = @('Common', 'Uncommon', 'Rare', 'Prototech', 'None')
     while ($true) {
@@ -948,6 +978,13 @@ if ($SelfTest) {
     if (@($emptyOutputs | Where-Object { -not [string]::IsNullOrEmpty([string] $_) }).Count -gt 0) {
         throw 'Toolkit self-test failed: zero custom groups did not produce empty template sections.'
     }
+    if ((Resolve-OutlierAction -Choice '') -ne 'Keep' -or
+        (Resolve-OutlierAction -Choice '1') -ne 'Change' -or
+        (Resolve-OutlierAction -Choice '2') -ne 'Stop' -or
+        (Resolve-OutlierAction -Choice '3') -ne 'Keep' -or
+        $null -ne (Resolve-OutlierAction -Choice 'invalid')) {
+        throw 'Toolkit self-test failed: outlier action choices are not mapped correctly.'
+    }
     Write-Host 'Working Knowledge Layer Toolkit generator self-test passed.'
     return
 }
@@ -1032,11 +1069,11 @@ if ($override -match '^[Yy]') {
             Write-Host ("Pair: {0}" -f $mapping.BlockPairName)
         }
         Write-Host ("Current: {0}" -f $mapping.SchematicId)
-        $answer = Read-Host 'Press Enter to keep, O to choose another group, or S to stop overrides'
-        if ($answer -match '^[Ss]$') {
+        $action = Select-OutlierAction
+        if ($action -eq 'Stop') {
             break
         }
-        if ($answer -match '^[Oo]$') {
+        if ($action -eq 'Change') {
             $mapping.SchematicId = Select-SchematicGroup -Groups $groups -Prompt 'Choose replacement schematic group.' -DefaultId $mapping.SchematicId
         }
     }
