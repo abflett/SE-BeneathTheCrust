@@ -4,11 +4,13 @@ This is a complete example layer mod for manual editing.
 
 It is not meant to be published as-is. Copy this folder, rename it, replace the example block IDs, and adjust the schematic groups.
 
-## Load Order
+## In-Game Priority
 
-1. Working Knowledge
+In the normal in-game Active Mods list, use this top-to-bottom order. Higher entries have higher priority and win conflicts.
+
+1. Working Knowledge Layer - Example Block Mod
 2. Example Block Mod
-3. Working Knowledge Layer - Example Block Mod
+3. Working Knowledge
 
 ## Files To Edit
 
@@ -22,6 +24,6 @@ Before copying this folder, read `../Docs/editing_generated_layers.md` for a slo
 
 Use `../Docs/schematic_groups.md` to choose schematic IDs.
 
-The battery mapping demonstrates the optional `override` prefix used to document an intentional replacement of a built-in Working Knowledge mapping. A normal mapping has the same load-order authority.
+The battery mapping demonstrates the optional `override` prefix used to document an intentional replacement of a built-in Working Knowledge mapping. A normal mapping has the same priority.
 
 After editing, run `..\Validate.ps1 -LayerPath .` from this folder's parent toolkit directory.

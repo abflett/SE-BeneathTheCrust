@@ -29,7 +29,7 @@ namespace WkKn
                 {
                     return IsBuiltIn
                         ? "Working Knowledge built-in catalog"
-                        : ModName + " (load position " + (LoadIndex + 1) + ") line " + LineNumber;
+                        : ModName + " (priority " + (LoadIndex + 1) + ") line " + LineNumber;
                 }
             }
         }
@@ -45,7 +45,7 @@ namespace WkKn
 
             internal string Source
             {
-                get { return ModName + " (load position " + (LoadIndex + 1) + ") line " + LineNumber; }
+                get { return ModName + " (priority " + (LoadIndex + 1) + ") line " + LineNumber; }
             }
         }
 
@@ -262,7 +262,7 @@ namespace WkKn
                 {
                     audit.AddIssue(
                         "Group '" + winner.Entry.ResearchId + "' from " + winner.Source +
-                        " is inactive because a later group owns one of its research group, unlocker, or exact-schematic definition IDs. " +
+                        " is inactive because a higher-priority group owns one of its research group, unlocker, or exact-schematic definition IDs. " +
                         "Winning owners: " + FormatGroupOwners(groupOwner, unlockerOwner, itemOwner) + ".");
                     continue;
                 }
@@ -309,7 +309,7 @@ namespace WkKn
 
             var message =
                 "Group '" + researchId + "' was declared " + history.Count + " times; " +
-                winner.Source + " is the last valid declaration and wins. History: " + FormatGroupHistory(history) + ".";
+                winner.Source + " is the highest-priority valid declaration and wins. History: " + FormatGroupHistory(history) + ".";
             audit.AddIssue(message + (wiringChanged ? " Vanilla research wiring also changed." : string.Empty));
         }
 
@@ -654,7 +654,7 @@ namespace WkKn
             string reason)
         {
             audit.AddIssue(
-                "Ignored group declaration in " + modName + " (load position " + (loadIndex + 1) + ") line " +
+                "Ignored group declaration in " + modName + " (priority " + (loadIndex + 1) + ") line " +
                 lineNumber + ": " + reason + ".");
         }
 
@@ -666,7 +666,7 @@ namespace WkKn
             string reason)
         {
             audit.AddIssue(
-                "Ignored mapping in " + modName + " (load position " + (loadIndex + 1) + ") line " +
+                "Ignored mapping in " + modName + " (priority " + (loadIndex + 1) + ") line " +
                 lineNumber + ": " + reason + ".");
         }
 

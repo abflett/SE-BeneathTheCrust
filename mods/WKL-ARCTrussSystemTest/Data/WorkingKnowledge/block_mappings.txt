@@ -1,5 +1,5 @@
 # Every mapping intentionally overlaps WKL-ARCTrussSystem.
-# Normal mapping syntax is sufficient; the later valid layer wins.
+# Normal mapping syntax is sufficient; the highest-priority valid layer wins.
 
 CubeBlock/Arc_Truss_RB = test.arc.reinforced_truss
 CubeBlock/Arc_Truss_4C = test.arc.reinforced_truss

@@ -63,7 +63,7 @@ The all option is the default when more than one block set is found.
 
 ## 5. Choose Built-In Remaps And Custom Groups
 
-The script asks whether to include already-mapped blocks. If enabled, their output lines use the optional `override` prefix to make the intent clear. Normal mappings have the same load-order authority.
+The script asks whether to include already-mapped blocks. If enabled, their output lines use the optional `override` prefix to make the intent clear. Normal mappings have the same priority.
 
 It also asks whether the layer should define custom schematic groups. For each custom group, choose a stable ID, display name, and tier. The toolkit generates collision-resistant definition subtypes and all required `.sbc` files.
 
@@ -127,16 +127,16 @@ Validate the generated or edited folder:
 .\Validate.ps1 -LayerPath "C:\Path\To\WKL-ExampleBlockMod"
 ```
 
-To preview two layers together in load order:
+To preview two layers together, pass paths from lowest to highest priority:
 
 ```powershell
 .\Validate.ps1 -LayerPath @("C:\Path\To\WKL-HardArmor", "C:\Path\To\WKL-DenseArmor")
 ```
 
-The last valid group declaration or block mapping wins.
+The last path has the highest numeric priority, so its valid group declarations and mappings win. In the normal in-game Active Mods list, put that desired winner above the conflicting layer.
 
-Then test with this load order:
+Then use this normal in-game Active Mods list, shown top to bottom:
 
-1. Working Knowledge
+1. Your generated layer
 2. The source block mod
-3. Your generated layer
+3. Working Knowledge

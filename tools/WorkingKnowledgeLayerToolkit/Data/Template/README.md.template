@@ -4,11 +4,13 @@ Compatibility layer for using **{{SOURCE_MOD_NAME}}** blocks with **Working Know
 
 This mod provides vanilla research definitions for supported {{SOURCE_MOD_NAME}} blocks and maps those blocks into Working Knowledge schematic families.
 
-## Load Order
+## In-Game Priority
 
-1. Working Knowledge
+In the normal in-game Active Mods list, use this top-to-bottom order. Higher entries have higher priority and win conflicts.
+
+1. {{LAYER_NAME}}
 2. {{SOURCE_MOD_NAME}}
-3. {{LAYER_NAME}}
+3. Working Knowledge
 
 ## Files
 

@@ -4,11 +4,13 @@ Compatibility layer for using ARC Truss System blocks with Working Knowledge pro
 
 Version: `1.1.0`
 
-Load order:
+Recommended normal in-game Active Mods list, shown top to bottom with highest priority first:
 
-1. Working Knowledge
+1. Working Knowledge Layer - ARC Truss System
 2. ARC Truss System
-3. Working Knowledge Layer - ARC Truss System
+3. Working Knowledge
+
+Space Engineers loads this visible list from bottom to top. If another layer claims the same block, put the desired winner above the other layer.
 
 This mod provides vanilla research definitions for ARC Truss System blocks and adds a Common-tier **Truss Framework Schematics** group (`arc.truss_framework`).
 

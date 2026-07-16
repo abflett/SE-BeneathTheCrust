@@ -140,7 +140,7 @@ Layer mappings and custom schematic groups keep their source mod and line number
 
 `Data/WorkingKnowledge/schematic_groups.txt` is an optional versioned format. Version 1 rows contain stable research ID, display name, tier, research-group subtype, unlocker subtype, and an optional trailing description. Legacy mapping-only layers remain valid. `block_mappings.txt` keeps its original syntax; the optional `override ` prefix documents author intent but does not change precedence.
 
-The loader gathers every group and mapping claim before resolving any of them. Built-in groups and mappings are the base claims. Layer claims are applied in `MyAPIGateway.Session.Mods` order, with later lines within one layer applied later. The last valid group declaration and block mapping win. Invalid later mappings are skipped so the previous valid assignment remains active. Different research IDs that claim the same research-group, unlocker, or exact-schematic definition ID cannot both remain active; the later group owns the shared resource.
+The loader gathers every group and mapping claim before resolving any of them. Built-in groups and mappings are the base claims. `MyAPIGateway.Session.Mods` indices increase with resolution priority, and later lines within one layer have higher priority than earlier lines. The highest-priority valid group declaration and block mapping win. Invalid higher-priority claims are skipped so the next valid assignment remains active. Different research IDs that claim the same research-group, unlocker, or exact-schematic definition ID cannot both remain active; the higher-priority group owns the shared resource. In the normal in-game Active Mods list this means the higher visible entry wins because Space Engineers loads the list from bottom to top.
 
 The audit checks mapping syntax, schematic IDs, duplicate mappings, built-in conflicts, loaded public blocks, required research-block definitions, and Working Knowledge unlockers/groups.
 
@@ -148,7 +148,7 @@ The audit checks mapping syntax, schematic IDs, duplicate mappings, built-in con
 - All issues are written to `SpaceEngineers.log`.
 - Issues are also registered as F11 mod warnings when the game supplies the Working Knowledge mod context.
 - Existing layer files remain compatible. Do not change the layer format for diagnostics alone.
-- Custom group IDs are the persisted research and Proficiency IDs. Published IDs remain save contracts. Later layers may intentionally redefine metadata or wiring for an existing ID, but the audit reports the winner and any risky wiring changes.
+- Custom group IDs are the persisted research and Proficiency IDs. Published IDs remain save contracts. Higher-priority layers may intentionally redefine metadata or wiring for an existing ID, but the audit reports the winner and any risky wiring changes.
 - Custom unlocker subtypes must use the `WkKnUnlocker_` prefix so generated unlockers remain outside the public block candidate catalog.
 - Uncataloged modded blocks are skipped by research, Proficiency, welding, grinding, salvage, and placement enforcement.
 

@@ -74,7 +74,7 @@ Working Knowledge mappings are the base assignments. Any loaded layer can replac
 override CubeBlock/LargeBlockBatteryBlock = example.power_storage
 ```
 
-If more than one layer claims the same block, the last valid mapping in Space Engineers mod load order wins. Reversing the two layers reverses the winner. A mapping to an unknown or inactive group is skipped, leaving the previous valid assignment active.
+If more than one layer claims the same block, the highest-priority valid mapping wins. In the normal in-game Active Mods list, entries nearer the top have higher priority because Space Engineers loads that list from bottom to top. Put the layer you want to win above the conflicting layer. A mapping to an unknown or inactive group is skipped, leaving the next valid assignment active.
 
 ## Custom Group Format
 
@@ -96,14 +96,22 @@ The toolkit generates:
 
 Custom groups automatically flow through the runtime catalog, so mapped blocks appear in research, Proficiency, commands, Pedestal/LCD/HUD displays, fragment rewards, exact schematic rewards, and persisted stores.
 
-## Load-Order Rules
+## Priority And List Order
 
-Working Knowledge records every claim and resolves it in load order:
+Use **priority** when describing conflicts:
 
-- A later valid declaration of the same group ID replaces its display name, description, tier, and declared wiring. If its required wiring is missing, it is skipped and the previous valid declaration remains active.
-- A later valid block mapping replaces the built-in or earlier layer assignment.
-- If different group IDs share a research-group, unlocker, or exact-schematic definition ID, only the later group remains active.
-- A mapping targeting an unknown, displaced, or incomplete group is skipped and the previous valid block assignment remains.
+- In the normal in-game Active Mods list, the higher entry has higher priority and wins.
+- Space Engineers loads that visible list from bottom to top, so the higher entry is applied later even though it appears first when read top to bottom.
+- The Dedicated Server GUI and save configuration can display the underlying load sequence instead. In those views, entries applied later appear lower. When in doubt, `/wk admin audit` reports numeric priority and the winner; higher priority numbers win.
+
+This follows the [official Space Engineers mod priority convention](https://spaceengineers.wiki.gg/wiki/Mods#Load_order).
+
+Working Knowledge records every claim and resolves it by that priority:
+
+- The highest-priority valid declaration of the same group ID supplies its display name, description, tier, and declared wiring. If its required wiring is missing, it is skipped and the next valid declaration remains active.
+- A higher-priority valid block mapping replaces the built-in or lower-priority layer assignment.
+- If different group IDs share a research-group, unlocker, or exact-schematic definition ID, only the highest-priority valid group remains active.
+- A mapping targeting an unknown, displaced, or incomplete group is skipped and the next valid lower-priority block assignment remains.
 - Missing block definitions, or missing `ResearchBlocks.sbc` entries for blocks not already registered by Working Knowledge, prevent that mapping from activating in game.
 
 Run `/wk admin audit` after changing layer order. Expected base overrides are notices in the log. Multi-layer winners, risky group redefinitions, skipped claims, and missing definitions are warnings in chat, `SpaceEngineers.log`, and F11.
@@ -216,7 +224,7 @@ The toolkit also includes:
 - `Docs/mapping_format.md` - mapping file rules.
 - `Docs/schematic_groups.md` - current schematic group IDs and usage hints.
 - `Data/Template/` - internal templates used by the script.
-- `Validate.ps1` - checks one layer or an ordered stack, resolves load-order winners, and validates custom metadata and definitions.
+- `Validate.ps1` - checks one layer or a stack passed from lowest to highest priority, resolves winners, and validates custom metadata and definitions.
 
 Repository-maintenance helpers still exist for batch or scripted work:
 

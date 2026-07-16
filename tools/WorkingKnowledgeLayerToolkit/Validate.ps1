@@ -87,7 +87,7 @@ for ($loadIndex = 0; $loadIndex -lt $layerRoots.Count; $loadIndex++) {
     $researchBlocksPath = Join-Path $layerRoot 'Data\ResearchBlocks.sbc'
     $groupPath = Join-Path $layerRoot 'Data\WorkingKnowledge\schematic_groups.txt'
     $layerName = Split-Path -Leaf $layerRoot
-    $sourcePrefix = "$layerName (load position $($loadIndex + 1))"
+    $sourcePrefix = "$layerName (priority $($loadIndex + 1))"
     if (-not (Test-Path -LiteralPath $mappingPath -PathType Leaf)) { throw "Missing mapping file: $mappingPath" }
 
     foreach ($id in Read-DefinitionIds (Join-Path $layerRoot 'Data\ResearchUnlockerGroups.sbc') 'ResearchGroups' 'ResearchGroup') {
@@ -190,7 +190,7 @@ foreach ($id in $groupHistory.Keys) {
     $winner = $valid[-1]
     $winningGroups[$id] = $winner
     if ($history.Count -gt 1) {
-        $message = "Group '$id' was declared $($history.Count) times; $($winner.Source) is the last valid declaration and wins."
+        $message = "Group '$id' was declared $($history.Count) times; $($winner.Source) is the highest-priority valid declaration and wins."
         $warnings.Add($message) | Out-Null
     }
 }
@@ -207,7 +207,7 @@ foreach ($claim in @($winningGroups.Values | Sort-Object LoadIndex, Line, Id)) {
         $unlockerOwner[$claim.UnlockerSubtype].ClaimKey -eq $claim.ClaimKey -and
         $itemOwner[$claim.ItemSubtype].ClaimKey -eq $claim.ClaimKey
     if (-not $ownsDefinitions) {
-        $warnings.Add("Group '$($claim.Id)' from $($claim.Source) is inactive because a later group owns one of its definition IDs.") | Out-Null
+        $warnings.Add("Group '$($claim.Id)' from $($claim.Source) is inactive because a higher-priority group owns one of its definition IDs.") | Out-Null
         continue
     }
     $activeGroups[$claim.Id] = $claim
@@ -249,6 +249,7 @@ $result = [pscustomobject]@{
 }
 
 Write-Host "Validated Working Knowledge layer stack ($($layerRoots.Count) layer(s))."
+Write-Host 'Priority: LayerPath is lowest to highest; higher number wins.'
 Write-Host "Mappings: $($mappingClaims.Count); winners: $($winningMappings.Count); active layer groups: $(@($activeGroups.Values | Where-Object { -not $_.IsBuiltIn }).Count)."
 foreach ($warning in $result.Warnings) { Write-Host "WARNING: $warning" }
 foreach ($notice in $result.Notices) { Write-Host "NOTICE: $notice" }

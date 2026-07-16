@@ -50,6 +50,7 @@ namespace WkKn
                 "Layer Audit",
                 "Runtime: " + (runtimeLoadIssue == null ? "ready" : "load failed"),
                 "Layers found: " + layerAudit.LayerCount,
+                "Priority: higher number wins; in-game Mods list: higher entry wins",
                 "Warnings: " + layerAudit.Issues.Count + "; information notices: " + layerAudit.Notices.Count);
 
             ShowLayerAuditGroups();

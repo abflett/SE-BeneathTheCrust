@@ -52,11 +52,13 @@ If Steam is offline, slow, blocked by a firewall, or does not return a title, th
 
 ## A Generated Layer Does Not Affect Blocks
 
-Check load order:
+Check the normal in-game Active Mods list. It is shown highest priority first:
 
-1. Working Knowledge
+1. The generated layer
 2. The source block mod
-3. The generated layer
+3. Working Knowledge
+
+Space Engineers loads this visible list from bottom to top, so the higher entry wins conflicts.
 
 Also confirm every block has:
 
@@ -69,7 +71,7 @@ In the loaded world, an admin can run:
 /wk admin audit
 ```
 
-The command reports missing blocks, missing research entries, malformed mappings/groups, load-order winners, definition collisions, skipped claims, and missing custom definitions. Expected built-in replacements are log notices; resolved multi-layer conflicts and invalid claims also appear as warnings in F11.
+The command reports missing blocks, missing research entries, malformed mappings/groups, priority winners, definition collisions, skipped claims, and missing custom definitions. Expected built-in replacements are log notices; resolved multi-layer conflicts and invalid claims also appear as warnings in F11.
 
 Run the offline validator first:
 
@@ -79,7 +81,7 @@ Run the offline validator first:
 
 ## A Custom Group Is Inactive
 
-Confirm `schematic_groups.txt` begins with `version = 1`, has five pipe-separated fields plus an optional description, and uses a stable ID. Its research group, `WkKnUnlocker_...` block, and exact Data Schematic definitions must exist and match the declared subtypes. When different IDs collide on those definitions, the later group owns them and the earlier group becomes inactive.
+Confirm `schematic_groups.txt` begins with `version = 1`, has five pipe-separated fields plus an optional description, and uses a stable ID. Its research group, `WkKnUnlocker_...` block, and exact Data Schematic definitions must exist and match the declared subtypes. When different IDs collide on those definitions, the highest-priority valid group owns them and lower-priority groups become inactive.
 
 ## The Wrong Blocks Are Grouped Together
 

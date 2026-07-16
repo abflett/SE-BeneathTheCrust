@@ -16,7 +16,7 @@ example.power_storage | Example Power Storage Schematics | Uncommon | WkKnLayer_
 
 Valid tiers are `Common`, `Uncommon`, `Rare`, `Prototech`, and `None`. The ID is stored in research and Proficiency saves. Keep the ID, research group subtype, and unlocker subtype unchanged after publishing.
 
-Later layers may redeclare the same ID to change its name, description, tier, or wiring while preserving the persisted identity. The last declaration with valid research-group and unlocker wiring wins and is reported by the audit; an incomplete later declaration is skipped.
+Higher-priority layers may redeclare the same ID to change its name, description, tier, or wiring while preserving the persisted identity. The highest-priority declaration with valid research-group and unlocker wiring wins and is reported by the audit; an incomplete higher-priority declaration is skipped.
 
 Each custom group also needs matching entries in:
 

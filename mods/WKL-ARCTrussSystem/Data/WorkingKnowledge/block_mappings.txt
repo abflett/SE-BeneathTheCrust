@@ -3,7 +3,7 @@
 # Type/Subtype = working.knowledge.schematic.id
 #
 # ARC Truss System and the vanilla truss family are treated as
-# Truss Framework Schematics. Load order automatically moves the vanilla
+# Truss Framework Schematics. Layer priority automatically moves the vanilla
 # assignments out of structure.industrial; no special keyword is required.
 
 CubeBlock/Arc_Truss_I = arc.truss_framework

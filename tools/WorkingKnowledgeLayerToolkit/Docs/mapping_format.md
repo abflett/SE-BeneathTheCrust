@@ -29,7 +29,7 @@ A normal mapping can replace a built-in Working Knowledge assignment. Authors ma
 override BatteryBlock/LargeBlockBatteryBlock = example.power_storage
 ```
 
-The prefix does not change priority. If multiple loaded layers claim the same block, the last valid mapping in mod load order wins. `/wk admin audit` records the assignment history and winner.
+The prefix does not change priority. If multiple loaded layers claim the same block, the highest-priority valid mapping wins. In the normal in-game Active Mods list, put the desired winner above the conflicting layer. `/wk admin audit` records numeric priority, assignment history, and the winner; higher priority numbers win.
 
 ## Block IDs
 
@@ -97,4 +97,4 @@ Example:
 
 Leave `UnlockedByGroups` empty. Working Knowledge binds mapped blocks to the correct generated unlocker groups at runtime.
 
-Run `Validate.ps1 -LayerPath <layer folder>` after editing. To preview load-order winners, pass paths in the same order as the world mod list: `Validate.ps1 -LayerPath @(<first>, <second>)`. In game, `/wk admin audit` confirms the actual session order and loaded definitions.
+Run `Validate.ps1 -LayerPath <layer folder>` after editing. To preview priority winners, pass paths from lowest to highest priority: `Validate.ps1 -LayerPath @(<lower>, <higher>)`. The last path receives the highest numeric priority. In the normal in-game Active Mods list, reverse those conflicting entries so the desired winner appears above the other layer. In game, `/wk admin audit` confirms actual priority and loaded definitions.

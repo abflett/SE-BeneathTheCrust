@@ -14,6 +14,8 @@ From the repository root:
 
 Create a fresh survival test world with progression enabled. Use a disposable world because pre-1.0 development assumes fresh saves.
 
+Every ordered list below is the normal in-game **Active Mods list from top to bottom**. The higher entry has higher priority and wins a conflict; Space Engineers loads this visible list from bottom to top.
+
 ## Baseline
 
 Load only Working Knowledge.
@@ -25,10 +27,10 @@ Load only Working Knowledge.
 
 ## One Override Layer
 
-Load in this order:
+Use this Active Mods list:
 
-1. Working Knowledge
-2. WKL Test - Hard Armor
+1. WKL Test - Hard Armor
+2. Working Knowledge
 
 Expected:
 
@@ -40,11 +42,11 @@ Expected:
 
 ## Conflicting Layers
 
-Load in this order:
+Use this Active Mods list:
 
-1. Working Knowledge
+1. WKL Test - Dense Armor
 2. WKL Test - Hard Armor
-3. WKL Test - Dense Armor
+3. Working Knowledge
 
 Expected:
 
@@ -54,14 +56,14 @@ Expected:
 
 Reverse only the two test layers:
 
-1. Working Knowledge
+1. WKL Test - Hard Armor
 2. WKL Test - Dense Armor
-3. WKL Test - Hard Armor
+3. Working Knowledge
 
 Expected:
 
 - Hard Armor now wins.
-- The audit load positions and histories match the world mod order. If they do not, correct the runtime interpretation of `MyAPIGateway.Session.Mods` before release.
+- The audit priorities and histories match the rule that higher priority numbers win and the higher entry in the normal in-game list wins.
 
 ## Data Fragments And Exact Schematics
 
@@ -88,7 +90,7 @@ With Dense Armor winning:
 
 ## Existing Layer Compatibility
 
-Load Working Knowledge with the existing ARC Truss mapping-only layer.
+Load Working Knowledge with the ARC Truss custom-group layer.
 
 - The layer activates without regeneration.
 - Its truss mappings still work.

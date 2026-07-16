@@ -80,29 +80,29 @@ try {
     Assert-Equal $hardThenDense.WinningMappings['BatteryBlock/LargeBlockBatteryBlock'].ResearchId 'armor.dense' 'Later Dense Armor mapping should win.'
 
     $denseThenHard = & $Validator -LayerPath @($dense, $hard) -PassThru
-    Assert-Equal $denseThenHard.WinningMappings['BatteryBlock/LargeBlockBatteryBlock'].ResearchId 'armor.hard' 'Reversed load order should make Hard Armor win.'
+    Assert-Equal $denseThenHard.WinningMappings['BatteryBlock/LargeBlockBatteryBlock'].ResearchId 'armor.hard' 'Reversed priority should make Hard Armor win.'
 
     $hardThenBroken = & $Validator -LayerPath @($hard, $broken) -PassThru
-    Assert-Equal $hardThenBroken.WinningMappings['BatteryBlock/LargeBlockBatteryBlock'].ResearchId 'armor.hard' 'Invalid later mapping should preserve the previous valid winner.'
+    Assert-Equal $hardThenBroken.WinningMappings['BatteryBlock/LargeBlockBatteryBlock'].ResearchId 'armor.hard' 'Invalid higher-priority mapping should preserve the next valid winner.'
 
     $hardThenIncomplete = & $Validator -LayerPath @($hard, $incomplete) -PassThru
-    Assert-Equal $hardThenIncomplete.WinningMappings['BatteryBlock/LargeBlockBatteryBlock'].ResearchId 'armor.hard' 'Later mapping to an incomplete group should preserve the previous valid winner.'
+    Assert-Equal $hardThenIncomplete.WinningMappings['BatteryBlock/LargeBlockBatteryBlock'].ResearchId 'armor.hard' 'Higher-priority mapping to an incomplete group should preserve the next valid winner.'
 
     $renamed = & $Validator -LayerPath @($hard, $rename) -PassThru
     Assert-Equal $renamed.ActiveGroups['armor.hard'].DisplayName 'Reinforced Hard Armor Schematics' 'Later metadata for the same group ID should win.'
     Assert-Equal $renamed.ActiveGroups['armor.hard'].Tier 'Rare' 'Later tier for the same group ID should win.'
 
     $brokenRenameResult = & $Validator -LayerPath @($hard, $brokenRename) -PassThru
-    Assert-Equal $brokenRenameResult.ActiveGroups['armor.hard'].DisplayName 'Hard Armor Schematics' 'An incomplete later declaration of the same group ID should preserve the previous valid group.'
+    Assert-Equal $brokenRenameResult.ActiveGroups['armor.hard'].DisplayName 'Hard Armor Schematics' 'An incomplete higher-priority declaration of the same group ID should preserve the next valid group.'
 
     $shared = & $Validator -LayerPath @($hard, $sharedWiring) -PassThru
-    Assert-Equal $shared.WinningMappings['BatteryBlock/LargeBlockBatteryBlock'].ResearchId 'armor.shared' 'Later group should own shared definition IDs.'
-    if ($shared.ActiveGroups.ContainsKey('armor.hard')) { throw 'Earlier group sharing definition IDs should be inactive.' }
+    Assert-Equal $shared.WinningMappings['BatteryBlock/LargeBlockBatteryBlock'].ResearchId 'armor.shared' 'Higher-priority group should own shared definition IDs.'
+    if ($shared.ActiveGroups.ContainsKey('armor.hard')) { throw 'Lower-priority group sharing definition IDs should be inactive.' }
 
     $baseOnly = & $Validator -LayerPath @($baseOnlyRemap) -PassThru
     Assert-Equal $baseOnly.WinningMappings['BatteryBlock/LargeBlockBatteryBlock'].ResearchId 'armor.heavy' 'A base block remap should not require a duplicate ResearchBlocks.sbc entry.'
 
-    Write-Host 'Working Knowledge ordered layer-resolution tests passed.'
+    Write-Host 'Working Knowledge layer-priority resolution tests passed.'
 }
 finally {
     if (Test-Path -LiteralPath $TestRoot) { Remove-Item -LiteralPath $TestRoot -Recurse -Force }

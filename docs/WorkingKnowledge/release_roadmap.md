@@ -117,7 +117,7 @@ Completed direction:
 
 - Added versioned `schematic_groups.txt` metadata with stable ID, display name, tier, research-group subtype, and unlocker subtype.
 - Allowed mappings to target built-in or layer-defined groups.
-- Kept `override Type/Subtype = schematic.id` as an optional intent marker while allowing any later valid layer mapping to replace the base assignment.
+- Kept `override Type/Subtype = schematic.id` as an optional intent marker while allowing any higher-priority valid layer mapping to replace the base assignment.
 - Integrated custom groups through the shared runtime catalog used by research, Proficiency, commands, Pedestal/LCD/HUD displays, fragments, exact Data Schematics, and persistence.
 - Extended the toolkit to generate custom group metadata, vanilla research groups, hidden unlockers, exact Data Schematics, and explicit override mappings.
 - Added `Validate.ps1` for generated or manually edited layer folders and updated the copyable example and authoring docs.
@@ -125,16 +125,16 @@ Completed direction:
 Compatibility and safety behavior:
 
 - Existing `0.11.x` and `0.12.x` mapping-only layers load without regeneration.
-- Working Knowledge mappings are the base; later valid layer mappings win in session mod order.
-- Later declarations of the same group ID replace its metadata and wiring while preserving its save identity.
-- Definition-ID collisions give ownership to the later group; displaced groups become inactive and invalid later block claims fall back to the previous valid assignment.
+- Working Knowledge mappings are the base; the highest-priority valid layer mappings win. In the normal in-game Active Mods list, the higher entry has higher priority.
+- Higher-priority declarations of the same group ID replace its metadata and wiring while preserving its save identity.
+- Definition-ID collisions give ownership to the highest-priority valid group; displaced groups become inactive and invalid higher-priority block claims fall back to the next valid assignment.
 - The audit distinguishes expected base replacements from resolved multi-layer conflicts and names every winner.
 - Audit results are visible through `/wk admin audit`, F11, and `SpaceEngineers.log`.
 - Removing or renaming a published custom ID leaves old saved records inert rather than crashing; authors are warned that IDs are save contracts.
 
 Follow-up validation:
 
-- Complete the dedicated `0.13.0` in-game test plan with reversed Hard Armor/Dense Armor load order, group redefinitions, fragment rewards, exact schematics, and save/reload.
+- Complete the dedicated `0.13.0` in-game test plan with reversed Hard Armor/Dense Armor priority, group redefinitions, fragment rewards, exact schematics, and save/reload.
 - Confirm the generated hidden unlockers and exact Data Schematics remain definition-clean under common diagnostic mods.
 - Keep legacy ARC Truss layer validation in the release check path.
 

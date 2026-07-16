@@ -4,22 +4,26 @@ Disposable compatibility layer for testing ordered conflicts between two Working
 
 This layer adds the Uncommon **Reinforced Truss Schematics** group (`test.arc.reinforced_truss`) and maps five ARC blocks plus five vanilla truss pillars into it. Every mapping intentionally overlaps `WKL-ARCTrussSystem`.
 
-## Test Order A
+## Test Priority A: Reinforced Wins
 
-1. Working Knowledge
-2. ARC Truss System
-3. WKL-ARCTrussSystem
-4. WKL-ARCTrussSystemTest
+Normal in-game Active Mods list, top to bottom:
+
+1. WKL-ARCTrussSystemTest
+2. WKL-ARCTrussSystem
+3. ARC Truss System
+4. Working Knowledge
 
 Expected: Reinforced Truss Schematics wins the ten overlapping blocks.
 
-## Test Order B
+## Test Priority B: Framework Wins
 
-1. Working Knowledge
-2. ARC Truss System
-3. WKL-ARCTrussSystemTest
-4. WKL-ARCTrussSystem
+Normal in-game Active Mods list, top to bottom:
 
-Expected: Truss Framework Schematics wins the same ten blocks because the main ARC layer is later.
+1. WKL-ARCTrussSystem
+2. WKL-ARCTrussSystemTest
+3. ARC Truss System
+4. Working Knowledge
 
-In both orders, `/wk admin audit` should report ten multi-layer conflicts, name the later layer as winner, and group moved vanilla blocks under the winning destination. The exact test consumable is `WkKnSchematic_test_arc_reinforced_truss`, displayed as **Reinforced Truss Data Schematic**.
+Expected: Truss Framework Schematics wins the same ten blocks because the main ARC layer has higher priority.
+
+Space Engineers loads the normal in-game list from bottom to top, so the higher visible entry has higher priority and is applied later. In both arrangements, `/wk admin audit` should report ten multi-layer conflicts, name the higher-priority layer as winner, and group moved vanilla blocks under the winning destination. The exact test consumable is `WkKnSchematic_test_arc_reinforced_truss`, displayed as **Reinforced Truss Data Schematic**.

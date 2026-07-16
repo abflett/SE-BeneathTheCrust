@@ -2,7 +2,7 @@
 
 This toolkit creates small compatibility layer mods for **Working Knowledge**.
 
-A layer maps blocks from another Space Engineers block mod into built-in or layer-defined Working Knowledge schematic groups. Layers may remap built-in blocks, and later valid layers win when assignments overlap. Once mapped, those blocks can participate in Working Knowledge research gates, vanilla progression unlocks, Proficiency, welding, repair, grinding, and salvage behavior.
+A layer maps blocks from another Space Engineers block mod into built-in or layer-defined Working Knowledge schematic groups. Layers may remap built-in blocks, and the highest-priority valid layer wins when assignments overlap. In the normal in-game Active Mods list, entries nearer the top have higher priority because Space Engineers loads that list from bottom to top. Once mapped, those blocks can participate in Working Knowledge research gates, vanilla progression unlocks, Proficiency, welding, repair, grinding, and salvage behavior.
 
 This folder is designed to be zipped and distributed as a standalone toolkit. It should work after being unzipped anywhere on disk.
 
@@ -70,11 +70,11 @@ WKL-ExampleBlockMod/
     workshop_description_bbcode.txt
 ```
 
-Load order for manual local testing:
+Recommended normal in-game Active Mods list, shown top to bottom with highest priority first:
 
-1. Working Knowledge
+1. The generated Working Knowledge Layer mod
 2. The source block mod
-3. The generated Working Knowledge Layer mod
+3. Working Knowledge
 
 After generation or editing, validate the layer:
 
@@ -82,4 +82,4 @@ After generation or editing, validate the layer:
 .\Validate.ps1 -LayerPath "C:\Path\To\WKL-ExampleBlockMod"
 ```
 
-Pass multiple paths in world load order to preview group and block winners.
+Pass multiple paths from **lowest to highest priority** to preview group and block winners. The last path receives the highest numeric priority and wins valid conflicts. This is the reverse of how the normal in-game Active Mods list is read from top to bottom.

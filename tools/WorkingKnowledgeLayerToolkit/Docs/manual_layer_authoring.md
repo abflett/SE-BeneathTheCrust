@@ -73,7 +73,7 @@ CubeBlock/ExampleBlock = structure.industrial
 
 Use [schematic_groups.md](schematic_groups.md) to pick IDs.
 
-The last valid mapping wins, including over built-in Working Knowledge assignments. The optional `override` prefix can document an intentional built-in move:
+The highest-priority valid mapping wins, including over built-in Working Knowledge assignments. In the normal in-game Active Mods list, the higher entry has higher priority. The optional `override` prefix can document an intentional built-in move:
 
 ```text
 override BatteryBlock/LargeBlockBatteryBlock = example.power_storage
@@ -85,7 +85,7 @@ The copied `ExampleMod` demonstrates the versioned `schematic_groups.txt` format
 
 For a slower walkthrough of these files, read [editing_generated_layers.md](editing_generated_layers.md).
 
-## 6. Validate And Test Load Order
+## 6. Validate And Test Priority
 
 Run:
 
@@ -93,10 +93,10 @@ Run:
 .\Validate.ps1 -LayerPath "C:\Path\To\WKL-MyBlockPack"
 ```
 
-Use this load order:
+Use this normal in-game Active Mods list, shown top to bottom with highest priority first:
 
-1. Working Knowledge
+1. Your layer
 2. The source block mod
-3. Your layer
+3. Working Knowledge
 
 In game, check that the source blocks appear under the intended Working Knowledge schematic family and that construction, grinding, repair, and salvage behavior follows that family.

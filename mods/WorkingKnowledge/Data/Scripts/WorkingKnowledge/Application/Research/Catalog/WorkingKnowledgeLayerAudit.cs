@@ -53,7 +53,7 @@ namespace WkKn
 
         internal string Source
         {
-            get { return ModName + " (load position " + (LoadIndex + 1) + ") line " + LineNumber; }
+            get { return ModName + " (priority " + (LoadIndex + 1) + ") line " + LineNumber; }
         }
     }
 
