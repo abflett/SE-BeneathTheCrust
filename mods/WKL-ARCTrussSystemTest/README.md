@@ -2,6 +2,8 @@
 
 Disposable compatibility layer for testing ordered conflicts between two Working Knowledge layers.
 
+For the intentionally invalid and conflicting companion variants, see [EDGE_CASE_MATRIX.md](EDGE_CASE_MATRIX.md).
+
 This layer adds the Uncommon **Reinforced Truss Schematics** group (`test.arc.reinforced_truss`) and maps five ARC blocks plus five vanilla truss pillars into it. Every mapping intentionally overlaps `WKL-ARCTrussSystem`.
 
 ## Test Priority A: Reinforced Wins

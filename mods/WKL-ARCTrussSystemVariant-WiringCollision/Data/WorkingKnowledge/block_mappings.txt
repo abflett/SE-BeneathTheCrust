@@ -1,0 +1,2 @@
+CubeBlock/Arc_Truss_I = test.arc.shared_wiring
+CubeBlock/TrussPillar = test.arc.shared_wiring

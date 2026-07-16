@@ -1,0 +1,12 @@
+# Unknown target: skipped so a lower valid claim can win.
+CubeBlock/TrussPillarCorner = test.arc.does_not_exist
+
+# Invalid separator: the runtime loader should warn and continue.
+CubeBlock/TrussPillarDiagonal -> arc.truss_framework
+
+# The definition below makes this a declared research block, but no loaded CubeBlock has this subtype.
+CubeBlock/Arc_Truss_NotReal = test.arc.reinforced_truss
+
+# Duplicate local claims: the final line has the highest priority within this file.
+CubeBlock/TrussPillarX = arc.truss_framework
+CubeBlock/TrussPillarX = structure.industrial

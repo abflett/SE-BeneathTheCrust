@@ -1,0 +1,2 @@
+# Same stable schematic ID; this only creates an overlapping claim for audit testing.
+CubeBlock/Truss = arc.truss_framework
