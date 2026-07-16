@@ -40,7 +40,7 @@ All choices are numbered. Pick the custom-folder number if your source mod is so
 
 The script scans the selected folder for mods that contain public cube block definitions. For Steam Workshop folders named by Workshop item ID, it tries to look up the public Workshop title through Steam first. If that lookup fails, it reads `modinfo.sbc` when available, then falls back to the folder name.
 
-Working Knowledge itself is skipped automatically. After scanning, the script identifies blocks already covered by Working Knowledge and asks whether to reveal and include them as explicit overrides. Leave them excluded unless the layer intentionally reorganizes built-in technology. By default, block sets containing only already-covered blocks are hidden from the selection list.
+Working Knowledge itself is skipped automatically. The initial selection list shows block sets containing new blocks and hides covered-only sets. A final menu option redraws the list with every set and includes already-covered blocks as explicit overrides. Use that advanced view only when the layer intentionally reorganizes existing Working Knowledge technology.
 
 Example:
 
@@ -63,7 +63,7 @@ The all option is the default when more than one block set is found.
 
 ## 5. Choose Built-In Remaps And Custom Groups
 
-Before listing selectable block sets, the script asks whether to include already-mapped blocks. If enabled, covered-only sets are revealed and covered output lines use the optional `override` prefix to make the intent clear. Normal mappings have the same priority.
+The block-set menu includes an option to reveal already-mapped blocks. In that advanced view, covered-only sets are selectable and covered output lines use the optional `override` prefix to make the intent clear. Normal mappings have the same priority.
 
 It also asks whether the layer should define custom schematic groups. For each custom group, choose a stable ID, display name, and tier. The toolkit generates collision-resistant definition subtypes and all required `.sbc` files.
 

@@ -422,15 +422,14 @@ function Get-BlockSetCandidates {
     $workshopTitles = Get-SteamWorkshopTitles -PublishedFileIds $workshopIds
 
     $sets = [System.Collections.Generic.List[object]]::new()
-    for ($candidateIndex = 0; $candidateIndex -lt $candidateRoots.Count; $candidateIndex++) {
-        $candidateRoot = $candidateRoots[$candidateIndex]
+    foreach ($candidateRoot in $candidateRoots) {
         $name = Get-ModDisplayName -Root $candidateRoot -WorkshopTitles $workshopTitles
         if (Test-IsWorkingKnowledgeSourceMod -Root $candidateRoot -DisplayName $name) {
+            Write-Host ("Skipping block set: {0} - this is Working Knowledge itself." -f $name)
             continue
         }
 
-        $percentComplete = [int](($candidateIndex + 1) * 100 / [Math]::Max(1, $candidateRoots.Count))
-        Write-Progress -Activity 'Scanning Space Engineers block sets' -Status $name -PercentComplete $percentComplete
+        Write-Host ("Scanning block set: {0}" -f $name)
         $allBlocks = @(Get-BlockDefinitions -Root $candidateRoot)
         if ($allBlocks.Count -eq 0) {
             continue
@@ -438,6 +437,12 @@ function Get-BlockSetCandidates {
 
         $blocks = @($allBlocks | Where-Object { -not $KnownWorkingKnowledgeBlockKeys.Contains($_.Key) })
         $coveredBlockCount = $allBlocks.Count - $blocks.Count
+        if ($blocks.Count -eq 0) {
+            Write-Host ("Found block set: {0} - all {1} public blocks are already covered and can be explicitly remapped." -f $name, $allBlocks.Count)
+        }
+        if ($coveredBlockCount -gt 0) {
+            Write-Host ("Ignoring {0} block(s) already covered by Working Knowledge." -f $coveredBlockCount)
+        }
 
         $sets.Add([pscustomobject]@{
             Name = $name
@@ -449,7 +454,6 @@ function Get-BlockSetCandidates {
             CoveredBlockCount = $coveredBlockCount
         }) | Out-Null
     }
-    Write-Progress -Activity 'Scanning Space Engineers block sets' -Completed
 
     return @($sets | Sort-Object Name)
 }
@@ -557,46 +561,79 @@ function Get-VisibleBlockSets {
 }
 
 function Select-BlockSets {
-    param(
-        [Parameter(Mandatory = $true)][object[]] $Sets,
-        [switch] $IncludeCovered
-    )
+    param([Parameter(Mandatory = $true)][object[]] $Sets)
 
-    Write-Host ''
-    Write-Host 'Select which block sets to include in this layer:'
-    for ($i = 0; $i -lt $Sets.Count; $i++) {
-        if ($IncludeCovered) {
-            Write-Host ("[{0}] {1} - contains {2} public blocks ({3} new, {4} already covered)" -f
-                ($i + 1), $Sets[$i].Name, $Sets[$i].PublicBlockCount, $Sets[$i].BlockCount, $Sets[$i].CoveredBlockCount)
+    $includeCovered = $false
+    while ($true) {
+        $visibleSets = @(Get-VisibleBlockSets -Sets $Sets -IncludeCovered $includeCovered)
+        Write-Host ''
+        Write-Host 'Select which block sets to include in this layer:'
+        for ($i = 0; $i -lt $visibleSets.Count; $i++) {
+            if ($includeCovered) {
+                Write-Host ("[{0}] {1} - contains {2} public blocks ({3} new, {4} already covered)" -f
+                    ($i + 1), $visibleSets[$i].Name, $visibleSets[$i].PublicBlockCount, $visibleSets[$i].BlockCount, $visibleSets[$i].CoveredBlockCount)
+            }
+            else {
+                Write-Host ("[{0}] {1} - contains {2} new public blocks" -f ($i + 1), $visibleSets[$i].Name, $visibleSets[$i].BlockCount)
+            }
+            Write-Host ("    {0}" -f $visibleSets[$i].Path)
+        }
+
+        $nextOption = $visibleSets.Count + 1
+        $allOption = 0
+        if ($visibleSets.Count -gt 1) {
+            $allOption = $nextOption
+            $allLabel = if ($includeCovered) { 'Select all shown block sets and all public blocks' } else { 'Select all shown block sets' }
+            Write-Host ("[{0}] {1}" -f $allOption, $allLabel)
+            $nextOption++
+        }
+
+        $toggleOption = $nextOption
+        $toggleLabel = if ($includeCovered) {
+            'Show only block sets with new blocks'
         }
         else {
-            Write-Host ("[{0}] {1} - contains {2} new public blocks" -f ($i + 1), $Sets[$i].Name, $Sets[$i].BlockCount)
+            'Show all block sets, including already-covered blocks for explicit remapping'
         }
-        Write-Host ("    {0}" -f $Sets[$i].Path)
-    }
-    $allOption = $Sets.Count + 1
-    $allLabel = if ($IncludeCovered) { 'Select all shown block sets and all public blocks' } else { 'Select all shown block sets' }
-    Write-Host ("[{0}] {1}" -f $allOption, $allLabel)
+        Write-Host ("[{0}] {1}" -f $toggleOption, $toggleLabel)
 
-    $defaultSelection = if ($Sets.Count -eq 1) { '1' } else { [string] $allOption }
+        $defaultSelection = if ($visibleSets.Count -eq 1) {
+            '1'
+        }
+        elseif ($allOption -gt 0) {
+            [string] $allOption
+        }
+        else {
+            [string] $toggleOption
+        }
 
-    while ($true) {
         $choice = Read-Host "Please select block sets [default $defaultSelection] (example: 1 3)"
         if ([string]::IsNullOrWhiteSpace($choice)) {
             $choice = $defaultSelection
         }
 
-        $selectedNumbers = @(Convert-ToSelectionNumbers -Text $choice -MaxValue $allOption)
+        $selectedNumbers = @(Convert-ToSelectionNumbers -Text $choice -MaxValue $toggleOption)
         if ($null -eq $selectedNumbers -or $selectedNumbers.Count -eq 0) {
             Write-Host 'Enter one or more shown numbers separated by spaces, or choose the all option.'
             continue
         }
 
-        if ($selectedNumbers -contains $allOption) {
-            return @($Sets)
+        if ($selectedNumbers -contains $toggleOption) {
+            $includeCovered = -not $includeCovered
+            continue
         }
 
-        return @($selectedNumbers | ForEach-Object { $Sets[$_ - 1] })
+        $selectedSets = if ($allOption -gt 0 -and $selectedNumbers -contains $allOption) {
+            @($visibleSets)
+        }
+        else {
+            @($selectedNumbers | ForEach-Object { $visibleSets[$_ - 1] })
+        }
+
+        return [pscustomobject]@{
+            SelectedSets = @($selectedSets)
+            IncludeCovered = $includeCovered
+        }
     }
 }
 
@@ -758,7 +795,7 @@ function Convert-ToMappingLines {
 }
 
 function Convert-ToCustomGroupLines {
-    param([Parameter(Mandatory = $true)][object[]] $Groups)
+    param([Parameter(Mandatory = $true)][AllowEmptyCollection()][object[]] $Groups)
 
     return (($Groups | ForEach-Object {
         '{0} | {1} | {2} | {3} | {4} | {5}' -f $_.id, $_.displayName, $_.tier, $_.groupSubtype, $_.unlockerSubtype, $_.description
@@ -766,7 +803,7 @@ function Convert-ToCustomGroupLines {
 }
 
 function Convert-ToResearchGroupEntries {
-    param([Parameter(Mandatory = $true)][object[]] $Groups)
+    param([Parameter(Mandatory = $true)][AllowEmptyCollection()][object[]] $Groups)
 
     return (($Groups | ForEach-Object {
 @"
@@ -779,7 +816,7 @@ function Convert-ToResearchGroupEntries {
 }
 
 function Convert-ToUnlockerEntries {
-    param([Parameter(Mandatory = $true)][object[]] $Groups)
+    param([Parameter(Mandatory = $true)][AllowEmptyCollection()][object[]] $Groups)
 
     return (($Groups | ForEach-Object {
         $subtype = [System.Security.SecurityElement]::Escape($_.unlockerSubtype)
@@ -814,7 +851,7 @@ function Convert-ToUnlockerEntries {
 }
 
 function Convert-ToSchematicItemEntries {
-    param([Parameter(Mandatory = $true)][object[]] $Groups)
+    param([Parameter(Mandatory = $true)][AllowEmptyCollection()][object[]] $Groups)
 
     return (($Groups | ForEach-Object {
         $subtype = 'WkKnSchematic_' + (Get-SafeSubtypeToken -Value $_.id)
@@ -901,6 +938,16 @@ if ($SelfTest) {
     if ($advancedVisible.Count -ne 3) {
         throw 'Toolkit self-test failed: explicit remapping did not reveal covered-only sets.'
     }
+    $emptyGroups = @()
+    $emptyOutputs = @(
+        (Convert-ToCustomGroupLines -Groups $emptyGroups),
+        (Convert-ToResearchGroupEntries -Groups $emptyGroups),
+        (Convert-ToUnlockerEntries -Groups $emptyGroups),
+        (Convert-ToSchematicItemEntries -Groups $emptyGroups)
+    )
+    if (@($emptyOutputs | Where-Object { -not [string]::IsNullOrEmpty([string] $_) }).Count -gt 0) {
+        throw 'Toolkit self-test failed: zero custom groups did not produce empty template sections.'
+    }
     Write-Host 'Working Knowledge Layer Toolkit generator self-test passed.'
     return
 }
@@ -923,24 +970,9 @@ if ($blockSets.Count -eq 0) {
     throw 'No block sets with public cube block definitions were found in the selected folder.'
 }
 
-$coveredSetCount = @($blockSets | Where-Object { $_.CoveredBlockCount -gt 0 }).Count
-$coveredOnlySetCount = @($blockSets | Where-Object { $_.BlockCount -eq 0 -and $_.CoveredBlockCount -gt 0 }).Count
-$useOverrides = $false
-if ($coveredSetCount -gt 0) {
-    Write-Host ''
-    if ($coveredOnlySetCount -gt 0) {
-        Write-Host ("{0} block set(s) contain only blocks already covered by Working Knowledge and are hidden by default." -f $coveredOnlySetCount)
-    }
-    $includeCovered = Read-Host 'Show and include already-covered blocks for explicit remapping? [y/N]'
-    $useOverrides = $includeCovered -match '^[Yy]'
-}
-
-$visibleBlockSets = @(Get-VisibleBlockSets -Sets $blockSets -IncludeCovered $useOverrides)
-if ($visibleBlockSets.Count -eq 0) {
-    throw 'No block sets with new public blocks remain. Run again and enable explicit remapping to include already-covered blocks.'
-}
-
-$selectedSets = @(Select-BlockSets -Sets $visibleBlockSets -IncludeCovered:$useOverrides)
+$selection = Select-BlockSets -Sets $blockSets
+$selectedSets = @($selection.SelectedSets)
+$useOverrides = [bool] $selection.IncludeCovered
 $sourceModName = if ($selectedSets.Count -eq 1) {
     [string] $selectedSets[0].Name
 }

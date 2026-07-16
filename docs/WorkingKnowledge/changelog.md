@@ -31,7 +31,7 @@ The Working Knowledge Layer Toolkit now:
 - Includes already-cataloged blocks when an author chooses to reorganize them and marks generated lines with optional `override` syntax.
 - Supports optional custom-group descriptions and manual editing through documented versioned files.
 - Validates one layer or a stack passed from lowest to highest priority, reports winners, and checks matching `.sbc` definitions with `Validate.ps1`.
-- Handles a single custom-group version declaration correctly under Windows PowerShell strict mode and runs that generator self-test during release validation.
+- Handles mapping-only layers with zero custom groups and single custom-group version declarations correctly under Windows PowerShell strict mode, with generator self-tests during release validation.
 - Hides covered-only block sets from the normal selection list while retaining an explicit-remapping option that reveals them for advanced compatibility work.
 - Includes automated Hard Armor/Dense Armor ordering, invalid-later-fallback, and same-ID metadata replacement tests.
 - Includes an updated custom-group example and an ARC Truss layer that exercises a real custom group plus automatic reassignment of vanilla truss blocks without `override` markers.
