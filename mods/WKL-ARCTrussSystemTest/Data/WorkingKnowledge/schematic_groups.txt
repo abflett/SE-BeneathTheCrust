@@ -1,0 +1,7 @@
+# Working Knowledge custom schematic group declarations.
+# Format version 1:
+# id | display name | tier | research group subtype | unlocker subtype | description
+
+version = 1
+
+test.arc.reinforced_truss | Reinforced Truss Schematics | Uncommon | WkKnLayer_ARCTrussTest_reinforced | WkKnUnlocker_ARCTrussTest_reinforced | Reinforced, braced, and junction trusses for demanding structural loads.
