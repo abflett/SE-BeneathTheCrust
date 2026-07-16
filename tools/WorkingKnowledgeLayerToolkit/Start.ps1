@@ -1,5 +1,7 @@
 [CmdletBinding()]
-param()
+param(
+    [switch] $SelfTest
+)
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
@@ -843,10 +845,32 @@ function Validate-GeneratedLayer {
             [xml] (Get-Content -LiteralPath (Join-Path $OutputPath $relativePath) -Raw) | Out-Null
         }
         $groupFile = Get-Content -LiteralPath (Join-Path $OutputPath 'Data\WorkingKnowledge\schematic_groups.txt')
-        if (($groupFile | Where-Object { $_ -match '^\s*version\s*=\s*1\s*$' }).Count -ne 1) {
+        $versionLines = @($groupFile | Where-Object { $_ -match '^\s*version\s*=\s*1\s*$' })
+        if ($versionLines.Count -ne 1) {
             throw 'Generated schematic_groups.txt does not declare version = 1.'
         }
     }
+}
+
+if ($SelfTest) {
+    $examplePath = Join-Path $ScriptRoot 'ExampleMod'
+    $exampleGroups = @(
+        [pscustomobject]@{ id = 'example.truss_system' },
+        [pscustomobject]@{ id = 'example.power_storage' }
+    )
+    $exampleMappings = @(
+        [pscustomobject]@{ SchematicId = 'example.truss_system' },
+        [pscustomobject]@{ SchematicId = 'example.power_storage' }
+    )
+    $oneCustomGroup = @([pscustomobject]@{ id = 'example.truss_system' })
+
+    Validate-GeneratedLayer `
+        -OutputPath $examplePath `
+        -Mappings $exampleMappings `
+        -Groups $exampleGroups `
+        -CustomGroups $oneCustomGroup
+    Write-Host 'Working Knowledge Layer Toolkit generator self-test passed.'
+    return
 }
 
 Write-Host 'Working Knowledge Layer Toolkit'

@@ -71,6 +71,7 @@ if (-not $SkipCompile) {
 }
 
 $layerValidator = Join-Path $repoRoot 'tools\WorkingKnowledgeLayerToolkit\Validate.ps1'
+& (Join-Path $repoRoot 'tools\WorkingKnowledgeLayerToolkit\Start.ps1') -SelfTest
 & $layerValidator -LayerPath (Join-Path $repoRoot 'tools\WorkingKnowledgeLayerToolkit\ExampleMod')
 & $layerValidator -LayerPath (Join-Path $repoRoot 'mods\WKL-ARCTrussSystem')
 & (Join-Path $repoRoot 'tools\WorkingKnowledgeLayerToolkit\Tests\Test-LayerResolution.ps1')
