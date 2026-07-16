@@ -8,11 +8,7 @@ Working Knowledge Layers can now extend the research model instead of assigning 
 
 Layers may provide a versioned `Data/WorkingKnowledge/schematic_groups.txt` file. Each custom group declares a stable research ID, player-facing name, fragment tier, vanilla research-group subtype, and hidden unlocker subtype. Blocks mapped to those groups participate in the same research, Proficiency, construction, repair, grinding, salvage, admin command, Research Pedestal, LCD, HUD, Data Fragment, exact Data Schematic, and persistence paths as built-in families.
 
-Working Knowledge now acts as the base assignment layer. Later compatibility layers may move built-in or modded blocks with the normal mapping syntax. The optional `override` prefix remains available to document intent:
-
-```text
-override Type/Subtype = custom.schematic.id
-```
+Working Knowledge now acts as the base assignment layer. Later compatibility layers may move built-in or modded blocks with the normal mapping syntax. Authors may add the optional word `override` before a mapping to document that the move is intentional. It does not change the mapping's priority.
 
 When assignments overlap, the highest-priority valid mapping wins. In the normal in-game Active Mods list, the higher entry has higher priority because Space Engineers loads the list from bottom to top. The audit records numeric priority, complete assignment history, and the winning layer. A malformed mapping or incomplete same-ID group declaration is skipped so the next valid assignment or declaration remains active.
 
@@ -39,7 +35,7 @@ The Working Knowledge Layer Toolkit now:
 
 Custom schematic IDs are save contracts. Authors should namespace them and must not rename or reuse them after publishing.
 
-The matching [Working Knowledge Layer Toolkit 1.1.0 release](https://github.com/abflett/SE-BeneathTheCrust/releases/tag/v1.1.0) is now public. Download the ready-to-use [WorkingKnowledgeLayerToolkit-1.1.0.zip](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.1.0/WorkingKnowledgeLayerToolkit-1.1.0.zip) without cloning the repository.
+Working Knowledge Layer Toolkit 1.1.0 is now public. Download it from the [SE-BeneathTheCrust releases page](https://github.com/abflett/SE-BeneathTheCrust/releases).
 
 ## 0.12.0 - Layer Diagnostics And Runtime Cleanup
 
