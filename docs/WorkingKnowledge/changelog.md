@@ -2,6 +2,27 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
+## 0.14.0 - Prosperity Block Support
+
+Added schematic coverage for all 57 public cube blocks introduced by **Space Engineers 1.210 - Prosperity**: the 50-block Prosperity Pack, five free update blocks, and two new Decorative Pack 2 catwalk variants.
+
+The new blocks join their established schematic families:
+
+- Sloped Cockpits use Control Station Schematics.
+- Battery Banks use Battery Schematics.
+- Bulky Hydrogen Tanks use Gas Storage Schematics.
+- The Flat Collector uses Cargo Transfer Schematics.
+- The Structural Platform Conveyor, Short Stairs, Grated Catwalk Triangles, Steep and Solid Stairs, and Square Railings use Industrial Structure Schematics.
+- Passage 2 Frame uses Passage Schematics.
+- Server Racks and Cable Runs use Decorative Fixture Schematics.
+- Round and Square Lights use Interior Lighting Schematics.
+
+Added **Prototech O2/H2 Generator Schematics** as a new Prototech-tier family for the new Factorum generator. It has its own research group, hidden unlocker, exact Data Schematic, radial entry, work-reward tuning, research progress, and Proficiency progress.
+
+Kept complete vanilla variant sets in one schematic family. In particular, the Square Railing Entry remains with the other Square Railings, Server Rack B remains with Server Racks A and C, and all Steep Stairs remain together. The Structural Platform Conveyor also remains with the existing Structural Platform and connector variants.
+
+Regenerated vanilla research bindings, hidden unlockers, exact Data Schematics, the runtime catalog, block-variant overrides, radial-menu data, and balance audits from the current 1.210 game definitions.
+
 ## 0.13.0 - Extensible Schematic Groups
 
 Working Knowledge Layers can now extend the research model instead of assigning every supported block to one of the built-in schematic families.

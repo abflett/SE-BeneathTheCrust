@@ -29,6 +29,7 @@ Fix and polish backlog:
 
 Compatibility and test backlog:
 
+- Complete the focused `0.14.0` in-game pass for the Space Engineers 1.210 Prosperity blocks.
 - Preserve existing mapping-only layers alongside the optional `0.13.0` group-definition format.
 - Continue validating deterministic conflicts and overrides across real loaded layer stacks.
 - Confirm uncataloged modded blocks continue to remain outside Working Knowledge systems.
@@ -43,6 +44,7 @@ The planned sequence before `1.0.0` is:
 - `0.11.0` - external layer support for custom block mod integration. Complete.
 - `0.12.0` - compatibility-layer diagnostics, runtime cleanup, and release validation. Complete.
 - `0.13.0` - extensible schematic groups and layer-controlled block remapping. Complete.
+- `0.14.0` - Space Engineers 1.210 Prosperity block support. Implementation complete; in-game validation pending.
 - `1.0.0` - current stabilization target after validation gates are satisfied.
 
 ## 0.10.0 Progress Display - Complete
@@ -138,6 +140,25 @@ Follow-up validation:
 - Confirm the generated hidden unlockers and exact Data Schematics remain definition-clean under common diagnostic mods.
 - Keep legacy ARC Truss layer validation in the release check path.
 
+## 0.14.0 Prosperity Block Support - In Testing
+
+Goal: bring every public block added by Space Engineers 1.210 into the base Working Knowledge research model without disturbing existing assignments.
+
+Completed direction:
+
+- Added all 57 new public block IDs from the free Prosperity update, Prosperity Pack, and Decorative Pack 2 additions.
+- Assigned the new decorative and functional variants to nine coherent schematic families.
+- Added the dedicated Prototech O2/H2 Generator schematic family, unlocker, exact Data Schematic, work reward, and toolkit metadata.
+- Preserved complete vanilla variant sets for Structural Platforms, Square Railings, Server Racks, Steep Stairs, and the split Prototech families.
+- Regenerated the research definitions, runtime catalog, variant overrides, radial menu, reward table, and balance audits from the current game data.
+
+Remaining validation:
+
+- Complete the focused `0.14.0` in-game test plan.
+- Confirm the new blocks lock, research, unlock, build, grind, and gain Proficiency under their intended families.
+- Confirm the new Prototech generator remains isolated from the other Prototech schematic unlocks.
+- Publish the Workshop update only after the local game pass succeeds.
+
 ## 1.0.0 Release Checklist
 
 Goal: make Working Knowledge safe to recommend as a stable standalone progression mod.
@@ -148,6 +169,7 @@ Feature readiness:
 - `0.11.0` external layer support is complete.
 - `0.12.0` layer diagnostics and runtime cleanup are complete.
 - `0.13.0` extensible schematic groups and block remapping are complete and validated.
+- `0.14.0` Prosperity block support is implemented and awaiting its focused game-test pass.
 - Player-facing feedback defaults are comfortable for normal survival play.
 - Modded block behavior is documented clearly.
 

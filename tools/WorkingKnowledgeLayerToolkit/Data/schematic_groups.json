@@ -34,6 +34,7 @@
   { "id": "prototech.drill", "displayName": "Prototech Drill Schematics", "tier": "Prototech", "hint": "Prototech drill blocks." },
   { "id": "prototech.gyroscope", "displayName": "Prototech Gyroscope Schematics", "tier": "Prototech", "hint": "Prototech gyroscope blocks." },
   { "id": "prototech.jump_drive", "displayName": "Prototech Jump Drive Schematics", "tier": "Prototech", "hint": "Prototech jump drive blocks." },
+  { "id": "prototech.o2_h2_generator", "displayName": "Prototech O2/H2 Generator Schematics", "tier": "Prototech", "hint": "Prototech oxygen and hydrogen generator blocks." },
   { "id": "prototech.reactor", "displayName": "Prototech Reactor Schematics", "tier": "Prototech", "hint": "Prototech reactor blocks." },
   { "id": "prototech.refinery", "displayName": "Prototech Refinery Schematics", "tier": "Prototech", "hint": "Prototech refinery blocks." },
   { "id": "prototech.thruster", "displayName": "Prototech Thruster Schematics", "tier": "Prototech", "hint": "Prototech thruster blocks." },

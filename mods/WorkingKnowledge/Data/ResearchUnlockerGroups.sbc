@@ -217,5 +217,9 @@
       <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_prototech_thruster" />
       <Members />
     </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_prototech_o2_h2_generator" />
+      <Members />
+    </ResearchGroup>
   </ResearchGroups>
 </Definitions>

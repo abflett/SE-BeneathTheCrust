@@ -13,7 +13,7 @@ The project is being built as standalone mods first so each major system can be 
 - **Current playable layer:** `mods/WorkingKnowledge`
 - **Current scenario tooling layer:** `mods/Worldwright`
 - **Campaign state:** design and content foundation in `docs/`
-- **Current Working Knowledge line:** `0.13.0` public feedback with extensible schematic groups
+- **Current Working Knowledge line:** `0.14.0` test build with Space Engineers 1.210 Prosperity block support
 - **Release target:** Working Knowledge `1.0.0` stable standalone release before campaign composition
 - **Development style:** fresh test worlds, clean defaults, and standalone mod roots until `1.0.0`
 
@@ -70,7 +70,7 @@ Beneath the Crust keeps the core Space Engineers sandbox intact while adding str
 - [Download Working Knowledge Layer Toolkit 1.1.0](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.1.0/WorkingKnowledgeLayerToolkit-1.1.0.zip)
 - [Working Knowledge inspirations and attribution](docs/WorkingKnowledge/inspirations.md)
 - [Working Knowledge release roadmap](docs/WorkingKnowledge/release_roadmap.md)
-- [Working Knowledge 0.13.0 test plan](docs/WorkingKnowledge/testing_0.13.0.md)
+- [Working Knowledge 0.14.0 test plan](docs/WorkingKnowledge/testing_0.14.0.md)
 - [Working Knowledge Workshop description](docs/WorkingKnowledge/workshop_description_bbcode.txt)
 - [Worldwright overview](mods/Worldwright/README.md)
 - [Worldwright changelog](docs/Worldwright/changelog.md)

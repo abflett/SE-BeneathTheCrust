@@ -25,11 +25,11 @@ control.stations|Control Station Schematics|WkKn_control_stations|WkKnUnlocker_c
 logistics.cargo_transfer|Cargo Transfer Schematics|WkKn_logistics_cargo_transfer|WkKnUnlocker_logistics_cargo_transfer|Common
 economy.station_services|Station Services Schematics|WkKn_economy_station_services|WkKnUnlocker_economy_station_services|Rare
 logistics.conveyor_network|Conveyor Network Schematics|WkKn_logistics_conveyor_network|WkKnUnlocker_logistics_conveyor_network|Common
+structure.industrial|Industrial Structure Schematics|WkKn_structure_industrial|WkKnUnlocker_structure_industrial|Common
 life_support|Life Support Schematics|WkKn_life_support|WkKnUnlocker_life_support|Uncommon
 structure.passage|Passage Schematics|WkKn_structure_passage|WkKnUnlocker_structure_passage|Uncommon
 structure.interior|Interior Structure Schematics|WkKn_structure_interior|WkKnUnlocker_structure_interior|Common
 structure.window|Window Schematics|WkKn_structure_window|WkKnUnlocker_structure_window|Common
-structure.industrial|Industrial Structure Schematics|WkKn_structure_industrial|WkKnUnlocker_structure_industrial|Common
 armor.light|Light Armor Schematics|WkKn_armor_light|WkKnUnlocker_armor_light|Common
 armor.heavy|Heavy Armor Schematics|WkKn_armor_heavy|WkKnUnlocker_armor_heavy|Uncommon
 fundamentals|Fundamental Schematics|0|WkKnUnlocker_fundamentals|None
@@ -48,6 +48,7 @@ weapons.turret|Turret Schematics|WkKn_weapons_turret|WkKnUnlocker_weapons_turret
 utility.jump_drive|Jump Drive Schematics|WkKn_utility_jump_drive|WkKnUnlocker_utility_jump_drive|Rare
 prototech.jump_drive|Prototech Jump Drive Schematics|WkKn_prototech_jump_drive|WkKnUnlocker_prototech_jump_drive|Prototech
 mechanical.wheel_systems|Wheel Systems Schematics|WkKn_mechanical_wheel_systems|WkKnUnlocker_mechanical_wheel_systems|Common
+prototech.o2_h2_generator|Prototech O2/H2 Generator Schematics|WkKn_prototech_o2_h2_generator|WkKnUnlocker_prototech_o2_h2_generator|Prototech
 gas.storage|Gas Storage Schematics|WkKn_gas_storage|WkKnUnlocker_gas_storage|Common
 power.reactor|Reactor Schematics|WkKn_power_reactor|WkKnUnlocker_power_reactor|Rare
 prototech.refinery|Prototech Refinery Schematics|WkKn_prototech_refinery|WkKnUnlocker_prototech_refinery|Prototech
@@ -86,9 +87,12 @@ BasicMissionBlock/LargeBasicMission|automation.ai_control
 BasicMissionBlock/SmallBasicMission|automation.ai_control
 BatteryBlock/LargeBlockBatteryBlock|power.battery
 BatteryBlock/LargeBlockBatteryBlockWarfare2|power.battery
+BatteryBlock/LargeBlockBatteryReskin|power.battery
+BatteryBlock/LargeBlockBatteryReskinOffset|power.battery
 BatteryBlock/LargeBlockPrototechBattery|prototech.battery
 BatteryBlock/SmallBlockBatteryBlock|power.battery
 BatteryBlock/SmallBlockBatteryBlockWarfare2|power.battery
+BatteryBlock/SmallBlockBatteryReskin|power.battery
 BatteryBlock/SmallBlockPrototechBattery|prototech.battery
 BatteryBlock/SmallBlockSmallBatteryBlock|power.battery
 Beacon/LargeBlockBeacon|communications
@@ -140,6 +144,7 @@ Cockpit/DBSmallBlockFighterCockpit|control.stations
 Cockpit/LargeBlockBathroom|decor.habitat_fixtures
 Cockpit/LargeBlockBathroomOpen|decor.habitat_fixtures
 Cockpit/LargeBlockCaptainDesk|decor.habitat_fixtures
+Cockpit/LargeBlockClosedSlopedCockpit|control.stations
 Cockpit/LargeBlockCockpit|control.stations
 Cockpit/LargeBlockCockpitIndustrial|control.stations
 Cockpit/LargeBlockCockpitSeat|control.stations
@@ -153,6 +158,7 @@ Cockpit/LargeBlockDeskCornerInv|decor.habitat_fixtures
 Cockpit/LargeBlockInsetPlantCouch|decor.habitat_fixtures
 Cockpit/LargeBlockLabDeskSeat|decor.habitat_fixtures
 Cockpit/LargeBlockModularBridgeCockpit|structure.bridge
+Cockpit/LargeBlockOpenSlopedCockpit|control.stations
 Cockpit/LargeBlockStandingCockpit|control.stations
 Cockpit/LargeBlockSuspendedControlSeat|control.stations
 Cockpit/LargeBlockSuspendedControlSeatB|control.stations
@@ -165,15 +171,18 @@ Cockpit/PassengerSeatSmallNew|decor.habitat_fixtures
 Cockpit/PassengerSeatSmallOffset|decor.habitat_fixtures
 Cockpit/RoverCockpit|control.stations
 Cockpit/SmallBlockCapCockpit|control.stations
+Cockpit/SmallBlockClosedSlopedCockpit|control.stations
 Cockpit/SmallBlockCockpit|control.stations
 Cockpit/SmallBlockCockpitIndustrial|control.stations
 Cockpit/SmallBlockFlushCockpit|control.stations
+Cockpit/SmallBlockOpenSlopedCockpit|control.stations
 Cockpit/SmallBlockStandingCockpit|control.stations
 Cockpit/SmallBlockSuspendedControlSeat|control.stations
 Cockpit/SmallBlockSuspendedControlSeatB|control.stations
 Cockpit/SpeederCockpit|control.stations
 Cockpit/SpeederCockpitCompact|control.stations
 Collector/Collector|logistics.cargo_transfer
+Collector/CollectorFlat|logistics.cargo_transfer
 Collector/CollectorSmall|logistics.cargo_transfer
 ContractBlock/ContractBlock|economy.station_services
 Conveyor/ConveyorTubeDuctSmallT|logistics.conveyor_network
@@ -184,6 +193,7 @@ Conveyor/LargeBlockConveyor|logistics.conveyor_network
 Conveyor/LargeBlockConveyorPipeIntersection|logistics.conveyor_network
 Conveyor/LargeBlockConveyorPipeJunction|logistics.conveyor_network
 Conveyor/LargeBlockConveyorPipeT|logistics.conveyor_network
+Conveyor/LargeBlockStructural_PlatformConveyor|structure.industrial
 Conveyor/SmallBlockConveyor|logistics.conveyor_network
 Conveyor/SmallBlockConveyorConverter|logistics.conveyor_network
 Conveyor/SmallShipConveyorHub|logistics.conveyor_network
@@ -246,7 +256,22 @@ CubeBlock/CatwalkRailingEnd|structure.industrial
 CubeBlock/CatwalkRailingHalfLeft|structure.industrial
 CubeBlock/CatwalkRailingHalfRight|structure.industrial
 CubeBlock/CatwalkStraight|structure.industrial
+CubeBlock/CatwalkTriangular|structure.industrial
+CubeBlock/CatwalkTriangularRailing|structure.industrial
 CubeBlock/CatwalkWall|structure.industrial
+CubeBlock/ContinuousRailing2x1Left|structure.industrial
+CubeBlock/ContinuousRailing2x1LeftTip|structure.industrial
+CubeBlock/ContinuousRailing2x1Right|structure.industrial
+CubeBlock/ContinuousRailing2x1RightTip|structure.industrial
+CubeBlock/ContinuousRailingCenter|structure.industrial
+CubeBlock/ContinuousRailingCorner|structure.industrial
+CubeBlock/ContinuousRailingDiagonal|structure.industrial
+CubeBlock/ContinuousRailingDouble|structure.industrial
+CubeBlock/ContinuousRailingGate|structure.industrial
+CubeBlock/ContinuousRailingHalfLeft|structure.industrial
+CubeBlock/ContinuousRailingHalfRight|structure.industrial
+CubeBlock/ContinuousRailingRound|structure.industrial
+CubeBlock/ContinuousRailingStraight|structure.industrial
 CubeBlock/Corridor|structure.passage
 CubeBlock/CorridorCorner|structure.passage
 CubeBlock/CorridorDoubleWindow|structure.passage
@@ -373,6 +398,13 @@ CubeBlock/LargeBlockArmorSquareSlopedCornerTip|armor.light
 CubeBlock/LargeBlockArmorSquareSlopedCornerTipInv|armor.light
 CubeBlock/LargeBlockBarCounter|decor.habitat_fixtures
 CubeBlock/LargeBlockBarCounterCorner|decor.habitat_fixtures
+CubeBlock/LargeBlockCableRun|decor.decorative_fixtures
+CubeBlock/LargeBlockCableRunCorner|decor.decorative_fixtures
+CubeBlock/LargeBlockCableRunLong|decor.decorative_fixtures
+CubeBlock/LargeBlockCableRunLongOffset|decor.decorative_fixtures
+CubeBlock/LargeBlockCableRunOffset|decor.decorative_fixtures
+CubeBlock/LargeBlockCableRunStyle2|decor.decorative_fixtures
+CubeBlock/LargeBlockCableRunStyle2Offset|decor.decorative_fixtures
 CubeBlock/LargeBlockConduitBoxes|decor.decorative_fixtures
 CubeBlock/LargeBlockConduitBoxesInv|decor.decorative_fixtures
 CubeBlock/LargeBlockConduitCorner|decor.decorative_fixtures
@@ -497,6 +529,8 @@ CubeBlock/LargeBlockRoundHalfEdgeCornerB|armor.light
 CubeBlock/LargeBlockRoundHalfEdgeCornerInv|armor.light
 CubeBlock/LargeBlockRoundHalfEdgeCornerInvB|armor.light
 CubeBlock/LargeBlockSciFiWall|structure.interior
+CubeBlock/LargeBlockServerRack1|decor.decorative_fixtures
+CubeBlock/LargeBlockServerRack3|decor.decorative_fixtures
 CubeBlock/LargeBlockSmallCornerVivarium|decor.habitat_fixtures
 CubeBlock/LargeBlockSmallVivarium|decor.habitat_fixtures
 CubeBlock/LargeBlockStatueEngineer|decor.decorative_fixtures
@@ -547,10 +581,25 @@ CubeBlock/LargeRoundArmorPanelInvertedCornerHeavy|armor.heavy
 CubeBlock/LargeRoundArmorPanelInvertedCornerLight|armor.light
 CubeBlock/LargeRoundArmorPanelLight|armor.light
 CubeBlock/LargeStairs|structure.industrial
+CubeBlock/LargeStairsShort|structure.industrial
+CubeBlock/LargeStairsSolid|structure.industrial
+CubeBlock/LargeStairsSolidHalf|structure.industrial
+CubeBlock/LargeStairsSolidHalfRailing|structure.industrial
+CubeBlock/LargeStairsSolidRailing|structure.industrial
+CubeBlock/LargeStairsSolidSideL|structure.industrial
+CubeBlock/LargeStairsSolidSideR|structure.industrial
+CubeBlock/LargeStairsSolidSideRailingL|structure.industrial
+CubeBlock/LargeStairsSolidSideRailingR|structure.industrial
 CubeBlock/LargeSteelCatwalk|structure.industrial
 CubeBlock/LargeSteelCatwalk2Sides|structure.industrial
 CubeBlock/LargeSteelCatwalkCorner|structure.industrial
 CubeBlock/LargeSteelCatwalkPlate|structure.industrial
+CubeBlock/LargeSteepStairsCenter|structure.industrial
+CubeBlock/LargeSteepStairsLeft|structure.industrial
+CubeBlock/LargeSteepStairsRailingCenter|structure.industrial
+CubeBlock/LargeSteepStairsRailingLeft|structure.industrial
+CubeBlock/LargeSteepStairsRailingRight|structure.industrial
+CubeBlock/LargeSteepStairsRight|structure.industrial
 CubeBlock/LargeStorageBin1|logistics.cargo_storage
 CubeBlock/LargeStorageBin2|logistics.cargo_storage
 CubeBlock/LargeStorageBin3|logistics.cargo_storage
@@ -623,6 +672,7 @@ CubeBlock/LargeWarningSignEaster9|decor.signage
 CubeBlock/LargeWindowEdge|structure.window
 CubeBlock/LargeWindowSquare|structure.window
 CubeBlock/Passage2|structure.passage
+CubeBlock/Passage2Frame|structure.passage
 CubeBlock/Passage2Wall|structure.passage
 CubeBlock/PassageSciFi|structure.passage
 CubeBlock/PassageScifiCorner|structure.passage
@@ -1058,6 +1108,8 @@ InteriorLight/LargeBlockInsetTerrariumForest|decor.habitat_fixtures
 InteriorLight/LargeBlockInsetWallLight|structure.interior
 InteriorLight/LargeBlockLight_1corner|utility.interior_lighting
 InteriorLight/LargeBlockLight_2corner|utility.interior_lighting
+InteriorLight/LargeBlockLightRound|utility.interior_lighting
+InteriorLight/LargeBlockLightSquare|utility.interior_lighting
 InteriorLight/LargeBlockTrofferLight|utility.interior_lighting
 InteriorLight/LargeInsetPlanter|decor.habitat_fixtures
 InteriorLight/LargeLightPanel|utility.interior_lighting
@@ -1066,6 +1118,8 @@ InteriorLight/PassageSciFiLight|structure.passage
 InteriorLight/SmallBlockInsetLight|utility.interior_lighting
 InteriorLight/SmallBlockLight_1corner|utility.interior_lighting
 InteriorLight/SmallBlockLight_2corner|utility.interior_lighting
+InteriorLight/SmallBlockLightRound|utility.interior_lighting
+InteriorLight/SmallBlockLightSquare|utility.interior_lighting
 InteriorLight/SmallBlockSmallLight|utility.interior_lighting
 InteriorLight/SmallLight|utility.interior_lighting
 InteriorLight/SmallLightPanel|utility.interior_lighting
@@ -1216,16 +1270,19 @@ OxygenFarm/LargeBlockOxygenFarmReskin|gas.processing
 OxygenGenerator/|gas.processing
 OxygenGenerator/IrrigationSystem|production.food
 OxygenGenerator/LargeBlockOxygenGeneratorLab|gas.processing
+OxygenGenerator/LargeBlockPrototechOxygenGenerator|prototech.o2_h2_generator
 OxygenGenerator/OxygenGeneratorSmall|gas.processing
 OxygenGenerator/SmallBlockOxygenGeneratorLab|gas.processing
 OxygenTank/|gas.storage
 OxygenTank/LargeBlockOxygenTankLab|gas.storage
 OxygenTank/LargeHydrogenTank|gas.storage
+OxygenTank/LargeHydrogenTankBulk|gas.storage
 OxygenTank/LargeHydrogenTankIndustrial|gas.storage
 OxygenTank/LargeHydrogenTankSmall|gas.storage
 OxygenTank/LargeHydrogenTankSmallLab|gas.storage
 OxygenTank/OxygenTankSmall|gas.storage
 OxygenTank/SmallHydrogenTank|gas.storage
+OxygenTank/SmallHydrogenTankBulk|gas.storage
 OxygenTank/SmallHydrogenTankLab|gas.storage
 OxygenTank/SmallHydrogenTankSmall|gas.storage
 OxygenTank/SmallOxygenTankSmall|gas.storage
@@ -1339,6 +1396,7 @@ TerminalBlock/LargeBlockAccessPanel1|decor.decorative_fixtures
 TerminalBlock/LargeBlockAccessPanel2|decor.decorative_fixtures
 TerminalBlock/LargeBlockAccessPanel4|decor.decorative_fixtures
 TerminalBlock/LargeBlockSciFiTerminal|control.interfaces
+TerminalBlock/LargeBlockServerRack2|decor.decorative_fixtures
 TerminalBlock/LargeControlPanelPedestal|control.interfaces
 TerminalBlock/LargeCrate|logistics.cargo_storage
 TerminalBlock/LargeFreezer|decor.habitat_fixtures

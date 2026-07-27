@@ -156,5 +156,14 @@
         <Block Type="MyObjectBuilder_HydrogenEngine" Subtype="LargePrototechReactor" />
       </Blocks>
     </BlockVariantGroup>
+    <BlockVariantGroup>
+      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechOxygenGeneratorGroup" />
+      <Icon>Textures\GUI\Icons\Cubes\Prototech_Generator.dds</Icon>
+      <DisplayName>DisplayName_Block_PrototechOxygenGenerator</DisplayName>
+      <Description>Description_PrototechOxygenGenerator</Description>
+      <Blocks>
+        <Block Type="MyObjectBuilder_OxygenGenerator" Subtype="LargeBlockPrototechOxygenGenerator" />
+      </Blocks>
+    </BlockVariantGroup>
   </BlockVariantGroups>
 </Definitions>

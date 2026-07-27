@@ -75,7 +75,7 @@
               <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="InteriorPillarGroup" />
             </Item>
             <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
-              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="StructualBlocksGroup" />
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="StructuralBlocksGroup" />
             </Item>
             <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
               <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="FloorBlockGroup" />
@@ -167,7 +167,7 @@
               <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="DecorativeUtilityGroup" />
             </Item>
             <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
-              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="AccesPanelGroup" />
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="AccessPanelGroup" />
             </Item>
             <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
               <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="StorageShelves" />
@@ -179,13 +179,13 @@
               <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PipesBlockGroup" />
             </Item>
             <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="CableRunGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
               <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ConduitsBlockGroup" />
             </Item>
             <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
               <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="NeonTubes" />
-            </Item>
-            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
-              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="ExhaustPipeGroup" />
             </Item>
           </Items>
         </Section>
@@ -341,15 +341,6 @@
             <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
               <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="DecorativeStorageGroup1" />
             </Item>
-            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
-              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="DecorativeStorageGroup2" />
-            </Item>
-            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
-              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="DecorativeStorageGroup3" />
-            </Item>
-            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
-              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="DecorativeStorageGroup4" />
-            </Item>
           </Items>
         </Section>
         <Section>
@@ -477,9 +468,6 @@
               <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="LCDGroup" />
             </Item>
             <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
-              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="EmotionControllerGroup" />
-            </Item>
-            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
               <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="WarningSignGroup" />
             </Item>
             <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
@@ -602,6 +590,14 @@
             </Item>
             <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
               <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechReactorGroup" />
+            </Item>
+          </Items>
+        </Section>
+        <Section>
+          <Label>RadialMenuGroupTitle_Hitech</Label>
+          <Items>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechOxygenGeneratorGroup" />
             </Item>
           </Items>
         </Section>

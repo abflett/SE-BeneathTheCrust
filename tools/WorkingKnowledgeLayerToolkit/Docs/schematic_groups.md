@@ -76,6 +76,7 @@ The exact consumable subtype is deterministic: `WkKnSchematic_` plus the stable 
 | `prototech.drill` | Prototech Drill Schematics | Prototech | Prototech drill blocks. |
 | `prototech.gyroscope` | Prototech Gyroscope Schematics | Prototech | Prototech gyroscope blocks. |
 | `prototech.jump_drive` | Prototech Jump Drive Schematics | Prototech | Prototech jump drive blocks. |
+| `prototech.o2_h2_generator` | Prototech O2/H2 Generator Schematics | Prototech | Prototech oxygen and hydrogen generator blocks. |
 | `prototech.reactor` | Prototech Reactor Schematics | Prototech | Prototech reactor blocks. |
 | `prototech.refinery` | Prototech Refinery Schematics | Prototech | Prototech refinery blocks. |
 | `prototech.thruster` | Prototech Thruster Schematics | Prototech | Prototech thruster blocks. |

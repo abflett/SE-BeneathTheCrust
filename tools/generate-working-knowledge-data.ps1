@@ -151,6 +151,7 @@ function Get-SchematicSortOrder {
         'prototech.refinery' { return 950 }
         'prototech.jump_drive' { return 960 }
         'prototech.thruster' { return 970 }
+        'prototech.o2_h2_generator' { return 980 }
     }
 
     if ($ResearchId -like 'prototech.*') {
@@ -218,6 +219,7 @@ function Get-SchematicTier {
         'prototech.refinery' { return 'Prototech' }
         'prototech.jump_drive' { return 'Prototech' }
         'prototech.thruster' { return 'Prototech' }
+        'prototech.o2_h2_generator' { return 'Prototech' }
         default { return 'None' }
     }
 }
@@ -264,6 +266,7 @@ function Get-SchematicTitle {
         'prototech.assembler' { return 'Prototech Assembler Schematics' }
         'prototech.drill' { return 'Prototech Drill Schematics' }
         'prototech.reactor' { return 'Prototech Reactor Schematics' }
+        'prototech.o2_h2_generator' { return 'Prototech O2/H2 Generator Schematics' }
         'structure.door' { return 'Door Schematics' }
         'structure.hangar_gate' { return 'Hangar Gate Schematics' }
         'structure.industrial' { return 'Industrial Structure Schematics' }
@@ -328,6 +331,7 @@ function Get-SchematicDescription {
         'prototech.assembler' { return 'Schematics for rare prototech assembly systems.' }
         'prototech.drill' { return 'Schematics for rare prototech mining systems.' }
         'prototech.reactor' { return 'Schematics for rare prototech reactor systems.' }
+        'prototech.o2_h2_generator' { return 'Schematics for rare prototech oxygen and hydrogen processing systems.' }
         'structure.door' { return 'Schematics for doors, hatches, gates, and access ways used to seal or control movement through interiors.' }
         'structure.hangar_gate' { return 'Schematics for hangar doors, blast door segments, and large sealed gates used to protect bays and vehicle access.' }
         'structure.industrial' { return 'Schematics for catwalks, railings, ladders, beams, truss frames, scaffolds, platforms, and industrial support structures.' }
@@ -451,6 +455,7 @@ function Get-ResearchId {
             'largeprototechjumpdrive|smallprototechjumpdrive' { return 'prototech.jump_drive' }
             'largeblockprototechgyro|smallblockprototechgyro' { return 'prototech.gyroscope' }
             'largeblockprototechdrill' { return 'prototech.drill' }
+            'largeblockprototechoxygengenerator' { return 'prototech.o2_h2_generator' }
             default { return 'prototech.' + (Convert-ToSafeToken $subtype).ToLowerInvariant() }
         }
     }
@@ -462,6 +467,8 @@ function Get-ResearchId {
     if (Test-Any $subtype @('airduct')) { return 'structure.passage' }
     if (Test-Any $subtype @('firecover', 'coverwall')) { return 'structure.industrial' }
     if (Test-Any $subtype @('conduit', '^largeblockpipes', 'pipeworkblock')) { return 'decor.decorative_fixtures' }
+    if (Test-Any $subtype @('cablerun', 'serverrack')) { return 'decor.decorative_fixtures' }
+    if (Test-Any $subtype @('continuousrailing', 'steepstairs')) { return 'structure.industrial' }
     if ($type -ne 'door' -and (Test-Any $subtype @('corridor'))) { return 'structure.passage' }
     if (Test-Any $subtype @('labcabinet', 'labcornerdesk', 'labdesk', 'labsink', 'labequipment', 'microscope', 'vivarium', 'largefreezer')) { return 'decor.habitat_fixtures' }
     if (Test-Any $subtype @('firstaidcabinet')) { return 'life_support' }
@@ -1212,6 +1219,9 @@ function Get-ResearchVariantGroups {
         New-VariantGroup -Subtype 'PrototechReactorGroup' -Icon 'Textures\GUI\Icons\Cubes\Prototech_Reactor.dds' -DisplayName 'DisplayName_Block_PrototechReactor' -Description 'Description_PrototechReactor' -Blocks @(
             New-VariantBlock 'MyObjectBuilder_HydrogenEngine' 'LargePrototechReactor'
         )
+        New-VariantGroup -Subtype 'PrototechOxygenGeneratorGroup' -Icon 'Textures\GUI\Icons\Cubes\Prototech_Generator.dds' -DisplayName 'DisplayName_Block_PrototechOxygenGenerator' -Description 'Description_PrototechOxygenGenerator' -Blocks @(
+            New-VariantBlock 'MyObjectBuilder_OxygenGenerator' 'LargeBlockPrototechOxygenGenerator'
+        )
     )
 }
 
@@ -1506,7 +1516,8 @@ function Write-ResearchRadialMenu {
             'PrototechGyroGroup',
             'PrototechBatteryGroup',
             'PrototechDrillGroup',
-            'PrototechReactorGroup'
+            'PrototechReactorGroup',
+            'PrototechOxygenGeneratorGroup'
         )
         if ($null -ne $hitechSection.NextSibling) {
             [void] $hitechSection.ParentNode.InsertBefore($prototechSection, $hitechSection.NextSibling)

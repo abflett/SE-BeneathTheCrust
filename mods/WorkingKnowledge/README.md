@@ -80,7 +80,7 @@ See [Working Knowledge configuration](../../docs/WorkingKnowledge/configuration.
 
 ## Current Status
 
-Working Knowledge is in its `0.13.x` public feedback release series.
+Working Knowledge is in its `0.14.x` public feedback release series.
 
 The current balance targets the default `medium` play experience. Public feedback, smoke testing, and survival playthrough tuning are the remaining focus before treating the mod as stable.
 

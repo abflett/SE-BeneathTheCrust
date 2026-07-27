@@ -90,6 +90,14 @@
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="BatteryBlock" Subtype="LargeBlockBatteryReskin" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="BatteryBlock" Subtype="LargeBlockBatteryReskinOffset" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="BatteryBlock" Subtype="LargeBlockPrototechBattery" />
       <UnlockedByGroups />
     </ResearchBlock>
@@ -99,6 +107,10 @@
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="BatteryBlock" Subtype="SmallBlockBatteryBlockWarfare2" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="BatteryBlock" Subtype="SmallBlockBatteryReskin" />
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
@@ -306,6 +318,10 @@
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="Cockpit" Subtype="LargeBlockClosedSlopedCockpit" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="Cockpit" Subtype="LargeBlockCockpit" />
       <UnlockedByGroups />
     </ResearchBlock>
@@ -358,6 +374,10 @@
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="Cockpit" Subtype="LargeBlockOpenSlopedCockpit" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="Cockpit" Subtype="LargeBlockStandingCockpit" />
       <UnlockedByGroups />
     </ResearchBlock>
@@ -406,6 +426,10 @@
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="Cockpit" Subtype="SmallBlockClosedSlopedCockpit" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="Cockpit" Subtype="SmallBlockCockpit" />
       <UnlockedByGroups />
     </ResearchBlock>
@@ -415,6 +439,10 @@
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="Cockpit" Subtype="SmallBlockFlushCockpit" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="Cockpit" Subtype="SmallBlockOpenSlopedCockpit" />
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
@@ -439,6 +467,10 @@
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="Collector" Subtype="Collector" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="Collector" Subtype="CollectorFlat" />
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
@@ -479,6 +511,10 @@
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="Conveyor" Subtype="LargeBlockConveyorPipeT" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="Conveyor" Subtype="LargeBlockStructural_PlatformConveyor" />
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
@@ -730,7 +766,67 @@
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="CatwalkTriangular" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="CatwalkTriangularRailing" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="CubeBlock" Subtype="CatwalkWall" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="ContinuousRailing2x1Left" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="ContinuousRailing2x1LeftTip" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="ContinuousRailing2x1Right" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="ContinuousRailing2x1RightTip" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="ContinuousRailingCenter" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="ContinuousRailingCorner" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="ContinuousRailingDiagonal" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="ContinuousRailingDouble" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="ContinuousRailingGate" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="ContinuousRailingHalfLeft" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="ContinuousRailingHalfRight" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="ContinuousRailingRound" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="ContinuousRailingStraight" />
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
@@ -1238,6 +1334,34 @@
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeBlockCableRun" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeBlockCableRunCorner" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeBlockCableRunLong" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeBlockCableRunLongOffset" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeBlockCableRunOffset" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeBlockCableRunStyle2" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeBlockCableRunStyle2Offset" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="CubeBlock" Subtype="LargeBlockConduitBoxes" />
       <UnlockedByGroups />
     </ResearchBlock>
@@ -1734,6 +1858,14 @@
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeBlockServerRack1" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeBlockServerRack3" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="CubeBlock" Subtype="LargeBlockSmallCornerVivarium" />
       <UnlockedByGroups />
     </ResearchBlock>
@@ -1934,6 +2066,42 @@
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeStairsShort" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeStairsSolid" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeStairsSolidHalf" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeStairsSolidHalfRailing" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeStairsSolidRailing" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeStairsSolidSideL" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeStairsSolidSideR" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeStairsSolidSideRailingL" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeStairsSolidSideRailingR" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="CubeBlock" Subtype="LargeSteelCatwalk" />
       <UnlockedByGroups />
     </ResearchBlock>
@@ -1947,6 +2115,30 @@
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="CubeBlock" Subtype="LargeSteelCatwalkPlate" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeSteepStairsCenter" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeSteepStairsLeft" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeSteepStairsRailingCenter" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeSteepStairsRailingLeft" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeSteepStairsRailingRight" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="LargeSteepStairsRight" />
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
@@ -2235,6 +2427,10 @@
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="CubeBlock" Subtype="Passage2" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="CubeBlock" Subtype="Passage2Frame" />
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
@@ -3978,6 +4174,14 @@
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="InteriorLight" Subtype="LargeBlockLightRound" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="InteriorLight" Subtype="LargeBlockLightSquare" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="InteriorLight" Subtype="LargeBlockTrofferLight" />
       <UnlockedByGroups />
     </ResearchBlock>
@@ -4007,6 +4211,14 @@
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="InteriorLight" Subtype="SmallBlockLight_2corner" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="InteriorLight" Subtype="SmallBlockLightRound" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="InteriorLight" Subtype="SmallBlockLightSquare" />
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
@@ -4610,6 +4822,10 @@
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="OxygenGenerator" Subtype="LargeBlockPrototechOxygenGenerator" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="OxygenGenerator" Subtype="OxygenGeneratorSmall" />
       <UnlockedByGroups />
     </ResearchBlock>
@@ -4630,6 +4846,10 @@
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="OxygenTank" Subtype="LargeHydrogenTankBulk" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="OxygenTank" Subtype="LargeHydrogenTankIndustrial" />
       <UnlockedByGroups />
     </ResearchBlock>
@@ -4647,6 +4867,10 @@
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="OxygenTank" Subtype="SmallHydrogenTank" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="OxygenTank" Subtype="SmallHydrogenTankBulk" />
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
@@ -5099,6 +5323,10 @@
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
       <Id Type="TerminalBlock" Subtype="LargeBlockSciFiTerminal" />
+      <UnlockedByGroups />
+    </ResearchBlock>
+    <ResearchBlock xsi:type="ResearchBlock">
+      <Id Type="TerminalBlock" Subtype="LargeBlockServerRack2" />
       <UnlockedByGroups />
     </ResearchBlock>
     <ResearchBlock xsi:type="ResearchBlock">
