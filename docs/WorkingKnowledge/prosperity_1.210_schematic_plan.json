@@ -1,0 +1,296 @@
+{
+  "update": "Space Engineers 1.210 - Prosperity",
+  "groups": [
+    {
+      "schematicId": "prototech.o2_h2_generator",
+      "displayName": "Prototech O2/H2 Generator Schematics",
+      "isNewGroup": true,
+      "blocks": [
+        {
+          "id": "OxygenGenerator/LargeBlockPrototechOxygenGenerator",
+          "name": "Prototech O2/H2 Generator"
+        }
+      ]
+    },
+    {
+      "schematicId": "logistics.cargo_transfer",
+      "displayName": "Cargo Transfer Schematics",
+      "isNewGroup": false,
+      "blocks": [
+        {
+          "id": "Collector/CollectorFlat",
+          "name": "Flat Collector"
+        }
+      ]
+    },
+    {
+      "schematicId": "structure.industrial",
+      "displayName": "Industrial Structure Schematics",
+      "isNewGroup": false,
+      "blocks": [
+        {
+          "id": "Conveyor/LargeBlockStructural_PlatformConveyor",
+          "name": "Structural Platform Conveyor"
+        },
+        {
+          "id": "CubeBlock/LargeStairsShort",
+          "name": "Short Stairs"
+        },
+        {
+          "id": "CubeBlock/CatwalkTriangular",
+          "name": "Grated Catwalk Triangle"
+        },
+        {
+          "id": "CubeBlock/CatwalkTriangularRailing",
+          "name": "Grated Catwalk Triangle Railing"
+        },
+        {
+          "id": "CubeBlock/LargeSteepStairsLeft",
+          "name": "Steep Stairs Left"
+        },
+        {
+          "id": "CubeBlock/LargeSteepStairsRight",
+          "name": "Steep Stairs Right"
+        },
+        {
+          "id": "CubeBlock/LargeSteepStairsCenter",
+          "name": "Steep Stairs Center"
+        },
+        {
+          "id": "CubeBlock/LargeSteepStairsRailingLeft",
+          "name": "Steep Stairs Railing Left"
+        },
+        {
+          "id": "CubeBlock/LargeSteepStairsRailingRight",
+          "name": "Steep Stairs Railing Right"
+        },
+        {
+          "id": "CubeBlock/LargeSteepStairsRailingCenter",
+          "name": "Steep Stairs Railing Center"
+        },
+        {
+          "id": "CubeBlock/LargeStairsSolid",
+          "name": "Solid Stairs"
+        },
+        {
+          "id": "CubeBlock/LargeStairsSolidRailing",
+          "name": "Solid Stairs Railing"
+        },
+        {
+          "id": "CubeBlock/LargeStairsSolidHalf",
+          "name": "Solid Half Stairs"
+        },
+        {
+          "id": "CubeBlock/LargeStairsSolidHalfRailing",
+          "name": "Solid Half Stairs Railing"
+        },
+        {
+          "id": "CubeBlock/LargeStairsSolidSideL",
+          "name": "Solid Stairs Left"
+        },
+        {
+          "id": "CubeBlock/LargeStairsSolidSideR",
+          "name": "Solid Stairs Right"
+        },
+        {
+          "id": "CubeBlock/LargeStairsSolidSideRailingL",
+          "name": "Solid Stairs Railing Left"
+        },
+        {
+          "id": "CubeBlock/LargeStairsSolidSideRailingR",
+          "name": "Solid Stairs Railing Right"
+        },
+        {
+          "id": "CubeBlock/ContinuousRailingStraight",
+          "name": "Square Railing Straight"
+        },
+        {
+          "id": "CubeBlock/ContinuousRailingDouble",
+          "name": "Square Railing Double"
+        },
+        {
+          "id": "CubeBlock/ContinuousRailingDiagonal",
+          "name": "Square Railing Diagonal"
+        },
+        {
+          "id": "CubeBlock/ContinuousRailingCorner",
+          "name": "Square Railing Corner"
+        },
+        {
+          "id": "CubeBlock/ContinuousRailingHalfRight",
+          "name": "Square Railing Half Right"
+        },
+        {
+          "id": "CubeBlock/ContinuousRailingHalfLeft",
+          "name": "Square Railing Half Left"
+        },
+        {
+          "id": "CubeBlock/ContinuousRailingCenter",
+          "name": "Square Railing Center"
+        },
+        {
+          "id": "CubeBlock/ContinuousRailing2x1Right",
+          "name": "Square Railing 2x1 Right"
+        },
+        {
+          "id": "CubeBlock/ContinuousRailing2x1RightTip",
+          "name": "Square Railing 2x1 Right Tip"
+        },
+        {
+          "id": "CubeBlock/ContinuousRailing2x1Left",
+          "name": "Square Railing 2x1 Left"
+        },
+        {
+          "id": "CubeBlock/ContinuousRailing2x1LeftTip",
+          "name": "Square Railing 2x1 Left Tip"
+        },
+        {
+          "id": "CubeBlock/ContinuousRailingRound",
+          "name": "Square Railing Curved"
+        },
+        {
+          "id": "CubeBlock/ContinuousRailingGate",
+          "name": "Square Railing Entry"
+        }
+      ]
+    },
+    {
+      "schematicId": "structure.passage",
+      "displayName": "Passage Schematics",
+      "isNewGroup": false,
+      "blocks": [
+        {
+          "id": "CubeBlock/Passage2Frame",
+          "name": "Passage 2 Frame"
+        }
+      ]
+    },
+    {
+      "schematicId": "power.battery",
+      "displayName": "Battery Schematics",
+      "isNewGroup": false,
+      "blocks": [
+        {
+          "id": "BatteryBlock/LargeBlockBatteryReskin",
+          "name": "Battery Bank"
+        },
+        {
+          "id": "BatteryBlock/LargeBlockBatteryReskinOffset",
+          "name": "Battery Bank Offset"
+        },
+        {
+          "id": "BatteryBlock/SmallBlockBatteryReskin",
+          "name": "Battery Bank"
+        }
+      ]
+    },
+    {
+      "schematicId": "control.stations",
+      "displayName": "Control Station Schematics",
+      "isNewGroup": false,
+      "blocks": [
+        {
+          "id": "Cockpit/LargeBlockOpenSlopedCockpit",
+          "name": "Open Sloped Cockpit"
+        },
+        {
+          "id": "Cockpit/LargeBlockClosedSlopedCockpit",
+          "name": "Sloped Cockpit"
+        },
+        {
+          "id": "Cockpit/SmallBlockOpenSlopedCockpit",
+          "name": "Open Sloped Cockpit"
+        },
+        {
+          "id": "Cockpit/SmallBlockClosedSlopedCockpit",
+          "name": "Sloped Cockpit"
+        }
+      ]
+    },
+    {
+      "schematicId": "gas.storage",
+      "displayName": "Gas Storage Schematics",
+      "isNewGroup": false,
+      "blocks": [
+        {
+          "id": "OxygenTank/LargeHydrogenTankBulk",
+          "name": "Bulky Hydrogen Tank"
+        },
+        {
+          "id": "OxygenTank/SmallHydrogenTankBulk",
+          "name": "Bulky Hydrogen Tank"
+        }
+      ]
+    },
+    {
+      "schematicId": "decor.decorative_fixtures",
+      "displayName": "Decorative Fixture Schematics",
+      "isNewGroup": false,
+      "blocks": [
+        {
+          "id": "CubeBlock/LargeBlockServerRack1",
+          "name": "Server Rack A"
+        },
+        {
+          "id": "TerminalBlock/LargeBlockServerRack2",
+          "name": "Server Rack B"
+        },
+        {
+          "id": "CubeBlock/LargeBlockServerRack3",
+          "name": "Server Rack C"
+        },
+        {
+          "id": "CubeBlock/LargeBlockCableRun",
+          "name": "Cable Run 1"
+        },
+        {
+          "id": "CubeBlock/LargeBlockCableRunStyle2",
+          "name": "Cable Run 2"
+        },
+        {
+          "id": "CubeBlock/LargeBlockCableRunLong",
+          "name": "Cable Run 3"
+        },
+        {
+          "id": "CubeBlock/LargeBlockCableRunOffset",
+          "name": "Cable Run 1 Offset"
+        },
+        {
+          "id": "CubeBlock/LargeBlockCableRunStyle2Offset",
+          "name": "Cable Run 2 Offset"
+        },
+        {
+          "id": "CubeBlock/LargeBlockCableRunLongOffset",
+          "name": "Cable Run 3 Offset"
+        },
+        {
+          "id": "CubeBlock/LargeBlockCableRunCorner",
+          "name": "Cable Run Corner"
+        }
+      ]
+    },
+    {
+      "schematicId": "utility.interior_lighting",
+      "displayName": "Interior Lighting Schematics",
+      "isNewGroup": false,
+      "blocks": [
+        {
+          "id": "InteriorLight/LargeBlockLightRound",
+          "name": "Round Light"
+        },
+        {
+          "id": "InteriorLight/LargeBlockLightSquare",
+          "name": "Square Light"
+        },
+        {
+          "id": "InteriorLight/SmallBlockLightRound",
+          "name": "Round Light"
+        },
+        {
+          "id": "InteriorLight/SmallBlockLightSquare",
+          "name": "Square Light"
+        }
+      ]
+    }
+  ]
+}
