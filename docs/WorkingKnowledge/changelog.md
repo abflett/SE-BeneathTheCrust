@@ -27,7 +27,7 @@ Kept complete vanilla variant sets in one schematic family. In particular, the S
 
 Regenerated vanilla research bindings, hidden unlockers, exact Data Schematics, the runtime catalog, block-variant overrides, radial-menu data, and balance audits from the current 1.210 game definitions.
 
-Replaced the Workshop thumbnail with cohesive field-engineering key art. The title is now an in-world holographic research projection instead of a flat text panel, with a simpler composition designed to remain recognizable at Workshop-card size.
+Replaced the Workshop thumbnail with cohesive field-engineering key art. The title is now an in-world holographic research projection instead of a flat text panel, with a compact integrated descriptor identifying the mod as a Research and Proficiency progression overhaul. The simpler composition is designed to remain recognizable at Workshop-card size.
 
 ## 0.13.0 - Extensible Schematic Groups
 
