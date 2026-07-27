@@ -2,7 +2,11 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
-## 0.14.0 - Prosperity Block Support
+## 1.0.0 - Stable Release And Prosperity Support
+
+Working Knowledge reaches its first stable standalone release after its public feedback period. The core research, faction sharing, Proficiency, salvage, construction, configuration, display, compatibility-layer, and persistence systems now form the supported `1.0.x` baseline.
+
+Published schematic IDs, save identities, configuration names, Working Knowledge Layer formats, and established gameplay behavior are now compatibility contracts. Future releases will preserve them or provide an intentional migration path when a change cannot remain backward compatible.
 
 Added schematic coverage for all 57 public cube blocks introduced by **Space Engineers 1.210 - Prosperity**: the 50-block Prosperity Pack, five free update blocks, and two new Decorative Pack 2 catwalk variants.
 

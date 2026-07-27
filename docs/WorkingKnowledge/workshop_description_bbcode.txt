@@ -107,7 +107,9 @@ Working Knowledge is the first playable layer of the larger Space Engineers: Ben
 [url=https://github.com/abflett/SE-BeneathTheCrust]Project README[/url]
 
 [h2]Current Status And Feedback[/h2]
-Working Knowledge is a public feedback release. The core systems are playable, but balance, multiplayer edge cases, dedicated-server behavior, and compatibility with larger mod stacks are still being tested.
+Working Knowledge 1.0 is the stable standalone release of the salvage-first progression overhaul. It includes schematic coverage for the Space Engineers 1.210 Prosperity update and Prosperity Pack while preserving the established research, Proficiency, configuration, persistence, and compatibility-layer systems from the public feedback releases.
+
+Continued bug reports, compatibility notes, and balance feedback are welcome as the [b]1.0.x[/b] line receives maintenance and compatibility updates.
 
 [b]Bug reports, compatibility notes, and balance feedback:[/b]
 [url=https://github.com/abflett/SE-BeneathTheCrust/issues]GitHub Issues[/url]

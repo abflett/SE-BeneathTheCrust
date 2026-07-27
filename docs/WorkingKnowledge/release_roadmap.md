@@ -1,51 +1,50 @@
 # Working Knowledge Roadmap
 
-This roadmap is the planning source for Working Knowledge on the path to a stable `1.0.0` release. Working Knowledge should remain a standalone mod until `1.0.0`; campaign composition, companion mod packs, richer story content, and deeper terminal trade systems are later work.
+This roadmap tracks final validation of the Working Knowledge `1.0.0` release candidate and the work that may follow its stable standalone release. Campaign composition, companion mod packs, richer story content, and deeper terminal trade systems remain later work.
 
 ## Versioning
 
-Working Knowledge uses a `major.feature.fix` version pattern during pre-`1.0.0` development.
+Working Knowledge uses a `major.feature.fix` version pattern.
 
-- Fix-only releases stay in the current feature line, such as `0.9.6`.
-- New feature releases advance the middle number, such as `0.10.0` and `0.11.0`.
-- `1.0.0` is the planned full release after the main feedback-driven features are in place and the standalone mod is stable.
+- Fix-only releases stay in the current feature line, such as `1.0.1`.
+- Backward-compatible feature releases advance the middle number, such as `1.1.0`.
+- `1.0.0` establishes the first stable save, configuration, schematic-ID, and compatibility-layer contracts.
 
-## Pre-1.0.0 Track: Features, Fixes, And Tests
+## 1.0.0 Release Candidate: Final Tests
 
-The pre-`1.0.0` feedback track is about making Working Knowledge comfortable in normal survival play and predictable in modded saves.
+The implementation is feature-complete for `1.0.0`. The remaining work is focused in-game validation before updating the Steam Workshop item.
 
-Feature backlog:
+Release priorities:
 
 - Validate extensible schematic groups and explicit layer remapping through public feedback.
 - Keep player-facing config simple enough that ordinary players do not need to edit config to enjoy the mod.
 - Keep advanced config useful for server owners, modpacks, and balance tuning.
 
-Fix and polish backlog:
+Fix and polish watch items:
 
 - Continue watching for feedback, toast, and progress reporting issues.
 - Confirm player config can reduce or disable progress and info message spam.
 - Improve config documentation where needed.
 - Keep targeted compatibility fixes small and documented.
 
-Compatibility and test backlog:
+Compatibility and test gates:
 
-- Complete the focused `0.14.0` in-game pass for the Space Engineers 1.210 Prosperity blocks.
+- Complete the focused `1.0.0` in-game pass for the Space Engineers 1.210 Prosperity blocks.
 - Preserve existing mapping-only layers alongside the optional `0.13.0` group-definition format.
 - Continue validating deterministic conflicts and overrides across real loaded layer stacks.
 - Confirm uncataloged modded blocks continue to remain outside Working Knowledge systems.
 - Keep the current hidden-unlocker tradeoff documented: hidden unlockers may appear in G-menu search for "Schematics", but are not survival-buildable.
 - Run focused smoke tests after gameplay changes and broader validation before version bumps.
 
-## Plans For Each Version
+## Release History And Target
 
-The planned sequence before `1.0.0` is:
+The completed public-feedback sequence and current target are:
 
 - `0.10.0` - better progress display. Complete.
 - `0.11.0` - external layer support for custom block mod integration. Complete.
 - `0.12.0` - compatibility-layer diagnostics, runtime cleanup, and release validation. Complete.
 - `0.13.0` - extensible schematic groups and layer-controlled block remapping. Complete.
-- `0.14.0` - Space Engineers 1.210 Prosperity block support. Implementation complete; in-game validation pending.
-- `1.0.0` - current stabilization target after validation gates are satisfied.
+- `1.0.0` - stable standalone release with Space Engineers 1.210 Prosperity support. Local release candidate complete; final in-game validation pending.
 
 ## 0.10.0 Progress Display - Complete
 
@@ -140,7 +139,7 @@ Follow-up validation:
 - Confirm the generated hidden unlockers and exact Data Schematics remain definition-clean under common diagnostic mods.
 - Keep legacy ARC Truss layer validation in the release check path.
 
-## 0.14.0 Prosperity Block Support - In Testing
+## 1.0.0 Prosperity Support - Release Candidate
 
 Goal: bring every public block added by Space Engineers 1.210 into the base Working Knowledge research model without disturbing existing assignments.
 
@@ -154,7 +153,7 @@ Completed direction:
 
 Remaining validation:
 
-- Complete the focused `0.14.0` in-game test plan.
+- Complete the focused `1.0.0` in-game test plan.
 - Confirm the new blocks lock, research, unlock, build, grind, and gain Proficiency under their intended families.
 - Confirm the new Prototech generator remains isolated from the other Prototech schematic unlocks.
 - Publish the Workshop update only after the local game pass succeeds.
@@ -169,7 +168,7 @@ Feature readiness:
 - `0.11.0` external layer support is complete.
 - `0.12.0` layer diagnostics and runtime cleanup are complete.
 - `0.13.0` extensible schematic groups and block remapping are complete and validated.
-- `0.14.0` Prosperity block support is implemented and awaiting its focused game-test pass.
+- Space Engineers 1.210 Prosperity block support is included in the `1.0.0` candidate and awaits its focused game-test pass.
 - Player-facing feedback defaults are comfortable for normal survival play.
 - Modded block behavior is documented clearly.
 
@@ -188,7 +187,7 @@ Technical validation:
 - Run a focused multiplayer or hosted-session pass for shared research, faction sync, and nearby-player attribution.
 - Run a dedicated-server validation pass or document any remaining known gap.
 - Recheck public docs for version-specific or maintainer-only wording.
-- Bump `mods/WorkingKnowledge/modinfo.sbc` to `1.0.0` when the above gates are satisfied.
+- Confirm `mods/WorkingKnowledge/modinfo.sbc` and the final deployed test copy both remain at `1.0.0`.
 
 Release validation commands:
 

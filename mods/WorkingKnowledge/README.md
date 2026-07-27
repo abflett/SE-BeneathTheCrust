@@ -80,9 +80,9 @@ See [Working Knowledge configuration](../../docs/WorkingKnowledge/configuration.
 
 ## Current Status
 
-Working Knowledge is in its `0.14.x` public feedback release series.
+Working Knowledge now targets its `1.0.x` stable release line. The current local `1.0.0` build is awaiting final in-game validation before its Steam Workshop update.
 
-The current balance targets the default `medium` play experience. Public feedback, smoke testing, and survival playthrough tuning are the remaining focus before treating the mod as stable.
+The current balance targets the default `medium` play experience. The final in-game release-candidate pass is the remaining gate before the `1.0.0` Steam Workshop update; balance and compatibility feedback will continue through the stable line.
 
 The mod currently includes:
 
