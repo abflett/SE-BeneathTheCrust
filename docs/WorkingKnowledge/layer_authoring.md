@@ -193,6 +193,7 @@ Leave `UnlockedByGroups` empty in the layer. Working Knowledge rebuilds the load
 | `structure.bridge` | Bridge Structure Schematics | Uncommon |
 | `structure.door` | Door Schematics | Common |
 | `structure.hangar_gate` | Hangar Gate Schematics | Uncommon |
+| `structure.industrial_access` | Industrial Access Schematics | Common |
 | `structure.industrial` | Industrial Structure Schematics | Common |
 | `structure.interior` | Interior Structure Schematics | Common |
 | `structure.passage` | Passage Schematics | Uncommon |

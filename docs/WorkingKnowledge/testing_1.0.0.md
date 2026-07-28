@@ -21,6 +21,7 @@ Also keep one existing `0.13.0` Workshop save available for the upgrade check.
 - Back up an existing `0.13.0` save before opening it with the candidate.
 - Confirm personal and faction research, player Proficiency, world configuration, and player feedback settings load unchanged.
 - Confirm previously completed schematic families remain unlocked.
+- Confirm the new Industrial Access family appears with clean new research and Proficiency instead of inheriting Industrial Structure progress.
 - Confirm the new Prototech O2/H2 Generator family appears with clean new progress rather than affecting another Prototech family.
 - Save, reload, and confirm the upgraded world remains stable.
 
@@ -39,7 +40,8 @@ Check at least one locked block from every affected family:
 - Battery Schematics: Battery Bank.
 - Gas Storage Schematics: Bulky Hydrogen Tank.
 - Cargo Transfer Schematics: Flat Collector.
-- Industrial Structure Schematics: Structural Platform Conveyor, Short Stairs, Grated Catwalk Triangle, Steep Stairs, Solid Stairs, and Square Railing.
+- Industrial Structure Schematics: Structural Platform Conveyor and a truss, beam, scaffold, or support block.
+- Industrial Access Schematics: Short Stairs, Grated Catwalk Triangle, Steep Stairs, Solid Stairs, Square Railing, and Ladder.
 - Passage Schematics: Passage 2 Frame.
 - Decorative Fixture Schematics: Server Rack and Cable Run.
 - Interior Lighting Schematics: Round Light and Square Light.
@@ -57,7 +59,9 @@ For each sampled family:
 - Cycle the Structural Platform variants and confirm the platform, conveyor, and connector remain together.
 - Cycle all Square Railing variants, including Square Railing Entry, without crossing schematic families.
 - Cycle Server Racks A, B, and C and confirm all three use Decorative Fixture Schematics.
-- Cycle all six Steep Stairs variants and confirm all use Industrial Structure Schematics.
+- Cycle all six Steep Stairs variants and confirm all use Industrial Access Schematics.
+- Confirm catwalks, stairs, ladders, ramps, and railings use Industrial Access while beams, trusses, scaffolds, structural platforms, and supports remain Industrial Structure.
+- Consume the Industrial Access exact Data Schematic and confirm the durable item is returned after use.
 - Confirm the Prototech O2/H2 Generator has its own radial item and does not unlock or cycle into other Prototech families.
 
 ## Persistence And Completion

@@ -80,9 +80,10 @@ The exact consumable subtype is deterministic: `WkKnSchematic_` plus the stable 
 | `prototech.reactor` | Prototech Reactor Schematics | Prototech | Prototech reactor blocks. |
 | `prototech.refinery` | Prototech Refinery Schematics | Prototech | Prototech refinery blocks. |
 | `prototech.thruster` | Prototech Thruster Schematics | Prototech | Prototech thruster blocks. |
-| `structure.bridge` | Bridge Structure Schematics | Uncommon | Bridge, catwalk, and walkway structure blocks. |
+| `structure.bridge` | Bridge Structure Schematics | Uncommon | Modular bridge floors, slopes, corners, and raised transitions. |
 | `structure.door` | Door Schematics | Common | Doors, hatches, gates, and access-panel style blocks. |
 | `structure.hangar_gate` | Hangar Gate Schematics | Uncommon | Hangar doors and large gate systems. |
+| `structure.industrial_access` | Industrial Access Schematics | Common | Catwalks, stairs, ladders, ramps, railings, and open industrial access structures. |
 | `structure.industrial` | Industrial Structure Schematics | Common | Trusses, beams, frames, platforms, and supports. |
 | `structure.interior` | Interior Structure Schematics | Common | Interior walls, floors, stairs, railings, and room structure. |
 | `structure.passage` | Passage Schematics | Uncommon | Passage blocks, corridors, and enclosed walkway modules. |

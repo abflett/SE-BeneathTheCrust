@@ -47,6 +47,7 @@ Do not rename a published group ID or generated definition subtype. They are sav
 Next, choose the default group for the selected blocks. Common examples are:
 
 - Trusses, frames, beams, platforms: `structure.industrial`
+- Catwalks, stairs, ladders, ramps, railings: `structure.industrial_access`
 - Interior lights: `utility.interior_lighting`
 - Cargo containers: `logistics.cargo_storage`
 - Doors: `structure.door`

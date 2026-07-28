@@ -137,6 +137,7 @@ function Get-SchematicSortOrder {
         'structure.door' { return 400 }
         'structure.hangar_gate' { return 410 }
         'structure.window' { return 420 }
+        'structure.industrial_access' { return 425 }
         'structure.industrial' { return 430 }
         'structure.bridge' { return 440 }
         'decor.habitat_fixtures' { return 450 }
@@ -180,6 +181,7 @@ function Get-SchematicTier {
         'utility.directed_lighting' { return 'Common' }
         'structure.interior' { return 'Common' }
         'structure.door' { return 'Common' }
+        'structure.industrial_access' { return 'Common' }
         'structure.industrial' { return 'Common' }
         'structure.window' { return 'Common' }
         'decor.signage' { return 'Common' }
@@ -269,6 +271,7 @@ function Get-SchematicTitle {
         'prototech.o2_h2_generator' { return 'Prototech O2/H2 Generator Schematics' }
         'structure.door' { return 'Door Schematics' }
         'structure.hangar_gate' { return 'Hangar Gate Schematics' }
+        'structure.industrial_access' { return 'Industrial Access Schematics' }
         'structure.industrial' { return 'Industrial Structure Schematics' }
         'structure.interior' { return 'Interior Structure Schematics' }
         'structure.bridge' { return 'Bridge Structure Schematics' }
@@ -334,7 +337,8 @@ function Get-SchematicDescription {
         'prototech.o2_h2_generator' { return 'Schematics for rare prototech oxygen and hydrogen processing systems.' }
         'structure.door' { return 'Schematics for doors, hatches, gates, and access ways used to seal or control movement through interiors.' }
         'structure.hangar_gate' { return 'Schematics for hangar doors, blast door segments, and large sealed gates used to protect bays and vehicle access.' }
-        'structure.industrial' { return 'Schematics for catwalks, railings, ladders, beams, truss frames, scaffolds, platforms, and industrial support structures.' }
+        'structure.industrial_access' { return 'Schematics for catwalks, stairs, ladders, ramps, railings, and other open industrial access structures.' }
+        'structure.industrial' { return 'Schematics for beams, truss frames, scaffolds, structural platforms, support columns, and industrial framework.' }
         'structure.interior' { return 'Schematics for interior walls, floors, stairs, ramps, columns, trim, embrasures, and room shell pieces.' }
         'structure.bridge' { return 'Schematics for modular bridge floors, corners, slopes, and raised transition pieces.' }
         'structure.passage' { return 'Schematics for corridors, passages, ducts, and walk-through structural modules.' }
@@ -468,7 +472,7 @@ function Get-ResearchId {
     if (Test-Any $subtype @('firecover', 'coverwall')) { return 'structure.industrial' }
     if (Test-Any $subtype @('conduit', '^largeblockpipes', 'pipeworkblock')) { return 'decor.decorative_fixtures' }
     if (Test-Any $subtype @('cablerun', 'serverrack')) { return 'decor.decorative_fixtures' }
-    if (Test-Any $subtype @('continuousrailing', 'steepstairs')) { return 'structure.industrial' }
+    if (Test-Any $subtype @('continuousrailing', 'steepstairs')) { return 'structure.industrial_access' }
     if ($type -ne 'door' -and (Test-Any $subtype @('corridor'))) { return 'structure.passage' }
     if (Test-Any $subtype @('labcabinet', 'labcornerdesk', 'labdesk', 'labsink', 'labequipment', 'microscope', 'vivarium', 'largefreezer')) { return 'decor.habitat_fixtures' }
     if (Test-Any $subtype @('firstaidcabinet')) { return 'life_support' }
@@ -483,7 +487,7 @@ function Get-ResearchId {
     if (Test-Any $subtype @('interiorwall', 'scifiwall', 'angledinteriorwall', 'largeblockinsetwall')) { return 'structure.interior' }
     if (Test-Any $subtype @('kitchen', 'barcounter')) { return 'decor.habitat_fixtures' }
     if (Test-Any $subtype @('lockerroom', 'lockers', 'weaponrack', 'insetbookshelf')) { return 'decor.habitat_fixtures' }
-    if ($subtype -eq 'trussladder') { return 'structure.industrial' }
+    if ($subtype -eq 'trussladder') { return 'structure.industrial_access' }
     if (Test-Any $subtype @('largeblockstructural')) { return 'structure.industrial' }
     if (Test-Any $subtype @('windowwall', '^viewport[0-9]+$', 'largeblocknarrowviewport')) { return 'structure.window' }
 
@@ -604,9 +608,9 @@ function Get-ResearchId {
     if (Test-Any $text @('largesymbol', 'smallsymbol')) { return 'decor.signage' }
     if (Test-Any $text @('sign', 'banner')) { return 'decor.signage' }
 
-    if (Test-Any $text @('ladder')) { return 'structure.industrial' }
-    if (Test-Any $subtype @('largeramp', 'largestairs')) { return 'structure.industrial' }
-    if (Test-Any $text @('catwalk', 'railing', '\brail\b', 'grated.*stairs')) { return 'structure.industrial' }
+    if (Test-Any $text @('ladder')) { return 'structure.industrial_access' }
+    if (Test-Any $subtype @('largeramp', 'largestairs')) { return 'structure.industrial_access' }
+    if (Test-Any $text @('catwalk', 'railing', '\brail\b', 'grated.*stairs')) { return 'structure.industrial_access' }
     if (Test-Any $text @('truss')) { return 'structure.industrial' }
     if (Test-Any $text @('beam', 'pillar', 'column', 'scaffold', 'supportbeam', 'structural')) { return 'structure.industrial' }
     if (Test-Any $text @('modularbridge')) { return 'structure.bridge' }

@@ -148,6 +148,7 @@ Completed direction:
 - Added all 57 new public block IDs from the free Prosperity update, Prosperity Pack, and Decorative Pack 2 additions.
 - Assigned the new decorative and functional variants to nine coherent schematic families.
 - Added the dedicated Prototech O2/H2 Generator schematic family, unlocker, exact Data Schematic, work reward, and toolkit metadata.
+- Split 63 catwalk, stair, ladder, ramp, and railing blocks into the dedicated Common-tier Industrial Access family, leaving 61 framework and support blocks in Industrial Structure.
 - Preserved complete vanilla variant sets for Structural Platforms, Square Railings, Server Racks, Steep Stairs, and the split Prototech families.
 - Regenerated the research definitions, runtime catalog, variant overrides, radial menu, reward table, and balance audits from the current game data.
 
@@ -155,6 +156,7 @@ Remaining validation:
 
 - Complete the focused `1.0.0` in-game test plan.
 - Confirm the new blocks lock, research, unlock, build, grind, and gain Proficiency under their intended families.
+- Confirm Industrial Access research and Proficiency remain independent from Industrial Structure.
 - Confirm the new Prototech generator remains isolated from the other Prototech schematic unlocks.
 - Publish the Workshop update only after the local game pass succeeds.
 

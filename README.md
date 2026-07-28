@@ -54,7 +54,7 @@ Beneath the Crust keeps the core Space Engineers sandbox intact while adding str
 - `mods/WorkingKnowledge/` - the current playable Working Knowledge mod.
 - `mods/Worldwright/` - standalone scenario-authoring tools for protected stations, tutorial bays, and staged authored spaces.
 - `tools/` - local generation, compile, and validation helpers.
-- `tools/WorkingKnowledgeLayerToolkit/` - source and documentation for the standalone Working Knowledge Layer compatibility toolkit. [Download version 1.1.0](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.1.0/WorkingKnowledgeLayerToolkit-1.1.0.zip).
+- `tools/WorkingKnowledgeLayerToolkit/` - source and documentation for the upcoming 1.2.0 standalone compatibility toolkit; [version 1.1.0 remains the current download](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.1.0/WorkingKnowledgeLayerToolkit-1.1.0.zip).
 
 ## Main Docs
 

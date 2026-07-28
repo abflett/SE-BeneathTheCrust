@@ -8,6 +8,10 @@ Maintainer checklist for publishing the standalone toolkit archive. This is sepa
 - Direct asset: [WorkingKnowledgeLayerToolkit-1.1.0.zip](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.1.0/WorkingKnowledgeLayerToolkit-1.1.0.zip)
 - General release history: [SE-BeneathTheCrust Releases](https://github.com/abflett/SE-BeneathTheCrust/releases)
 
+## Prepared Next Release
+
+Toolkit `1.2.0` is prepared locally with the built-in Industrial Access group catalog and updated group-selection guidance. Its validated archive remains under `.tmp/releases/` until the maintainer chooses to publish a new GitHub release.
+
 ## Release Identity
 
 - Update `tools/WorkingKnowledgeLayerToolkit/VERSION.txt` using `major.minor.patch`.

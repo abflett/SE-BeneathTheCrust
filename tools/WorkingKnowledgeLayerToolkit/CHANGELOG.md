@@ -1,5 +1,10 @@
 # Working Knowledge Layer Toolkit Changelog
 
+## 1.2.0 - Industrial Access Group Catalog
+
+- Added the built-in `structure.industrial_access` group for catwalks, stairs, ladders, ramps, railings, and other open industrial access structures.
+- Updated group-selection guidance so framework blocks remain under Industrial Structure while personnel-access blocks use Industrial Access.
+
 ## 1.1.0 - Custom Groups And Priority Validation
 
 [Download Working Knowledge Layer Toolkit 1.1.0](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.1.0/WorkingKnowledgeLayerToolkit-1.1.0.zip) or read the [published release notes](https://github.com/abflett/SE-BeneathTheCrust/releases/tag/v1.1.0).

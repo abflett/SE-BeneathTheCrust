@@ -31,7 +31,14 @@
         {
           "id": "Conveyor/LargeBlockStructural_PlatformConveyor",
           "name": "Structural Platform Conveyor"
-        },
+        }
+      ]
+    },
+    {
+      "schematicId": "structure.industrial_access",
+      "displayName": "Industrial Access Schematics",
+      "isNewGroup": true,
+      "blocks": [
         {
           "id": "CubeBlock/LargeStairsShort",
           "name": "Short Stairs"

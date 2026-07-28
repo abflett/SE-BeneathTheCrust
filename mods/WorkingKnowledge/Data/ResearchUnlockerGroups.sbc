@@ -166,6 +166,10 @@
       <Members />
     </ResearchGroup>
     <ResearchGroup xsi:type="ResearchGroup">
+      <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_structure_industrial_access" />
+      <Members />
+    </ResearchGroup>
+    <ResearchGroup xsi:type="ResearchGroup">
       <Id Type="MyObjectBuilder_ResearchGroupDefinition" Subtype="WkKn_structure_industrial" />
       <Members />
     </ResearchGroup>

@@ -16,12 +16,15 @@ The new blocks join their established schematic families:
 - Battery Banks use Battery Schematics.
 - Bulky Hydrogen Tanks use Gas Storage Schematics.
 - The Flat Collector uses Cargo Transfer Schematics.
-- The Structural Platform Conveyor, Short Stairs, Grated Catwalk Triangles, Steep and Solid Stairs, and Square Railings use Industrial Structure Schematics.
+- The Structural Platform Conveyor remains with Industrial Structure Schematics.
+- Short Stairs, Grated Catwalk Triangles, Steep and Solid Stairs, and Square Railings use Industrial Access Schematics.
 - Passage 2 Frame uses Passage Schematics.
 - Server Racks and Cable Runs use Decorative Fixture Schematics.
 - Round and Square Lights use Interior Lighting Schematics.
 
 Added **Prototech O2/H2 Generator Schematics** as a new Prototech-tier family for the new Factorum generator. It has its own research group, hidden unlocker, exact Data Schematic, radial entry, work-reward tuning, research progress, and Proficiency progress.
+
+Added **Industrial Access Schematics** as a new Common-tier family for open personnel-access structures. The 63 catwalk, stair, ladder, ramp, and railing blocks previously mixed into Industrial Structure now have their own research, Proficiency, exact Data Schematic, hidden unlocker, and work-reward tuning. Industrial Structure now contains the remaining 61 beams, trusses, scaffolds, structural platforms, supports, and framework blocks.
 
 Kept complete vanilla variant sets in one schematic family. In particular, the Square Railing Entry remains with the other Square Railings, Server Rack B remains with Server Racks A and C, and all Steep Stairs remain together. The Structural Platform Conveyor also remains with the existing Structural Platform and connector variants.
 
