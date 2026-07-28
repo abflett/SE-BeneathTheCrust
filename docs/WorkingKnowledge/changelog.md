@@ -4,33 +4,20 @@ Public-facing release notes for the standalone **Working Knowledge** Space Engin
 
 ## 1.0.0 - Stable Release And Prosperity Support
 
-Working Knowledge reaches its first stable standalone release after its public feedback period. The core research, faction sharing, Proficiency, salvage, construction, configuration, display, compatibility-layer, and persistence systems now form the supported `1.0.x` baseline.
+Working Knowledge has reached its first stable release. After a month of public testing without reported gameplay issues, the research, Proficiency, construction, salvage, faction sharing, displays, configuration, compatibility layers, and save systems now form the supported `1.0.x` foundation.
 
-Published schematic IDs, save identities, configuration names, Working Knowledge Layer formats, and established gameplay behavior are now compatibility contracts. Future releases will preserve them or provide an intentional migration path when a change cannot remain backward compatible.
+Version 1.0.0 also brings full schematic coverage for **Space Engineers 1.210 - Prosperity**, including all 50 blocks from the Prosperity Pack, five free update blocks, and the two new Decorative Pack 2 catwalk variants.
 
-Added schematic coverage for all 57 public cube blocks introduced by **Space Engineers 1.210 - Prosperity**: the 50-block Prosperity Pack, five free update blocks, and two new Decorative Pack 2 catwalk variants.
+Prosperity's new cockpits, battery banks, hydrogen tanks, collector, passages, decorative fixtures, lighting, structural pieces, stairs, catwalks, and railings have been placed into their appropriate research families. Related block variants remain together so unlocking a schematic gives players a consistent and predictable set of building options.
 
-The new blocks join their established schematic families:
+Two new schematic families join the progression:
 
-- Sloped Cockpits use Control Station Schematics.
-- Battery Banks use Battery Schematics.
-- Bulky Hydrogen Tanks use Gas Storage Schematics.
-- The Flat Collector uses Cargo Transfer Schematics.
-- The Structural Platform Conveyor remains with Industrial Structure Schematics.
-- Short Stairs, Grated Catwalk Triangles, Steep and Solid Stairs, and Square Railings use Industrial Access Schematics.
-- Passage 2 Frame uses Passage Schematics.
-- Server Racks and Cable Runs use Decorative Fixture Schematics.
-- Round and Square Lights use Interior Lighting Schematics.
+- **Industrial Access Schematics** cover catwalks, stairs, ladders, ramps, railings, and other open personnel-access structures. These blocks no longer compete with beams, trusses, scaffolds, and framework inside the broader Industrial Structure family.
+- **Prototech O2/H2 Generator Schematics** give the new Factorum generator its own Prototech-tier research and Proficiency progression.
 
-Added **Prototech O2/H2 Generator Schematics** as a new Prototech-tier family for the new Factorum generator. It has its own research group, hidden unlocker, exact Data Schematic, radial entry, work-reward tuning, research progress, and Proficiency progress.
+The Workshop presentation has also been refreshed with new field-engineering artwork that presents Working Knowledge as a Research and Proficiency progression overhaul.
 
-Added **Industrial Access Schematics** as a new Common-tier family for open personnel-access structures. The 63 catwalk, stair, ladder, ramp, and railing blocks previously mixed into Industrial Structure now have their own research, Proficiency, exact Data Schematic, hidden unlocker, and work-reward tuning. Industrial Structure now contains the remaining 61 beams, trusses, scaffolds, structural platforms, supports, and framework blocks.
-
-Kept complete vanilla variant sets in one schematic family. In particular, the Square Railing Entry remains with the other Square Railings, Server Rack B remains with Server Racks A and C, and all Steep Stairs remain together. The Structural Platform Conveyor also remains with the existing Structural Platform and connector variants.
-
-Regenerated vanilla research bindings, hidden unlockers, exact Data Schematics, the runtime catalog, block-variant overrides, radial-menu data, and balance audits from the current 1.210 game definitions.
-
-Replaced the Workshop thumbnail with cohesive field-engineering key art. The title is now an in-world holographic research projection instead of a flat text panel, with an integrated descriptor identifying the mod as a Research and Proficiency progression overhaul. The final composition lowers the projector and enlarges the title while retaining breathing room around the atmospheric engineer, research table, and habitat scene. A faint three-level proficiency graph continues the `WORKING` row, matching the projection's perspective and blending into its existing technical scribbles without competing with the title. A restrained cinematic finishing grade improves thumbnail-scale contrast, cyan and amber separation, focal clarity, and depth while preserving shadow detail.
+With the move to 1.0, established save data, schematic identities, configuration names, layer formats, and gameplay behavior are now treated as compatibility promises. Future updates will preserve them whenever possible and provide an intentional migration path when a breaking change cannot be avoided.
 
 ## 0.13.0 - Extensible Schematic Groups
 
