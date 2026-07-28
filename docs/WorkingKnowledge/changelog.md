@@ -27,7 +27,7 @@ Kept complete vanilla variant sets in one schematic family. In particular, the S
 
 Regenerated vanilla research bindings, hidden unlockers, exact Data Schematics, the runtime catalog, block-variant overrides, radial-menu data, and balance audits from the current 1.210 game definitions.
 
-Replaced the Workshop thumbnail with cohesive field-engineering key art. The title is now an in-world holographic research projection instead of a flat text panel, with an integrated descriptor identifying the mod as a Research and Proficiency progression overhaul. The final composition lowers the projector and enlarges the title while retaining breathing room around the atmospheric engineer, research table, and habitat scene. A faint three-level proficiency graph continues the `WORKING` row, matching the projection's perspective and blending into its existing technical scribbles without competing with the title.
+Replaced the Workshop thumbnail with cohesive field-engineering key art. The title is now an in-world holographic research projection instead of a flat text panel, with an integrated descriptor identifying the mod as a Research and Proficiency progression overhaul. The final composition lowers the projector and enlarges the title while retaining breathing room around the atmospheric engineer, research table, and habitat scene. A faint three-level proficiency graph continues the `WORKING` row, matching the projection's perspective and blending into its existing technical scribbles without competing with the title. A restrained cinematic finishing grade improves thumbnail-scale contrast, cyan and amber separation, focal clarity, and depth while preserving shadow detail.
 
 ## 0.13.0 - Extensible Schematic Groups
 
