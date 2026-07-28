@@ -4,6 +4,9 @@
 
 - Added the built-in `structure.industrial_access` group for catwalks, stairs, ladders, ramps, railings, and other open industrial access structures.
 - Updated group-selection guidance so framework blocks remain under Industrial Structure while personnel-access blocks use Industrial Access.
+- Added release validation that requires the Toolkit to expose every active built-in Working Knowledge group with matching names and tiers, including all Prototech families.
+- Suppressed expected warning and error diagnostics from isolated negative-test fixtures so release output reports the fixture phase clearly without resembling production failures.
+- Excluded the repository-only `Tests` directory from downloadable Toolkit archives while retaining those checks in the source release workflow.
 
 ## 1.1.0 - Custom Groups And Priority Validation
 

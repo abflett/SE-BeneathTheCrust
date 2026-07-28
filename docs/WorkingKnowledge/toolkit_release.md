@@ -35,7 +35,9 @@ Also run the current Working Knowledge release validator. It compiles the mod, t
 .\tools\validate-working-knowledge-release.ps1 -ExpectedVersion 0.13.0
 ```
 
-Open the final archive once and confirm it contains one top-level `WorkingKnowledgeLayerToolkit` folder and no local logs, test worlds, downloaded mods, or repository metadata.
+The release validator also compares the generated Working Knowledge research metadata against the Toolkit catalog. It fails if any active built-in schematic group is missing or if a display name or tier differs. Priority/fallback fixtures use temporary fake layers and suppress their expected invalid-case diagnostics; only their pass/fail result appears in normal release output.
+
+Open the final archive once and confirm it contains one top-level `WorkingKnowledgeLayerToolkit` folder and no repository-only `Tests` directory, local logs, test worlds, downloaded mods, or repository metadata.
 
 ## Publication Gates
 

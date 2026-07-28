@@ -72,7 +72,14 @@ New-Item -ItemType Directory -Path $stageToolkitRoot -Force | Out-Null
 
 try {
     foreach ($item in Get-ChildItem -LiteralPath $toolkitRoot -Force) {
+        if ($item.Name -eq 'Tests') {
+            continue
+        }
         Copy-Item -LiteralPath $item.FullName -Destination $stageToolkitRoot -Recurse -Force
+    }
+
+    if (Test-Path -LiteralPath (Join-Path $stageToolkitRoot 'Tests')) {
+        throw 'Toolkit package must not contain repository-only maintainer tests.'
     }
 
     $forbiddenItems = @(Get-ChildItem -LiteralPath $stageToolkitRoot -Recurse -Force | Where-Object {
@@ -111,6 +118,9 @@ try {
     Expand-Archive -LiteralPath $OutputPath -DestinationPath $extractRoot -Force
 
     $packagedToolkitRoot = Join-Path $extractRoot 'WorkingKnowledgeLayerToolkit'
+    if (Test-Path -LiteralPath (Join-Path $packagedToolkitRoot 'Tests')) {
+        throw 'Toolkit archive contains repository-only maintainer tests.'
+    }
     foreach ($relativePath in $requiredPackagePaths) {
         if (-not (Test-Path -LiteralPath (Join-Path $packagedToolkitRoot $relativePath))) {
             throw "Archive layout is missing: WorkingKnowledgeLayerToolkit\$relativePath"

@@ -63,6 +63,70 @@ if ($modReadme -notmatch [regex]::Escape($featureLine + '.x')) {
     throw "Working Knowledge README does not mention the current $featureLine.x release series."
 }
 
+$catalogPath = Join-Path $modRoot 'Data\Scripts\WorkingKnowledge\Application\Research\Catalog\ResearchCatalog.generated.cs'
+$catalogText = Get-Content -LiteralPath $catalogPath -Raw
+$metadataMatch = [regex]::Match(
+    $catalogText,
+    'private const string ResearchMetadataData\s*=\s*@"\r?\n(?<Data>.*?)\r?\n";',
+    [System.Text.RegularExpressions.RegexOptions]::Singleline
+)
+if (-not $metadataMatch.Success) {
+    throw "Could not read built-in schematic metadata from $catalogPath."
+}
+
+$baseGroups = @{}
+foreach ($line in ($metadataMatch.Groups['Data'].Value -split '\r?\n')) {
+    if ([string]::IsNullOrWhiteSpace($line)) {
+        continue
+    }
+    $fields = $line.Split('|')
+    if ($fields.Count -ne 5) {
+        throw "Malformed built-in schematic metadata row: $line"
+    }
+    if ($baseGroups.ContainsKey($fields[0])) {
+        throw "Duplicate built-in schematic ID in generated catalog: $($fields[0])"
+    }
+    $baseGroups[$fields[0]] = [pscustomobject]@{
+        DisplayName = $fields[1]
+        Tier = $fields[4]
+    }
+}
+
+$toolkitGroupsPath = Join-Path $repoRoot 'tools\WorkingKnowledgeLayerToolkit\Data\schematic_groups.json'
+$rawToolkitGroups = Get-Content -LiteralPath $toolkitGroupsPath -Raw | ConvertFrom-Json
+$toolkitGroups = @($rawToolkitGroups | ForEach-Object { $_ })
+$toolkitGroupsById = @{}
+foreach ($group in $toolkitGroups) {
+    $id = [string] $group.id
+    if ($toolkitGroupsById.ContainsKey($id)) {
+        throw "Duplicate built-in schematic ID in Toolkit catalog: $id"
+    }
+    $toolkitGroupsById[$id] = $group
+}
+
+$missingToolkitGroups = @($baseGroups.Keys | Where-Object { -not $toolkitGroupsById.ContainsKey($_) } | Sort-Object)
+$extraToolkitGroups = @($toolkitGroupsById.Keys | Where-Object { -not $baseGroups.ContainsKey($_) } | Sort-Object)
+if ($missingToolkitGroups.Count -gt 0) {
+    throw "Toolkit catalog is missing built-in schematic groups: $($missingToolkitGroups -join ', ')"
+}
+if ($extraToolkitGroups.Count -gt 0) {
+    throw "Toolkit catalog contains groups that are not active built-ins: $($extraToolkitGroups -join ', ')"
+}
+
+foreach ($id in $baseGroups.Keys) {
+    $base = $baseGroups[$id]
+    $toolkit = $toolkitGroupsById[$id]
+    if ([string] $toolkit.displayName -cne $base.DisplayName) {
+        throw "Toolkit display name for '$id' is '$($toolkit.displayName)' instead of '$($base.DisplayName)'."
+    }
+    if ([string] $toolkit.tier -cne $base.Tier) {
+        throw "Toolkit tier for '$id' is '$($toolkit.tier)' instead of '$($base.Tier)'."
+    }
+}
+
+$prototechGroupCount = @($baseGroups.Keys | Where-Object { $_ -like 'prototech.*' }).Count
+Write-Host "Validated Toolkit catalog parity for $($baseGroups.Count) built-in schematic groups, including $prototechGroupCount Prototech groups."
+
 if (-not $SkipCompile) {
     & (Join-Path $repoRoot 'tools\compile-mod-scripts.ps1') -ModName WkKn
     if ($LASTEXITCODE -ne 0) {
@@ -74,6 +138,7 @@ $layerValidator = Join-Path $repoRoot 'tools\WorkingKnowledgeLayerToolkit\Valida
 & (Join-Path $repoRoot 'tools\WorkingKnowledgeLayerToolkit\Start.ps1') -SelfTest
 & $layerValidator -LayerPath (Join-Path $repoRoot 'tools\WorkingKnowledgeLayerToolkit\ExampleMod')
 & $layerValidator -LayerPath (Join-Path $repoRoot 'mods\WKL-ARCTrussSystem')
+Write-Host 'Running isolated layer priority and fallback fixtures; expected invalid-case diagnostics are suppressed.'
 & (Join-Path $repoRoot 'tools\WorkingKnowledgeLayerToolkit\Tests\Test-LayerResolution.ps1')
 & (Join-Path $repoRoot 'tools\package-working-knowledge-layer-toolkit.ps1')
 

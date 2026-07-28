@@ -87,8 +87,8 @@ The offline validator checks layer syntax, definitions, wiring, and priority res
 - `Validate.ps1` - standalone layer and conflict-stack validator.
 - `ExampleMod/` - complete copyable manual-authoring example; do not publish it unchanged.
 - `Docs/` - authoring, format, publishing, and troubleshooting guides.
-- `Tests/Test-LayerResolution.ps1` - automated priority and fallback checks.
-- `Tests/Deploy-ConflictTestLayers.ps1` - maintainer-only local conflict-fixture deployment.
 - `VERSION.txt` and `CHANGELOG.md` - toolkit release identity and history.
+
+The repository source also contains maintainer-only automated tests under `Tests/`. The release packager excludes that directory from downloadable Toolkit archives. When invoked explicitly from the repository, the resolution test creates deliberately valid and invalid fixture layers only under the Windows temporary directory, suppresses their expected diagnostics, and deletes them after the assertions finish. These fixtures are never installed as Space Engineers mods.
 
 Report toolkit problems on the [project issue tracker](https://github.com/abflett/SE-BeneathTheCrust/issues). Include the exact error, what you selected, and whether the source was a local mod or Workshop item. Do not attach another author's complete mod unless its license permits redistribution.

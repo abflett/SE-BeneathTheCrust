@@ -66,7 +66,14 @@ function Assert-Equal {
     if ($Actual -ne $Expected) { throw "$Message Expected '$Expected', got '$Actual'." }
 }
 
+function Invoke-FixtureValidation {
+    param([Parameter(Mandatory = $true)][string[]] $LayerPaths)
+
+    return & $Validator -LayerPath $LayerPaths -PassThru 6>$null
+}
+
 try {
+    Write-Host 'Running isolated Working Knowledge layer-resolution fixtures in the system temp directory.'
     $hard = New-TestLayer 'HardArmor' 'armor.hard' 'Hard Armor Schematics' 'Uncommon' 'WkKnLayer_HardArmor' 'WkKnUnlocker_HardArmor' 'armor.hard' -Definitions
     $dense = New-TestLayer 'DenseArmor' 'armor.dense' 'Dense Armor Schematics' 'Rare' 'WkKnLayer_DenseArmor' 'WkKnUnlocker_DenseArmor' 'armor.dense' -Definitions
     $broken = New-TestLayer 'BrokenLateLayer' '' '' '' '' '' 'missing.group'
@@ -76,30 +83,30 @@ try {
     $sharedWiring = New-TestLayer 'SharedWiringLater' 'armor.shared' 'Shared Wiring Armor Schematics' 'Rare' 'WkKnLayer_HardArmor' 'WkKnUnlocker_HardArmor' 'armor.shared' -Definitions
     $baseOnlyRemap = New-TestLayer 'BaseOnlyRemap' '' '' '' '' '' 'armor.heavy' -OmitResearchBlocks
 
-    $hardThenDense = & $Validator -LayerPath @($hard, $dense) -PassThru
+    $hardThenDense = Invoke-FixtureValidation -LayerPaths @($hard, $dense)
     Assert-Equal $hardThenDense.WinningMappings['BatteryBlock/LargeBlockBatteryBlock'].ResearchId 'armor.dense' 'Later Dense Armor mapping should win.'
 
-    $denseThenHard = & $Validator -LayerPath @($dense, $hard) -PassThru
+    $denseThenHard = Invoke-FixtureValidation -LayerPaths @($dense, $hard)
     Assert-Equal $denseThenHard.WinningMappings['BatteryBlock/LargeBlockBatteryBlock'].ResearchId 'armor.hard' 'Reversed priority should make Hard Armor win.'
 
-    $hardThenBroken = & $Validator -LayerPath @($hard, $broken) -PassThru
+    $hardThenBroken = Invoke-FixtureValidation -LayerPaths @($hard, $broken)
     Assert-Equal $hardThenBroken.WinningMappings['BatteryBlock/LargeBlockBatteryBlock'].ResearchId 'armor.hard' 'Invalid higher-priority mapping should preserve the next valid winner.'
 
-    $hardThenIncomplete = & $Validator -LayerPath @($hard, $incomplete) -PassThru
+    $hardThenIncomplete = Invoke-FixtureValidation -LayerPaths @($hard, $incomplete)
     Assert-Equal $hardThenIncomplete.WinningMappings['BatteryBlock/LargeBlockBatteryBlock'].ResearchId 'armor.hard' 'Higher-priority mapping to an incomplete group should preserve the next valid winner.'
 
-    $renamed = & $Validator -LayerPath @($hard, $rename) -PassThru
+    $renamed = Invoke-FixtureValidation -LayerPaths @($hard, $rename)
     Assert-Equal $renamed.ActiveGroups['armor.hard'].DisplayName 'Reinforced Hard Armor Schematics' 'Later metadata for the same group ID should win.'
     Assert-Equal $renamed.ActiveGroups['armor.hard'].Tier 'Rare' 'Later tier for the same group ID should win.'
 
-    $brokenRenameResult = & $Validator -LayerPath @($hard, $brokenRename) -PassThru
+    $brokenRenameResult = Invoke-FixtureValidation -LayerPaths @($hard, $brokenRename)
     Assert-Equal $brokenRenameResult.ActiveGroups['armor.hard'].DisplayName 'Hard Armor Schematics' 'An incomplete higher-priority declaration of the same group ID should preserve the next valid group.'
 
-    $shared = & $Validator -LayerPath @($hard, $sharedWiring) -PassThru
+    $shared = Invoke-FixtureValidation -LayerPaths @($hard, $sharedWiring)
     Assert-Equal $shared.WinningMappings['BatteryBlock/LargeBlockBatteryBlock'].ResearchId 'armor.shared' 'Higher-priority group should own shared definition IDs.'
     if ($shared.ActiveGroups.ContainsKey('armor.hard')) { throw 'Lower-priority group sharing definition IDs should be inactive.' }
 
-    $baseOnly = & $Validator -LayerPath @($baseOnlyRemap) -PassThru
+    $baseOnly = Invoke-FixtureValidation -LayerPaths @($baseOnlyRemap)
     Assert-Equal $baseOnly.WinningMappings['BatteryBlock/LargeBlockBatteryBlock'].ResearchId 'armor.heavy' 'A base block remap should not require a duplicate ResearchBlocks.sbc entry.'
 
     Write-Host 'Working Knowledge layer-priority resolution tests passed.'
