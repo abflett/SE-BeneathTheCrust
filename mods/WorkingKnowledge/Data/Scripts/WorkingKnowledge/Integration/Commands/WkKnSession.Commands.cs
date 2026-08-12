@@ -22,6 +22,36 @@ namespace WkKn
                 return;
 
             sendToOthers = false;
+            if (MyAPIGateway.Multiplayer != null && !MyAPIGateway.Multiplayer.IsServer)
+            {
+                if (!SendCommandRequestToServer(message))
+                    ShowWkWarningMessage("Working Knowledge could not send that command to the server.");
+                return;
+            }
+
+            ExecuteWorkingKnowledgeCommand(sender, message, ResolveIdentityId(sender));
+        }
+
+        private void ExecuteWorkingKnowledgeCommand(ulong sender, string message, long responseIdentityId)
+        {
+            var args = TokenizeCommand(message);
+            if (args.Length == 0 || !args[0].Equals(WorkingKnowledgeCommand, StringComparison.OrdinalIgnoreCase))
+                return;
+
+            var previousResponseIdentityId = commandResponseIdentityId;
+            commandResponseIdentityId = responseIdentityId;
+            try
+            {
+                DispatchWorkingKnowledgeCommand(sender, args);
+            }
+            finally
+            {
+                commandResponseIdentityId = previousResponseIdentityId;
+            }
+        }
+
+        private void DispatchWorkingKnowledgeCommand(ulong sender, string[] args)
+        {
             if (args.Length == 1 || args[1].Equals("help", StringComparison.OrdinalIgnoreCase))
             {
                 ShowCommandHelp(sender);
@@ -777,7 +807,9 @@ namespace WkKn
 
         private bool CanEditConfig(ulong sender)
         {
-            return MyAPIGateway.Session == null || MyAPIGateway.Session.IsUserAdmin(sender);
+            return sender != 0 &&
+                   MyAPIGateway.Session != null &&
+                   MyAPIGateway.Session.IsUserAdmin(sender);
         }
 
         private static bool IsResearchModule(string module)

@@ -13,8 +13,8 @@ The project is being built as standalone mods first so each major system can be 
 - **Current playable layer:** `mods/WorkingKnowledge`
 - **Current scenario tooling layer:** `mods/Worldwright`
 - **Campaign state:** design and content foundation in `docs/`
-- **Current Working Knowledge line:** `1.0.0` local release candidate with Space Engineers 1.210 Prosperity block support
-- **Release target:** Working Knowledge `1.0.0` stable standalone release after final in-game validation
+- **Current Working Knowledge line:** `1.0.x` stable release with Space Engineers 1.210 Prosperity block support
+- **Release target:** Working Knowledge `1.0.1` dedicated-server hotfix
 - **Development style:** standalone mod roots, compatibility-conscious maintenance, and focused release validation
 
 ## Current Focus: Working Knowledge
@@ -71,6 +71,7 @@ Beneath the Crust keeps the core Space Engineers sandbox intact while adding str
 - [Working Knowledge inspirations and attribution](docs/WorkingKnowledge/inspirations.md)
 - [Working Knowledge release roadmap](docs/WorkingKnowledge/release_roadmap.md)
 - [Working Knowledge 1.0.0 test plan](docs/WorkingKnowledge/testing_1.0.0.md)
+- [Working Knowledge 1.0.1 dedicated-server test plan](docs/WorkingKnowledge/testing_1.0.1.md)
 - [Working Knowledge Workshop description](docs/WorkingKnowledge/workshop_description_bbcode.txt)
 - [Worldwright overview](mods/Worldwright/README.md)
 - [Worldwright changelog](docs/Worldwright/changelog.md)

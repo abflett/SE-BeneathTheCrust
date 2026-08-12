@@ -20,6 +20,7 @@ Planning scratchpads and generated draft JSON files should not live here once th
 - [Layer authoring](WorkingKnowledge/layer_authoring.md) - how to create Working Knowledge Layer compatibility mods.
 - [Inspirations and attribution](WorkingKnowledge/inspirations.md) - credited external mod ideas that influenced Working Knowledge.
 - [Roadmap](WorkingKnowledge/release_roadmap.md) - version targets, feedback-driven feature plans, compatibility work, and repeatable validation checks.
+- [1.0.1 dedicated-server test plan](WorkingKnowledge/testing_1.0.1.md) - command routing, authorization, persistence, and multiplayer progression checks for the hotfix.
 - [Workshop description](WorkingKnowledge/workshop_description_bbcode.txt) - public-facing Steam BBCode description.
 - [Generated audits](WorkingKnowledge/generated/README.md) - generated Working Knowledge balance reports.
 

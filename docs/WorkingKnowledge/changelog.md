@@ -2,6 +2,16 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
+## 1.0.1 - Dedicated Server Command Fix
+
+Fixed Working Knowledge chat commands for players connected to dedicated and remotely hosted servers.
+
+Previously, `/wk` commands were intercepted and executed only on the player's local game instance. This happened to work for single-player and the hosting player, but remote clients never sent their command request to the authoritative server. Admin checks could consequently fail, command output could be missing, and any apparent changes were applied to a disposable client-side copy of the Working Knowledge state.
+
+All player and admin `/wk` commands now use a secure client-to-server request path. The server identifies the authenticated sender, checks administrator access there, executes the command against authoritative research, Proficiency, and configuration stores, and sends the response privately to the requesting player. Personal feedback settings are also synchronized back to the requesting client so Text HUD display preferences update immediately.
+
+Requests do not trust client-supplied player or administrator identities, and `/wk` commands remain hidden from public chat.
+
 ## 1.0.0 - Stable Release And Prosperity Support
 
 Working Knowledge has reached its first stable release. After a month of public testing without reported gameplay issues, the research, Proficiency, construction, salvage, faction sharing, displays, configuration, compatibility layers, and save systems now form the supported `1.0.x` foundation.

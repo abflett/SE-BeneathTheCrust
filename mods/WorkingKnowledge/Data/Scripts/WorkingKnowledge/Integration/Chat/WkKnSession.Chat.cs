@@ -229,6 +229,9 @@ namespace WkKn
 
         private long GetLocalIdentityId()
         {
+            if (commandResponseIdentityId != 0)
+                return commandResponseIdentityId;
+
             return MyAPIGateway.Session != null && MyAPIGateway.Session.Player != null
                 ? MyAPIGateway.Session.Player.IdentityId
                 : 0;

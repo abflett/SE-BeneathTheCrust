@@ -80,9 +80,9 @@ See [Working Knowledge configuration](../../docs/WorkingKnowledge/configuration.
 
 ## Current Status
 
-Working Knowledge now targets its `1.0.x` stable release line. The current local `1.0.0` build is awaiting final in-game validation before its Steam Workshop update.
+Working Knowledge now targets its `1.0.x` stable release line. Version `1.0.0` is published on the Steam Workshop, and `1.0.1` is the current dedicated-server hotfix under validation.
 
-The current balance targets the default `medium` play experience. The final in-game release-candidate pass is the remaining gate before the `1.0.0` Steam Workshop update; balance and compatibility feedback will continue through the stable line.
+The current balance targets the default `medium` play experience. Dedicated-server command routing and multiplayer progression behavior are the active hotfix focus; balance and compatibility feedback will continue through the stable line.
 
 The mod currently includes:
 
@@ -119,6 +119,7 @@ The mod currently includes:
 - [Working Knowledge layer authoring](../../docs/WorkingKnowledge/layer_authoring.md)
 - [Working Knowledge inspirations and attribution](../../docs/WorkingKnowledge/inspirations.md)
 - [Working Knowledge release roadmap](../../docs/WorkingKnowledge/release_roadmap.md)
+- [Working Knowledge 1.0.1 dedicated-server test plan](../../docs/WorkingKnowledge/testing_1.0.1.md)
 - [Working Knowledge Workshop description](../../docs/WorkingKnowledge/workshop_description_bbcode.txt)
 
 ## Local Test Build

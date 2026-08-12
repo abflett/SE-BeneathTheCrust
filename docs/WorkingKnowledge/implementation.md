@@ -134,6 +134,8 @@ Welding botch boundaries:
 
 Multiplayer XML encoding and guarded decoding live in `XmlNetworkSerializer.cs`. Message ownership, sender validation, IDs, and request/response routing remain in their feature adapters.
 
+Chat commands are server-authoritative. `MessageEnteredSender` only intercepts `/wk` on the local player and suppresses it from public chat. Remote clients send the command text through message `49221`; the server derives the Steam ID from the secure-message callback, resolves the connected identity, performs admin checks, executes against the server stores, and targets chat output back to that identity. Never accept a player or admin identity from the command payload. The same channel returns the requesting player's feedback record so client-side Text HUD preferences stay current.
+
 ## Layer Diagnostics
 
 Layer mappings and custom schematic groups keep their source mod and line number while the runtime binds definitions.

@@ -43,6 +43,7 @@ namespace WkKn
         private const ushort ResearchDisplayNetworkMessageId = 49218;
         private const ushort ResearchTerminalSyncNetworkMessageId = 49219;
         private const ushort LocalFeedbackNetworkMessageId = 49220;
+        private const ushort CommandRequestNetworkMessageId = 49221;
         private const long ResearchDisplayRefreshTicks = 120;
         private const long ResearchDisplayNetworkRequestTicks = 600;
         private const string ResearchDisplaySyncRequest = "Request";
@@ -117,6 +118,8 @@ namespace WkKn
         private DisplaySyncTransport<ProficiencyDisplaySyncMessage> proficiencyDisplaySyncTransport;
         private bool researchTerminalSyncRegistered;
         private bool localFeedbackNetworkRegistered;
+        private bool commandRequestNetworkRegistered;
+        private long commandResponseIdentityId;
         private ResearchDisplaySyncMessage syncedLocalResearchDisplay;
         private ProficiencyScopeRecord syncedLocalProficiencyScope;
         private bool researchDataFragmentLootInjected;

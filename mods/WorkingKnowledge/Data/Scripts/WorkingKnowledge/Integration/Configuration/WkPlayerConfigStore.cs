@@ -75,6 +75,20 @@ namespace WkKn
             return player ?? CreateDefault(playerId);
         }
 
+        internal void ApplySyncedPlayer(WkPlayerConfigRecord player)
+        {
+            if (player == null || string.IsNullOrWhiteSpace(player.Id))
+                return;
+
+            NormalizeRecord(player);
+            var existing = FindPlayer(player.Id);
+            if (existing != null)
+                data.Players.Remove(existing);
+
+            data.Players.Add(player);
+            IsDirty = false;
+        }
+
         internal bool ResetPlayer(string playerId)
         {
             Normalize();

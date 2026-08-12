@@ -38,6 +38,7 @@ namespace WkKn
             RegisterResearchPedestalControls();
             RegisterResearchTerminalNetworkHandler();
             RegisterLocalFeedbackNetworkHandler();
+            RegisterCommandRequestNetworkHandler();
             InitializeResearchDisplayModule();
             RegisterBlockIntegrityMonitorHandlers();
             InitializeProficiencyModule();
@@ -147,6 +148,7 @@ namespace WkKn
             ClearStaleSalvageOperations();
             RegisterResearchTerminalNetworkHandler();
             RegisterLocalFeedbackNetworkHandler();
+            RegisterCommandRequestNetworkHandler();
             UpdateResearchDisplayModule();
         }
 
@@ -160,6 +162,7 @@ namespace WkKn
             weldBotchWarningLastShownByKey.Clear();
             UnregisterResearchTerminalNetworkHandler();
             UnregisterLocalFeedbackNetworkHandler();
+            UnregisterCommandRequestNetworkHandler();
             blockWorkState.ClearPendingOperations();
             researchPedestalViewsByBlock.Clear();
             ClearResearchDisplayRuntimeState();

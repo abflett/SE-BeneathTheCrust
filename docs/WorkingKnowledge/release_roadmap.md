@@ -1,6 +1,6 @@
 # Working Knowledge Roadmap
 
-This roadmap tracks final validation of the Working Knowledge `1.0.0` release candidate and the work that may follow its stable standalone release. Campaign composition, companion mod packs, richer story content, and deeper terminal trade systems remain later work.
+This roadmap tracks maintenance of the Working Knowledge `1.0.x` stable line. Version `1.0.0` is published, and `1.0.1` is the current dedicated-server hotfix under validation. Campaign composition, companion mod packs, richer story content, and deeper terminal trade systems remain later work.
 
 ## Versioning
 
@@ -10,15 +10,15 @@ Working Knowledge uses a `major.feature.fix` version pattern.
 - Backward-compatible feature releases advance the middle number, such as `1.1.0`.
 - `1.0.0` establishes the first stable save, configuration, schematic-ID, and compatibility-layer contracts.
 
-## 1.0.0 Release Candidate: Final Tests
+## 1.0.1 Dedicated Server Hotfix
 
-The implementation is feature-complete for `1.0.0`. The remaining work is focused in-game validation before updating the Steam Workshop item.
+The first public dedicated-server report exposed multiplayer paths that hosted-player testing did not exercise. The hotfix is being developed and validated one authoritative subsystem at a time.
 
 Release priorities:
 
-- Validate extensible schematic groups and explicit layer remapping through public feedback.
-- Keep player-facing config simple enough that ordinary players do not need to edit config to enjoy the mod.
-- Keep advanced config useful for server owners, modpacks, and balance tuning.
+- Route every player and admin `/wk` command through the authoritative server.
+- Validate server-side research and Proficiency gain, persistence, and client display synchronization.
+- Preserve single-player and hosted-server behavior while fixing dedicated-server paths.
 
 Fix and polish watch items:
 
@@ -44,7 +44,18 @@ The completed public-feedback sequence and current target are:
 - `0.11.0` - external layer support for custom block mod integration. Complete.
 - `0.12.0` - compatibility-layer diagnostics, runtime cleanup, and release validation. Complete.
 - `0.13.0` - extensible schematic groups and layer-controlled block remapping. Complete.
-- `1.0.0` - stable standalone release with Space Engineers 1.210 Prosperity support. Local release candidate complete; final in-game validation pending.
+- `1.0.0` - stable standalone release with Space Engineers 1.210 Prosperity support. Published.
+- `1.0.1` - dedicated-server command and multiplayer progression hotfix. In progress.
+
+## 1.0.1 Command Routing - Implemented, Awaiting Game Test
+
+- Remote clients send `/wk` requests to the server through an authenticated secure-message handler.
+- The server derives the player identity from the network sender, applies admin checks authoritatively, and executes all command reads and mutations against server stores.
+- Command output is sent privately to the requesting identity and never echoed into public chat.
+- Personal feedback settings are synchronized back to the requesting client after command execution.
+- Oversized, server-originated, or unresolved-sender requests are rejected.
+
+Use [the 1.0.1 dedicated-server test plan](testing_1.0.1.md) for the focused validation pass.
 
 ## 0.10.0 Progress Display - Complete
 
