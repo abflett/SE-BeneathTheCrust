@@ -14,6 +14,10 @@ These PNGs are large RGB design studies with black backgrounds. They are not tra
 
 The reproducible generation instructions are preserved in `prompts-v1.md`.
 
-## Data Fragment Version 2
+## Exact Data Schematic Version 2
 
-`wk-data-fragment-v2.png` keeps the physical datapad intact and moves the incomplete-fragment concept entirely into its display. A recognizable schematic motif breaks into displaced bands, missing segments, and unreadable data while remaining contained inside the undamaged device. The exact edit instructions are preserved in `prompts-v2.md`.
+`wk-exact-data-schematic-v2.png` keeps the physical datapad intact and fills its display with dense, orderly technical information. It began as the second Data Fragment study, but its healthy data bars and complete-looking interface read more naturally as an Exact Data Schematic at small icon sizes. Its original generation instructions are preserved in `prompts-v2.md`.
+
+## Data Fragment Version 3
+
+`wk-data-fragment-v3.png` keeps the same intact physical datapad but makes the missing information unmistakable at icon size. Only a small schematic cluster survives; large pixel blocks, missing quadrants, torn scan regions, and coarse monochrome noise dominate the rest of the display. The exact edit instructions are preserved in `prompts-v3.md`.

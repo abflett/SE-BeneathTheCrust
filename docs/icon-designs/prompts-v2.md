@@ -2,6 +2,8 @@
 
 Generated with the built-in image-generation tool as a precise edit. The input images, in order, were Data Fragment v1 as the edit target, Exact Data Schematic v1 as a sibling style reference, and the vanilla Space Engineers Datapad icon as the primary game-style reference.
 
+The result was later promoted to `wk-exact-data-schematic-v2.png` because its dense technical display reads as complete data rather than corruption at small icon sizes. The prompt below is retained as the accurate generation record.
+
 ## Data Fragment Revision
 
 ```text
