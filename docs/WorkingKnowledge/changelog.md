@@ -4,21 +4,13 @@ Public-facing release notes for the standalone **Working Knowledge** Space Engin
 
 ## 1.0.1 - Dedicated Server Hotfix
 
-Fixed Working Knowledge chat commands for players connected to dedicated and remotely hosted servers.
+Fixed player and administrator `/wk` commands on dedicated and remotely hosted servers. Remote commands now reach the authoritative server, which verifies the authenticated sender, performs administrator checks, applies changes to the real research, Proficiency, and configuration stores, and returns private output to the requesting player. Personal feedback settings also synchronize back to the client immediately, and commands remain hidden from public chat.
 
-Previously, `/wk` commands were intercepted and executed only on the player's local game instance. This happened to work for single-player and the hosting player, but remote clients never sent their command request to the authoritative server. Admin checks could consequently fail, command output could be missing, and any apparent changes were applied to a disposable client-side copy of the Working Knowledge state.
+Fixed Text HUD API progress bars for remote players. The server now sends current research and Proficiency progress to the affected client instead of attempting to render it on the headless server. Client and dedicated-server diagnostics now correctly report where HUD rendering occurs.
 
-All player and admin `/wk` commands now use a secure client-to-server request path. The server identifies the authenticated sender, checks administrator access there, executes the command against authoritative research, Proficiency, and configuration stores, and sends the response privately to the requesting player. Personal feedback settings are also synchronized back to the requesting client so Text HUD display preferences update immediately.
+Bundled the required UI icons to eliminate 138 misleading missing-texture errors produced by dedicated-server installations that omit the client texture library.
 
-Requests do not trust client-supplied player or administrator identities, and `/wk` commands remain hidden from public chat.
-
-Fixed the Text HUD API progress bars for players connected to dedicated servers. Research and Proficiency were already being recorded by the authoritative server, but their transient HUD events were incorrectly sent to the server's headless local overlay instead of the affected client. The server now sends each changed schematic's current research and Proficiency values directly to that player, and the client validates the server event before updating its overlay.
-
-The client log now records when Text HUD API becomes ready, or when it remains unavailable after startup, so a missing framework can be distinguished from a multiplayer synchronization problem. Dedicated servers report that rendering is delegated to connected clients instead of incorrectly warning that the graphical API is unavailable.
-
-Bundled the vanilla UI icons still referenced by Working Knowledge definitions. Dedicated-server installations omit the client UI texture library but still validate those mod-relative paths, which previously produced 138 misleading missing-texture errors during world load. The bundled copies preserve the existing in-game artwork and are checked against the current Space Engineers installation during release validation so upstream icon changes are reviewed deliberately.
-
-Replaced the shared vanilla Datapad face artwork with distinct Working Knowledge screen motifs for partial Data Fragments, complete exact Data Schematics, and hidden schematic-family unlockers. Each icon uses the vanilla Datapad casing, lighting, alpha, scale, and blue-gray grading, with bold face details specifically tested at the 24-48 pixel sizes used by inventory and progression views. The DDS assets retain vanilla's 128x128 BC7 sRGB format and full mip chain. The remaining 18 vanilla icon copies continue to use release-time parity checks.
+Added distinct, vanilla-styled icons for partial Data Fragments, complete Exact Data Schematics, and hidden schematic-family unlockers. Their bold screen motifs remain recognizable at inventory and progression-menu sizes.
 
 ## 1.0.0 - Stable Release And Prosperity Support
 
