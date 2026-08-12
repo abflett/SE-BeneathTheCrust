@@ -13,8 +13,8 @@ namespace WkKn
         private const int MaxLabelLength = 32;
         private const long FadeOutTicks = 180;
         private const float OverlayWidth = 400f;
-        private const float RowHeight = 50f;
-        private const float RowSpacing = 7f;
+        private const float RowHeight = 32f;
+        private const float RowSpacing = 19f;
         private const float ScreenMargin = 28f;
         private const float LabelHeight = 25f;
         private const float BarBackgroundHeight = 19f;
@@ -340,7 +340,7 @@ namespace WkKn
                     ParentAlignment = ParentAlignments.InnerTopLeft,
                     Offset = new Vector2(1.5f, -1.5f),
                     BuilderMode = TextBuilderModes.Unlined,
-                    ZOffset = -1,
+                    ZOffset = 1,
                 };
 
                 label = new Label(container)
@@ -350,6 +350,7 @@ namespace WkKn
                     Size = new Vector2(OverlayWidth, LabelHeight),
                     ParentAlignment = ParentAlignments.InnerTopLeft,
                     BuilderMode = TextBuilderModes.Unlined,
+                    ZOffset = 2,
                 };
 
                 barBackground = new TexturedBox(container)
