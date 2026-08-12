@@ -26,6 +26,14 @@ Use the root build script for local testing:
 .\build.ps1 -ModName WkKn
 ```
 
+For the local dedicated-server instance, stop `SpaceEngineersDedicated` and run:
+
+```powershell
+.\build-workingknowledge-dedicated.ps1
+```
+
+Space Engineers rejects local-name mods in multiplayer. The helper therefore compiles the scripts, deploys `%APPDATA%\SpaceEngineers\Mods\Working Knowledge` as the source copy, keeps Workshop identity `3758066250` in the active world's `Sandbox.sbc` and `Sandbox_config.sbc`, and overlays both the client Steam cache and `%APPDATA%\SpaceEngineersDedicated\content\244850\3758066250` with that same development build. It leaves Text HUD API on its normal Workshop path and creates one backup of each original cache and checkpoint configuration. Steam can replace cache overlays during updates or verification; stop the server and rerun the helper before each unpublished dedicated-server build.
+
 ## Publishing Metadata
 
 Keep these root-level files tracked in `mods/WorkingKnowledge`:

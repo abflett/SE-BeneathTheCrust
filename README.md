@@ -103,10 +103,13 @@ Convenience wrappers are also available:
 
 ```powershell
 .\build-workingknowledge.ps1
+.\build-workingknowledge-dedicated.ps1
 .\build-worldwright.ps1
 ```
 
 The local Working Knowledge test copy deploys as `%APPDATA%\SpaceEngineers\Mods\Working Knowledge`. The local Worldwright test copy deploys as `%APPDATA%\SpaceEngineers\Mods\Worldwright`. Experimental Mode is not required.
+
+Space Engineers rejects local-name mods in multiplayer, including dedicated servers. For unpublished dedicated-server testing, stop `SpaceEngineersDedicated` and run `build-workingknowledge-dedicated.ps1`. It compiles Working Knowledge, deploys the development source, keeps Workshop identity `3758066250` in the active test world, and overlays that Workshop cache on both the connecting client and dedicated server with the same local files. Text HUD API remains a normal Workshop dependency. The helper creates one backup of each original Workshop cache and checkpoint configuration. Steam may replace an overlay during an update or file verification, so rerun the helper before each unpublished server test build.
 
 After changing mod C# scripts, compile before deploying:
 

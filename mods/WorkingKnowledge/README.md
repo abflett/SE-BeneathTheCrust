@@ -135,3 +135,11 @@ After C# script changes:
 ```powershell
 .\tools\compile-mod-scripts.ps1 -ModName WkKn
 ```
+
+For a local dedicated-server test build, stop the server and run:
+
+```powershell
+.\build-workingknowledge-dedicated.ps1
+```
+
+Space Engineers does not allow local-name mods in multiplayer. This helper instead keeps Workshop identity `3758066250` in the test world and overlays its client and dedicated-server caches with the same unpublished local build. Rerun it before each dedicated-server development test.

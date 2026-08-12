@@ -12,6 +12,8 @@ Working Knowledge `1.0.1` is a focused hotfix for server-authoritative commands 
 
 Use a fresh dedicated-server world for the primary pass. Also keep a single-player world and a hosted multiplayer world available for regressions.
 
+For unpublished local testing, stop the dedicated server and run `build-workingknowledge-dedicated.ps1`. Local-name mods are rejected in multiplayer, so the helper keeps Workshop identity `3758066250` while overlaying its client and server caches with the same local build. Text HUD API remains on Workshop. Rerun the helper after each code change and whenever Steam updates or verifies the Workshop cache.
+
 ## Command Routing
 
 As a normal connected player:
