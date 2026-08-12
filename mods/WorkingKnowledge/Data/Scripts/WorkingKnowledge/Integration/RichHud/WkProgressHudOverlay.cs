@@ -19,8 +19,9 @@ namespace WkKn
         private const float LabelHeight = 25f;
         private const float BarBackgroundHeight = 19f;
         private const float BarInset = 2f;
-        private const float ResearchBarHeight = 9f;
+        private const float ResearchBarHeight = 10f;
         private const float ProficiencyBarHeight = 5f;
+        private const float LabelInset = 4f;
         private const float LabelTextSize = 1.02f;
         private static readonly Color LabelColor = new Color(225, 236, 240);
         private static readonly Color LabelShadowColor = new Color(0, 0, 0);
@@ -334,9 +335,9 @@ namespace WkKn
             {
                 Container = container;
 
-                labelShadowUp = CreateLabelShadow(container, new Vector2(-1.5f, 1.5f));
-                labelShadowDown = CreateLabelShadow(container, new Vector2(1.5f, -1.5f));
-                labelShadowCross = CreateLabelShadow(container, new Vector2(-1.5f, -1.5f));
+                labelShadowUp = CreateLabelShadow(container, new Vector2(LabelInset - 1.5f, 1.5f));
+                labelShadowDown = CreateLabelShadow(container, new Vector2(LabelInset + 1.5f, -1.5f));
+                labelShadowCross = CreateLabelShadow(container, new Vector2(LabelInset - 1.5f, -1.5f));
 
                 label = new Label(container)
                 {
@@ -344,6 +345,7 @@ namespace WkKn
                     VertCenterText = true,
                     Size = new Vector2(OverlayWidth, LabelHeight),
                     ParentAlignment = ParentAlignments.InnerTopLeft,
+                    Offset = new Vector2(LabelInset, 0f),
                     BuilderMode = TextBuilderModes.Unlined,
                     ZOffset = 2,
                 };
