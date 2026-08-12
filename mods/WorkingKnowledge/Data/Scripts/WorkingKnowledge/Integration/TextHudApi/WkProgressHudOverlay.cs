@@ -48,6 +48,7 @@ namespace WkKn
         private bool apiReady;
         private bool apiReadyLogged;
         private bool apiUnavailableLogged;
+        private bool dedicatedServer;
 
         internal WkProgressHudOverlay(Color researchColor, Color proficiencyColor)
         {
@@ -57,14 +58,24 @@ namespace WkKn
 
         internal void Initialize()
         {
-            if (api != null || MyAPIGateway.Utilities == null || MyAPIGateway.Utilities.IsDedicated)
+            if (api != null || MyAPIGateway.Utilities == null)
                 return;
+
+            dedicatedServer = MyAPIGateway.Utilities.IsDedicated;
+            if (dedicatedServer)
+            {
+                MyLog.Default.WriteLineAndConsole(WkKnSession.LogPrefix + " dedicated server detected; progress HUD rendering is handled by connected clients.");
+                return;
+            }
 
             api = new HudAPIv2();
         }
 
         internal void Update(long currentTick, WkProgressHudSettings settings)
         {
+            if (dedicatedServer)
+                return;
+
             settings = NormalizeSettings(settings);
             if (!settings.Enabled)
             {

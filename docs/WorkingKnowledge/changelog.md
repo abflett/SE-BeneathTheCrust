@@ -14,7 +14,7 @@ Requests do not trust client-supplied player or administrator identities, and `/
 
 Fixed the Text HUD API progress bars for players connected to dedicated servers. Research and Proficiency were already being recorded by the authoritative server, but their transient HUD events were incorrectly sent to the server's headless local overlay instead of the affected client. The server now sends each changed schematic's current research and Proficiency values directly to that player, and the client validates the server event before updating its overlay.
 
-The client log now records when Text HUD API becomes ready, or when it remains unavailable after startup, so a missing framework can be distinguished from a multiplayer synchronization problem.
+The client log now records when Text HUD API becomes ready, or when it remains unavailable after startup, so a missing framework can be distinguished from a multiplayer synchronization problem. Dedicated servers report that rendering is delegated to connected clients instead of incorrectly warning that the graphical API is unavailable.
 
 ## 1.0.0 - Stable Release And Prosperity Support
 
