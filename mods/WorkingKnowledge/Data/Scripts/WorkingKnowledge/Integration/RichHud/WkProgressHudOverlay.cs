@@ -320,7 +320,9 @@ namespace WkKn
 
         private sealed class Row
         {
-            private readonly Label labelShadow;
+            private readonly Label labelShadowUp;
+            private readonly Label labelShadowDown;
+            private readonly Label labelShadowCross;
             private readonly Label label;
             private readonly TexturedBox barBackground;
             private readonly TexturedBox researchFill;
@@ -332,16 +334,9 @@ namespace WkKn
             {
                 Container = container;
 
-                labelShadow = new Label(container)
-                {
-                    AutoResize = false,
-                    VertCenterText = true,
-                    Size = new Vector2(OverlayWidth, LabelHeight),
-                    ParentAlignment = ParentAlignments.InnerTopLeft,
-                    Offset = new Vector2(1.5f, -1.5f),
-                    BuilderMode = TextBuilderModes.Unlined,
-                    ZOffset = 1,
-                };
+                labelShadowUp = CreateLabelShadow(container, new Vector2(-1.5f, 1.5f));
+                labelShadowDown = CreateLabelShadow(container, new Vector2(1.5f, -1.5f));
+                labelShadowCross = CreateLabelShadow(container, new Vector2(-1.5f, -1.5f));
 
                 label = new Label(container)
                 {
@@ -392,19 +387,23 @@ namespace WkKn
             internal void Update(string labelText, double researchProgress, double proficiencyProgress, byte alpha, Color researchColor, Color proficiencyColor)
             {
                 var labelFormat = new GlyphFormat(WithAlpha(LabelColor, alpha), TextAlignment.Left, LabelTextSize);
-                var shadowAlpha = (byte)(alpha * 210 / 255);
+                var shadowAlpha = (byte)(alpha * 240 / 255);
                 var shadowFormat = new GlyphFormat(WithAlpha(LabelShadowColor, shadowAlpha), TextAlignment.Left, LabelTextSize);
 
                 if (!string.Equals(currentLabel, labelText, StringComparison.Ordinal))
                 {
                     label.TextBoard.SetText(labelText, labelFormat);
-                    labelShadow.TextBoard.SetText(labelText, shadowFormat);
+                    labelShadowUp.TextBoard.SetText(labelText, shadowFormat);
+                    labelShadowDown.TextBoard.SetText(labelText, shadowFormat);
+                    labelShadowCross.TextBoard.SetText(labelText, shadowFormat);
                     currentLabel = labelText;
                 }
                 else if (currentAlpha != alpha)
                 {
                     label.TextBoard.SetFormatting(labelFormat);
-                    labelShadow.TextBoard.SetFormatting(shadowFormat);
+                    labelShadowUp.TextBoard.SetFormatting(shadowFormat);
+                    labelShadowDown.TextBoard.SetFormatting(shadowFormat);
+                    labelShadowCross.TextBoard.SetFormatting(shadowFormat);
                 }
 
                 var innerWidth = OverlayWidth - (BarInset * 2f);
@@ -415,6 +414,20 @@ namespace WkKn
                 barBackground.Color = WithAlpha(BarBackColor, (byte)(alpha * 130 / 255));
                 currentAlpha = alpha;
                 SetVisible(alpha > 0);
+            }
+
+            private static Label CreateLabelShadow(EmptyHudElement container, Vector2 offset)
+            {
+                return new Label(container)
+                {
+                    AutoResize = false,
+                    VertCenterText = true,
+                    Size = new Vector2(OverlayWidth, LabelHeight),
+                    ParentAlignment = ParentAlignments.InnerTopLeft,
+                    Offset = offset,
+                    BuilderMode = TextBuilderModes.Unlined,
+                    ZOffset = 1,
+                };
             }
 
             internal void SetVisible(bool visible)

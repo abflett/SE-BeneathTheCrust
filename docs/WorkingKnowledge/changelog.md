@@ -8,6 +8,8 @@ Migrated the recent research and Proficiency progress overlay from Text HUD API 
 
 Restored the original compact visual layering, with each schematic label overlapping the upper research bar instead of sitting in a separate row above it.
 
+Restored the original three-direction black label outline so schematic names remain legible over bright research bars and world lighting.
+
 Added `/wk settings` to open a graphical settings menu. Players can configure their own progress overlay, notifications, thresholds, and sounds; administrators can also apply difficulty presets and edit authoritative world settings. Existing `/wk config` and `/wk difficulty` commands remain supported.
 
 GUI changes use the same server-authoritative validation, administrator checks, persistence, and runtime effects as chat commands. Dedicated servers return authenticated player, world, and permission snapshots to the requesting client without attempting to render the interface headlessly.
