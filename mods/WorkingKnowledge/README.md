@@ -123,6 +123,7 @@ The mod currently includes:
 - [Working Knowledge release roadmap](../../docs/WorkingKnowledge/release_roadmap.md)
 - [Working Knowledge 1.0.1 dedicated-server test plan](../../docs/WorkingKnowledge/testing_1.0.1.md)
 - [Working Knowledge 1.1.0 Rich HUD test plan](../../docs/WorkingKnowledge/testing_1.1.0.md)
+- [Working Knowledge 1.1.0 Rich HUD development handoff](../../docs/WorkingKnowledge/rich_hud_1.1.0_handoff.md)
 - [Working Knowledge Workshop description](../../docs/WorkingKnowledge/workshop_description_bbcode.txt)
 
 ## Local Test Build
