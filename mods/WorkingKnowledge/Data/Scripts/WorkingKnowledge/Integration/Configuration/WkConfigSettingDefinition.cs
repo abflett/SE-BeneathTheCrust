@@ -2,6 +2,17 @@ using System;
 
 namespace WkKn
 {
+    internal enum WkSettingControlKind
+    {
+        ReadOnly,
+        Boolean,
+        Number,
+        Integer,
+        Choice,
+        Text,
+        DefaultableNumber,
+    }
+
     internal delegate bool WkConfigSettingSetter(WkConfig config, string value, out string error);
 
     internal sealed class WkConfigSettingDefinition
@@ -13,6 +24,10 @@ namespace WkKn
         internal readonly string Description;
         internal readonly string[] Aliases;
         internal readonly bool Editable;
+        internal readonly WkSettingControlKind ControlKind;
+        internal readonly double Minimum;
+        internal readonly double Maximum;
+        internal readonly string[] Choices;
         private readonly Func<WkConfig, string> getter;
         private readonly WkConfigSettingSetter setter;
 
@@ -25,7 +40,11 @@ namespace WkKn
             bool editable,
             Func<WkConfig, string> getter,
             WkConfigSettingSetter setter,
-            string[] aliases)
+            string[] aliases,
+            WkSettingControlKind controlKind,
+            double minimum,
+            double maximum,
+            string[] choices)
         {
             Setting = setting;
             Title = title;
@@ -36,11 +55,20 @@ namespace WkKn
             this.getter = getter;
             this.setter = setter;
             Aliases = aliases ?? new string[0];
+            ControlKind = controlKind;
+            Minimum = minimum;
+            Maximum = maximum;
+            Choices = choices ?? new string[0];
+        }
+
+        internal string GetValue(WkConfig config)
+        {
+            return getter == null ? string.Empty : getter(config);
         }
 
         internal string GetLine(WkConfig config)
         {
-            return Setting + " = " + (getter == null ? string.Empty : getter(config));
+            return Setting + " = " + GetValue(config);
         }
 
         internal bool TrySetValue(WkConfig config, string value, out string error)

@@ -32,7 +32,7 @@ For the local dedicated-server instance, stop `SpaceEngineersDedicated` and run:
 .\build-workingknowledge-dedicated.ps1
 ```
 
-Space Engineers rejects local-name mods in multiplayer. The helper therefore compiles the scripts, deploys `%APPDATA%\SpaceEngineers\Mods\Working Knowledge` as the source copy, keeps Workshop identity `3758066250` in the active world's `Sandbox.sbc` and `Sandbox_config.sbc`, and overlays both the client Steam cache and `%APPDATA%\SpaceEngineersDedicated\content\244850\3758066250` with that same development build. It leaves Text HUD API on its normal Workshop path and creates one backup of each original cache and checkpoint configuration. Steam can replace cache overlays during updates or verification; stop the server and rerun the helper before each unpublished dedicated-server build.
+Space Engineers rejects local-name mods in multiplayer. The helper therefore compiles the scripts, deploys `%APPDATA%\SpaceEngineers\Mods\Working Knowledge` as the source copy, keeps Workshop identity `3758066250` in the active world's `Sandbox.sbc` and `Sandbox_config.sbc`, and overlays both the client Steam cache and `%APPDATA%\SpaceEngineersDedicated\content\244850\3758066250` with that same development build. It leaves Rich HUD Master on its normal Workshop path and creates one backup of each original cache and checkpoint configuration. Steam can replace cache overlays during updates or verification; stop the server and rerun the helper before each unpublished dedicated-server build.
 
 ## Publishing Metadata
 
@@ -150,9 +150,11 @@ Welding botch boundaries:
 
 Multiplayer XML encoding and guarded decoding live in `XmlNetworkSerializer.cs`. Message ownership, sender validation, IDs, and request/response routing remain in their feature adapters.
 
-Chat commands are server-authoritative. `MessageEnteredSender` only intercepts `/wk` on the local player and suppresses it from public chat. Remote clients send the command text through message `49221`; the server derives the Steam ID from the secure-message callback, resolves the connected identity, performs admin checks, executes against the server stores, and targets chat output back to that identity. Never accept a player or admin identity from the command payload. The same channel returns the requesting player's feedback record so client-side Text HUD preferences stay current.
+Chat commands are server-authoritative. `MessageEnteredSender` only intercepts `/wk` on the local player and suppresses it from public chat. Remote clients send the command text through message `49221`; the server derives the Steam ID from the secure-message callback, resolves the connected identity, performs admin checks, executes against the server stores, and targets chat output back to that identity. Never accept a player or admin identity from the command payload. `/wk settings` is handled locally as a Rich HUD navigation command, then uses the same channel for authenticated state requests and silent setting mutations. Server responses include the requesting player's settings, an authoritative world-config snapshot, and the server-derived admin permission flag.
 
 Progress HUD events are also server-authoritative. Research and Proficiency changes use message `49222` to send the affected player a combined current-progress snapshot for the changed schematic. The client accepts these transient overlay events only from the server and only when the payload identity matches its local player. Persistent research and Proficiency display synchronization remains on messages `49218` and `49217`; those snapshots feed LCD/display data and do not create recent-event HUD rows.
+
+Rich HUD integration bundles the official Full Client `1.3.0.0` sources under `Integration/RichHudFramework` and expects Rich HUD Master Workshop item `1965654081` at runtime. `WkRichHudIntegration` owns client registration and headless diagnostics, `WkProgressHudOverlay` owns recent-event rendering, and `WkRichHudSettingsMenu` builds player and administrator controls from the same setting definitions used by command help and parsing. The dedicated server never constructs graphical controls.
 
 ## Layer Diagnostics
 

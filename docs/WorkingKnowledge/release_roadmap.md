@@ -1,6 +1,6 @@
 # Working Knowledge Roadmap
 
-This roadmap tracks maintenance of the Working Knowledge `1.0.x` stable line. Version `1.0.0` is published, and the validated `1.0.1` dedicated-server hotfix is awaiting its Workshop publish. Campaign composition, companion mod packs, richer story content, and deeper terminal trade systems remain later work.
+This roadmap tracks maintenance of the Working Knowledge `1.0.x` stable line and development of the backward-compatible `1.1.0` Rich HUD settings release. Version `1.0.1` remains available for focused hotfixes while `1.1.0` is tested on its feature branch.
 
 ## Versioning
 
@@ -21,6 +21,17 @@ Completed release scope:
 - Restored remote-client Text HUD progress events without changing persistent LCD/display synchronization.
 - Corrected dedicated-server HUD diagnostics and removed Working Knowledge's headless icon errors.
 - Preserved single-player and hosted-server behavior while fixing dedicated-server paths.
+
+## 1.1.0 Rich HUD Settings - In Development
+
+Development scope:
+
+- Replace Text HUD API with Rich HUD Master while preserving the recent research/Proficiency overlay behavior.
+- Add `/wk settings` as a direct graphical entry point.
+- Generate player and administrator controls from the same setting definitions used by `/wk config`.
+- Route GUI mutations through existing server-authoritative validation, persistence, admin checks, and runtime effects.
+- Keep all existing `/wk config` and `/wk difficulty` commands as a framework-independent fallback.
+- Validate single-player, hosted multiplayer, and dedicated-server behavior before release.
 
 Fix and polish watch items:
 
@@ -48,6 +59,7 @@ The completed public-feedback sequence and current target are:
 - `0.13.0` - extensible schematic groups and layer-controlled block remapping. Complete.
 - `1.0.0` - stable standalone release with Space Engineers 1.210 Prosperity support. Published.
 - `1.0.1` - dedicated-server command and multiplayer progression hotfix. Validated; awaiting Workshop publish.
+- `1.1.0` - Rich HUD progress-overlay migration and graphical settings. In development.
 
 ## 1.0.1 Dedicated Server Hotfix - Implemented And Tested
 

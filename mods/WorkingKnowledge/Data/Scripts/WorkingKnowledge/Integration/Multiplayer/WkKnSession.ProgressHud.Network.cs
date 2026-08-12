@@ -84,7 +84,7 @@ namespace WkKn
                 !IsLocalIdentity(message.IdentityId))
                 return;
 
-            progressHudOverlay.UpdateCombined(
+            richHudIntegration.UpdateCombined(
                 message.IdentityId,
                 message.ProgressId,
                 message.DisplayName,

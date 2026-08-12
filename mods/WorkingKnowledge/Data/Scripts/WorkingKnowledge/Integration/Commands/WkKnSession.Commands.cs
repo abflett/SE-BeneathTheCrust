@@ -22,6 +22,12 @@ namespace WkKn
                 return;
 
             sendToOthers = false;
+            if (args.Length == 2 && args[1].Equals("settings", StringComparison.OrdinalIgnoreCase))
+            {
+                OpenRichHudSettings();
+                return;
+            }
+
             if (MyAPIGateway.Multiplayer != null && !MyAPIGateway.Multiplayer.IsServer)
             {
                 if (!SendCommandRequestToServer(message))
@@ -412,6 +418,7 @@ namespace WkKn
                 "/wk res - Alias for research",
                 "/wk proficiency - Display your Proficiency",
                 "/wk prof - Alias for proficiency",
+                "/wk settings - Open the Rich HUD settings menu",
                 "/wk config - Display player settings",
                 "/wk config help - Display player config commands",
                 "/wk difficulty - Display current difficulty",

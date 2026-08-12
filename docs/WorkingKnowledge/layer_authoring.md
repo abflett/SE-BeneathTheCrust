@@ -21,7 +21,7 @@ For public Workshop layers, set Workshop requirements for:
 - Working Knowledge
 - The source block mod
 
-Steam should resolve downstream requirements such as Text HUD API through Working Knowledge.
+Steam should resolve downstream requirements such as Rich HUD Master through Working Knowledge.
 
 ## Required Files
 

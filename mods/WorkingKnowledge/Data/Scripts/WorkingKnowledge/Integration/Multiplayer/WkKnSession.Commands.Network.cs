@@ -10,6 +10,7 @@ namespace WkKn
         private const int MaxCommandTextLength = 2048;
         private const string CommandRequestKind = "Request";
         private const string CommandStateKind = "State";
+        private const string CommandSettingsRequestKind = "SettingsRequest";
 
         private void RegisterCommandRequestNetworkHandler()
         {
@@ -29,7 +30,7 @@ namespace WkKn
             commandRequestNetworkRegistered = false;
         }
 
-        private bool SendCommandRequestToServer(string commandText)
+        private bool SendCommandRequestToServer(string commandText, bool silent = false)
         {
             if (string.IsNullOrWhiteSpace(commandText) ||
                 commandText.Length > MaxCommandTextLength ||
@@ -40,11 +41,22 @@ namespace WkKn
             {
                 Kind = CommandRequestKind,
                 CommandText = commandText,
+                Silent = silent,
             };
 
             return MyAPIGateway.Multiplayer.SendMessageToServer(
                 CommandRequestNetworkMessageId,
                 XmlNetworkSerializer.Serialize(request));
+        }
+
+        private bool SendSettingsRequestToServer()
+        {
+            if (MyAPIGateway.Multiplayer == null)
+                return false;
+
+            return MyAPIGateway.Multiplayer.SendMessageToServer(
+                CommandRequestNetworkMessageId,
+                XmlNetworkSerializer.Serialize(new CommandNetworkMessage { Kind = CommandSettingsRequestKind }));
         }
 
         private void OnCommandRequestNetworkMessage(ushort handlerId, byte[] messageBytes, ulong sender, bool isFromServer)
@@ -65,18 +77,14 @@ namespace WkKn
             if (!MyAPIGateway.Multiplayer.IsServer)
             {
                 if (isFromServer && message.Kind.Equals(CommandStateKind, StringComparison.OrdinalIgnoreCase))
-                    playerConfigStore.ApplySyncedPlayer(message.PlayerConfig);
+                    ApplyRichHudSettingsState(message);
                 return;
             }
 
             if (isFromServer ||
                 sender == 0 ||
-                !message.Kind.Equals(CommandRequestKind, StringComparison.OrdinalIgnoreCase) ||
-                string.IsNullOrWhiteSpace(message.CommandText))
-                return;
-
-            var commandText = message.CommandText.Trim();
-            if (commandText.Length > MaxCommandTextLength)
+                (!message.Kind.Equals(CommandRequestKind, StringComparison.OrdinalIgnoreCase) &&
+                 !message.Kind.Equals(CommandSettingsRequestKind, StringComparison.OrdinalIgnoreCase)))
                 return;
 
             var identityId = MyAPIGateway.Players != null
@@ -91,8 +99,28 @@ namespace WkKn
 
             try
             {
-                ExecuteWorkingKnowledgeCommand(sender, commandText, identityId);
-                SendCommandStateToPlayer(sender, identityId);
+                if (message.Kind.Equals(CommandRequestKind, StringComparison.OrdinalIgnoreCase))
+                {
+                    if (string.IsNullOrWhiteSpace(message.CommandText))
+                        return;
+
+                    var commandText = message.CommandText.Trim();
+                    if (commandText.Length > MaxCommandTextLength)
+                        return;
+
+                    var previousSuppressFeedback = suppressWkCommandFeedback;
+                    suppressWkCommandFeedback = message.Silent;
+                    try
+                    {
+                        ExecuteWorkingKnowledgeCommand(sender, commandText, identityId);
+                    }
+                    finally
+                    {
+                        suppressWkCommandFeedback = previousSuppressFeedback;
+                    }
+                }
+
+                SendCommandStateToPlayer(sender, identityId, message.CommandText);
             }
             catch (Exception exception)
             {
@@ -101,7 +129,7 @@ namespace WkKn
             }
         }
 
-        private void SendCommandStateToPlayer(ulong recipientSteamId, long identityId)
+        private void SendCommandStateToPlayer(ulong recipientSteamId, long identityId, string responseCommandText = null)
         {
             if (recipientSteamId == 0 || identityId == 0 || MyAPIGateway.Multiplayer == null || !MyAPIGateway.Multiplayer.IsServer)
                 return;
@@ -109,13 +137,29 @@ namespace WkKn
             var response = new CommandNetworkMessage
             {
                 Kind = CommandStateKind,
+                CommandText = responseCommandText,
                 PlayerConfig = GetPlayerConfig(identityId),
+                WorldConfig = config,
+                CanEditWorldConfig = CanEditConfig(recipientSteamId),
             };
 
             MyAPIGateway.Multiplayer.SendMessageTo(
                 CommandRequestNetworkMessageId,
                 XmlNetworkSerializer.Serialize(response),
                 recipientSteamId);
+        }
+
+        private void ApplyRichHudSettingsState(CommandNetworkMessage message)
+        {
+            if (message == null)
+                return;
+
+            playerConfigStore.ApplySyncedPlayer(message.PlayerConfig);
+            richHudWorldConfigSnapshot = message.WorldConfig;
+            richHudCanEditWorldConfig = message.CanEditWorldConfig;
+            richHudSettingsStateRequested = false;
+            if (richHudSettingsMenu != null)
+                richHudSettingsMenu.AcknowledgeCommand(message.CommandText);
         }
     }
 }

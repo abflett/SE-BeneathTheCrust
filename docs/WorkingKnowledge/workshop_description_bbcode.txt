@@ -25,7 +25,7 @@ Learning the schematic is only part of the system. Proficiency tracks the practi
 [i]Technology is not just unlocked. It is learned.[/i]
 
 [h2]Recommended Way To Play[/h2]
-Working Knowledge works standalone. Its HUD progress overlay uses [url=https://steamcommunity.com/sharedfiles/filedetails/?id=758597413]Text HUD API[/url]. The intended physical salvage experience is even better with tools that recover, move, and reuse parts instead of grinding every discovery into scrap.
+Working Knowledge works standalone. Its progress overlay and graphical settings use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1965654081]Rich HUD Master[/url]. The intended physical salvage experience is even better with tools that recover, move, and reuse parts instead of grinding every discovery into scrap.
 
 [h3]Recommended Companions[/h3]
 [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=510790477]Advanced Welding[/url][/b]
@@ -37,7 +37,7 @@ Moving, dragging, carrying, and repositioning wreckage gives salvage work more t
 [h2]Challenge And Configuration[/h2]
 Working Knowledge is built to challenge veteran players, but it is not locked to one balance. It can support a focused research overhaul, a relaxed long-form survival world, or a demanding salvage campaign.
 
-World admins can use [b]/wk[/b] commands to adjust the experience with difficulty presets or custom settings. Research gain, Proficiency gain, salvage recovery, construction setbacks, botch damage, and player feedback can all be tuned.
+Players can open the graphical settings with [b]/wk settings[/b]. World admins receive additional server controls for difficulty presets and authoritative tuning. Research gain, Proficiency gain, salvage recovery, construction setbacks, botch damage, and player feedback can all be adjusted from the GUI or existing [b]/wk[/b] commands.
 
 Make schematic unlocks faster, soften Proficiency pressure, reduce salvage penalties, disable construction setbacks, or lean into the full field-engineering experience.
 
@@ -46,6 +46,7 @@ Players can use [b]/wk config[/b] to view their current feedback settings, then 
 Start with:
 [code]/wk
 /wk help
+/wk settings
 /wk difficulty
 /wk config
 /wk config help
@@ -74,15 +75,16 @@ Start with:
 [list]
 [*]Research Pedestal terminal block for viewing and syncing research.
 [*]LCD apps for Research, Proficiency, Identity, and display Calibration.
-[*]Configurable Text HUD API-backed progress overlay for recent research and Proficiency updates.
-[*]Player feedback settings through [b]/wk[/b] commands.
+[*]Configurable Rich HUD progress overlay for recent research and Proficiency updates.
+[*]Graphical player and administrator settings through [b]/wk settings[/b].
+[*]Existing [b]/wk[/b] configuration commands remain supported.
 [*]Admin tuning and difficulty presets for novice, easy, medium, hard, and extreme worlds.
 [/list]
 
 [h2]Recommended Setup[/h2]
 [list]
 [*]Best tested in a fresh survival world.
-[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=758597413]Text HUD API[/url] is used by the HUD progress overlay. Core progression still works without it, but the progress bars need it loaded.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1965654081]Rich HUD Master[/url] is used by the progress overlay and graphical settings menu. Core progression and chat commands still work without it.
 [*]Advanced Welding and Improvised Experimentation are recommended for the intended salvage experience.
 [*]No DLC required, but Sparks of the Future owners also get the optional Research Sci-Fi Terminal.
 [/list]

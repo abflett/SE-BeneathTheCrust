@@ -14,7 +14,7 @@ The project is being built as standalone mods first so each major system can be 
 - **Current scenario tooling layer:** `mods/Worldwright`
 - **Campaign state:** design and content foundation in `docs/`
 - **Current Working Knowledge line:** `1.0.x` stable release with Space Engineers 1.210 Prosperity block support
-- **Release target:** Working Knowledge `1.0.1` dedicated-server hotfix
+- **Development target:** Working Knowledge `1.1.0` Rich HUD settings migration
 - **Development style:** standalone mod roots, compatibility-conscious maintenance, and focused release validation
 
 ## Current Focus: Working Knowledge
@@ -72,6 +72,7 @@ Beneath the Crust keeps the core Space Engineers sandbox intact while adding str
 - [Working Knowledge release roadmap](docs/WorkingKnowledge/release_roadmap.md)
 - [Working Knowledge 1.0.0 test plan](docs/WorkingKnowledge/testing_1.0.0.md)
 - [Working Knowledge 1.0.1 dedicated-server test plan](docs/WorkingKnowledge/testing_1.0.1.md)
+- [Working Knowledge 1.1.0 Rich HUD test plan](docs/WorkingKnowledge/testing_1.1.0.md)
 - [Working Knowledge Workshop description](docs/WorkingKnowledge/workshop_description_bbcode.txt)
 - [Worldwright overview](mods/Worldwright/README.md)
 - [Worldwright changelog](docs/Worldwright/changelog.md)
@@ -109,7 +110,7 @@ Convenience wrappers are also available:
 
 The local Working Knowledge test copy deploys as `%APPDATA%\SpaceEngineers\Mods\Working Knowledge`. The local Worldwright test copy deploys as `%APPDATA%\SpaceEngineers\Mods\Worldwright`. Experimental Mode is not required.
 
-Space Engineers rejects local-name mods in multiplayer, including dedicated servers. For unpublished dedicated-server testing, stop `SpaceEngineersDedicated` and run `build-workingknowledge-dedicated.ps1`. It compiles Working Knowledge, deploys the development source, keeps Workshop identity `3758066250` in the active test world, and overlays that Workshop cache on both the connecting client and dedicated server with the same local files. Text HUD API remains a normal Workshop dependency. The helper creates one backup of each original Workshop cache and checkpoint configuration. Steam may replace an overlay during an update or file verification, so rerun the helper before each unpublished server test build.
+Space Engineers rejects local-name mods in multiplayer, including dedicated servers. For unpublished dedicated-server testing, stop `SpaceEngineersDedicated` and run `build-workingknowledge-dedicated.ps1`. It compiles Working Knowledge, deploys the development source, keeps Workshop identity `3758066250` in the active test world, and overlays that Workshop cache on both the connecting client and dedicated server with the same local files. Rich HUD Master remains a normal Workshop dependency. The helper creates one backup of each original cache and checkpoint configuration. Steam may replace an overlay during an update or file verification, so rerun the helper before each unpublished server test build.
 
 After changing mod C# scripts, compile before deploying:
 

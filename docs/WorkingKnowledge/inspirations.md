@@ -1,6 +1,6 @@
 # Working Knowledge Inspirations
 
-Last updated: 2026-07-08.
+Last updated: 2026-08-13.
 
 This page records external Space Engineers mod ideas and framework integrations that helped shape **Working Knowledge**.
 
@@ -17,7 +17,7 @@ Most entries are acknowledgements of design inspiration only. Direct dependencie
 
 | Mod | Public reference | Use | Working Knowledge direction |
 | --- | --- | --- | --- |
-| Text HUD API | [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=758597413) | HUD text and billboard framework used for the 0.10.0 progress overlay. Working Knowledge includes the small `HudAPIv2.cs` client wrapper distributed for consuming mods and expects the Text HUD API framework mod to be loaded for the overlay to render. | Used only as the rendering bridge for compact research and Proficiency HUD progress rows. Core progression remains independent of the framework. |
+| Rich HUD Master / Rich HUD Framework | [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1965654081), [client source](https://github.com/ZachHembree/RichHudFramework.Client) | Shared high-DPI HUD rendering and graphical settings interface used by the 1.1.0 migration. Working Knowledge bundles the official Full Client `1.3.0.0` source under its MIT license and expects Rich HUD Master at runtime. | Renders compact research and Proficiency progress rows and exposes player/admin configuration pages. Core progression and chat commands remain independent of the framework. |
 
 ## Attribution Boundaries
 

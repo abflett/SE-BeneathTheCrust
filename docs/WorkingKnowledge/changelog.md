@@ -2,6 +2,16 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
+## 1.1.0 - Rich HUD Settings - In Development
+
+Migrated the recent research and Proficiency progress overlay from Text HUD API to Rich HUD Master. The replacement preserves the compact two-bar schematic rows while using Rich HUD's high-DPI layout and shared settings interface.
+
+Added `/wk settings` to open a graphical settings menu. Players can configure their own progress overlay, notifications, thresholds, and sounds; administrators can also apply difficulty presets and edit authoritative world settings. Existing `/wk config` and `/wk difficulty` commands remain supported.
+
+GUI changes use the same server-authoritative validation, administrator checks, persistence, and runtime effects as chat commands. Dedicated servers return authenticated player, world, and permission snapshots to the requesting client without attempting to render the interface headlessly.
+
+Bundled the official Rich HUD Framework Full Client `1.3.0.0` source under its MIT license. Rich HUD Master is the only Workshop framework dependency required by the new interface.
+
 ## 1.0.1 - Dedicated Server Hotfix
 
 Fixed player and administrator `/wk` commands on dedicated and remotely hosted servers. Remote commands now reach the authoritative server, which verifies the authenticated sender, performs administrator checks, applies changes to the real research, Proficiency, and configuration stores, and returns private output to the requesting player. Personal feedback settings also synchronize back to the client immediately, and commands remain hidden from public chat.

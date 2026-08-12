@@ -76,7 +76,7 @@ namespace WkKn
         private readonly Dictionary<string, double> progressChatLastShownByKey = new Dictionary<string, double>(StringComparer.OrdinalIgnoreCase);
         private readonly Dictionary<string, double> progressToastLastShownByKey = new Dictionary<string, double>(StringComparer.OrdinalIgnoreCase);
         private readonly Dictionary<string, long> weldBotchWarningLastShownByKey = new Dictionary<string, long>(StringComparer.OrdinalIgnoreCase);
-        private readonly WkProgressHudOverlay progressHudOverlay = new WkProgressHudOverlay(new VRageMath.Color(180, 255, 0), new VRageMath.Color(65, 255, 195));
+        private readonly WkRichHudIntegration richHudIntegration = new WkRichHudIntegration(new VRageMath.Color(180, 255, 0), new VRageMath.Color(65, 255, 195));
         private readonly SchematicCatalog schematicCatalog = new SchematicCatalog();
         private WorkingKnowledgeLayerAudit layerAudit = new WorkingKnowledgeLayerAudit();
         private string runtimeLoadIssue;
@@ -120,6 +120,15 @@ namespace WkKn
         private bool researchTerminalSyncRegistered;
         private bool localFeedbackNetworkRegistered;
         private bool commandRequestNetworkRegistered;
+        private WkConfig richHudWorldConfigSnapshot;
+        private bool richHudCanEditWorldConfig;
+        private bool richHudSettingsReady;
+        private WkRichHudSettingsMenu richHudSettingsMenu;
+        private bool richHudOpenRequested;
+        private bool suppressWkCommandFeedback;
+        private readonly Dictionary<string, string> richHudPendingSettingsCommands = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        private long richHudPendingSettingsDueTick;
+        private bool richHudSettingsStateRequested;
         private bool progressHudNetworkRegistered;
         private long commandResponseIdentityId;
         private ResearchDisplaySyncMessage syncedLocalResearchDisplay;

@@ -44,6 +44,9 @@ namespace WkKn
 
         private void ShowWkChatSection(string heading, IEnumerable<string> lines)
         {
+            if (suppressWkCommandFeedback)
+                return;
+
             ShowWkColoredChatSection(heading, lines, WkChatInfoColor);
         }
 

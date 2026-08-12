@@ -44,6 +44,7 @@ Public commands:
 - `/wk research help` - Show research commands and tuning settings.
 - `/wk prof` or `/wk proficiency` - Show personal Proficiency progress.
 - `/wk proficiency help` - Show Proficiency commands and tuning settings.
+- `/wk settings` - Open the Rich HUD graphical settings menu.
 - `/wk config` - Show personal feedback settings.
 - `/wk config help` - Show player config help.
 - `/wk config <setting> help` - Show one player setting's description and aliases.
@@ -80,7 +81,7 @@ See [Working Knowledge configuration](../../docs/WorkingKnowledge/configuration.
 
 ## Current Status
 
-Working Knowledge now targets its `1.0.x` stable release line. Version `1.0.0` is published on the Steam Workshop, and the validated `1.0.1` dedicated-server hotfix is awaiting its Workshop publish.
+Working Knowledge's `1.1.x` feature line is in development on top of the stable `1.0.x` line. Version `1.0.1` remains the hotfix base while the `1.1.0` Rich HUD migration and graphical settings menu are tested on a feature branch.
 
 The current balance targets the default `medium` play experience. Dedicated-server command routing, remote progress HUD synchronization, headless diagnostics, and icon packaging have completed their focused hotfix pass; balance and compatibility feedback will continue through the stable line.
 
@@ -91,7 +92,8 @@ The mod currently includes:
 - Player and faction research stores.
 - Player-only Proficiency persistence.
 - Grinding research and Proficiency gains.
-- Configurable Text HUD API-backed progress overlay for recent research and Proficiency progress.
+- Configurable Rich HUD progress overlay for recent research and Proficiency progress.
+- Graphical player and administrator settings through `/wk settings`.
 - Welding and repair quality effects.
 - Player feedback settings through `/wk config`.
 - Admin-configurable tuning through `/wk config`.
@@ -106,7 +108,7 @@ The mod currently includes:
 - Experimental Mode is not required.
 - The mod forces vanilla progression on at runtime so it can own the lock path.
 - Creative worlds and admin creative-mode testing are allowed to bypass schematic locks.
-- Text HUD API is used for the optional, player-configurable HUD progress overlay; core progression still falls back to chat and notifications if the framework is unavailable.
+- Rich HUD Master is used for the optional progress overlay and graphical settings menu; core progression and `/wk` configuration commands remain usable if the framework is unavailable.
 - Other progression or research-overhaul mods are likely to conflict.
 - Public modded blocks without a Working Knowledge mapping remain outside its research and Proficiency systems. Use a compatibility layer when those blocks should participate; the ready-to-use [Working Knowledge Layer Toolkit 1.1.0](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.1.0/WorkingKnowledgeLayerToolkit-1.1.0.zip) can generate one.
 
@@ -120,6 +122,7 @@ The mod currently includes:
 - [Working Knowledge inspirations and attribution](../../docs/WorkingKnowledge/inspirations.md)
 - [Working Knowledge release roadmap](../../docs/WorkingKnowledge/release_roadmap.md)
 - [Working Knowledge 1.0.1 dedicated-server test plan](../../docs/WorkingKnowledge/testing_1.0.1.md)
+- [Working Knowledge 1.1.0 Rich HUD test plan](../../docs/WorkingKnowledge/testing_1.1.0.md)
 - [Working Knowledge Workshop description](../../docs/WorkingKnowledge/workshop_description_bbcode.txt)
 
 ## Local Test Build

@@ -51,7 +51,15 @@ function Get-ReferencePath {
 $repoRoot = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 $modsRoot = Join-Path $repoRoot 'mods'
 $bin64 = Join-Path $SpaceEngineersRoot 'Bin64'
-$csc = Join-Path $env:WINDIR 'Microsoft.NET\Framework64\v4.0.30319\csc.exe'
+$legacyCsc = Join-Path $env:WINDIR 'Microsoft.NET\Framework64\v4.0.30319\csc.exe'
+$roslynSearchPaths = @(
+    'C:\Program Files\Microsoft Visual Studio\*\*\MSBuild\Current\Bin\Roslyn\csc.exe',
+    'C:\Program Files (x86)\Microsoft Visual Studio\*\*\MSBuild\Current\Bin\Roslyn\csc.exe'
+)
+$roslynCsc = Get-Item -Path $roslynSearchPaths -ErrorAction SilentlyContinue |
+    Sort-Object FullName -Descending |
+    Select-Object -First 1
+$csc = if ($roslynCsc) { $roslynCsc.FullName } else { $legacyCsc }
 
 if (-not (Test-Path -LiteralPath $modsRoot)) {
     throw "Could not find mods folder: $modsRoot"
@@ -62,7 +70,7 @@ if (-not (Test-Path -LiteralPath $bin64)) {
 }
 
 if (-not (Test-Path -LiteralPath $csc)) {
-    throw "Could not find .NET Framework C# compiler: $csc"
+    throw "Could not find a C# compiler. Checked Visual Studio Roslyn and .NET Framework: $legacyCsc"
 }
 
 $mods = Get-ChildItem -LiteralPath $modsRoot -Directory | Where-Object {
@@ -147,6 +155,18 @@ try {
 
         foreach ($symbol in $prohibitedSymbols) {
             $matches = Select-String -LiteralPath $sources -SimpleMatch -Pattern $symbol
+
+            # Rich HUD Framework 1.3 uses delegate.Method/MemberInfo to detect overridden
+            # UI hooks. This exact source is shipped by the live Rich HUD Master/client
+            # packages and is accepted by the current Space Engineers mod whitelist.
+            # Keep the general reflection guard for project code while allowing only the
+            # vendored, versioned framework implementation.
+            if ($symbol -eq 'System.Reflection' -and $matches) {
+                $matches = @($matches | Where-Object {
+                    $_.Path -notmatch '[\\/]Integration[\\/]RichHudFramework[\\/]'
+                })
+            }
+
             if ($matches) {
                 foreach ($match in $matches) {
                     Write-Error "$($match.Path):$($match.LineNumber): known in-game mod whitelist rejection: $symbol"
@@ -157,7 +177,23 @@ try {
         }
 
         $out = Join-Path $OutputRoot ($mod.Name + '.ScriptCompile.dll')
-        & $csc /nologo /target:library /out:$out $references $sources
+        $responseFile = Join-Path $OutputRoot ($mod.Name + '.csc.rsp')
+        $compilerArguments = New-Object 'System.Collections.Generic.List[string]'
+        $compilerArguments.Add('/nologo')
+        $compilerArguments.Add('/target:library')
+        $compilerArguments.Add('/out:"' + $out + '"')
+
+        foreach ($reference in $references) {
+            $referencePath = $reference.Substring('/reference:'.Length)
+            $compilerArguments.Add('/reference:"' + $referencePath + '"')
+        }
+
+        foreach ($source in $sources) {
+            $compilerArguments.Add('"' + $source + '"')
+        }
+
+        [System.IO.File]::WriteAllLines($responseFile, $compilerArguments)
+        & $csc ('@' + $responseFile)
         if ($LASTEXITCODE -ne 0) {
             throw "Script compile failed for $($mod.Name)."
         }

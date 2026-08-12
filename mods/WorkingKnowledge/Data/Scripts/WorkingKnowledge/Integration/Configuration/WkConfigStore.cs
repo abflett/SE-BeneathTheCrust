@@ -39,6 +39,11 @@ namespace WkKn
             get { return data; }
         }
 
+        internal IList<WkConfigSettingDefinition> Settings
+        {
+            get { return settings; }
+        }
+
         internal void Reset()
         {
             data = WkConfigDifficultyPresets.CreateMedium();
@@ -285,7 +290,7 @@ namespace WkKn
                 RatioOrPercent("salvageScrapYield", "Salvage Scrap Yield", "Salvage", "Mass ratio returned as scrap ore when low-Proficiency grinding converts components to scrap.", delegate(WkConfig c) { return c.SalvageScrapYield; }, delegate(WkConfig c, double v) { c.SalvageScrapYield = v; }, "scrapyield", "salvagescrapratio", "scrapratio"),
                 Number("notificationDelaySeconds", "Notification Delay", "Feedback", "0.1 to 30.0 seconds", "World delay used to combine repeated progress updates before chat/toast feedback.", delegate(WkConfig c) { return c.NotificationDelaySeconds; }, delegate(WkConfig c, double v) { c.NotificationDelaySeconds = v; }, "notificationdelay"),
                 Bool("defaultProgressChatEnabled", "Default Progress Chat", "Feedback", "World default for delayed progress chat messages.", delegate(WkConfig c) { return c.ProgressChatEnabled; }, delegate(WkConfig c, bool v) { c.ProgressChatEnabled = v; }, "defaultchat", "defaultchatenabled", "worldprogresschat"),
-                Bool("defaultProgressToastEnabled", "Default Progress Toast", "Feedback", "World default for popup progress notifications and botch toasts. The Text HUD progress bars are separate.", delegate(WkConfig c) { return c.ProgressToastEnabled; }, delegate(WkConfig c, bool v) { c.ProgressToastEnabled = v; }, "defaulttoast", "defaulttoastenabled", "worldprogresstoast"),
+                Bool("defaultProgressToastEnabled", "Default Progress Toast", "Feedback", "World default for popup progress notifications and botch toasts. The Rich HUD progress bars are separate.", delegate(WkConfig c) { return c.ProgressToastEnabled; }, delegate(WkConfig c, bool v) { c.ProgressToastEnabled = v; }, "defaulttoast", "defaulttoastenabled", "worldprogresstoast"),
                 Percent("defaultResearchChatSuppressionPercent", "Default Research Chat Threshold", "Feedback", "World default/minimum accumulated research percent before another research chat update is shown.", delegate(WkConfig c) { return c.ResearchChatSuppressionPercent; }, delegate(WkConfig c, double v) { c.ResearchChatSuppressionPercent = v; }, "defaultreschatsuppression", "defaultresearchchatthreshold", "worldresearchchatthreshold"),
                 Percent("defaultProficiencyChatSuppressionPercent", "Default Proficiency Chat Threshold", "Feedback", "World default/minimum accumulated Proficiency percent before another Proficiency chat update is shown.", delegate(WkConfig c) { return c.ProficiencyChatSuppressionPercent; }, delegate(WkConfig c, double v) { c.ProficiencyChatSuppressionPercent = v; }, "defaultprofchatsuppression", "defaultproficiencychatthreshold", "worldproficiencychatthreshold"),
                 Percent("defaultResearchToastSuppressionPercent", "Default Research Toast Threshold", "Feedback", "World default/minimum accumulated research percent before another research toast appears.", delegate(WkConfig c) { return c.ResearchToastSuppressionPercent; }, delegate(WkConfig c, double v) { c.ResearchToastSuppressionPercent = v; }, "defaultrestoastsuppression", "defaultresearchtoastthreshold", "worldresearchtoastthreshold"),
@@ -322,7 +327,7 @@ namespace WkKn
 
         private static WkConfigSettingDefinition ReadOnly(string setting, string title, string category, string valueHint, string description, Func<WkConfig, string> getter)
         {
-            return new WkConfigSettingDefinition(setting, title, category, valueHint, description, false, getter, null, new string[0]);
+            return new WkConfigSettingDefinition(setting, title, category, valueHint, description, false, getter, null, new string[0], WkSettingControlKind.ReadOnly, 0.0, 0.0, null);
         }
 
         private static WkConfigSettingDefinition Bool(string setting, string title, string category, string description, Func<WkConfig, bool> getter, Action<WkConfig, bool> setter, params string[] aliases)
@@ -348,11 +353,18 @@ namespace WkKn
                     error = null;
                     return true;
                 },
-                aliases);
+                aliases,
+                WkSettingControlKind.Boolean,
+                0.0,
+                1.0,
+                null);
         }
 
         private static WkConfigSettingDefinition Number(string setting, string title, string category, string valueHint, string description, Func<WkConfig, double> getter, Action<WkConfig, double> setter, params string[] aliases)
         {
+            double minimum;
+            double maximum;
+            ParseRange(valueHint, out minimum, out maximum);
             return new WkConfigSettingDefinition(
                 setting,
                 title,
@@ -374,7 +386,11 @@ namespace WkKn
                     error = null;
                     return true;
                 },
-                aliases);
+                aliases,
+                WkSettingControlKind.Number,
+                minimum,
+                maximum,
+                null);
         }
 
         private static WkConfigSettingDefinition Percent(string setting, string title, string category, string description, Func<WkConfig, double> getter, Action<WkConfig, double> setter, params string[] aliases)
@@ -400,7 +416,11 @@ namespace WkKn
                     error = null;
                     return true;
                 },
-                aliases);
+                aliases,
+                WkSettingControlKind.Number,
+                0.0,
+                100.0,
+                null);
         }
 
         private static WkConfigSettingDefinition Progress(string setting, string title, string category, string description, Func<WkConfig, double> getter, Action<WkConfig, double> setter, params string[] aliases)
@@ -426,7 +446,11 @@ namespace WkKn
                     error = null;
                     return true;
                 },
-                aliases);
+                aliases,
+                WkSettingControlKind.Number,
+                0.0,
+                1.0,
+                null);
         }
 
         private static WkConfigSettingDefinition RatioOrPercent(string setting, string title, string category, string description, Func<WkConfig, double> getter, Action<WkConfig, double> setter, params string[] aliases)
@@ -452,7 +476,11 @@ namespace WkKn
                     error = null;
                     return true;
                 },
-                aliases);
+                aliases,
+                WkSettingControlKind.Number,
+                0.0,
+                100.0,
+                null);
         }
 
         private static WkConfigSettingDefinition Sound(string setting, string title, string category, string description, Func<WkConfig, string> getter, Action<WkConfig, string> setter, params string[] aliases)
@@ -477,7 +505,32 @@ namespace WkKn
                     error = null;
                     return true;
                 },
-                aliases);
+                aliases,
+                WkSettingControlKind.Text,
+                0.0,
+                0.0,
+                null);
+        }
+
+        private static void ParseRange(string valueHint, out double minimum, out double maximum)
+        {
+            minimum = 0.0;
+            maximum = 100.0;
+            if (string.IsNullOrWhiteSpace(valueHint))
+                return;
+
+            var parts = valueHint.Split(new[] { " to " }, StringSplitOptions.None);
+            if (parts.Length != 2)
+                return;
+
+            double parsedMinimum;
+            if (double.TryParse(parts[0].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture, out parsedMinimum))
+                minimum = parsedMinimum;
+
+            var maximumToken = parts[1].Trim().Split(' ')[0];
+            double parsedMaximum;
+            if (double.TryParse(maximumToken, NumberStyles.Float, CultureInfo.InvariantCulture, out parsedMaximum))
+                maximum = parsedMaximum;
         }
 
         private static bool TryParseBool(string value, out bool parsed)

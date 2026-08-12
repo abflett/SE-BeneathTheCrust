@@ -11,6 +11,10 @@ namespace WkKn
         internal readonly string ValueHint;
         internal readonly string Description;
         internal readonly string[] Aliases;
+        internal readonly WkSettingControlKind ControlKind;
+        internal readonly double Minimum;
+        internal readonly double Maximum;
+        internal readonly string[] Choices;
         private readonly Func<WkPlayerConfigRecord, string> getter;
         private readonly WkPlayerConfigSettingSetter setter;
 
@@ -21,7 +25,11 @@ namespace WkKn
             string description,
             Func<WkPlayerConfigRecord, string> getter,
             WkPlayerConfigSettingSetter setter,
-            string[] aliases)
+            string[] aliases,
+            WkSettingControlKind controlKind,
+            double minimum,
+            double maximum,
+            string[] choices)
         {
             Setting = setting;
             Title = title;
@@ -30,11 +38,20 @@ namespace WkKn
             this.getter = getter;
             this.setter = setter;
             Aliases = aliases ?? new string[0];
+            ControlKind = controlKind;
+            Minimum = minimum;
+            Maximum = maximum;
+            Choices = choices ?? new string[0];
+        }
+
+        internal string GetValue(WkPlayerConfigRecord config)
+        {
+            return getter == null ? string.Empty : getter(config);
         }
 
         internal string GetLine(WkPlayerConfigRecord config)
         {
-            return Setting + " = " + (getter == null ? string.Empty : getter(config));
+            return Setting + " = " + GetValue(config);
         }
 
         internal bool TrySetValue(WkPlayerConfigRecord config, string value, out string error)

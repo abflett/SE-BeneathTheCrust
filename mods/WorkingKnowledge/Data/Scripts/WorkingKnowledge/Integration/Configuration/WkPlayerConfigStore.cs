@@ -16,6 +16,11 @@ namespace WkKn
 
         internal bool IsDirty { get; private set; }
 
+        internal IList<WkPlayerConfigSettingDefinition> Settings
+        {
+            get { return settings; }
+        }
+
         internal void Reset()
         {
             data = new WkPlayerConfigSaveData();
@@ -242,8 +247,8 @@ namespace WkKn
             return new WkPlayerConfigSettingDefinition[]
             {
                 Bool("progressChatEnabled", "Progress Chat", "true/false", "Shows your delayed research and Proficiency progress chat messages when world settings allow them.", delegate(WkPlayerConfigRecord c) { return c.ProgressChatEnabled; }, delegate(WkPlayerConfigRecord c, bool v) { c.ProgressChatEnabled = v; }, "chatenabled", "chatnotifications"),
-                Bool("progressToastEnabled", "Progress Toast", "true/false", "Shows popup progress notifications and botch toasts when world settings allow them. The Text HUD progress bars are separate.", delegate(WkPlayerConfigRecord c) { return c.ProgressToastEnabled; }, delegate(WkPlayerConfigRecord c, bool v) { c.ProgressToastEnabled = v; }, "toastenabled", "toastnotifications"),
-                Bool("progressHudEnabled", "Progress HUD Bars", "true/false", "Shows the Text HUD API progress bar overlay for recent research and Proficiency updates.", delegate(WkPlayerConfigRecord c) { return c.ProgressHudEnabled; }, delegate(WkPlayerConfigRecord c, bool v) { c.ProgressHudEnabled = v; }, "barsenabled", "hudbars", "progressbars"),
+                Bool("progressToastEnabled", "Progress Toast", "true/false", "Shows popup progress notifications and botch toasts when world settings allow them. The Rich HUD progress bars are separate.", delegate(WkPlayerConfigRecord c) { return c.ProgressToastEnabled; }, delegate(WkPlayerConfigRecord c, bool v) { c.ProgressToastEnabled = v; }, "toastenabled", "toastnotifications"),
+                Bool("progressHudEnabled", "Progress HUD Bars", "true/false", "Shows the Rich HUD progress bar overlay for recent research and Proficiency updates.", delegate(WkPlayerConfigRecord c) { return c.ProgressHudEnabled; }, delegate(WkPlayerConfigRecord c, bool v) { c.ProgressHudEnabled = v; }, "barsenabled", "hudbars", "progressbars"),
                 Integer("progressHudRows", "Progress HUD Rows", "1 to 10", "Maximum recent schematic rows shown in the progress bar overlay.", delegate(WkPlayerConfigRecord c) { return c.ProgressHudRows; }, delegate(WkPlayerConfigRecord c, int v) { c.ProgressHudRows = v; }, 1, 10, "hudrows", "progressrows"),
                 Choice("progressHudOrder", "Progress HUD Order", "ascending or descending", "Row ordering for the progress bar overlay. The default descending order keeps the newest row at the end of the stack.", delegate(WkPlayerConfigRecord c) { return c.ProgressHudOrder; }, delegate(WkPlayerConfigRecord c, string v) { c.ProgressHudOrder = v; }, new[] { "ascending", "descending" }, "hudorder", "progressorder"),
                 Choice("progressHudPosition", "Progress HUD Position", "topLeft, topRight, bottomLeft, bottomRight, or center", "Position preset for the progress bar overlay.", delegate(WkPlayerConfigRecord c) { return c.ProgressHudPosition; }, delegate(WkPlayerConfigRecord c, string v) { c.ProgressHudPosition = v; }, new[] { "topLeft", "topRight", "bottomLeft", "bottomRight", "center" }, "hudposition", "progressposition", "hudpreset"),
@@ -281,7 +286,11 @@ namespace WkKn
                     error = null;
                     return true;
                 },
-                aliases);
+                aliases,
+                WkSettingControlKind.Boolean,
+                0.0,
+                1.0,
+                null);
         }
 
         private static WkPlayerConfigSettingDefinition Percent(string setting, string title, string description, Func<WkPlayerConfigRecord, double> getter, Action<WkPlayerConfigRecord, double> setter, params string[] aliases)
@@ -305,7 +314,11 @@ namespace WkKn
                     error = null;
                     return true;
                 },
-                aliases);
+                aliases,
+                WkSettingControlKind.Number,
+                0.0,
+                100.0,
+                null);
         }
 
         private static WkPlayerConfigSettingDefinition Integer(string setting, string title, string valueHint, string description, Func<WkPlayerConfigRecord, int> getter, Action<WkPlayerConfigRecord, int> setter, int min, int max, params string[] aliases)
@@ -329,7 +342,11 @@ namespace WkKn
                     error = null;
                     return true;
                 },
-                aliases);
+                aliases,
+                WkSettingControlKind.Integer,
+                min,
+                max,
+                null);
         }
 
         private static WkPlayerConfigSettingDefinition Number(string setting, string title, string valueHint, string description, Func<WkPlayerConfigRecord, double> getter, Action<WkPlayerConfigRecord, double> setter, double min, double max, params string[] aliases)
@@ -353,7 +370,11 @@ namespace WkKn
                     error = null;
                     return true;
                 },
-                aliases);
+                aliases,
+                WkSettingControlKind.Number,
+                min,
+                max,
+                null);
         }
 
         private static WkPlayerConfigSettingDefinition Choice(string setting, string title, string valueHint, string description, Func<WkPlayerConfigRecord, string> getter, Action<WkPlayerConfigRecord, string> setter, string[] choices, params string[] aliases)
@@ -377,7 +398,11 @@ namespace WkKn
                     error = null;
                     return true;
                 },
-                aliases);
+                aliases,
+                WkSettingControlKind.Choice,
+                0.0,
+                0.0,
+                choices);
         }
 
         private static WkPlayerConfigSettingDefinition DefaultableNumber(string setting, string title, string valueHint, string description, Func<WkPlayerConfigRecord, double> getter, Action<WkPlayerConfigRecord, double> setter, params string[] aliases)
@@ -412,7 +437,11 @@ namespace WkKn
                     error = null;
                     return true;
                 },
-                aliases);
+                aliases,
+                WkSettingControlKind.DefaultableNumber,
+                0.0,
+                30.0,
+                null);
         }
 
         private static bool IsDefaultValue(string value)

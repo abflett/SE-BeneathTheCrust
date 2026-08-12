@@ -86,7 +86,7 @@ Ion Thruster Schematics Research +2.5% (42.5%)
 Ion Thruster Schematics Proficiency +1.1% (73.2%)
 ```
 
-The HUD progress overlay uses Text HUD API when it is loaded. By default it shows up to five recent schematic rows near the top right of the screen, with a green research bar and a blue Proficiency bar. The rows update as progress changes and fade after a short idle period. Players can move, disable, reorder, resize, or keep the overlay visible through `/wk config`.
+The HUD progress overlay uses Rich HUD Master when it is loaded. By default it shows up to five recent schematic rows near the top right of the screen, with a green research bar and a blue Proficiency bar. The rows update as progress changes and fade after a short idle period. Use `/wk settings` for the graphical controls or `/wk config` for the equivalent chat commands.
 
 Completion feedback uses chat/toast labels:
 
@@ -130,6 +130,8 @@ Unknown schematic data.
 
 ## Player Feedback Settings
 
+Use `/wk settings` to open the graphical Rich HUD menu. The Player Settings page is available to every player; authenticated administrators also receive editable Server Settings controls. Both interfaces use the same authoritative values and validation as the commands below.
+
 Use:
 
 ```text
@@ -147,8 +149,8 @@ Percent values accept whole percent values such as `0`, `5`, or `10%`. A thresho
 Player settings:
 
 - `progressChatEnabled` - Shows delayed research and Proficiency chat messages when world settings allow them. Aliases: `chatenabled`, `chatnotifications`.
-- `progressToastEnabled` - Shows popup progress notifications and botch toasts when world settings allow them. The Text HUD progress bars are separate. Completion toasts are not suppressed by this setting. Aliases: `toastenabled`, `toastnotifications`.
-- `progressHudEnabled` - Shows the Text HUD API progress bar overlay. Aliases: `barsenabled`, `hudbars`, `progressbars`.
+- `progressToastEnabled` - Shows popup progress notifications and botch toasts when world settings allow them. The Rich HUD progress bars are separate. Completion toasts are not suppressed by this setting. Aliases: `toastenabled`, `toastnotifications`.
+- `progressHudEnabled` - Shows the Rich HUD progress bar overlay. Aliases: `barsenabled`, `hudbars`, `progressbars`.
 - `progressHudRows` - Maximum recent schematic rows shown in the progress bar overlay. Range: `1` to `10`. Aliases: `hudrows`, `progressrows`.
 - `progressHudOrder` - Row ordering for the progress bar overlay. Values: `ascending` or `descending`. The default `descending` keeps the newest row at the end of the stack. Aliases: `hudorder`, `progressorder`.
 - `progressHudPosition` - Position preset for the progress bar overlay. Values: `topLeft`, `topRight`, `bottomLeft`, `bottomRight`, or `center`. Aliases: `hudposition`, `progressposition`, `hudpreset`.
@@ -163,7 +165,7 @@ Player settings:
 - `weldBotchSoundEnabled` - Plays positional botch sounds for this player when world settings allow them.
 - `weldBotchWarningCooldownSeconds` - Minimum time before repeating the same botch warning for this player and block. Use `default` to follow the world setting, or a number from `0.0` to `30.0`.
 
-Personal defaults keep progress chat and popup progress toasts off, Text HUD progress bars on with five top-right rows, `descending` row order, zero overlay offset, six-second fade timing, sounds on, zero suppression thresholds, and botch warning cooldown set to `default`. Players can enable chat with `/wk config progressChatEnabled true` and popup toasts with `/wk config progressToastEnabled true` when world settings allow them.
+Personal defaults keep progress chat and popup progress toasts off, Rich HUD progress bars on with five top-right rows, `descending` row order, zero overlay offset, six-second fade timing, sounds on, zero suppression thresholds, and botch warning cooldown set to `default`. Players can enable chat with `/wk config progressChatEnabled true` and popup toasts with `/wk config progressToastEnabled true` when world settings allow them.
 
 ## Admin Command Flow
 
@@ -378,7 +380,7 @@ World feedback settings:
 
 - `notificationDelaySeconds` - World delay used to combine repeated progress updates before chat/toast feedback. Range: `0.1` to `30.0` seconds. Alias: `notificationdelay`.
 - `defaultProgressChatEnabled` - World default for delayed progress chat messages. Aliases: `defaultchat`, `defaultchatenabled`, `worldprogresschat`.
-- `defaultProgressToastEnabled` - World default for popup progress notifications and botch toasts. The Text HUD progress bars are separate. Completion toasts are not suppressed by this setting. Aliases: `defaulttoast`, `defaulttoastenabled`, `worldprogresstoast`.
+- `defaultProgressToastEnabled` - World default for popup progress notifications and botch toasts. The Rich HUD progress bars are separate. Completion toasts are not suppressed by this setting. Aliases: `defaulttoast`, `defaulttoastenabled`, `worldprogresstoast`.
 - `defaultResearchChatSuppressionPercent` - World default/minimum accumulated research percent before another research chat update appears. Aliases: `defaultreschatsuppression`, `defaultresearchchatthreshold`, `worldresearchchatthreshold`.
 - `defaultProficiencyChatSuppressionPercent` - World default/minimum accumulated Proficiency percent before another Proficiency chat update appears. Aliases: `defaultprofchatsuppression`, `defaultproficiencychatthreshold`, `worldproficiencychatthreshold`.
 - `defaultResearchToastSuppressionPercent` - World default/minimum accumulated research percent before another research toast appears. Aliases: `defaultrestoastsuppression`, `defaultresearchtoastthreshold`, `worldresearchtoastthreshold`.
