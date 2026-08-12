@@ -8,7 +8,7 @@
       </Id>
       <DisplayName>Fundamental Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Fundamental Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -33,7 +33,7 @@
       </Id>
       <DisplayName>Light Armor Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Light Armor Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -58,7 +58,7 @@
       </Id>
       <DisplayName>Heavy Armor Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Heavy Armor Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -83,7 +83,7 @@
       </Id>
       <DisplayName>Basic Production Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Basic Production Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -108,7 +108,7 @@
       </Id>
       <DisplayName>Drill Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Drill Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -133,7 +133,7 @@
       </Id>
       <DisplayName>Welder Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Welder Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -158,7 +158,7 @@
       </Id>
       <DisplayName>Grinder Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Grinder Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -183,7 +183,7 @@
       </Id>
       <DisplayName>Cargo Storage Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Cargo Storage Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -208,7 +208,7 @@
       </Id>
       <DisplayName>Conveyor Network Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Conveyor Network Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -233,7 +233,7 @@
       </Id>
       <DisplayName>Cargo Transfer Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Cargo Transfer Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -258,7 +258,7 @@
       </Id>
       <DisplayName>Gas Processing Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Gas Processing Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -283,7 +283,7 @@
       </Id>
       <DisplayName>Gas Storage Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Gas Storage Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -308,7 +308,7 @@
       </Id>
       <DisplayName>Renewable Power Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Renewable Power Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -333,7 +333,7 @@
       </Id>
       <DisplayName>Battery Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Battery Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -358,7 +358,7 @@
       </Id>
       <DisplayName>Hydrogen Engine Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Hydrogen Engine Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -383,7 +383,7 @@
       </Id>
       <DisplayName>Reactor Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Reactor Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -408,7 +408,7 @@
       </Id>
       <DisplayName>Food Production Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Food Production Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -433,7 +433,7 @@
       </Id>
       <DisplayName>Advanced Production Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Advanced Production Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -458,7 +458,7 @@
       </Id>
       <DisplayName>Control Interface Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Control Interface Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -483,7 +483,7 @@
       </Id>
       <DisplayName>Control Station Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Control Station Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -508,7 +508,7 @@
       </Id>
       <DisplayName>Communications Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Communications Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -533,7 +533,7 @@
       </Id>
       <DisplayName>Automation Logic Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Automation Logic Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -558,7 +558,7 @@
       </Id>
       <DisplayName>AI Control Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach AI Control Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -583,7 +583,7 @@
       </Id>
       <DisplayName>Display Systems Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Display Systems Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -608,7 +608,7 @@
       </Id>
       <DisplayName>Interior Lighting Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Interior Lighting Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -633,7 +633,7 @@
       </Id>
       <DisplayName>Directed Lighting Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Directed Lighting Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -658,7 +658,7 @@
       </Id>
       <DisplayName>Mechanical Systems Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Mechanical Systems Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -683,7 +683,7 @@
       </Id>
       <DisplayName>Wheel Systems Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Wheel Systems Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -708,7 +708,7 @@
       </Id>
       <DisplayName>Gravity Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Gravity Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -733,7 +733,7 @@
       </Id>
       <DisplayName>Jump Drive Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Jump Drive Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -758,7 +758,7 @@
       </Id>
       <DisplayName>Atmospheric Thruster Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Atmospheric Thruster Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -783,7 +783,7 @@
       </Id>
       <DisplayName>Hydrogen Thruster Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Hydrogen Thruster Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -808,7 +808,7 @@
       </Id>
       <DisplayName>Ion Thruster Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Ion Thruster Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -833,7 +833,7 @@
       </Id>
       <DisplayName>Fixed Weapon Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Fixed Weapon Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -858,7 +858,7 @@
       </Id>
       <DisplayName>Turret Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Turret Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -883,7 +883,7 @@
       </Id>
       <DisplayName>Life Support Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Life Support Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -908,7 +908,7 @@
       </Id>
       <DisplayName>Station Services Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Station Services Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -933,7 +933,7 @@
       </Id>
       <DisplayName>Interior Structure Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Interior Structure Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -958,7 +958,7 @@
       </Id>
       <DisplayName>Passage Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Passage Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -983,7 +983,7 @@
       </Id>
       <DisplayName>Door Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Door Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -1008,7 +1008,7 @@
       </Id>
       <DisplayName>Hangar Gate Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Hangar Gate Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -1033,7 +1033,7 @@
       </Id>
       <DisplayName>Window Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Window Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -1058,7 +1058,7 @@
       </Id>
       <DisplayName>Industrial Access Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Industrial Access Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -1083,7 +1083,7 @@
       </Id>
       <DisplayName>Industrial Structure Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Industrial Structure Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -1108,7 +1108,7 @@
       </Id>
       <DisplayName>Bridge Structure Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Bridge Structure Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -1133,7 +1133,7 @@
       </Id>
       <DisplayName>Habitat Fixture Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Habitat Fixture Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -1158,7 +1158,7 @@
       </Id>
       <DisplayName>Decorative Fixture Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Decorative Fixture Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -1183,7 +1183,7 @@
       </Id>
       <DisplayName>Signage Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Signage Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -1208,7 +1208,7 @@
       </Id>
       <DisplayName>Prototech Assembler Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Prototech Assembler Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -1233,7 +1233,7 @@
       </Id>
       <DisplayName>Prototech Drill Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Prototech Drill Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -1258,7 +1258,7 @@
       </Id>
       <DisplayName>Prototech Battery Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Prototech Battery Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -1283,7 +1283,7 @@
       </Id>
       <DisplayName>Prototech Gyroscope Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Prototech Gyroscope Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -1308,7 +1308,7 @@
       </Id>
       <DisplayName>Prototech Reactor Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Prototech Reactor Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -1333,7 +1333,7 @@
       </Id>
       <DisplayName>Prototech Refinery Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Prototech Refinery Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -1358,7 +1358,7 @@
       </Id>
       <DisplayName>Prototech Jump Drive Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Prototech Jump Drive Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -1383,7 +1383,7 @@
       </Id>
       <DisplayName>Prototech Thruster Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Prototech Thruster Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -1408,7 +1408,7 @@
       </Id>
       <DisplayName>Prototech O2/H2 Generator Data Schematic</DisplayName>
       <Description>A durable data schematic that can teach Prototech O2/H2 Generator Schematics. It is returned after use so it can be shared.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnExactDataSchematic.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>

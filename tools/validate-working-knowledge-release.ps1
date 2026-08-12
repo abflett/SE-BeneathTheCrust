@@ -45,7 +45,6 @@ if ($thumb.Length -ge 1MB) {
 }
 
 $bundledVanillaIconPaths = @(
-    'GUI\Icons\Items\Datapad_Item.dds',
     'GUI\Icons\Cubes\VanillaVerticalTerminalPanel.dds',
     'GUI\Icons\Cubes\NeonTerminal.dds',
     'GUI\Icons\Cubes\basicAssembler.dds',
@@ -92,6 +91,19 @@ if ($canAuditVanillaIcons) {
 else {
     Write-Warning "Space Engineers textures were not found at '$vanillaTextureRoot'; validated bundled icon presence but skipped comparison with current vanilla files."
 }
+
+$workingKnowledgeIconPaths = @(
+    'GUI\Icons\Items\WkKnDataFragment.dds',
+    'GUI\Icons\Items\WkKnExactDataSchematic.dds',
+    'GUI\Icons\Items\WkKnSchematicFamilyUnlocker.dds'
+)
+foreach ($relativePath in $workingKnowledgeIconPaths) {
+    $iconPath = Join-Path (Join-Path $modRoot 'Textures') $relativePath
+    if (-not (Test-Path -LiteralPath $iconPath -PathType Leaf)) {
+        throw "Working Knowledge icon is missing: $iconPath"
+    }
+}
+Write-Host "Validated $($workingKnowledgeIconPaths.Count) custom Working Knowledge icons."
 
 $changelog = Get-Content -LiteralPath (Join-Path $repoRoot 'docs\WorkingKnowledge\changelog.md') -Raw
 if ($changelog -notmatch [regex]::Escape("## $ExpectedVersion")) {

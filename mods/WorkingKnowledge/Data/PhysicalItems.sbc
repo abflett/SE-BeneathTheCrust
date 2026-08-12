@@ -8,7 +8,7 @@
       </Id>
       <DisplayName>Common Data Fragment</DisplayName>
       <Description>A compact schematic fragment containing partial low-tier fabrication data.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnDataFragment.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -33,7 +33,7 @@
       </Id>
       <DisplayName>Uncommon Data Fragment</DisplayName>
       <Description>A compact schematic fragment containing partial specialized fabrication data.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnDataFragment.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -58,7 +58,7 @@
       </Id>
       <DisplayName>Rare Data Fragment</DisplayName>
       <Description>A compact schematic fragment containing partial advanced fabrication data.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnDataFragment.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>
@@ -83,7 +83,7 @@
       </Id>
       <DisplayName>Prototech Data Fragment</DisplayName>
       <Description>A compact schematic fragment containing partial prototech fabrication data.</Description>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnDataFragment.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>

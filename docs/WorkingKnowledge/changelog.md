@@ -16,7 +16,9 @@ Fixed the Text HUD API progress bars for players connected to dedicated servers.
 
 The client log now records when Text HUD API becomes ready, or when it remains unavailable after startup, so a missing framework can be distinguished from a multiplayer synchronization problem. Dedicated servers report that rendering is delegated to connected clients instead of incorrectly warning that the graphical API is unavailable.
 
-Bundled the 19 vanilla UI icons referenced by Working Knowledge definitions. Dedicated-server installations omit the client UI texture library but still validate those mod-relative paths, which previously produced 138 misleading missing-texture errors during world load. The bundled copies preserve the existing in-game artwork and are checked against the current Space Engineers installation during release validation so upstream icon changes are reviewed deliberately.
+Bundled the vanilla UI icons still referenced by Working Knowledge definitions. Dedicated-server installations omit the client UI texture library but still validate those mod-relative paths, which previously produced 138 misleading missing-texture errors during world load. The bundled copies preserve the existing in-game artwork and are checked against the current Space Engineers installation during release validation so upstream icon changes are reviewed deliberately.
+
+Replaced the shared vanilla Datapad artwork with distinct Working Knowledge icons for partial Data Fragments, complete exact Data Schematics, and hidden schematic-family unlockers. The new icons retain the scale, subdued blue-gray grading, transparency, and BC7 format of vanilla UI assets while making each research-data role recognizable at G-menu and inventory sizes. The remaining 18 vanilla icon copies continue to use release-time parity checks.
 
 ## 1.0.0 - Stable Release And Prosperity Support
 

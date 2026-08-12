@@ -7,7 +7,7 @@
         <SubtypeId>WkKnDataFragmentComponent</SubtypeId>
       </Id>
       <DisplayName>Data Fragment Component</DisplayName>
-      <Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
+      <Icon>Textures\GUI\Icons\Items\WkKnDataFragment.dds</Icon>
       <Size>
         <X>0.2</X>
         <Y>0.1</Y>

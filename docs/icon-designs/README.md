@@ -1,6 +1,6 @@
 # Working Knowledge Icon Designs
 
-This folder holds exploratory icon concepts for review. Nothing here is loaded by the mod; the current release continues to use the bundled vanilla Datapad icon.
+This folder holds the exploratory concepts and production sources for Working Knowledge's research-data icons.
 
 ## Version 1
 
@@ -21,3 +21,7 @@ The reproducible generation instructions are preserved in `prompts-v1.md`.
 ## Data Fragment Version 3
 
 `wk-data-fragment-v3.png` keeps the same intact physical datapad but makes the missing information unmistakable at icon size. Only a small schematic cluster survives; large pixel blocks, missing quadrants, torn scan regions, and coarse monochrome noise dominate the rest of the display. The exact edit instructions are preserved in `prompts-v3.md`.
+
+## Production Assets
+
+The approved Data Fragment v3, Exact Data Schematic v2, and Schematic Family Unlocker v1 concepts were converted into the transparent 128x128 PNG sources under `production/`. Their connected outer black backgrounds were removed without erasing the intentionally dark screen interiors, their footprints and blue-gray grading were matched to the vanilla Datapad icon, and the production PNGs were encoded as 128x128 BC7 sRGB DDS files with full mip chains under `mods/WorkingKnowledge/Textures/GUI/Icons/Items/`.
