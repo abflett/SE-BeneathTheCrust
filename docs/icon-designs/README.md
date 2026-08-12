@@ -13,3 +13,7 @@ The concepts were generated with the supplied in-game progression-tree screensho
 These PNGs are large RGB design studies with black backgrounds. They are not transparent, downscaled, compressed, or converted to the `.dds` format required for production use. Keep later explorations under versioned names so individual designs can be retained or discarded without overwriting earlier comparisons.
 
 The reproducible generation instructions are preserved in `prompts-v1.md`.
+
+## Data Fragment Version 2
+
+`wk-data-fragment-v2.png` keeps the physical datapad intact and moves the incomplete-fragment concept entirely into its display. A recognizable schematic motif breaks into displaced bands, missing segments, and unreadable data while remaining contained inside the undamaged device. The exact edit instructions are preserved in `prompts-v2.md`.
