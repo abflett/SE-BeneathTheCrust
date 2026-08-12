@@ -44,7 +44,7 @@ Public commands:
 - `/wk research help` - Show research commands and tuning settings.
 - `/wk prof` or `/wk proficiency` - Show personal Proficiency progress.
 - `/wk proficiency help` - Show Proficiency commands and tuning settings.
-- `/wk settings` - Open the Rich HUD graphical settings menu.
+- `/wk settings` - Open the dedicated Rich HUD graphical settings window.
 - `/wk config` - Show personal feedback settings.
 - `/wk config help` - Show player config help.
 - `/wk config <setting> help` - Show one player setting's description and aliases.

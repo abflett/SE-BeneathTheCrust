@@ -10,9 +10,7 @@ Restored the original compact visual layering, with each schematic label overlap
 
 Restored the original three-direction black label outline so schematic names remain legible over bright research bars and world lighting.
 
-Added `/wk settings` to open a graphical settings menu. Players can configure their own progress overlay, notifications, thresholds, and sounds; administrators can also apply difficulty presets and edit authoritative world settings. Existing `/wk config` and `/wk difficulty` commands remain supported.
-
-Reorganized the settings interface into expandable Player Settings and Server Settings folders. Logical pages and vertically stacked control groups replace the original horizontally scrolling tile strips.
+Added `/wk settings` to open a dedicated Working Knowledge settings window. A compact sidebar, section headings, full-width rows, and vertical scrolling replace Rich HUD Terminal's fixed horizontal tile layout. Players can configure their own progress overlay, notifications, thresholds, and sounds; administrators can also apply difficulty presets and edit authoritative world settings. The shared Rich HUD Terminal retains a launcher and Help page, while existing `/wk config` and `/wk difficulty` commands remain supported.
 
 GUI changes use the same server-authoritative validation, administrator checks, persistence, and runtime effects as chat commands. Dedicated servers return authenticated player, world, and permission snapshots to the requesting client without attempting to render the interface headlessly.
 

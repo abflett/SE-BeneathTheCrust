@@ -15,8 +15,10 @@ Load Rich HUD Master Workshop item `1965654081`. Text HUD API should not be requ
 ## Single Player
 
 - Confirm the client log reports that Rich HUD Master connected without a Working Knowledge exception.
-- Run `/wk settings` and confirm it opens directly to Working Knowledge Player Settings.
-- Confirm Player Settings and Server Settings appear as expandable sidebar folders and every settings page scrolls vertically without a horizontal control strip.
+- Run `/wk settings` and confirm it opens the dedicated Working Knowledge Settings window directly to Progress HUD.
+- Confirm the compact sidebar exposes Player Settings, Server Settings, and Help; every page must use full-width stacked rows and vertical scrolling without a horizontal control strip.
+- Open Rich HUD Terminal and confirm Working Knowledge contains a functional Settings launcher and Help page.
+- Confirm the window closes through its X button and Escape, can be dragged/resized, and reopens cleanly.
 - Exercise every player toggle, slider, dropdown, text value, and reset button; reopen the page and confirm values persist.
 - Trigger research and Proficiency gains and confirm the compact two-bar rows update, order correctly, move with position/offset settings, and respect row/fade limits.
 - Apply each difficulty preset and representative settings from every server category as an administrator.
