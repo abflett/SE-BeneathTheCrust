@@ -18,7 +18,7 @@ The client log now records when Text HUD API becomes ready, or when it remains u
 
 Bundled the vanilla UI icons still referenced by Working Knowledge definitions. Dedicated-server installations omit the client UI texture library but still validate those mod-relative paths, which previously produced 138 misleading missing-texture errors during world load. The bundled copies preserve the existing in-game artwork and are checked against the current Space Engineers installation during release validation so upstream icon changes are reviewed deliberately.
 
-Replaced the shared vanilla Datapad artwork with distinct Working Knowledge icons for partial Data Fragments, complete exact Data Schematics, and hidden schematic-family unlockers. The new icons retain the scale, subdued blue-gray grading, transparency, and BC7 format of vanilla UI assets while making each research-data role recognizable at G-menu and inventory sizes. The remaining 18 vanilla icon copies continue to use release-time parity checks.
+Replaced the shared vanilla Datapad face artwork with distinct Working Knowledge screen motifs for partial Data Fragments, complete exact Data Schematics, and hidden schematic-family unlockers. Each icon uses the vanilla Datapad casing, lighting, alpha, scale, and blue-gray grading, with bold face details specifically tested at the 24-48 pixel sizes used by inventory and progression views. The DDS assets retain vanilla's 128x128 BC7 sRGB format and full mip chain. The remaining 18 vanilla icon copies continue to use release-time parity checks.
 
 ## 1.0.0 - Stable Release And Prosperity Support
 

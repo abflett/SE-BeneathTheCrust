@@ -24,4 +24,6 @@ The reproducible generation instructions are preserved in `prompts-v1.md`.
 
 ## Production Assets
 
-The approved Data Fragment v3, Exact Data Schematic v2, and Schematic Family Unlocker v1 concepts were converted into the transparent 128x128 PNG sources under `production/`. Their connected outer black backgrounds were removed without erasing the intentionally dark screen interiors, their footprints and blue-gray grading were matched to the vanilla Datapad icon, and the production PNGs were encoded as 128x128 BC7 sRGB DDS files with full mip chains under `mods/WorkingKnowledge/Textures/GUI/Icons/Items/`.
+The generated studies established the three information roles, but direct downscaling made their fine casing and screen detail wash out at the 24-48 pixel sizes used by inventory and progression views. The production assets therefore use the actual vanilla Datapad icon as their common casing, lighting, alpha, scale, and color-grade base. Only the face artwork changes: coarse broken blocks for a Data Fragment, one bold complete circuit for an Exact Data Schematic, and three connected nodes for a schematic-family unlocker. These motifs were evaluated at 24, 32, 40, and 48 pixels before release.
+
+The transparent 128x128 PNG sources live under `production/`. The corresponding mod assets are encoded as 128x128 BC7 sRGB DDS files with full mip chains under `mods/WorkingKnowledge/Textures/GUI/Icons/Items/`.
