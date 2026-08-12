@@ -44,6 +44,7 @@ namespace WkKn
         private const ushort ResearchTerminalSyncNetworkMessageId = 49219;
         private const ushort LocalFeedbackNetworkMessageId = 49220;
         private const ushort CommandRequestNetworkMessageId = 49221;
+        private const ushort ProgressHudNetworkMessageId = 49222;
         private const long ResearchDisplayRefreshTicks = 120;
         private const long ResearchDisplayNetworkRequestTicks = 600;
         private const string ResearchDisplaySyncRequest = "Request";
@@ -119,6 +120,7 @@ namespace WkKn
         private bool researchTerminalSyncRegistered;
         private bool localFeedbackNetworkRegistered;
         private bool commandRequestNetworkRegistered;
+        private bool progressHudNetworkRegistered;
         private long commandResponseIdentityId;
         private ResearchDisplaySyncMessage syncedLocalResearchDisplay;
         private ProficiencyScopeRecord syncedLocalProficiencyScope;

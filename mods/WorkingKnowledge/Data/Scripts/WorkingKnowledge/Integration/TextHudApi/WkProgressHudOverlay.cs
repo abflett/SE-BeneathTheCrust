@@ -14,6 +14,7 @@ namespace WkKn
         private const int MaxRows = 10;
         private const int MaxLabelLength = 32;
         private const long FadeOutTicks = 180;
+        private const long ApiStartupGraceTicks = 600;
         private const double LabelScale = 1.05;
         private const double RowSpacing = 0.095;
         private const double RightAnchorX = 0.57;
@@ -45,6 +46,8 @@ namespace WkKn
         private readonly Color proficiencyColor;
         private HudAPIv2 api;
         private bool apiReady;
+        private bool apiReadyLogged;
+        private bool apiUnavailableLogged;
 
         internal WkProgressHudOverlay(Color researchColor, Color proficiencyColor)
         {
@@ -70,7 +73,7 @@ namespace WkKn
                 return;
             }
 
-            EnsureRowsCreated();
+            EnsureRowsCreated(currentTick);
             if (!apiReady)
                 return;
 
@@ -98,6 +101,8 @@ namespace WkKn
             }
 
             apiReady = false;
+            apiReadyLogged = false;
+            apiUnavailableLogged = false;
             if (api != null)
             {
                 api.Close();
@@ -120,10 +125,21 @@ namespace WkKn
             UpdateEntry(identityId, progressId, displayName, researchProgress, proficiencyProgress, currentTick);
         }
 
-        private void EnsureRowsCreated()
+        private void EnsureRowsCreated(long currentTick)
         {
-            if (apiReady || api == null || !api.Heartbeat)
+            if (apiReady)
                 return;
+
+            if (api == null || !api.Heartbeat)
+            {
+                if (!apiUnavailableLogged && currentTick >= ApiStartupGraceTicks)
+                {
+                    apiUnavailableLogged = true;
+                    MyLog.Default.WriteLineAndConsole(WkKnSession.LogPrefix + " Text HUD API is unavailable; progress bars will remain hidden.");
+                }
+
+                return;
+            }
 
             apiReady = true;
             for (var i = 0; i < rows.Length; i++)
@@ -133,6 +149,11 @@ namespace WkKn
             }
 
             HideRows();
+            if (!apiReadyLogged)
+            {
+                apiReadyLogged = true;
+                MyLog.Default.WriteLineAndConsole(WkKnSession.LogPrefix + " Text HUD API connected; progress bars are ready.");
+            }
         }
 
         private void UpdateEntry(long identityId, string progressId, string displayName, double? researchProgress, double? proficiencyProgress, long currentTick)

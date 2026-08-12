@@ -144,6 +144,8 @@ Multiplayer XML encoding and guarded decoding live in `XmlNetworkSerializer.cs`.
 
 Chat commands are server-authoritative. `MessageEnteredSender` only intercepts `/wk` on the local player and suppresses it from public chat. Remote clients send the command text through message `49221`; the server derives the Steam ID from the secure-message callback, resolves the connected identity, performs admin checks, executes against the server stores, and targets chat output back to that identity. Never accept a player or admin identity from the command payload. The same channel returns the requesting player's feedback record so client-side Text HUD preferences stay current.
 
+Progress HUD events are also server-authoritative. Research and Proficiency changes use message `49222` to send the affected player a combined current-progress snapshot for the changed schematic. The client accepts these transient overlay events only from the server and only when the payload identity matches its local player. Persistent research and Proficiency display synchronization remains on messages `49218` and `49217`; those snapshots feed LCD/display data and do not create recent-event HUD rows.
+
 ## Layer Diagnostics
 
 Layer mappings and custom schematic groups keep their source mod and line number while the runtime binds definitions.

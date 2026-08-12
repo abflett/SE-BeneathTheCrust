@@ -28,7 +28,7 @@ namespace WkKn
         {
             var displayName = GetSchematicDisplayName(researchId);
             proficiencyNotificationService.Queue(identityId, researchId, displayName, progress, simulationTick, IsProgressComboEligibleSource(source));
-            progressHudOverlay.UpdateCombined(identityId, researchId, displayName, GetPlayerResearchProgress(identityId, researchId), progress.TotalProgress, simulationTick);
+            SendProgressHudUpdate(identityId, researchId, displayName);
         }
 
     }

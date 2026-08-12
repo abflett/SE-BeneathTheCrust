@@ -27,7 +27,7 @@ namespace WkKn
         private void QueueResearchNotification(long identityId, ResearchUnlockTarget target, ResearchProgressResult progress, string source)
         {
             researchNotificationService.Queue(identityId, target, progress, simulationTick, IsProgressComboEligibleSource(source));
-            progressHudOverlay.UpdateResearch(identityId, target.ResearchId, target.DisplayName, progress.TotalProgress, simulationTick);
+            SendProgressHudUpdate(identityId, target.ResearchId, target.DisplayName);
         }
 
         private long GetNotificationDelayTicks()

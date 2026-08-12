@@ -2,7 +2,7 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
-## 1.0.1 - Dedicated Server Command Fix
+## 1.0.1 - Dedicated Server Hotfix
 
 Fixed Working Knowledge chat commands for players connected to dedicated and remotely hosted servers.
 
@@ -11,6 +11,10 @@ Previously, `/wk` commands were intercepted and executed only on the player's lo
 All player and admin `/wk` commands now use a secure client-to-server request path. The server identifies the authenticated sender, checks administrator access there, executes the command against authoritative research, Proficiency, and configuration stores, and sends the response privately to the requesting player. Personal feedback settings are also synchronized back to the requesting client so Text HUD display preferences update immediately.
 
 Requests do not trust client-supplied player or administrator identities, and `/wk` commands remain hidden from public chat.
+
+Fixed the Text HUD API progress bars for players connected to dedicated servers. Research and Proficiency were already being recorded by the authoritative server, but their transient HUD events were incorrectly sent to the server's headless local overlay instead of the affected client. The server now sends each changed schematic's current research and Proficiency values directly to that player, and the client validates the server event before updating its overlay.
+
+The client log now records when Text HUD API becomes ready, or when it remains unavailable after startup, so a missing framework can be distinguished from a multiplayer synchronization problem.
 
 ## 1.0.0 - Stable Release And Prosperity Support
 

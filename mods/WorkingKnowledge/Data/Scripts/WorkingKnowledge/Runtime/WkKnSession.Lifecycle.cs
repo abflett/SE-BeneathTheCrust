@@ -39,6 +39,7 @@ namespace WkKn
             RegisterResearchTerminalNetworkHandler();
             RegisterLocalFeedbackNetworkHandler();
             RegisterCommandRequestNetworkHandler();
+            RegisterProgressHudNetworkHandler();
             InitializeResearchDisplayModule();
             RegisterBlockIntegrityMonitorHandlers();
             InitializeProficiencyModule();
@@ -149,6 +150,7 @@ namespace WkKn
             RegisterResearchTerminalNetworkHandler();
             RegisterLocalFeedbackNetworkHandler();
             RegisterCommandRequestNetworkHandler();
+            RegisterProgressHudNetworkHandler();
             UpdateResearchDisplayModule();
         }
 
@@ -163,6 +165,7 @@ namespace WkKn
             UnregisterResearchTerminalNetworkHandler();
             UnregisterLocalFeedbackNetworkHandler();
             UnregisterCommandRequestNetworkHandler();
+            UnregisterProgressHudNetworkHandler();
             blockWorkState.ClearPendingOperations();
             researchPedestalViewsByBlock.Clear();
             ClearResearchDisplayRuntimeState();

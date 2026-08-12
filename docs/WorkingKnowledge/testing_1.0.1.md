@@ -46,4 +46,14 @@ As a configured server administrator:
 
 ## Multiplayer Progression Follow-up
 
-After command routing passes, use the now-authoritative `/wk research` and `/wk proficiency` summaries while grinding and welding to isolate the separate dedicated-server progression problem. Record whether the server values change, whether unlocks change, and whether only the client display remains stale.
+As a player connected to the dedicated server:
+
+- Grind an unknown block and confirm a recent-event HUD row appears with both research and Proficiency bars.
+- Continue grinding the same schematic family and confirm both bars update to the server's current values.
+- Weld a known block and confirm its Proficiency bar appears and updates without inventing research progress.
+- Use `/wk research` and `/wk proficiency` to confirm the displayed bar values agree with the authoritative summaries.
+- Confirm another connected player does not receive your progress row.
+- Set `progressHudEnabled` to `false`, earn progress, and confirm no row appears; re-enable it and confirm the next progress event appears.
+- Test a non-default position, row count, order, offset, and fade time after changing them through `/wk config`.
+- Confirm the client log reports `Text HUD API connected; progress bars are ready.` and contains no Working Knowledge HUD exception.
+- Repeat the HUD checks as a hosted remote player and in single-player to cover both networked and local delivery paths.
