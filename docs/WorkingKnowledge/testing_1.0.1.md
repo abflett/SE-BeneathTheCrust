@@ -2,6 +2,10 @@
 
 Working Knowledge `1.0.1` is a focused hotfix for server-authoritative commands and the multiplayer progression issues first reproduced after the stable Workshop release.
 
+## Final Validation Result
+
+Validated on a Steam-networked Windows dedicated server and remote client on 2026-08-12. Player commands, administrator commands, authoritative research and Proficiency progress, client Text HUD updates, dedicated HUD delegation, persistence, and the three research-data icon roles were exercised successfully. The final server and client logs contain no Working Knowledge mod errors, warnings, or exceptions. The two remaining dedicated-server `MOD_ERROR` entries belong to Text HUD API's own headless texture references and do not affect connected-client rendering.
+
 ## Prepare The Build
 
 ```powershell

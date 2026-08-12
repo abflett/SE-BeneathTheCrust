@@ -80,9 +80,9 @@ See [Working Knowledge configuration](../../docs/WorkingKnowledge/configuration.
 
 ## Current Status
 
-Working Knowledge now targets its `1.0.x` stable release line. Version `1.0.0` is published on the Steam Workshop, and `1.0.1` is the current dedicated-server hotfix under validation.
+Working Knowledge now targets its `1.0.x` stable release line. Version `1.0.0` is published on the Steam Workshop, and the validated `1.0.1` dedicated-server hotfix is awaiting its Workshop publish.
 
-The current balance targets the default `medium` play experience. Dedicated-server command routing and multiplayer progression behavior are the active hotfix focus; balance and compatibility feedback will continue through the stable line.
+The current balance targets the default `medium` play experience. Dedicated-server command routing, remote progress HUD synchronization, headless diagnostics, and icon packaging have completed their focused hotfix pass; balance and compatibility feedback will continue through the stable line.
 
 The mod currently includes:
 

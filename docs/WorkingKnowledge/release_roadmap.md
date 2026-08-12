@@ -1,6 +1,6 @@
 # Working Knowledge Roadmap
 
-This roadmap tracks maintenance of the Working Knowledge `1.0.x` stable line. Version `1.0.0` is published, and `1.0.1` is the current dedicated-server hotfix under validation. Campaign composition, companion mod packs, richer story content, and deeper terminal trade systems remain later work.
+This roadmap tracks maintenance of the Working Knowledge `1.0.x` stable line. Version `1.0.0` is published, and the validated `1.0.1` dedicated-server hotfix is awaiting its Workshop publish. Campaign composition, companion mod packs, richer story content, and deeper terminal trade systems remain later work.
 
 ## Versioning
 
@@ -12,13 +12,15 @@ Working Knowledge uses a `major.feature.fix` version pattern.
 
 ## 1.0.1 Dedicated Server Hotfix
 
-The first public dedicated-server report exposed multiplayer paths that hosted-player testing did not exercise. The hotfix is being developed and validated one authoritative subsystem at a time.
+The first public dedicated-server report exposed multiplayer paths that hosted-player testing did not exercise. The hotfix now routes commands and progress events through the authoritative server, provides correct headless HUD diagnostics, and supplies every referenced icon to dedicated-server installations.
 
-Release priorities:
+Completed release scope:
 
-- Route every player and admin `/wk` command through the authoritative server.
-- Validate server-side research and Proficiency gain, persistence, and client display synchronization.
-- Preserve single-player and hosted-server behavior while fixing dedicated-server paths.
+- Routed every player and admin `/wk` command through the authoritative server.
+- Validated server-side research and Proficiency gain, persistence, and client display synchronization.
+- Restored remote-client Text HUD progress events without changing persistent LCD/display synchronization.
+- Corrected dedicated-server HUD diagnostics and removed Working Knowledge's headless icon errors.
+- Preserved single-player and hosted-server behavior while fixing dedicated-server paths.
 
 Fix and polish watch items:
 
@@ -45,17 +47,20 @@ The completed public-feedback sequence and current target are:
 - `0.12.0` - compatibility-layer diagnostics, runtime cleanup, and release validation. Complete.
 - `0.13.0` - extensible schematic groups and layer-controlled block remapping. Complete.
 - `1.0.0` - stable standalone release with Space Engineers 1.210 Prosperity support. Published.
-- `1.0.1` - dedicated-server command and multiplayer progression hotfix. In progress.
+- `1.0.1` - dedicated-server command and multiplayer progression hotfix. Validated; awaiting Workshop publish.
 
-## 1.0.1 Command Routing - Implemented, Awaiting Game Test
+## 1.0.1 Dedicated Server Hotfix - Implemented And Tested
 
 - Remote clients send `/wk` requests to the server through an authenticated secure-message handler.
 - The server derives the player identity from the network sender, applies admin checks authoritatively, and executes all command reads and mutations against server stores.
 - Command output is sent privately to the requesting identity and never echoed into public chat.
 - Personal feedback settings are synchronized back to the requesting client after command execution.
 - Oversized, server-originated, or unresolved-sender requests are rejected.
+- Research and Proficiency progress events are sent to the affected remote client and accepted only from the server.
+- Dedicated servers delegate graphical HUD rendering to clients without reporting Text HUD API as unavailable.
+- The final dedicated-server and client logs contain no Working Knowledge mod errors, warnings, or exceptions.
 
-Use [the 1.0.1 dedicated-server test plan](testing_1.0.1.md) for the focused validation pass.
+The focused validation pass is recorded in [the 1.0.1 dedicated-server test plan](testing_1.0.1.md).
 
 ## 0.10.0 Progress Display - Complete
 
