@@ -57,4 +57,5 @@ As a player connected to the dedicated server:
 - Test a non-default position, row count, order, offset, and fade time after changing them through `/wk config`.
 - Confirm the client log reports `Text HUD API connected; progress bars are ready.` and contains no Working Knowledge HUD exception.
 - Confirm the dedicated-server log reports `dedicated server detected; progress HUD rendering is handled by connected clients.` and does not report Text HUD API as unavailable.
+- Confirm the dedicated-server log contains no Working Knowledge `MOD_ERROR` entries for the 19 bundled UI icons. Text HUD API can still report its own headless texture diagnostics independently.
 - Repeat the HUD checks as a hosted remote player and in single-player to cover both networked and local delivery paths.

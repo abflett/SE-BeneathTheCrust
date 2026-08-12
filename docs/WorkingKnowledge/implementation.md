@@ -100,6 +100,14 @@ Internal validation details:
 - `Components.sbc` gives `WkKnDataFragmentComponent` a fixed `MinimalPricePerUnit` so Space Engineers and diagnostic mods do not recurse through the circular validation blueprint when calculating item price.
 - Keep `CanPlayerOrder=false` and `CanPlayerOffer=false` on `WkKnDataFragmentComponent`; the fixed price is only a definition-safety value and should not make the internal component tradeable.
 
+## Bundled Vanilla Icons
+
+Working Knowledge deliberately bundles 19 current vanilla `.dds` icons under `Textures/GUI/Icons/`. A dedicated-server installation does not include the normal client UI texture library, but it still validates mod-relative icon paths in loaded definitions. Supplying the files in the mod removes the resulting 138 false missing-texture errors without changing the definitions or their client appearance.
+
+The bundled set consists of the Datapad item icon used by Data Fragments, exact Data Schematics, and hidden research unlockers; the two terminal icons used by Working Knowledge's vanilla-derived terminal blocks; and 16 cube icons used by the generated variant-group splits in `BlockVariantGroups_Research.sbc`. Keep their relative paths unchanged while they remain vanilla copies.
+
+These files are maintenance snapshots, not a permanent fork of Keen's artwork. Before releases following a Space Engineers content update, run `tools/validate-working-knowledge-release.ps1` against the current game installation. The validator compares all 19 bundled files with the installed vanilla copies and stops when a source was removed or changed so the definitions and artwork can be re-inspected. On systems without the game content available, it verifies that the bundled files exist and reports that the vanilla comparison was skipped. If an icon is intentionally replaced with Working Knowledge artwork later, remove that path from the vanilla-parity contract and document the replacement here.
+
 Balance source:
 
 - `Scripts/WorkingKnowledge/Application/Balance/SchematicWorkRewardTable.cs` is the live source-code reward table.

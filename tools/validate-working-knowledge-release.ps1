@@ -1,7 +1,8 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)][string] $ExpectedVersion,
-    [switch] $SkipCompile
+    [switch] $SkipCompile,
+    [string] $SpaceEngineersContent = 'C:\Program Files (x86)\Steam\steamapps\common\SpaceEngineers\Content'
 )
 
 Set-StrictMode -Version Latest
@@ -41,6 +42,55 @@ if (-not (Test-Path -LiteralPath $thumbPath -PathType Leaf)) {
 $thumb = Get-Item -LiteralPath $thumbPath
 if ($thumb.Length -ge 1MB) {
     throw "Working Knowledge thumbnail must stay under 1 MB; current size is $($thumb.Length) bytes."
+}
+
+$bundledVanillaIconPaths = @(
+    'GUI\Icons\Items\Datapad_Item.dds',
+    'GUI\Icons\Cubes\VanillaVerticalTerminalPanel.dds',
+    'GUI\Icons\Cubes\NeonTerminal.dds',
+    'GUI\Icons\Cubes\basicAssembler.dds',
+    'GUI\Icons\Cubes\assembler.dds',
+    'GUI\Icons\Cubes\LabEquipment.dds',
+    'GUI\Icons\Cubes\medical_room.dds',
+    'GUI\Icons\Cubes\Grinder.dds',
+    'GUI\Icons\Cubes\Welder.dds',
+    'GUI\Icons\Cubes\drill.dds',
+    'GUI\Icons\Cubes\Prototech_JumpDrive.dds',
+    'GUI\Icons\Cubes\Prototech_Thruster_Large.dds',
+    'GUI\Icons\Cubes\Prototech_Refinery.dds',
+    'GUI\Icons\Cubes\Prototech_Assembler.dds',
+    'GUI\Icons\Cubes\Prototech_Gyroscope_large.dds',
+    'GUI\Icons\Cubes\PrototechBattery.dds',
+    'GUI\Icons\Cubes\PrototechDrill.dds',
+    'GUI\Icons\Cubes\Prototech_Reactor.dds',
+    'GUI\Icons\Cubes\Prototech_Generator.dds'
+)
+$vanillaTextureRoot = Join-Path $SpaceEngineersContent 'Textures'
+$canAuditVanillaIcons = Test-Path -LiteralPath $vanillaTextureRoot -PathType Container
+foreach ($relativePath in $bundledVanillaIconPaths) {
+    $bundledPath = Join-Path (Join-Path $modRoot 'Textures') $relativePath
+    if (-not (Test-Path -LiteralPath $bundledPath -PathType Leaf)) {
+        throw "Bundled vanilla icon is missing: $bundledPath"
+    }
+
+    if ($canAuditVanillaIcons) {
+        $vanillaPath = Join-Path $vanillaTextureRoot $relativePath
+        if (-not (Test-Path -LiteralPath $vanillaPath -PathType Leaf)) {
+            throw "The current Space Engineers install no longer contains bundled icon source '$relativePath'. Re-audit the affected definition before release."
+        }
+
+        $bundledHash = (Get-FileHash -LiteralPath $bundledPath -Algorithm SHA256).Hash
+        $vanillaHash = (Get-FileHash -LiteralPath $vanillaPath -Algorithm SHA256).Hash
+        if ($bundledHash -ne $vanillaHash) {
+            throw "Bundled vanilla icon '$relativePath' differs from the current Space Engineers copy. Re-inspect it and refresh or intentionally replace it before release."
+        }
+    }
+}
+if ($canAuditVanillaIcons) {
+    Write-Host "Validated $($bundledVanillaIconPaths.Count) bundled icons against the current Space Engineers files."
+}
+else {
+    Write-Warning "Space Engineers textures were not found at '$vanillaTextureRoot'; validated bundled icon presence but skipped comparison with current vanilla files."
 }
 
 $changelog = Get-Content -LiteralPath (Join-Path $repoRoot 'docs\WorkingKnowledge\changelog.md') -Raw

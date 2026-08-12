@@ -16,6 +16,8 @@ Fixed the Text HUD API progress bars for players connected to dedicated servers.
 
 The client log now records when Text HUD API becomes ready, or when it remains unavailable after startup, so a missing framework can be distinguished from a multiplayer synchronization problem. Dedicated servers report that rendering is delegated to connected clients instead of incorrectly warning that the graphical API is unavailable.
 
+Bundled the 19 vanilla UI icons referenced by Working Knowledge definitions. Dedicated-server installations omit the client UI texture library but still validate those mod-relative paths, which previously produced 138 misleading missing-texture errors during world load. The bundled copies preserve the existing in-game artwork and are checked against the current Space Engineers installation during release validation so upstream icon changes are reviewed deliberately.
+
 ## 1.0.0 - Stable Release And Prosperity Support
 
 Working Knowledge has reached its first stable release. After a month of public testing without reported gameplay issues, the research, Proficiency, construction, salvage, faction sharing, displays, configuration, compatibility layers, and save systems now form the supported `1.0.x` foundation.
