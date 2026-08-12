@@ -20,7 +20,7 @@ namespace WkKn
         private readonly Dictionary<string, string> pendingValues = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         private readonly Dictionary<string, string> pendingCommands = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         private ControlPage playerPage;
-        private ControlPage worldPage;
+        private TerminalPageCategory serverCategory;
         private bool live;
 
         internal WkRichHudSettingsMenu(
@@ -46,34 +46,31 @@ namespace WkKn
             live = false;
             RichHudTerminal.Root.Enabled = true;
 
-            playerPage = new ControlPage { Name = "Player Settings" };
-            AddPlayerCategories(playerPage);
-            RichHudTerminal.Root.Add(playerPage);
+            var playerCategory = new TerminalPageCategory { Name = "Player Settings", Enabled = true };
+            playerPage = new ControlPage { Name = "Progress HUD", Enabled = true };
+            AddPlayerProgressGroups(playerPage);
+            playerCategory.Add(playerPage);
 
-            worldPage = new ControlPage { Name = "Server Settings" };
-            AddDifficultyCategory(worldPage);
+            var feedbackPage = new ControlPage { Name = "Feedback", Enabled = true };
+            AddPlayerFeedbackGroups(feedbackPage);
+            playerCategory.Add(feedbackPage);
+            RichHudTerminal.Root.Add(playerCategory);
+
+            serverCategory = new TerminalPageCategory { Name = "Server Settings", Enabled = true };
+            var difficultyPage = new ControlPage { Name = "Difficulty", Enabled = true };
+            AddDifficultyCategory(difficultyPage);
+            serverCategory.Add(difficultyPage);
             foreach (var categoryName in worldStore.GetDisplayCategories())
             {
                 if (categoryName.Equals("Difficulty", StringComparison.OrdinalIgnoreCase))
                     continue;
 
-                var category = new ControlCategory
-                {
-                    HeaderText = categoryName,
-                    SubheaderText = "Authoritative world settings. Administrator access is required.",
-                };
-
-                var definitions = worldStore.Settings;
-                for (var i = 0; i < definitions.Count; i++)
-                {
-                    if (definitions[i].Category.Equals(categoryName, StringComparison.OrdinalIgnoreCase))
-                        category.Add(CreateWorldTile(definitions[i]));
-                }
-
-                worldPage.Add(category);
+                var page = new ControlPage { Name = categoryName, Enabled = true };
+                AddWorldGroups(page, categoryName);
+                serverCategory.Add(page);
             }
 
-            RichHudTerminal.Root.Add(worldPage);
+            RichHudTerminal.Root.Add(serverCategory);
 
             var help = new TextPage
             {
@@ -98,8 +95,8 @@ namespace WkKn
 
         internal void UpdateAccess(bool canEditWorld)
         {
-            if (worldPage != null)
-                worldPage.Enabled = true;
+            if (serverCategory != null)
+                serverCategory.Enabled = true;
 
             for (var i = 0; i < worldControls.Count; i++)
                 worldControls[i].Enabled = canEditWorld;
@@ -110,7 +107,7 @@ namespace WkKn
             live = false;
             worldControls.Clear();
             playerPage = null;
-            worldPage = null;
+            serverCategory = null;
             pendingValues.Clear();
             pendingCommands.Clear();
         }
@@ -144,28 +141,60 @@ namespace WkKn
             }
         }
 
-        private void AddPlayerCategories(ControlPage page)
+        private void AddPlayerProgressGroups(ControlPage page)
         {
-            var display = new ControlCategory
-            {
-                HeaderText = "Progress Display",
-                SubheaderText = "Configure the Rich HUD progress overlay.",
-            };
-            var feedback = new ControlCategory
-            {
-                HeaderText = "Feedback",
-                SubheaderText = "Configure personal chat, toast, and sound feedback.",
-            };
+            AddPlayerGroup(
+                page,
+                "Display",
+                "Visibility, history size, and fade timing.",
+                "progressHudEnabled",
+                "progressHudRows",
+                "progressHudFadeSeconds");
+            AddPlayerGroup(
+                page,
+                "Placement",
+                "Screen anchor and fine position offsets.",
+                "progressHudPosition",
+                "progressHudOffsetX",
+                "progressHudOffsetY");
+            AddPlayerGroup(
+                page,
+                "Row Order",
+                "Choose how recent schematic rows are arranged.",
+                "progressHudOrder");
+        }
 
-            var definitions = playerStore.Settings;
-            for (var i = 0; i < definitions.Count; i++)
-            {
-                var definition = definitions[i];
-                if (definition.Setting.StartsWith("progressHud", StringComparison.OrdinalIgnoreCase))
-                    display.Add(CreatePlayerTile(definition));
-                else
-                    feedback.Add(CreatePlayerTile(definition));
-            }
+        private void AddPlayerFeedbackGroups(ControlPage page)
+        {
+            AddPlayerGroup(
+                page,
+                "Notifications",
+                "Enable personal chat and popup progress feedback.",
+                "progressChatEnabled",
+                "progressToastEnabled");
+            AddPlayerGroup(
+                page,
+                "Chat Thresholds",
+                "Minimum accumulated progress before another chat update.",
+                "researchChatSuppressionPercent",
+                "proficiencyChatSuppressionPercent");
+            AddPlayerGroup(
+                page,
+                "Toast Thresholds",
+                "Minimum accumulated progress before another popup update.",
+                "researchToastSuppressionPercent",
+                "proficiencyToastSuppressionPercent");
+            AddPlayerGroup(
+                page,
+                "Sounds",
+                "Personal completion and construction-botch audio.",
+                "completionSoundEnabled",
+                "weldBotchSoundEnabled");
+            AddPlayerGroup(
+                page,
+                "Botch Warning",
+                "Personal repeat-warning cooldown; default follows the world setting.",
+                "weldBotchWarningCooldownSeconds");
 
             var resetButton = new TerminalButton
             {
@@ -177,19 +206,88 @@ namespace WkKn
                 if (live)
                     resetConfig(false);
             };
-            feedback.Add(new ControlTile { ControlContainer = { resetButton } });
+            AddControlGroup(page, "Reset", "Restore all personal settings.", new ControlTile { ControlContainer = { resetButton } });
+        }
 
-            page.Add(display);
-            page.Add(feedback);
+        private void AddPlayerGroup(ControlPage page, string header, string description, params string[] settingNames)
+        {
+            var tile = new ControlTile();
+            for (var i = 0; i < settingNames.Length; i++)
+            {
+                var definition = FindPlayerSetting(settingNames[i]);
+                if (definition != null)
+                    AddPlayerControl(tile, definition);
+            }
+
+            AddControlGroup(page, header, description, tile);
+        }
+
+        private WkPlayerConfigSettingDefinition FindPlayerSetting(string setting)
+        {
+            var definitions = playerStore.Settings;
+            for (var i = 0; i < definitions.Count; i++)
+            {
+                if (definitions[i].Setting.Equals(setting, StringComparison.OrdinalIgnoreCase))
+                    return definitions[i];
+            }
+
+            return null;
+        }
+
+        private void AddWorldGroups(ControlPage page, string categoryName)
+        {
+            var group = new List<WkConfigSettingDefinition>();
+            var controlCount = 0;
+            var groupNumber = 1;
+            var definitions = worldStore.Settings;
+            for (var i = 0; i < definitions.Count; i++)
+            {
+                var definition = definitions[i];
+                if (!definition.Category.Equals(categoryName, StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                var weight = definition.ControlKind == WkSettingControlKind.Text ? 2 : 1;
+                if (group.Count > 0 && controlCount + weight > 3)
+                {
+                    AddWorldGroup(page, categoryName, groupNumber++, group);
+                    group = new List<WkConfigSettingDefinition>();
+                    controlCount = 0;
+                }
+
+                group.Add(definition);
+                controlCount += weight;
+            }
+
+            if (group.Count > 0)
+                AddWorldGroup(page, categoryName, groupNumber, group);
+        }
+
+        private void AddWorldGroup(ControlPage page, string categoryName, int groupNumber, List<WkConfigSettingDefinition> definitions)
+        {
+            var tile = new ControlTile();
+            for (var i = 0; i < definitions.Count; i++)
+                AddWorldControl(tile, definitions[i]);
+
+            var header = groupNumber == 1
+                ? categoryName + " Settings"
+                : categoryName + " Settings — Continued";
+            AddControlGroup(page, header, "Authoritative world settings. Administrator access is required.", tile);
+        }
+
+        private static void AddControlGroup(ControlPage page, string header, string description, ControlTile tile)
+        {
+            var category = new ControlCategory
+            {
+                HeaderText = header,
+                SubheaderText = description,
+            };
+            category.Add(tile);
+            page.Add(category);
         }
 
         private void AddDifficultyCategory(ControlPage page)
         {
-            var category = new ControlCategory
-            {
-                HeaderText = "Difficulty",
-                SubheaderText = "Apply a complete preset or reset every world setting.",
-            };
+            var tile = new ControlTile();
             var dropdown = new TerminalDropdown<string>
             {
                 Name = "Difficulty Preset",
@@ -210,7 +308,7 @@ namespace WkKn
                 }
             };
             worldControls.Add(dropdown);
-            category.Add(new ControlTile { ControlContainer = { dropdown } });
+            tile.Add(dropdown);
 
             var resetButton = new TerminalButton
             {
@@ -223,13 +321,14 @@ namespace WkKn
                     resetConfig(true);
             };
             worldControls.Add(resetButton);
-            category.Add(new ControlTile { ControlContainer = { resetButton } });
-            page.Add(category);
+            tile.Add(resetButton);
+            AddControlGroup(page, "Difficulty", "Apply a complete preset or reset every world setting.", tile);
         }
 
-        private ControlTile CreatePlayerTile(WkPlayerConfigSettingDefinition definition)
+        private void AddPlayerControl(ControlTile tile, WkPlayerConfigSettingDefinition definition)
         {
-            return CreateTile(
+            AddControl(
+                tile,
                 definition.Setting,
                 definition.Title,
                 definition.ValueHint,
@@ -242,9 +341,10 @@ namespace WkKn
                 false);
         }
 
-        private ControlTile CreateWorldTile(WkConfigSettingDefinition definition)
+        private void AddWorldControl(ControlTile tile, WkConfigSettingDefinition definition)
         {
-            var tile = CreateTile(
+            AddControl(
+                tile,
                 definition.Setting,
                 definition.Title,
                 definition.ValueHint,
@@ -255,10 +355,10 @@ namespace WkKn
                 definition.Choices,
                 delegate { var config = getWorldConfig(); return GetEffectiveValue(definition.Setting, delegate { return config == null ? string.Empty : definition.GetValue(config); }); },
                 true);
-            return tile;
         }
 
-        private ControlTile CreateTile(
+        private void AddControl(
+            ControlTile tile,
             string setting,
             string title,
             string valueHint,
@@ -270,7 +370,6 @@ namespace WkKn
             Func<string> getValue,
             bool isWorld)
         {
-            var tile = new ControlTile();
             var tooltip = description + "\nValue: " + valueHint;
 
             if (kind == WkSettingControlKind.Boolean)
@@ -292,7 +391,7 @@ namespace WkKn
                 };
                 tile.Add(toggle);
                 TrackWorldControl(toggle, isWorld);
-                return tile;
+                return;
             }
 
             if (kind == WkSettingControlKind.Number || kind == WkSettingControlKind.Integer)
@@ -329,7 +428,7 @@ namespace WkKn
                 };
                 tile.Add(slider);
                 TrackWorldControl(slider, isWorld);
-                return tile;
+                return;
             }
 
             if (kind == WkSettingControlKind.Choice)
@@ -354,7 +453,7 @@ namespace WkKn
                 };
                 tile.Add(dropdown);
                 TrackWorldControl(dropdown, isWorld);
-                return tile;
+                return;
             }
 
             var field = new TerminalTextField
@@ -380,7 +479,6 @@ namespace WkKn
             tile.Add(apply);
             TrackWorldControl(field, isWorld);
             TrackWorldControl(apply, isWorld);
-            return tile;
         }
 
         private string GetWorldValue(string setting)
