@@ -36,7 +36,6 @@ namespace WkKn
         private const long BlockIntegrityScanDiscoveryIntervalTicks = 600;
         private const int BlockIntegrityMaxGridScansPerTick = 1;
         private const double BlockIntegrityScanDiscoveryRadius = 10000.0;
-        private const long ResearchAutosaveTicks = 300;
         internal const string ResearchTextSurfaceScriptId = "TSS_WkKnResearch";
         internal const string IdentityTextSurfaceScriptId = "TSS_WkKnIdentity";
         internal const string CalibratorTextSurfaceScriptId = "TSS_WkKnCalibrator";

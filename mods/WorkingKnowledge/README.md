@@ -80,7 +80,7 @@ See [Working Knowledge configuration](../../docs/WorkingKnowledge/configuration.
 
 ## Current Status
 
-Working Knowledge now targets its `1.0.x` stable release line. Version `1.0.0` is published on the Steam Workshop, and the validated `1.0.1` dedicated-server hotfix is awaiting its Workshop publish.
+Working Knowledge now targets its `1.0.x` stable release line. Version `1.0.1` is published on the Steam Workshop, and the `1.0.2` Save As persistence hotfix is in validation.
 
 The current balance targets the default `medium` play experience. Dedicated-server command routing, remote progress HUD synchronization, headless diagnostics, and icon packaging have completed their focused hotfix pass; balance and compatibility feedback will continue through the stable line.
 
@@ -120,6 +120,7 @@ The mod currently includes:
 - [Working Knowledge inspirations and attribution](../../docs/WorkingKnowledge/inspirations.md)
 - [Working Knowledge release roadmap](../../docs/WorkingKnowledge/release_roadmap.md)
 - [Working Knowledge 1.0.1 dedicated-server test plan](../../docs/WorkingKnowledge/testing_1.0.1.md)
+- [Working Knowledge 1.0.2 persistence test plan](../../docs/WorkingKnowledge/testing_1.0.2.md)
 - [Working Knowledge Workshop description](../../docs/WorkingKnowledge/workshop_description_bbcode.txt)
 
 ## Local Test Build

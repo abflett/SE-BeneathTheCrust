@@ -1,6 +1,6 @@
 # Working Knowledge Roadmap
 
-This roadmap tracks maintenance of the Working Knowledge `1.0.x` stable line. Version `1.0.0` is published, and the validated `1.0.1` dedicated-server hotfix is awaiting its Workshop publish. Campaign composition, companion mod packs, richer story content, and deeper terminal trade systems remain later work.
+This roadmap tracks maintenance of the Working Knowledge `1.0.x` stable line. Version `1.0.1` is published, and the `1.0.2` Save As persistence hotfix is in validation. Campaign composition, companion mod packs, richer story content, and deeper terminal trade systems remain later work.
 
 ## Versioning
 
@@ -21,6 +21,17 @@ Completed release scope:
 - Restored remote-client Text HUD progress events without changing persistent LCD/display synchronization.
 - Corrected dedicated-server HUD diagnostics and removed Working Knowledge's headless icon errors.
 - Preserved single-player and hosted-server behavior while fixing dedicated-server paths.
+
+## 1.0.2 Save As Persistence Hotfix
+
+Space Engineers changes the active world-storage destination before invoking mod session-component saves during **Save As**. Working Knowledge previously skipped clean research, Proficiency, and player-configuration stores, leaving the new save without those files.
+
+Hotfix scope:
+
+- Write a complete Working Knowledge storage snapshot from the normal Space Engineers `SaveData()` callback.
+- Remove the separate five-second persistence loop and immediate gameplay writes so progression remains aligned with the world checkpoint.
+- Preserve the existing XML filenames, schemas, player and faction identities, schematic IDs, and configuration formats.
+- Validate normal save/reload and Save As when no Working Knowledge state has changed since the previous save.
 
 Fix and polish watch items:
 
@@ -47,7 +58,8 @@ The completed public-feedback sequence and current target are:
 - `0.12.0` - compatibility-layer diagnostics, runtime cleanup, and release validation. Complete.
 - `0.13.0` - extensible schematic groups and layer-controlled block remapping. Complete.
 - `1.0.0` - stable standalone release with Space Engineers 1.210 Prosperity support. Published.
-- `1.0.1` - dedicated-server command and multiplayer progression hotfix. Validated; awaiting Workshop publish.
+- `1.0.1` - dedicated-server command and multiplayer progression hotfix. Published.
+- `1.0.2` - Save As progression persistence hotfix. Implemented; in focused validation.
 
 ## 1.0.1 Dedicated Server Hotfix - Implemented And Tested
 

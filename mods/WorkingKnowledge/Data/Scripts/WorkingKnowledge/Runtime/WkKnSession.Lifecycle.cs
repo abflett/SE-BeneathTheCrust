@@ -73,14 +73,18 @@ namespace WkKn
 
         internal void SaveRuntimeData()
         {
-            SaveDirtyStores();
+            // Save As changes WorldSavePath before session components receive SaveData.
+            // Write every store so an unchanged source world still populates the new save.
+            SaveConfigStore();
+            SavePlayerConfigStore();
+            SaveResearchStore();
+            SaveProficiencyStore();
         }
 
         internal void UpdateRuntimeBeforeSimulation()
         {
             simulationTick++;
             UpdateBeforeWeldSimulation();
-            AutosaveDirtyStores();
             UpdateResearchRuntime();
             UpdateProficiencyModule();
             FlushReadyProgressNotifications();
@@ -126,21 +130,6 @@ namespace WkKn
             scrapDefinition = MyDefinitionManager.Static.GetPhysicalItemDefinition(ScrapOreId);
             InjectResearchDataFragmentsIntoContainerLoot();
             SubscribeExistingBlockIntegrityGrids();
-        }
-
-        private void AutosaveDirtyStores()
-        {
-            if (simulationTick % ResearchAutosaveTicks != 0)
-                return;
-
-            SaveDirtyStores();
-        }
-
-        private void SaveDirtyStores()
-        {
-            SavePlayerConfigStore();
-            SaveResearchStore();
-            SaveProficiencyStore();
         }
 
         private void UpdateResearchRuntime()

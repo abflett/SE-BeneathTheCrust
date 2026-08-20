@@ -55,9 +55,6 @@ namespace WkKn
 
         private void SaveProficiencyStore()
         {
-            if (!proficiencyStore.IsDirty)
-                return;
-
             try
             {
                 NormalizeProficiencyStore();

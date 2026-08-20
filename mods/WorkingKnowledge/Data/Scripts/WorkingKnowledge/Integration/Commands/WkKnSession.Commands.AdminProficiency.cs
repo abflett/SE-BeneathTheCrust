@@ -117,7 +117,6 @@ namespace WkKn
                 changed++;
             }
 
-            SaveProficiencyStore();
             ShowWkChatSection(
                 "Proficiency Reset",
                 "Target: " + label,
@@ -157,7 +156,6 @@ namespace WkKn
                 NotifyProficiencyDisplayChanged(identityId);
             }
 
-            SaveProficiencyStore();
             ShowWkChatSection(
                 "Proficiency Mastered",
                 "Target: " + label,
@@ -198,7 +196,6 @@ namespace WkKn
                 NotifyProficiencyDisplayChanged(identityId);
             }
 
-            SaveProficiencyStore();
             ShowWkChatSection(
                 "Proficiency Cleared",
                 "Target: " + label,
@@ -246,7 +243,6 @@ namespace WkKn
                 NotifyProficiencyDisplayChanged(identityId);
             }
 
-            SaveProficiencyStore();
             ShowWkChatSection(
                 "Proficiency Set",
                 "Target: " + label,
@@ -262,8 +258,6 @@ namespace WkKn
 
             var defaultsApplied = ApplyFundamentalsProficiencyDefaultForOnlinePlayers();
             NotifyProficiencyDisplaysForOnlinePlayers();
-            SaveProficiencyStore();
-
             ShowWkChatSection(
                 "Proficiency Server Reset",
                 "Cleared all Working Knowledge Proficiency.",

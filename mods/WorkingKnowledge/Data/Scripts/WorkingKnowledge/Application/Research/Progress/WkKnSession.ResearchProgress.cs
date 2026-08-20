@@ -58,7 +58,6 @@ namespace WkKn
                 if (!string.Equals(target.ResearchId, FundamentalsResearchId, StringComparison.OrdinalIgnoreCase))
                     ShowWkResearchCompletionFeedback(identityId, target.DisplayName);
 
-                SaveResearchStore();
             }
         }
 

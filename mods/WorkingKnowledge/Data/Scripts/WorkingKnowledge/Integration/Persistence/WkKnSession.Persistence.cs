@@ -58,38 +58,24 @@ namespace WkKn
 
             try
             {
-                var configExists = MyAPIGateway.Utilities.FileExistsInWorldStorage(ConfigStorageFile, typeof(WkKnSession));
-                var configLoaded = false;
-                if (configExists)
+                if (!MyAPIGateway.Utilities.FileExistsInWorldStorage(ConfigStorageFile, typeof(WkKnSession)))
+                    return;
+
+                using (var reader = MyAPIGateway.Utilities.ReadFileInWorldStorage(ConfigStorageFile, typeof(WkKnSession)))
                 {
-                    using (var reader = MyAPIGateway.Utilities.ReadFileInWorldStorage(ConfigStorageFile, typeof(WkKnSession)))
+                    var xml = reader.ReadToEnd();
+                    if (!string.IsNullOrWhiteSpace(xml))
                     {
-                        var xml = reader.ReadToEnd();
-                        if (!string.IsNullOrWhiteSpace(xml))
-                        {
-                            var loaded = MyAPIGateway.Utilities.SerializeFromXML<WkConfig>(xml);
-                            if (loaded != null)
-                            {
-                                configStore.SetData(loaded);
-                                configLoaded = true;
-                            }
-                        }
+                        var loaded = MyAPIGateway.Utilities.SerializeFromXML<WkConfig>(xml);
+                        if (loaded != null)
+                            configStore.SetData(loaded);
                     }
-
-                    if (!configLoaded)
-                        SaveConfigStore();
                 }
-                else
-                {
-                    SaveConfigStore();
-                }
-
             }
             catch (Exception exception)
             {
                 configStore.Reset();
                 MyLog.Default.WriteLineAndConsole(LogPrefix + " failed to load config; using defaults: " + exception);
-                SaveConfigStore();
             }
         }
 
@@ -136,9 +122,6 @@ namespace WkKn
 
         private void SavePlayerConfigStore()
         {
-            if (!playerConfigStore.IsDirty)
-                return;
-
             try
             {
                 playerConfigStore.Normalize();
@@ -155,9 +138,6 @@ namespace WkKn
 
         private void SaveResearchStore()
         {
-            if (!researchStore.IsDirty)
-                return;
-
             try
             {
                 NormalizeResearchStore();

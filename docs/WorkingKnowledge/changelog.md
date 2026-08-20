@@ -2,6 +2,14 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
+## 1.0.2 - Save As Persistence Hotfix
+
+Fixed Working Knowledge progression being absent after using Space Engineers' **Save As** feature. Research, faction research, Proficiency, world configuration, and player feedback preferences now write a complete snapshot whenever Space Engineers saves the world, including after the game switches world-storage to a newly named save.
+
+Removed the separate five-second persistence loop and immediate gameplay writes. Working Knowledge persistence now follows the normal Space Engineers save lifecycle so its XML state remains aligned with the corresponding world checkpoint.
+
+Existing renamed saves that already lack Working Knowledge progression are not automatically repaired. Their `WkKnResearch.xml` and `WkKnProficiency.xml` files can still be copied from the original world's Working Knowledge storage folder.
+
 ## 1.0.1 - Dedicated Server Hotfix
 
 Fixed player and administrator `/wk` commands on dedicated and remotely hosted servers. Remote commands now reach the authoritative server, which verifies the authenticated sender, performs administrator checks, applies changes to the real research, Proficiency, and configuration stores, and returns private output to the requesting player. Personal feedback settings also synchronize back to the client immediately, and commands remain hidden from public chat.

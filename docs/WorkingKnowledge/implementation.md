@@ -252,6 +252,8 @@ Component loss and forgiveness:
 - Proficiency state saves to `WkKnProficiency.xml`.
 - World config saves to `WkKnConfig.xml`.
 - Player feedback preferences save to `WkKnPlayerConfig.xml`.
+- Persistence is written from the session component's normal `SaveData()` callback, not from a separate timer or individual gameplay mutations.
+- Every storage file is written on each game save even when its in-memory store is unchanged. Space Engineers changes the active world-storage path before invoking `SaveData()` during **Save As**, so complete writes are required to populate the newly named save.
 - `modinfo.sbc` is metadata only.
 
 ## Validation Checklist
