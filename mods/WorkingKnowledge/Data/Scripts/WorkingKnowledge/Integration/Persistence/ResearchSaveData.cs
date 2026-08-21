@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace WkKn
 {
-    // World-storage DTOs for WkKnResearch.xml. Early development can break this shape.
+    // Research persistence DTOs. Legacy worlds may still contain this shape in WkKnResearch.xml.
     public class ResearchSaveData
     {
         public List<ResearchScopeRecord> Players = new List<ResearchScopeRecord>();

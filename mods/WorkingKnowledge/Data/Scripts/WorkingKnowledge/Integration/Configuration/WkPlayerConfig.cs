@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace WkKn
 {
-    // World-storage DTO for per-player feedback preferences. Balance stays in WkKnConfig.xml.
+    // Per-player feedback persistence DTO. Balance stays in the world configuration.
     public class WkPlayerConfigSaveData
     {
         public List<WkPlayerConfigRecord> Players = new List<WkPlayerConfigRecord>();

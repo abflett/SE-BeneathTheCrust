@@ -65,7 +65,7 @@ namespace WkKn
             if (changed > 0)
             {
                 responseText = "Synced research. Faction " + FormatSyncResult(sync.UploadedToFaction) + ", player " + FormatSyncResult(sync.DownloadedToPlayer) + ".";
-                FinishTerminalSync(block, true, responseText, showLocalMessages);
+                FinishTerminalSync(block, responseText, showLocalMessages);
                 NotifyResearchDisplayChanged(identityId);
                 NotifyFactionResearchDisplayChanged(faction.FactionId);
                 return true;
@@ -73,7 +73,7 @@ namespace WkKn
             else
             {
                 responseText = "No research progress to sync.";
-                FinishTerminalSync(block, false, responseText, showLocalMessages);
+                FinishTerminalSync(block, responseText, showLocalMessages);
                 return false;
             }
         }
@@ -83,11 +83,8 @@ namespace WkKn
             return "+" + FormatProgressDelta(result.AddedProgress) + " (" + result.ChangedSchematics + " updates)";
         }
 
-        private void FinishTerminalSync(IMyTerminalBlock block, bool changed, string message, bool showLocalMessages)
+        private void FinishTerminalSync(IMyTerminalBlock block, string message, bool showLocalMessages)
         {
-            if (changed)
-                SaveResearchStore();
-
             if (showLocalMessages)
                 ShowWkChatSection("Research Sync", message);
 

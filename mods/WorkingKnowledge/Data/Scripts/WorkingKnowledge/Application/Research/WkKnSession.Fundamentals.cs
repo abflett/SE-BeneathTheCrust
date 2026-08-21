@@ -16,12 +16,8 @@ namespace WkKn
             var players = new List<IMyPlayer>();
             MyAPIGateway.Players.GetPlayers(players, player => player != null && player.IdentityId != 0);
 
-            var changed = false;
             foreach (var player in players)
-                changed = ApplyFundamentalsDefaultsForIdentityCore(player.IdentityId) || changed;
-
-            if (changed)
-                SaveDirtyStores();
+                ApplyFundamentalsDefaultsForIdentityCore(player.IdentityId);
         }
 
         private void ApplyFundamentalsDefaultsForIdentity(long identityId)
@@ -29,8 +25,7 @@ namespace WkKn
             if (!ShouldApplyFundamentalsDefaults() || identityId == 0)
                 return;
 
-            if (ApplyFundamentalsDefaultsForIdentityCore(identityId))
-                SaveDirtyStores();
+            ApplyFundamentalsDefaultsForIdentityCore(identityId);
         }
 
         private bool ShouldApplyFundamentalsDefaults()

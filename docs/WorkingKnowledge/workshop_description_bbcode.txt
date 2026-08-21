@@ -108,6 +108,11 @@ Working Knowledge is the first playable layer of the larger Space Engineers: Ben
 [url=https://github.com/abflett/SE-BeneathTheCrust/blob/main/mods/WorkingKnowledge/README.md]Working Knowledge README[/url]
 [url=https://github.com/abflett/SE-BeneathTheCrust]Project README[/url]
 
+[h2]1.0.2 Persistence Hotfix[/h2]
+Working Knowledge progression now follows the normal Space Engineers save lifecycle. Research, faction research, Proficiency, and configuration state are preserved when using [b]Save As[/b] to create a newly named copy of a world.
+
+Existing worlds migrate their Working Knowledge data automatically on the next normal save. A short colored chat message reports when migration is pending and when Working Knowledge loads successfully from the new save format.
+
 [h2]Current Status And Feedback[/h2]
 Working Knowledge 1.0 is the stable standalone release of the salvage-first progression overhaul. It includes schematic coverage for the Space Engineers 1.210 Prosperity update and Prosperity Pack while preserving the established research, Proficiency, configuration, persistence, and compatibility-layer systems from the public feedback releases.
 

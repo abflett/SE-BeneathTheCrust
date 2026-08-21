@@ -250,10 +250,14 @@ Component loss and forgiveness:
 
 ## Storage
 
-- Research state saves to `WkKnResearch.xml`.
-- Proficiency state saves to `WkKnProficiency.xml`.
-- World config saves to `WkKnConfig.xml`.
-- Player feedback preferences save to `WkKnPlayerConfig.xml`.
+- Canonical persistence is one versioned `WorkingKnowledgeSaveData` snapshot in Space Engineers' built-in shared session storage inside `Sandbox.sbc`.
+- The snapshot contains world config, player feedback preferences, player and faction research, and player Proficiency as one serialization unit.
+- Persistence is written from the session component's normal `SaveData()` callback, not from a separate timer or individual gameplay mutations.
+- The Load Game screen's **Save As** operation copies only top-level world files and omits the `Storage` directory without invoking mod callbacks. Keeping the canonical snapshot in `Sandbox.sbc` makes it part of that copy.
+- Existing worlds without the canonical entry load the legacy `WkKnConfig.xml`, `WkKnPlayerConfig.xml`, `WkKnResearch.xml`, and `WkKnProficiency.xml` files once. The next normal world save writes their state into `Sandbox.sbc`.
+- Once the canonical entry exists it is authoritative. Legacy XML files are neither read nor updated and remain untouched as inert backups.
+- If an existing canonical entry cannot be read, Working Knowledge logs the error, does not fall back to potentially stale XML, and disables its persistence writes for that session so it cannot overwrite the entry.
+- Startup chat reports a legacy migration pending, a successful canonical load, or fresh initialization. The Space Engineers log records the selected source, completed migration, and successful canonical writes.
 - `modinfo.sbc` is metadata only.
 
 ## Validation Checklist

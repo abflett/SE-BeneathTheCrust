@@ -1,6 +1,6 @@
 # Working Knowledge Roadmap
 
-This roadmap tracks maintenance of the Working Knowledge `1.0.x` stable line and development of the backward-compatible `1.1.0` Rich HUD settings release. Version `1.0.1` remains available for focused hotfixes while `1.1.0` is tested on its feature branch.
+This roadmap tracks maintenance of the Working Knowledge `1.0.x` stable line and development of the backward-compatible `1.1.0` Rich HUD settings release. Version `1.0.2` is the validated hotfix base while `1.1.0` is tested on its feature branch. Campaign composition, companion mod packs, richer story content, and deeper terminal trade systems remain later work.
 
 ## Versioning
 
@@ -21,6 +21,20 @@ Completed release scope:
 - Restored remote-client Text HUD progress events without changing persistent LCD/display synchronization.
 - Corrected dedicated-server HUD diagnostics and removed Working Knowledge's headless icon errors.
 - Preserved single-player and hosted-server behavior while fixing dedicated-server paths.
+
+## 1.0.2 Save As Persistence Hotfix
+
+Space Engineers' Load Game **Save As** path copies only top-level world files and omits mod `Storage` directories without invoking mod callbacks. Working Knowledge therefore needs canonical persistence in the copied checkpoint rather than the omitted mod-storage directory.
+
+Hotfix scope:
+
+- Store all Working Knowledge state in one versioned snapshot in the built-in shared session component inside `Sandbox.sbc`, which the Load Game screen does copy.
+- Load legacy `WkKn*.xml` files only when the canonical checkpoint entry is absent, then migrate them on the next normal world save.
+- Treat the canonical checkpoint entry as authoritative after migration and leave the old XML files untouched.
+- Report the selected persistence source through colored startup chat and detailed internal logging.
+- Remove the separate five-second persistence loop and immediate gameplay writes so progression remains aligned with the world checkpoint.
+- Preserve the legacy XML readers, player and faction identities, schematic IDs, and configuration values for one-way migration.
+- Validate normal save/reload and Save As when no Working Knowledge state has changed since the previous save.
 
 ## 1.1.0 Rich HUD Settings - In Development
 
@@ -58,7 +72,8 @@ The completed public-feedback sequence and current target are:
 - `0.12.0` - compatibility-layer diagnostics, runtime cleanup, and release validation. Complete.
 - `0.13.0` - extensible schematic groups and layer-controlled block remapping. Complete.
 - `1.0.0` - stable standalone release with Space Engineers 1.210 Prosperity support. Published.
-- `1.0.1` - dedicated-server command and multiplayer progression hotfix. Validated; awaiting Workshop publish.
+- `1.0.1` - dedicated-server command and multiplayer progression hotfix. Published.
+- `1.0.2` - Save As progression persistence hotfix. Validated; awaiting Workshop publish.
 - `1.1.0` - Rich HUD progress-overlay migration and graphical settings. In development.
 
 ## 1.0.1 Dedicated Server Hotfix - Implemented And Tested

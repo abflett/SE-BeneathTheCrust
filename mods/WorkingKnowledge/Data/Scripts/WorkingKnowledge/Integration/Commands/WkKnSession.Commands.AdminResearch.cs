@@ -117,7 +117,6 @@ namespace WkKn
                 changed++;
             }
 
-            SaveResearchStore();
             ShowWkChatSection(
                 "Research Reset",
                 "Target: " + label,
@@ -158,7 +157,6 @@ namespace WkKn
                 NotifyResearchDisplayChanged(identityId);
             }
 
-            SaveResearchStore();
             ShowWkChatSection(
                 "Research Unlocked",
                 "Target: " + label,
@@ -200,7 +198,6 @@ namespace WkKn
                 NotifyResearchDisplayChanged(identityId);
             }
 
-            SaveResearchStore();
             ShowWkChatSection(
                 "Research Revoked",
                 "Target: " + label,
@@ -253,7 +250,6 @@ namespace WkKn
                 NotifyResearchDisplayChanged(identityId);
             }
 
-            SaveResearchStore();
             ShowWkChatSection(
                 "Research Set",
                 "Target: " + label,
@@ -270,8 +266,6 @@ namespace WkKn
 
             var defaultsApplied = ApplyFundamentalsResearchDefaultForOnlinePlayers();
             NotifyResearchDisplaysForOnlinePlayers();
-            SaveResearchStore();
-
             ShowWkChatSection(
                 "Research Server Reset",
                 "Cleared all Working Knowledge research.",

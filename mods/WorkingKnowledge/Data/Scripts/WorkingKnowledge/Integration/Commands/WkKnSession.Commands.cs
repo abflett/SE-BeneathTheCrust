@@ -293,7 +293,6 @@ namespace WkKn
                 return;
             }
 
-            SaveConfigStore();
             ApplyWorldConfigRuntimeEffects();
             ShowWkChatSection("Difficulty Applied", GetDifficultyDisplayLines(false));
         }
@@ -307,7 +306,6 @@ namespace WkKn
                 return;
             }
 
-            SaveConfigStore();
             ApplyWorldConfigRuntimeEffects();
             ShowWkChatSection("Difficulty Updated", GetDifficultyDisplayLines(false));
         }
@@ -370,7 +368,6 @@ namespace WkKn
 
             configStore.MarkCustom();
             configStore.Normalize();
-            SaveConfigStore();
             ApplyWorldConfigRuntimeEffects();
             ShowWkChatSection("Config Updated", configStore.GetLine(setting));
         }
@@ -384,14 +381,12 @@ namespace WkKn
                 return;
             }
 
-            SavePlayerConfigStore();
             ShowWkChatSection("Player Config Updated", playerConfigStore.GetLine(playerConfigId, setting));
         }
 
         private void ResetPlayerConfig(string playerConfigId)
         {
             playerConfigStore.ResetPlayer(playerConfigId);
-            SavePlayerConfigStore();
             ShowWkChatSection("Player Config Reset", "Player settings now follow world settings.");
             ShowPlayerConfig(playerConfigId);
         }
@@ -399,7 +394,6 @@ namespace WkKn
         private void ResetWorldConfig()
         {
             configStore.Reset();
-            SaveConfigStore();
             ApplyWorldConfigRuntimeEffects();
             ShowConfig();
         }
@@ -886,10 +880,7 @@ namespace WkKn
             }
 
             if (changed > 0)
-            {
                 NotifyResearchDisplayChanged(identityId);
-                SaveResearchStore();
-            }
 
             SyncCompletedResearchForIdentity(identityId);
 

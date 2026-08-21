@@ -81,7 +81,7 @@ See [Working Knowledge configuration](../../docs/WorkingKnowledge/configuration.
 
 ## Current Status
 
-Working Knowledge's `1.1.x` feature line is in development on top of the stable `1.0.x` line. Version `1.0.1` remains the hotfix base while the `1.1.0` Rich HUD migration and graphical settings menu are tested on a feature branch.
+Working Knowledge's `1.1.x` feature line is in development on top of the stable `1.0.x` line. Version `1.0.2` is the validated hotfix base while the `1.1.0` Rich HUD migration and graphical settings menu are tested on a feature branch.
 
 The current balance targets the default `medium` play experience. Dedicated-server command routing, remote progress HUD synchronization, headless diagnostics, and icon packaging have completed their focused hotfix pass; balance and compatibility feedback will continue through the stable line.
 
@@ -122,6 +122,7 @@ The mod currently includes:
 - [Working Knowledge inspirations and attribution](../../docs/WorkingKnowledge/inspirations.md)
 - [Working Knowledge release roadmap](../../docs/WorkingKnowledge/release_roadmap.md)
 - [Working Knowledge 1.0.1 dedicated-server test plan](../../docs/WorkingKnowledge/testing_1.0.1.md)
+- [Working Knowledge 1.0.2 persistence test plan](../../docs/WorkingKnowledge/testing_1.0.2.md)
 - [Working Knowledge 1.1.0 Rich HUD test plan](../../docs/WorkingKnowledge/testing_1.1.0.md)
 - [Working Knowledge 1.1.0 Rich HUD development handoff](../../docs/WorkingKnowledge/rich_hud_1.1.0_handoff.md)
 - [Working Knowledge Workshop description](../../docs/WorkingKnowledge/workshop_description_bbcode.txt)

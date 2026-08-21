@@ -51,10 +51,7 @@ namespace WkKn
             runtimeLoadIssue = null;
             try
             {
-                LoadConfigStore();
-                LoadPlayerConfigStore();
-                LoadResearchStore();
-                LoadProficiencyStore();
+                ResetPersistenceStores();
                 RebuildResearchDefinitions();
                 LoadRuntimeDefinitions();
             }
@@ -66,21 +63,24 @@ namespace WkKn
 
         internal void StartRuntime()
         {
+            var persistenceLoaded = LoadCheckpointOrLegacyPersistence();
             MyAPIGateway.Session.SessionSettings.EnableResearch = true;
             ApplyFundamentalsDefaultsForOnlinePlayers();
+            if (persistenceLoaded)
+                RefreshResearchDataFragmentsInContainerLoot();
             SyncCompletedResearchForOnlinePlayers();
         }
 
         internal void SaveRuntimeData()
         {
-            SaveDirtyStores();
+            SaveCheckpointPersistence();
         }
 
         internal void UpdateRuntimeBeforeSimulation()
         {
             simulationTick++;
+            TryShowPersistenceStatusMessage();
             UpdateBeforeWeldSimulation();
-            AutosaveDirtyStores();
             UpdateResearchRuntime();
             UpdateProficiencyModule();
             FlushReadyProgressNotifications();
@@ -127,21 +127,6 @@ namespace WkKn
             scrapDefinition = MyDefinitionManager.Static.GetPhysicalItemDefinition(ScrapOreId);
             InjectResearchDataFragmentsIntoContainerLoot();
             SubscribeExistingBlockIntegrityGrids();
-        }
-
-        private void AutosaveDirtyStores()
-        {
-            if (simulationTick % ResearchAutosaveTicks != 0)
-                return;
-
-            SaveDirtyStores();
-        }
-
-        private void SaveDirtyStores()
-        {
-            SavePlayerConfigStore();
-            SaveResearchStore();
-            SaveProficiencyStore();
         }
 
         private void UpdateResearchRuntime()
