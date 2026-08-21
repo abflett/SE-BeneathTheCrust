@@ -6,12 +6,13 @@ namespace WkKn
     internal static class WkConfigDifficultyPresets
     {
         internal const string CustomPreset = "custom";
+        internal const string EasyPreset = "easy";
         internal const string MediumPreset = "medium";
 
         private static readonly string[] presetNames = new string[]
         {
             "novice",
-            "easy",
+            EasyPreset,
             MediumPreset,
             "hard",
             "extreme",
@@ -26,6 +27,14 @@ namespace WkKn
         {
             var config = new WkConfig();
             config.DifficultyPreset = MediumPreset;
+            return config;
+        }
+
+        internal static WkConfig CreateDefault()
+        {
+            var config = new WkConfig();
+            ApplyModifiers(config, GetModifiers(EasyPreset));
+            config.DifficultyPreset = EasyPreset;
             return config;
         }
 
@@ -86,7 +95,7 @@ namespace WkKn
                 };
             }
 
-            if (preset == "easy")
+            if (preset == EasyPreset)
             {
                 return new WkDifficultyModifiers
                 {

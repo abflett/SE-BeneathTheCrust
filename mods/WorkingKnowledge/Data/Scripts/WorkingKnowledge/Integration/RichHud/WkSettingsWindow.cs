@@ -236,7 +236,7 @@ namespace WkKn
             difficultyPage.AddRow(CreateDifficultyRow());
             difficultyPage.AddRow(CreateActionRow(
                 "Reset Server Settings",
-                "Restores the complete medium preset and all authoritative defaults.",
+                "Restores the complete easy preset and all authoritative defaults.",
                 "Reset Server Settings",
                 delegate { if (live && canEditWorld) resetConfig(true); },
                 true));
@@ -382,8 +382,7 @@ namespace WkKn
                 definition.Description,
                 definition.ValueHint,
                 definition.ControlKind,
-                definition.Minimum,
-                definition.Maximum,
+                definition.Presentation,
                 definition.Choices,
                 delegate
                 {
@@ -401,8 +400,7 @@ namespace WkKn
                 definition.Description,
                 definition.ValueHint,
                 definition.ControlKind,
-                definition.Minimum,
-                definition.Maximum,
+                definition.Presentation,
                 definition.Choices,
                 delegate
                 {
@@ -418,8 +416,7 @@ namespace WkKn
             string description,
             string valueHint,
             WkSettingControlKind kind,
-            double minimum,
-            double maximum,
+            WkSettingPresentation presentation,
             string[] choices,
             Func<string> getValue,
             bool isWorld)
@@ -438,7 +435,7 @@ namespace WkKn
             if (kind == WkSettingControlKind.Boolean)
                 row = new BooleanSettingRow(title, description, tooltip, getValue, changed);
             else if (kind == WkSettingControlKind.Number || kind == WkSettingControlKind.Integer)
-                row = new SliderSettingRow(title, description, tooltip, getValue, changed, minimum, maximum, kind == WkSettingControlKind.Integer);
+                row = new SliderSettingRow(title, description, tooltip, getValue, changed, presentation, kind == WkSettingControlKind.Integer);
             else if (kind == WkSettingControlKind.Choice)
                 row = new ChoiceSettingRow(title, description, tooltip, getValue, changed, choices);
             else if (kind == WkSettingControlKind.ReadOnly)
@@ -526,14 +523,71 @@ namespace WkKn
         private static float ParseFloat(string value)
         {
             float parsed;
-            return float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out parsed) ? parsed : 0f;
+            return float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out parsed) &&
+                   !float.IsNaN(parsed) &&
+                   !float.IsInfinity(parsed)
+                ? parsed
+                : 0f;
         }
 
-        private static string FormatSliderValue(float value, bool integer)
+        private static string FormatCanonicalValue(double value, bool integer)
         {
             return integer
                 ? ((int)Math.Round(value)).ToString(CultureInfo.InvariantCulture)
-                : value.ToString("0.####", CultureInfo.InvariantCulture);
+                : value.ToString("0.######", CultureInfo.InvariantCulture);
+        }
+
+        private static string FormatDisplayValue(double canonicalValue, bool integer, WkSettingPresentation presentation)
+        {
+            if (integer)
+                return ((int)Math.Round(canonicalValue)).ToString(CultureInfo.InvariantCulture) + presentation.Suffix;
+
+            var displayed = canonicalValue * presentation.DisplayMultiplier;
+            var format = presentation.DecimalPlaces <= 0
+                ? "0"
+                : "0." + new string('#', presentation.DecimalPlaces);
+            return displayed.ToString(format, CultureInfo.InvariantCulture) + presentation.Suffix;
+        }
+
+        private static double Quantize(double value, WkSettingPresentation presentation)
+        {
+            var clamped = Math.Max(presentation.Minimum, Math.Min(presentation.Maximum, value));
+            if (presentation.Step <= 0.0)
+                return clamped;
+
+            var rounded = Math.Round(clamped / presentation.Step) * presentation.Step;
+            return Math.Max(presentation.Minimum, Math.Min(presentation.Maximum, rounded));
+        }
+
+        private static float ToSliderValue(double canonicalValue, WkSettingPresentation presentation)
+        {
+            if (presentation.SliderScale != WkSettingSliderScale.LogarithmicWithZero)
+                return (float)Math.Max(presentation.Minimum, Math.Min(presentation.Maximum, canonicalValue));
+
+            if (canonicalValue <= 0.0)
+                return 0f;
+
+            const double zeroSlot = 0.02;
+            var floor = Math.Max(0.000001, presentation.LogarithmicFloor);
+            var maximum = Math.Max(floor, presentation.Maximum);
+            var clamped = Math.Max(floor, Math.Min(maximum, canonicalValue));
+            var normalized = Math.Log(clamped / floor) / Math.Log(maximum / floor);
+            return (float)(zeroSlot + ((1.0 - zeroSlot) * normalized));
+        }
+
+        private static double FromSliderValue(float sliderValue, WkSettingPresentation presentation)
+        {
+            if (presentation.SliderScale != WkSettingSliderScale.LogarithmicWithZero)
+                return sliderValue;
+
+            const double zeroSlot = 0.02;
+            if (sliderValue <= zeroSlot * 0.5)
+                return 0.0;
+
+            var floor = Math.Max(0.000001, presentation.LogarithmicFloor);
+            var maximum = Math.Max(floor, presentation.Maximum);
+            var normalized = Math.Max(0.0, Math.Min(1.0, (sliderValue - zeroSlot) / (1.0 - zeroSlot)));
+            return floor * Math.Exp(Math.Log(maximum / floor) * normalized);
         }
 
         private static string ToDisplayName(string value)
@@ -757,13 +811,16 @@ namespace WkKn
             private readonly Func<string> getter;
             private readonly Action<string> changed;
             private readonly bool integer;
+            private readonly WkSettingPresentation presentation;
+            private bool refreshing;
 
-            internal SliderSettingRow(string title, string description, string tooltip, Func<string> getter, Action<string> changed, double min, double max, bool integer)
+            internal SliderSettingRow(string title, string description, string tooltip, Func<string> getter, Action<string> changed, WkSettingPresentation presentation, bool integer)
                 : base(title, description, 98f)
             {
                 this.getter = getter;
                 this.changed = changed;
                 this.integer = integer;
+                this.presentation = presentation;
                 valueLabel = new Label(this)
                 {
                     AutoResize = false,
@@ -774,8 +831,8 @@ namespace WkKn
                 };
                 control = new SliderBox(this)
                 {
-                    Min = (float)min,
-                    Max = (float)max,
+                    Min = presentation.SliderScale == WkSettingSliderScale.LogarithmicWithZero ? 0f : (float)presentation.Minimum,
+                    Max = presentation.SliderScale == WkSettingSliderScale.LogarithmicWithZero ? 1f : (float)presentation.Maximum,
                     ParentAlignment = ParentAlignments.InnerRight,
                     Size = new Vector2(280f, 34f),
                     Offset = new Vector2(-20f, -10f),
@@ -786,9 +843,11 @@ namespace WkKn
 
             internal override void Refresh()
             {
-                var value = ParseFloat(getter());
-                control.Value = value;
-                valueLabel.Text = FormatSliderValue(value, integer);
+                var canonicalValue = ParseFloat(getter());
+                refreshing = true;
+                control.Value = ToSliderValue(canonicalValue, presentation);
+                refreshing = false;
+                valueLabel.Text = FormatDisplayValue(canonicalValue, integer, presentation);
             }
 
             protected override void LayoutControl(float width)
@@ -799,12 +858,16 @@ namespace WkKn
 
             private void OnValueChanged(object sender, EventArgs args)
             {
-                var value = FormatSliderValue(control.Value, integer);
-                valueLabel.Text = value;
+                if (refreshing)
+                    return;
+
+                var canonicalValue = Quantize(FromSliderValue(control.Value, presentation), presentation);
+                var value = FormatCanonicalValue(canonicalValue, integer);
+                valueLabel.Text = FormatDisplayValue(canonicalValue, integer, presentation);
                 var authoritative = ParseFloat(getter());
                 if (!Editable || (integer
-                    ? (int)Math.Round(control.Value) == (int)Math.Round(authoritative)
-                    : Math.Abs(control.Value - authoritative) < .0001f))
+                    ? (int)Math.Round(canonicalValue) == (int)Math.Round(authoritative)
+                    : Math.Abs(canonicalValue - authoritative) < Math.Max(.000001, presentation.Step * .25)))
                     return;
 
                 changed(value);

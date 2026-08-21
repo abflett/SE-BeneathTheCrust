@@ -40,8 +40,8 @@ Useful player feedback examples:
 /wk config progressHudPosition topRight
 /wk config progressHudRows 5
 /wk config progressHudFadeSeconds 0
-/wk config researchChatSuppressionPercent 5
-/wk config proficiencyToastSuppressionPercent 10%
+/wk config researchChatSuppressionPercent 0.05
+/wk config proficiencyToastSuppressionPercent 0.1
 /wk config completionSoundEnabled false
 /wk config weldBotchSoundEnabled false
 /wk config weldBotchWarningCooldownSeconds default
@@ -144,7 +144,7 @@ Use:
 
 Boolean values accept `true`, `false`, `on`, `off`, `yes`, `no`, `1`, or `0`.
 
-Percent values accept whole percent values such as `0`, `5`, or `10%`. A threshold of `5` means "wait until at least 5 percentage points of new progress have accumulated before showing another message for that same schematic."
+Ratio settings use one canonical form from `0.0` to `1.0`. For example, `0.05` means 5% and waits until five percentage points of new progress have accumulated before showing another message for that schematic. Percent-suffixed and whole-percent command forms are intentionally not accepted.
 
 Player settings:
 
@@ -193,7 +193,7 @@ World config commands:
 /wk config <setting> <value>
 ```
 
-`/wk config world reset` resets all world settings to the built-in `medium` defaults.
+`/wk config world reset` resets all world settings to the built-in `easy` defaults. Existing worlds keep their saved settings until an administrator applies a preset, changes a value, or explicitly resets them.
 
 When a world setting is changed manually through `/wk config <setting> <value>`, `difficultyPreset` is marked as `custom`.
 
@@ -259,7 +259,7 @@ Research admin commands:
 /wk research reset <player>
 /wk research unlock <player> <schematic>
 /wk research forget <player> <schematic>
-/wk research set <player> <schematic> <percent>
+/wk research set <player> <schematic> <progress>
 ```
 
 Proficiency admin commands:
@@ -270,7 +270,7 @@ Proficiency admin commands:
 /wk proficiency reset <player>
 /wk proficiency master <player> <schematic>
 /wk proficiency forget <player> <schematic>
-/wk proficiency set <player> <schematic> <percent>
+/wk proficiency set <player> <schematic> <progress>
 ```
 
 Targets can be:
@@ -292,15 +292,15 @@ Basic Production Schematics
 production.basic
 ```
 
-Percent values accept `0.75`, `75`, or `75%`.
+Progress uses a ratio from `0.0` to `1.0`; for example, `0.75` means 75%.
 
 Admin examples:
 
 ```text
 /wk research unlock me Ion Thruster Schematics
-/wk research set "Bob Smith" Basic Production Schematics 75
+/wk research set "Bob Smith" Basic Production Schematics 0.75
 /wk proficiency master me Basic Production Schematics
-/wk proficiency set online production.basic 80%
+/wk proficiency set online production.basic 0.8
 ```
 
 `/wk admin unlockall` completes every schematic family for the admin identity running the command. It does not change Proficiency. It is intended for creative/admin testing of welding, botches, recovery, and fully unlocked research behavior.
@@ -310,6 +310,8 @@ Admin examples:
 Setting names are case-insensitive in chat commands. Underscores and hyphens are ignored, so `researchScale`, `research-scale`, and `research_scale` resolve the same way.
 
 Use `/wk config <setting> help` in game for the current value, accepted value type, category, description, and aliases.
+
+Rich HUD presents multipliers on a logarithmic-with-zero slider covering the practical `0.01x` to `10x` tuning range, with `0` retained as an explicit endpoint. The wider command/persistence limits listed below remain available where applicable so established outlier configurations are not clamped or rewritten merely by opening the panel.
 
 ### Difficulty
 
@@ -339,13 +341,13 @@ Schematic-specific work rewards are source-code balance data in `Application/Bal
 - `proficiencySecondSegmentRate` - Base progress earned per table work reward unit in the slow segment before the segment curve is applied. Range: `0.0` to `10.0`.
 - `proficiencyFinalSegmentRate` - Optional final segment base rate used only when the second threshold is below 100%. Range: `0.0` to `10.0`.
 
-Progress values accept `0.8`, `80`, or `80%`; values above `1.0` are treated as whole percentages.
+Progress, probability, and ratio commands use values from `0.0` to `1.0`; for example, `0.8` means 80%. Rich HUD displays these values as percentages while sending the canonical ratio to the server.
 
 ### Salvage
 
 - `salvageScrapEnabled` - Enables low-Proficiency salvage conversion from recovered components into scrap. Aliases: `scrap`, `salvage`.
 - `salvageScale` - Multiplier for intact component recovery before the 100% cap. Range: `0.0` to `100.0`. Aliases: `salvagerecovery`, `salvagerecoveryscale`.
-- `salvageScrapYield` - Component mass ratio returned as scrap ore when low-Proficiency grinding converts components to scrap. Default `0.20`, or 20%. Range: `0.0` to `100.0`. Accepts ratio or percent values such as `0.2` or `20%`; a plain `20` means `20x`, or 20:1. Aliases: `scrapyield`, `salvagescrapratio`, `scrapratio`.
+- `salvageScrapYield` - Component mass ratio returned as scrap ore when low-Proficiency grinding converts components to scrap. Default `0.20`, or 20%. Command range: `0.0` to `1.0`. Aliases: `scrapyield`, `salvagescrapratio`, `scrapratio`.
 - `proficiencyGrindingLossEnabled` - Enables Proficiency-biased scrap recovery while grinding. Alias: `grindingloss`.
 
 By default, components converted to scrap return `20%` of their component mass as scrap ore.
@@ -430,22 +432,24 @@ The persisted field names are not always chat command names. In particular, over
 - `WeldBotchWarningCooldownSeconds` is chat command `defaultWeldBotchWarningCooldownSeconds`.
 - `WeldBotchSoundEnabled` is chat command `defaultWeldBotchSoundEnabled`.
 
+The four persisted `...SuppressionPercent` fields retain their established `0` to `100` percent-point representation for save compatibility. Commands and Rich HUD translate at the boundary, so `0.05` is displayed as 5% and remains serialized as `5`. No existing saved value is reinterpreted or migrated in 1.1.0.
+
 ## Default World Configuration Shape
 
 The canonical checkpoint snapshot serializes this default world configuration shape:
 
 ```xml
 <WkConfig>
-  <DifficultyPreset>medium</DifficultyPreset>
+  <DifficultyPreset>easy</DifficultyPreset>
   <SalvageScrapEnabled>true</SalvageScrapEnabled>
   <DataFragmentsEnabled>true</DataFragmentsEnabled>
-  <ResearchScale>1</ResearchScale>
+  <ResearchScale>1.5</ResearchScale>
   <ResearchGrindingGainScale>1</ResearchGrindingGainScale>
-  <DataFragmentRewardScale>1</DataFragmentRewardScale>
-  <DataFragmentLootScale>1</DataFragmentLootScale>
+  <DataFragmentRewardScale>1.5</DataFragmentRewardScale>
+  <DataFragmentLootScale>1.5</DataFragmentLootScale>
   <ResearchEfficiencyStart>1</ResearchEfficiencyStart>
   <ResearchEfficiencyEnd>0.5</ResearchEfficiencyEnd>
-  <SalvageScale>1</SalvageScale>
+  <SalvageScale>1.5</SalvageScale>
   <SalvageScrapYield>0.2</SalvageScrapYield>
   <NotificationDelaySeconds>2</NotificationDelaySeconds>
   <ProgressChatEnabled>true</ProgressChatEnabled>
@@ -458,7 +462,7 @@ The canonical checkpoint snapshot serializes this default world configuration sh
   <FundamentalsResearchUnlocked>true</FundamentalsResearchUnlocked>
   <FundamentalsProficiencyProgress>0.8</FundamentalsProficiencyProgress>
   <ProficiencyEnabled>true</ProficiencyEnabled>
-  <ProficiencyGainScale>1</ProficiencyGainScale>
+  <ProficiencyGainScale>1.5</ProficiencyGainScale>
   <ProficiencyGrindingGainScale>1</ProficiencyGrindingGainScale>
   <ProficiencyWeldingGainScale>1</ProficiencyWeldingGainScale>
   <ProficiencyFirstThreshold>0.7</ProficiencyFirstThreshold>
@@ -471,12 +475,12 @@ The canonical checkpoint snapshot serializes this default world configuration sh
   <ProficiencyBuildCapEnabled>true</ProficiencyBuildCapEnabled>
   <WeldBotchBaseChance>0.5</WeldBotchBaseChance>
   <WeldBotchMaxChance>0.95</WeldBotchMaxChance>
-  <WeldBotchChanceScale>1</WeldBotchChanceScale>
+  <WeldBotchChanceScale>0.75</WeldBotchChanceScale>
   <WeldBotchPostFunctionalPressure>4</WeldBotchPostFunctionalPressure>
   <WeldBotchSoftCapPressure>3</WeldBotchSoftCapPressure>
-  <WeldBotchPressureScale>1</WeldBotchPressureScale>
-  <WeldBotchRawLossRatio>1</WeldBotchRawLossRatio>
-  <WeldBotchForgivenessScale>1</WeldBotchForgivenessScale>
+  <WeldBotchPressureScale>0.75</WeldBotchPressureScale>
+  <WeldBotchRawLossRatio>0.75</WeldBotchRawLossRatio>
+  <WeldBotchForgivenessScale>1.5</WeldBotchForgivenessScale>
   <WeldBotchWarningCooldownSeconds>0</WeldBotchWarningCooldownSeconds>
   <WeldBotchSoundEnabled>true</WeldBotchSoundEnabled>
   <WeldBotchSoundSubtype>ArcPoofExplosionCat1</WeldBotchSoundSubtype>

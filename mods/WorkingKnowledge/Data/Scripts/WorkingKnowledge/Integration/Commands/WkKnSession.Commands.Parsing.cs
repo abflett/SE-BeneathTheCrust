@@ -367,41 +367,30 @@ namespace WkKn
             return builder.ToString();
         }
 
-        private static bool TryParseCommandPercent(string text, out double progress, out string error)
+        private static bool TryParseCommandProgress(string text, out double progress, out string error)
         {
             progress = 0.0;
             error = null;
 
             if (string.IsNullOrWhiteSpace(text))
             {
-                error = "Missing percent.";
+                error = "Missing progress ratio.";
                 return false;
             }
 
             var trimmed = text.Trim();
-            var hasPercent = trimmed.EndsWith("%", StringComparison.Ordinal);
-            if (hasPercent)
-                trimmed = trimmed.Substring(0, trimmed.Length - 1);
-
             double value;
-            if (!double.TryParse(trimmed, NumberStyles.Float, CultureInfo.InvariantCulture, out value))
+            if (!double.TryParse(trimmed, NumberStyles.Float, CultureInfo.InvariantCulture, out value) ||
+                double.IsNaN(value) ||
+                double.IsInfinity(value))
             {
-                error = "Invalid percent: " + text;
+                error = "Invalid progress ratio: " + text;
                 return false;
             }
 
-            if (value < 0.0)
+            if (value < 0.0 || value > 1.0)
             {
-                error = "Percent must be 0 or higher.";
-                return false;
-            }
-
-            if (hasPercent || value > 1.0)
-                value /= 100.0;
-
-            if (value > 1.0)
-            {
-                error = "Percent must be 100 or lower.";
+                error = "Progress must be a ratio from 0.0 to 1.0; 0.75 means 75%.";
                 return false;
             }
 

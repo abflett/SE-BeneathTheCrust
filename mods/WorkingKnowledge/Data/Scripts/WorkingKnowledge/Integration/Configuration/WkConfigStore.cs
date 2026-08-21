@@ -32,7 +32,7 @@ namespace WkKn
 
         private static readonly WkConfigSettingDefinition[] settings = CreateSettings();
 
-        private WkConfig data = WkConfigDifficultyPresets.CreateMedium();
+        private WkConfig data = WkConfigDifficultyPresets.CreateDefault();
 
         internal WkConfig Data
         {
@@ -46,13 +46,13 @@ namespace WkKn
 
         internal void Reset()
         {
-            data = WkConfigDifficultyPresets.CreateMedium();
+            data = WkConfigDifficultyPresets.CreateDefault();
             Normalize();
         }
 
         internal void SetData(WkConfig loaded)
         {
-            data = loaded ?? WkConfigDifficultyPresets.CreateMedium();
+            data = loaded ?? WkConfigDifficultyPresets.CreateDefault();
             Normalize();
         }
 
@@ -65,7 +65,7 @@ namespace WkKn
         internal bool TryApplyDifficulty(string presetName, out string error)
         {
             if (data == null)
-                data = WkConfigDifficultyPresets.CreateMedium();
+                data = WkConfigDifficultyPresets.CreateDefault();
 
             if (!WkConfigDifficultyPresets.TryApply(presetName, data, out error))
                 return false;
@@ -113,7 +113,7 @@ namespace WkKn
         internal void Normalize()
         {
             if (data == null)
-                data = WkConfigDifficultyPresets.CreateMedium();
+                data = WkConfigDifficultyPresets.CreateDefault();
 
             data.DifficultyPreset = string.IsNullOrWhiteSpace(data.DifficultyPreset)
                 ? WkConfigDifficultyPresets.CustomPreset
@@ -287,7 +287,7 @@ namespace WkKn
                 Number("researchEfficiencyStart", "Research Start Efficiency", "Research", "0.0 to 10.0", "Research efficiency at 0% known. Higher values front-load discovery.", delegate(WkConfig c) { return c.ResearchEfficiencyStart; }, delegate(WkConfig c, double v) { c.ResearchEfficiencyStart = v; }),
                 Number("researchEfficiencyEnd", "Research End Efficiency", "Research", "0.0 to 10.0", "Research efficiency near 100% known. Lower values slow the final stretch.", delegate(WkConfig c) { return c.ResearchEfficiencyEnd; }, delegate(WkConfig c, double v) { c.ResearchEfficiencyEnd = v; }),
                 Number("salvageScale", "Salvage Scale", "Salvage", "0.0 to 100.0", "Multiplier for intact component recovery before the 100% cap.", delegate(WkConfig c) { return c.SalvageScale; }, delegate(WkConfig c, double v) { c.SalvageScale = v; }, "salvagerecovery", "salvagerecoveryscale"),
-                RatioOrPercent("salvageScrapYield", "Salvage Scrap Yield", "Salvage", "Mass ratio returned as scrap ore when low-Proficiency grinding converts components to scrap.", delegate(WkConfig c) { return c.SalvageScrapYield; }, delegate(WkConfig c, double v) { c.SalvageScrapYield = v; }, "scrapyield", "salvagescrapratio", "scrapratio"),
+                Ratio("salvageScrapYield", "Salvage Scrap Yield", "Salvage", "Mass ratio returned as scrap ore when low-Proficiency grinding converts components to scrap.", delegate(WkConfig c) { return c.SalvageScrapYield; }, delegate(WkConfig c, double v) { c.SalvageScrapYield = v; }, "scrapyield", "salvagescrapratio", "scrapratio"),
                 Number("notificationDelaySeconds", "Notification Delay", "Feedback", "0.1 to 30.0 seconds", "World delay used to combine repeated progress updates before chat/toast feedback.", delegate(WkConfig c) { return c.NotificationDelaySeconds; }, delegate(WkConfig c, double v) { c.NotificationDelaySeconds = v; }, "notificationdelay"),
                 Bool("defaultProgressChatEnabled", "Default Progress Chat", "Feedback", "World default for delayed progress chat messages.", delegate(WkConfig c) { return c.ProgressChatEnabled; }, delegate(WkConfig c, bool v) { c.ProgressChatEnabled = v; }, "defaultchat", "defaultchatenabled", "worldprogresschat"),
                 Bool("defaultProgressToastEnabled", "Default Progress Toast", "Feedback", "World default for popup progress notifications and botch toasts. The Rich HUD progress bars are separate.", delegate(WkConfig c) { return c.ProgressToastEnabled; }, delegate(WkConfig c, bool v) { c.ProgressToastEnabled = v; }, "defaulttoast", "defaulttoastenabled", "worldprogresstoast"),
@@ -376,9 +376,15 @@ namespace WkKn
                 delegate(WkConfig config, string value, out string error)
                 {
                     double parsed;
-                    if (!double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out parsed))
+                    if (!TryParseFiniteNumber(value, out parsed))
                     {
                         error = "Use a numeric value for " + setting + ".";
+                        return false;
+                    }
+
+                    if (parsed < minimum || parsed > maximum)
+                    {
+                        error = setting + " must be from " + FormatNumber(minimum) + " to " + FormatNumber(maximum) + ".";
                         return false;
                     }
 
@@ -399,27 +405,29 @@ namespace WkKn
                 setting,
                 title,
                 category,
-                "percent, such as 1 or 10%",
+                "ratio from 0.0 to 1.0; 0.1 means 10%",
                 description,
                 true,
-                delegate(WkConfig config) { return FormatNumber(getter(config)); },
+                // These v1 persistence fields use percent-points. Commands and UI expose a
+                // canonical ratio while the adapter preserves the serialized representation.
+                delegate(WkConfig config) { return FormatNumber(getter(config) / 100.0); },
                 delegate(WkConfig config, string value, out string error)
                 {
                     double parsed;
-                    if (!TryParsePercentNumber(value, out parsed))
+                    if (!TryParseRatio(value, out parsed))
                     {
-                        error = "Use a percent value for " + setting + ", such as 0, 1, or 10%.";
+                        error = "Use a ratio from 0.0 to 1.0 for " + setting + "; 0.1 means 10%.";
                         return false;
                     }
 
-                    setter(config, parsed);
+                    setter(config, parsed * 100.0);
                     error = null;
                     return true;
                 },
                 aliases,
                 WkSettingControlKind.Number,
                 0.0,
-                100.0,
+                1.0,
                 null);
         }
 
@@ -429,16 +437,16 @@ namespace WkKn
                 setting,
                 title,
                 category,
-                "progress, such as 0.8, 80, or 80%",
+                "ratio from 0.0 to 1.0; 0.8 means 80%",
                 description,
                 true,
                 delegate(WkConfig config) { return FormatNumber(getter(config)); },
                 delegate(WkConfig config, string value, out string error)
                 {
                     double parsed;
-                    if (!TryParseProgressValue(value, out parsed))
+                    if (!TryParseRatio(value, out parsed))
                     {
-                        error = "Use a progress value for " + setting + ", such as 0.8, 80, or 80%.";
+                        error = "Use a ratio from 0.0 to 1.0 for " + setting + "; 0.8 means 80%.";
                         return false;
                     }
 
@@ -453,22 +461,22 @@ namespace WkKn
                 null);
         }
 
-        private static WkConfigSettingDefinition RatioOrPercent(string setting, string title, string category, string description, Func<WkConfig, double> getter, Action<WkConfig, double> setter, params string[] aliases)
+        private static WkConfigSettingDefinition Ratio(string setting, string title, string category, string description, Func<WkConfig, double> getter, Action<WkConfig, double> setter, params string[] aliases)
         {
             return new WkConfigSettingDefinition(
                 setting,
                 title,
                 category,
-                "ratio or percent, such as 0.2 or 20%",
+                "ratio from 0.0 to 1.0; 0.2 means 20%",
                 description,
                 true,
                 delegate(WkConfig config) { return FormatNumber(getter(config)); },
                 delegate(WkConfig config, string value, out string error)
                 {
                     double parsed;
-                    if (!TryParseRatioOrPercentValue(value, out parsed))
+                    if (!TryParseRatio(value, out parsed))
                     {
-                        error = "Use a ratio or percent value for " + setting + ", such as 0.2 or 20%. Plain 20 means 20x.";
+                        error = "Use a ratio from 0.0 to 1.0 for " + setting + "; 0.2 means 20%.";
                         return false;
                     }
 
@@ -479,7 +487,7 @@ namespace WkKn
                 aliases,
                 WkSettingControlKind.Number,
                 0.0,
-                100.0,
+                1.0,
                 null);
         }
 
@@ -553,57 +561,27 @@ namespace WkKn
             return false;
         }
 
-        private static bool TryParseProgressValue(string value, out double parsed)
+        private static bool TryParseRatio(string value, out double parsed)
         {
             parsed = 0.0;
             if (string.IsNullOrWhiteSpace(value))
                 return false;
 
-            var normalized = value.Trim();
-            var isPercent = normalized.EndsWith("%", StringComparison.Ordinal);
-            if (isPercent)
-                normalized = normalized.Substring(0, normalized.Length - 1);
-
-            if (!double.TryParse(normalized, NumberStyles.Float, CultureInfo.InvariantCulture, out parsed))
+            if (!TryParseFiniteNumber(value, out parsed))
                 return false;
 
-            if (isPercent || parsed > 1.0)
-                parsed /= 100.0;
-
-            return true;
+            return parsed >= 0.0 && parsed <= 1.0;
         }
 
-        private static bool TryParsePercentNumber(string value, out double parsed)
+        private static bool TryParseFiniteNumber(string value, out double parsed)
         {
             parsed = 0.0;
             if (string.IsNullOrWhiteSpace(value))
                 return false;
 
-            var normalized = value.Trim();
-            if (normalized.EndsWith("%", StringComparison.Ordinal))
-                normalized = normalized.Substring(0, normalized.Length - 1);
-
-            return double.TryParse(normalized, NumberStyles.Float, CultureInfo.InvariantCulture, out parsed);
-        }
-
-        private static bool TryParseRatioOrPercentValue(string value, out double parsed)
-        {
-            parsed = 0.0;
-            if (string.IsNullOrWhiteSpace(value))
-                return false;
-
-            var normalized = value.Trim();
-            var isPercent = normalized.EndsWith("%", StringComparison.Ordinal);
-            if (isPercent)
-                normalized = normalized.Substring(0, normalized.Length - 1);
-
-            if (!double.TryParse(normalized, NumberStyles.Float, CultureInfo.InvariantCulture, out parsed))
-                return false;
-
-            if (isPercent)
-                parsed /= 100.0;
-
-            return true;
+            return double.TryParse(value.Trim(), NumberStyles.Float, CultureInfo.InvariantCulture, out parsed) &&
+                   !double.IsNaN(parsed) &&
+                   !double.IsInfinity(parsed);
         }
 
         private static string FormatNumber(double value)

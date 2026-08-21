@@ -16,6 +16,14 @@ GUI changes use the same server-authoritative validation, administrator checks, 
 
 Bundled the official Rich HUD Framework Full Client `1.3.0.0` source under its MIT license. Rich HUD Master is the only Workshop framework dependency required by the new interface.
 
+New worlds now begin on the Easy preset so standalone players get faster research and Proficiency gains, better salvage recovery, and gentler construction botches without requiring companion mods or chat-command tuning. Existing worlds retain every saved setting and difficulty value. Resetting the server configuration explicitly adopts the new Easy default; Medium remains available as the neutral preset.
+
+Standardized numeric input around canonical values: progress, probability, and ratio commands use `0.0` to `1.0`, while multipliers use direct values such as `0.5` or `2.0`. Ambiguous whole-percent and percent-suffixed command forms were removed, and invalid non-finite values are rejected before configuration changes are applied.
+
+Improved Rich HUD tuning controls with percentage, multiplier, seconds, and metres formatting; useful precision and step sizes; and logarithmic-with-zero sliders for the practical `0.01x` to `10x` multiplier range. These controls are presentation metadata only and do not change persisted field names, types, or meanings.
+
+The established suppression-threshold fields remain serialized as `0` to `100` percent-points for save compatibility. Commands and Rich HUD translate those fields at the boundary, so a canonical input of `0.05` continues to persist as `5`. Working Knowledge persistence remains version 1 and existing saves require no migration.
+
 ## Working Knowledge 1.0.2 - Save As Persistence Hotfix
 
 Fixed Working Knowledge progression being absent after using **Save As** from the Space Engineers Load Game screen. Space Engineers copies only the save's top-level files from that screen and omits mod `Storage` folders. Working Knowledge now stores research, faction research, Proficiency, world configuration, and player feedback preferences together in a versioned entry inside `Sandbox.sbc`, which the Load Game screen does copy.

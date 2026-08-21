@@ -23,6 +23,13 @@ Load Rich HUD Master Workshop item `1965654081`. Text HUD API should not be requ
 - Trigger research and Proficiency gains and confirm the compact two-bar rows update, order correctly, move with position/offset settings, and respect row/fade limits.
 - Apply each difficulty preset and representative settings from every server category as an administrator.
 - Confirm `/wk config` and `/wk difficulty` still report and change the same values.
+- Create a fresh world and confirm its initial preset is Easy with `1.5x` gain/reward/salvage/forgiveness modifiers and `0.75x` botch chance/damage/pressure modifiers.
+- Load an existing 1.0.2 world with manually tuned values and confirm every effective world setting is unchanged before and after a normal save/reload.
+- Confirm `/wk config world reset` explicitly restores the Easy defaults while `/wk difficulty medium` still applies the neutral `1.0x` preset.
+- Confirm ratio commands accept canonical values such as `0.05` and reject `5`, `5%`, `NaN`, and infinity without changing the current value.
+- Set player and world suppression thresholds to `0.05`, save/reload, and confirm the UI still displays 5% while persistence retains the established percent-point value.
+- Exercise a multiplier slider around `0`, `0.01x`, `0.1x`, `1x`, and `10x`; confirm useful low-end control, correct labels, and canonical server values.
+- Load an existing multiplier outside the panel's practical range and confirm opening or refreshing the settings window does not rewrite it.
 
 ## Hosted Multiplayer
 

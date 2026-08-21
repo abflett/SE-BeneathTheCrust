@@ -298,26 +298,28 @@ namespace WkKn
             return new WkPlayerConfigSettingDefinition(
                 setting,
                 title,
-                "0.0 to 100.0 percent, such as 1 or 10%",
+                "ratio from 0.0 to 1.0; 0.1 means 10%",
                 description,
-                delegate(WkPlayerConfigRecord config) { return FormatNumber(getter(config)); },
+                // Preserve the v1 percent-point persistence fields while exposing one canonical
+                // ratio contract to commands and Rich HUD.
+                delegate(WkPlayerConfigRecord config) { return FormatNumber(getter(config) / 100.0); },
                 delegate(WkPlayerConfigRecord config, string value, out string error)
                 {
                     double parsed;
-                    if (!TryParsePercentNumber(value, out parsed))
+                    if (!TryParseRatio(value, out parsed))
                     {
-                        error = "Use a percent value for " + setting + ", such as 0, 1, or 10%.";
+                        error = "Use a ratio from 0.0 to 1.0 for " + setting + "; 0.1 means 10%.";
                         return false;
                     }
 
-                    setter(config, RatioMath.Clamp(parsed, 0.0, 100.0));
+                    setter(config, parsed * 100.0);
                     error = null;
                     return true;
                 },
                 aliases,
                 WkSettingControlKind.Number,
                 0.0,
-                100.0,
+                1.0,
                 null);
         }
 
@@ -360,13 +362,19 @@ namespace WkKn
                 delegate(WkPlayerConfigRecord config, string value, out string error)
                 {
                     double parsed;
-                    if (!double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out parsed))
+                    if (!TryParseFiniteNumber(value, out parsed))
                     {
                         error = "Use a number for " + setting + ".";
                         return false;
                     }
 
-                    setter(config, RatioMath.Clamp(parsed, min, max));
+                    if (parsed < min || parsed > max)
+                    {
+                        error = setting + " must be from " + FormatNumber(min) + " to " + FormatNumber(max) + ".";
+                        return false;
+                    }
+
+                    setter(config, parsed);
                     error = null;
                     return true;
                 },
@@ -427,9 +435,15 @@ namespace WkKn
                     }
 
                     double parsed;
-                    if (!double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out parsed))
+                    if (!TryParseFiniteNumber(value, out parsed))
                     {
                         error = "Use a number or default for " + setting + ".";
+                        return false;
+                    }
+
+                    if (parsed < 0.0 || parsed > 30.0)
+                    {
+                        error = setting + " must be default or from 0 to 30.";
                         return false;
                     }
 
@@ -474,17 +488,24 @@ namespace WkKn
             return false;
         }
 
-        private static bool TryParsePercentNumber(string value, out double parsed)
+        private static bool TryParseRatio(string value, out double parsed)
+        {
+            parsed = 0.0;
+            if (!TryParseFiniteNumber(value, out parsed))
+                return false;
+
+            return parsed >= 0.0 && parsed <= 1.0;
+        }
+
+        private static bool TryParseFiniteNumber(string value, out double parsed)
         {
             parsed = 0.0;
             if (string.IsNullOrWhiteSpace(value))
                 return false;
 
-            var normalized = value.Trim();
-            if (normalized.EndsWith("%", StringComparison.Ordinal))
-                normalized = normalized.Substring(0, normalized.Length - 1);
-
-            return double.TryParse(normalized, NumberStyles.Float, CultureInfo.InvariantCulture, out parsed);
+            return double.TryParse(value.Trim(), NumberStyles.Float, CultureInfo.InvariantCulture, out parsed) &&
+                   !double.IsNaN(parsed) &&
+                   !double.IsInfinity(parsed);
         }
 
         private static bool TryParseBool(string value, out bool parsed)

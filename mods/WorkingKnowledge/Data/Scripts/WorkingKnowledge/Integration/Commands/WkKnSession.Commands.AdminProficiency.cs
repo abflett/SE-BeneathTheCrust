@@ -221,7 +221,7 @@ namespace WkKn
             }
 
             double progress;
-            if (!TryParseCommandPercent(args[args.Length - 1], out progress, out error))
+            if (!TryParseCommandProgress(args[args.Length - 1], out progress, out error))
             {
                 ShowWkWarningMessage(error);
                 return;

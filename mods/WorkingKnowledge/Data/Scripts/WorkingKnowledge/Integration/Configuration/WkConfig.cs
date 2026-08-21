@@ -3,7 +3,8 @@ namespace WkKn
     // World configuration persistence DTO. Legacy worlds may still contain this shape in WkKnConfig.xml.
     public class WkConfig
     {
-        // Label for the last applied difficulty preset. Manual config edits mark this as custom.
+        // Compatibility initializer for deserializing older/partial records. The config store
+        // applies the Easy preset only when creating a genuinely fresh or explicitly reset world.
         public string DifficultyPreset = "medium";
 
         // Enables Proficiency-based conversion of low-skill grind recovery into scrap.

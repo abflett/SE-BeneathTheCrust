@@ -15,6 +15,7 @@ namespace WkKn
         internal readonly double Minimum;
         internal readonly double Maximum;
         internal readonly string[] Choices;
+        internal readonly WkSettingPresentation Presentation;
         private readonly Func<WkPlayerConfigRecord, string> getter;
         private readonly WkPlayerConfigSettingSetter setter;
 
@@ -42,6 +43,7 @@ namespace WkKn
             Minimum = minimum;
             Maximum = maximum;
             Choices = choices ?? new string[0];
+            Presentation = WkSettingPresentation.ForSetting(setting, controlKind, minimum, maximum);
         }
 
         internal string GetValue(WkPlayerConfigRecord config)

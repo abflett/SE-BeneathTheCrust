@@ -438,7 +438,7 @@ namespace WkKn
                 "/wk research reset <player>",
                 "/wk research unlock <player> <schematic>",
                 "/wk research forget <player> <schematic>",
-                "/wk research set <player> <schematic> <percent>");
+                "/wk research set <player> <schematic> <progress>");
             ShowWkChatSection(
                 "Research Targets",
                 "Players: me, all, online, \"Player Name\", identity id, or Steam id",
@@ -446,7 +446,7 @@ namespace WkKn
             ShowWkChatSection(
                 "Research Examples",
                 "/wk research unlock me Ion Thruster Schematics",
-                "/wk research set \"Alex\" Basic Production Schematics 75%",
+                "/wk research set \"Alex\" Basic Production Schematics 0.75",
                 "/wk config researchScale help");
             ShowWkChatSection(
                 "Research Config Settings",
@@ -466,7 +466,7 @@ namespace WkKn
                 "/wk proficiency reset <player>",
                 "/wk proficiency master <player> <schematic>",
                 "/wk proficiency forget <player> <schematic>",
-                "/wk proficiency set <player> <schematic> <percent>");
+                "/wk proficiency set <player> <schematic> <progress>");
             ShowWkChatSection(
                 "Proficiency Targets",
                 "Players: me, all, online, \"Player Name\", identity id, or Steam id",
@@ -474,7 +474,7 @@ namespace WkKn
             ShowWkChatSection(
                 "Proficiency Examples",
                 "/wk proficiency master me Basic Production Schematics",
-                "/wk proficiency set \"Alex\" Ion Thruster Schematics 60%",
+                "/wk proficiency set \"Alex\" Ion Thruster Schematics 0.6",
                 "/wk config proficiencyGainScale help");
             ShowWkChatSection(
                 "Proficiency Config Settings",

@@ -62,12 +62,12 @@ Admin-only config and tuning:
 - `/wk research reset <server|player>` - Reset server or player research.
 - `/wk research unlock <player> <schematic>` - Complete one schematic for a player target.
 - `/wk research forget <player> <schematic>` - Revoke one schematic for a player target.
-- `/wk research set <player> <schematic> <percent>` - Set exact schematic progress.
+- `/wk research set <player> <schematic> <progress>` - Set exact schematic progress with a `0.0` to `1.0` ratio.
 - `/wk proficiency show <player>` - Show another player's Proficiency.
 - `/wk proficiency reset <server|player>` - Reset server or player Proficiency.
 - `/wk proficiency master <player> <schematic>` - Master one Proficiency for a player target.
 - `/wk proficiency forget <player> <schematic>` - Remove one Proficiency for a player target.
-- `/wk proficiency set <player> <schematic> <percent>` - Set exact Proficiency progress.
+- `/wk proficiency set <player> <schematic> <progress>` - Set exact Proficiency progress with a `0.0` to `1.0` ratio.
 - `/wk config <setting> help` - Show one world setting's description and aliases.
 - `/wk config <setting> <value>` - Update one world setting.
 - `/wk config world` - Show world settings.
@@ -83,7 +83,7 @@ See [Working Knowledge configuration](../../docs/WorkingKnowledge/configuration.
 
 Working Knowledge's `1.1.x` feature line is in development on top of the stable `1.0.x` line. Version `1.0.2` is the validated hotfix base while the `1.1.0` Rich HUD migration and graphical settings menu are tested on a feature branch.
 
-The current balance targets the default `medium` play experience. Dedicated-server command routing, remote progress HUD synchronization, headless diagnostics, and icon packaging have completed their focused hotfix pass; balance and compatibility feedback will continue through the stable line.
+Fresh worlds now target the more approachable `easy` play experience; established worlds retain their saved balance, and `medium` remains the neutral preset. Dedicated-server command routing, remote progress HUD synchronization, headless diagnostics, and icon packaging have completed their focused hotfix pass; balance and compatibility feedback will continue through the stable line.
 
 The mod currently includes:
 

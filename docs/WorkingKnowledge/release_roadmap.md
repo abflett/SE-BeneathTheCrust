@@ -1,6 +1,6 @@
 # Working Knowledge Roadmap
 
-This roadmap tracks maintenance of the Working Knowledge `1.0.x` stable line and development of the backward-compatible `1.1.0` Rich HUD settings release. Version `1.0.2` is the validated hotfix base while `1.1.0` is tested on its feature branch. Campaign composition, companion mod packs, richer story content, and deeper terminal trade systems remain later work.
+This roadmap tracks maintenance of the Working Knowledge `1.0.x` stable line and development of the save-compatible `1.1.0` Rich HUD settings release. Version `1.0.2` is the published hotfix base while `1.1.0` is tested on its feature branch. Campaign composition, companion mod packs, richer story content, and deeper terminal trade systems remain later work.
 
 ## Versioning
 
@@ -44,7 +44,9 @@ Development scope:
 - Add `/wk settings` as a direct graphical entry point.
 - Generate player and administrator controls from the same setting definitions used by `/wk config`.
 - Route GUI mutations through existing server-authoritative validation, persistence, admin checks, and runtime effects.
-- Keep all existing `/wk config` and `/wk difficulty` commands as a framework-independent fallback.
+- Keep `/wk config` and `/wk difficulty` as a framework-independent fallback while standardizing numeric input around ratios and direct multipliers.
+- Make Easy the fresh-world and explicit-reset default without changing settings already persisted by existing worlds.
+- Keep persistence version 1, serialized fields, and field meanings unchanged; adapt legacy percent-point thresholds only at the command/UI boundary.
 - Validate single-player, hosted multiplayer, and dedicated-server behavior before release.
 
 Fix and polish watch items:
@@ -73,7 +75,7 @@ The completed public-feedback sequence and current target are:
 - `0.13.0` - extensible schematic groups and layer-controlled block remapping. Complete.
 - `1.0.0` - stable standalone release with Space Engineers 1.210 Prosperity support. Published.
 - `1.0.1` - dedicated-server command and multiplayer progression hotfix. Published.
-- `1.0.2` - Save As progression persistence hotfix. Validated; awaiting Workshop publish.
+- `1.0.2` - Save As progression persistence hotfix. Published.
 - `1.1.0` - Rich HUD progress-overlay migration and graphical settings. In development.
 
 ## 1.0.1 Dedicated Server Hotfix - Implemented And Tested
@@ -219,7 +221,7 @@ Feature readiness:
 
 Gameplay validation:
 
-- Complete one real fresh survival playthrough with the intended `medium` config.
+- Complete one real fresh survival playthrough with the intended `easy` standalone default and compare it with the neutral `medium` preset.
 - Tune research gain if schematic unlocks feel too fast or too grindy.
 - Tune Proficiency gain if early skill growth or long-term mastery feels off.
 - Tune botch chance and botch damage if low skill feels toothless or frustrating.
