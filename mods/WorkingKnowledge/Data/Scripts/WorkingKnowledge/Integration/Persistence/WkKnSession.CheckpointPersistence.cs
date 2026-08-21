@@ -94,13 +94,13 @@ namespace WkKn
             if (loadedLegacyData)
             {
                 persistenceLoadSource = PersistenceLoadSource.LegacyWorldStorage;
-                persistenceStatusMessage = "Loaded legacy Working Knowledge data. It will be migrated to the new save format on the next world save.";
+                persistenceStatusMessage = "Legacy data loaded. It will be migrated on the next save.";
                 MyLog.Default.WriteLineAndConsole(LogPrefix + " loaded legacy WkKn*.xml world storage; migration to Sandbox.sbc is pending the next world save.");
             }
             else
             {
                 persistenceLoadSource = PersistenceLoadSource.Fresh;
-                persistenceStatusMessage = "Working Knowledge initialized successfully.";
+                persistenceStatusMessage = "Initialized successfully.";
                 MyLog.Default.WriteLineAndConsole(LogPrefix + " no saved Working Knowledge data was found; initialized a fresh state.");
             }
 
@@ -127,7 +127,7 @@ namespace WkKn
                 NormalizeProficiencyStore();
 
                 persistenceLoadSource = PersistenceLoadSource.Checkpoint;
-                persistenceStatusMessage = "Working Knowledge loaded successfully.";
+                persistenceStatusMessage = "Loaded successfully.";
                 MyLog.Default.WriteLineAndConsole(LogPrefix + " loaded canonical persistence version " + CheckpointPersistenceVersion + " from Sandbox.sbc.");
                 return true;
             }
@@ -257,7 +257,7 @@ namespace WkKn
         {
             persistenceLoadSource = PersistenceLoadSource.Failed;
             checkpointSaveBlocked = true;
-            persistenceStatusMessage = "Working Knowledge could not load its saved data. Check the log before saving this world.";
+            persistenceStatusMessage = "Could not load saved data. Check the log before saving this world.";
             persistenceStatusIsError = true;
 
             var detail = exception == null ? reason + "." : reason + ": " + exception;

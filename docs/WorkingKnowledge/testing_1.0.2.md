@@ -19,11 +19,11 @@ From the repository root:
 ## Focused Save As Test
 
 1. Load the existing `Star System test 1` world, which has partial research and Proficiency in its legacy `WkKn*.xml` files.
-2. Confirm colored chat reports: `Loaded legacy Working Knowledge data. It will be migrated to the new save format on the next world save.`
+2. Confirm colored chat reports: `Legacy data loaded. It will be migrated on the next save.`
 3. Confirm `SpaceEngineers.log` reports that legacy world storage loaded and migration is pending.
 4. Save the world normally and exit to the main menu.
 5. Confirm the log reports that legacy data migrated to canonical `Sandbox.sbc` persistence version 1.
-6. Reload `Star System test 1` and confirm colored chat reports: `Working Knowledge loaded successfully.`
+6. Reload `Star System test 1` and confirm colored chat reports: `Loaded successfully.`
 7. Confirm the same partial research and Proficiency remain, and the log reports that canonical persistence version 1 loaded from `Sandbox.sbc`.
 8. Exit and save, then select `Star System test 1` on the Load Game screen and use **Save As** with a new unique name.
 9. Load the newly named world without copying any files manually.
