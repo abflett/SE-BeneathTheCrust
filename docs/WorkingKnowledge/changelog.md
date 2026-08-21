@@ -2,7 +2,7 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
-## 1.0.2 - Save As Persistence Hotfix
+## Working Knowledge 1.0.2 - Save As Persistence Hotfix
 
 Fixed Working Knowledge progression being absent after using **Save As** from the Space Engineers Load Game screen. Space Engineers copies only the save's top-level files from that screen and omits mod `Storage` folders. Working Knowledge now stores research, faction research, Proficiency, world configuration, and player feedback preferences together in a versioned entry inside `Sandbox.sbc`, which the Load Game screen does copy.
 
