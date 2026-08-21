@@ -138,6 +138,7 @@ try {
             'MyHudChat',
             'MyHudControlChat',
             'MyChatVisibilityEnum',
+            'MySessionComponentScriptSharedStorage',
             'System.Reflection',
             'BindingFlags',
             'PropertyInfo',

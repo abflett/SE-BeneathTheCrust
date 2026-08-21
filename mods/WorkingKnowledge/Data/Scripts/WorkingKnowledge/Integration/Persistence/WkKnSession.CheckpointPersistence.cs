@@ -1,6 +1,7 @@
 using System;
 using Sandbox.ModAPI;
-using VRage.Game.Components.Session;
+using VRage.Game.ObjectBuilders.Components;
+using VRage.Serialization;
 using VRage.Utils;
 
 namespace WkKn
@@ -29,6 +30,7 @@ namespace WkKn
         private bool persistenceStatusMessageShown;
         private string persistenceStatusMessage;
         private bool persistenceStatusIsError;
+        private MyObjectBuilder_SharedStorageComponent checkpointStorage;
 
         private enum PersistenceLoadSource
         {
@@ -50,6 +52,7 @@ namespace WkKn
             persistenceStatusMessageShown = false;
             persistenceStatusMessage = null;
             persistenceStatusIsError = false;
+            checkpointStorage = null;
         }
 
         private bool LoadCheckpointOrLegacyPersistence()
@@ -57,7 +60,7 @@ namespace WkKn
             if (MyAPIGateway.Session == null || !MyAPIGateway.Session.IsServer)
                 return false;
 
-            var storage = MySessionComponentScriptSharedStorage.Instance;
+            var storage = ResolveCheckpointStorage();
             if (storage == null)
             {
                 FailCheckpointPersistence("shared checkpoint storage is unavailable");
@@ -67,7 +70,7 @@ namespace WkKn
             string xml;
             try
             {
-                xml = storage.ReadString(CheckpointPersistenceNamespace, CheckpointPersistenceKey);
+                xml = ReadCheckpointString(storage, CheckpointPersistenceNamespace, CheckpointPersistenceKey);
             }
             catch (Exception exception)
             {
@@ -140,7 +143,7 @@ namespace WkKn
             if (MyAPIGateway.Session == null || !MyAPIGateway.Session.IsServer || checkpointSaveBlocked)
                 return;
 
-            var storage = MySessionComponentScriptSharedStorage.Instance;
+            var storage = ResolveCheckpointStorage();
             if (storage == null)
             {
                 MyLog.Default.WriteLineAndConsole(LogPrefix + " shared checkpoint storage is unavailable; Working Knowledge persistence was not saved.");
@@ -164,8 +167,7 @@ namespace WkKn
                 };
 
                 var xml = MyAPIGateway.Utilities.SerializeToXML(snapshot);
-                if (!storage.Write(CheckpointPersistenceNamespace, CheckpointPersistenceKey, xml))
-                    throw new InvalidOperationException("shared checkpoint storage rejected the persistence write");
+                WriteCheckpointString(storage, CheckpointPersistenceNamespace, CheckpointPersistenceKey, xml);
 
                 playerConfigStore.MarkClean();
                 researchStore.MarkClean();
@@ -190,6 +192,60 @@ namespace WkKn
             {
                 MyLog.Default.WriteLineAndConsole(LogPrefix + " failed to save canonical persistence to Sandbox.sbc: " + exception);
             }
+        }
+
+        private MyObjectBuilder_SharedStorageComponent ResolveCheckpointStorage()
+        {
+            if (checkpointStorage != null)
+                return checkpointStorage;
+            if (MyAPIGateway.Session == null)
+                return null;
+
+            // The component helper itself is not permitted by Space Engineers' mod-script whitelist.
+            // GetCheckpoint is public ModAPI and returns the live shared-storage object builder used by
+            // the pending save snapshot, so changes made from SaveData are included in Sandbox.sbc.
+            var checkpoint = MyAPIGateway.Session.GetCheckpoint(MyAPIGateway.Session.Name);
+            if (checkpoint == null || checkpoint.SessionComponents == null)
+                return null;
+
+            for (var index = 0; index < checkpoint.SessionComponents.Count; index++)
+            {
+                checkpointStorage = checkpoint.SessionComponents[index] as MyObjectBuilder_SharedStorageComponent;
+                if (checkpointStorage != null)
+                    return checkpointStorage;
+            }
+
+            return null;
+        }
+
+        private static string ReadCheckpointString(
+            MyObjectBuilder_SharedStorageComponent storage,
+            string namespaceKey,
+            string valueKey)
+        {
+            SerializableDictionary<string, string> values;
+            string value;
+            if (storage.StringStorageSecondary.Dictionary.TryGetValue(namespaceKey, out values) &&
+                values.Dictionary.TryGetValue(valueKey, out value))
+                return value;
+
+            return string.Empty;
+        }
+
+        private static void WriteCheckpointString(
+            MyObjectBuilder_SharedStorageComponent storage,
+            string namespaceKey,
+            string valueKey,
+            string value)
+        {
+            SerializableDictionary<string, string> values;
+            if (!storage.StringStorageSecondary.Dictionary.TryGetValue(namespaceKey, out values))
+            {
+                values = new SerializableDictionary<string, string>();
+                storage.StringStorageSecondary.Dictionary.Add(namespaceKey, values);
+            }
+
+            values.Dictionary[valueKey] = value;
         }
 
         private void FailCheckpointPersistence(string reason)
