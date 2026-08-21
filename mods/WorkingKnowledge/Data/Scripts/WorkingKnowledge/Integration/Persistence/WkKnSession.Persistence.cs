@@ -25,6 +25,7 @@ namespace WkKn
     {
         private void LoadResearchStore()
         {
+            researchWorldStorageLoaded = false;
             researchStore.Reset();
 
             try
@@ -39,7 +40,10 @@ namespace WkKn
                     {
                         var loaded = MyAPIGateway.Utilities.SerializeFromXML<ResearchSaveData>(xml);
                         if (loaded != null)
+                        {
                             researchStore.SetData(loaded);
+                            researchWorldStorageLoaded = true;
+                        }
                     }
                 }
 
@@ -54,6 +58,7 @@ namespace WkKn
 
         private void LoadConfigStore()
         {
+            configWorldStorageLoaded = false;
             configStore.Reset();
 
             try
@@ -68,7 +73,10 @@ namespace WkKn
                     {
                         var loaded = MyAPIGateway.Utilities.SerializeFromXML<WkConfig>(xml);
                         if (loaded != null)
+                        {
                             configStore.SetData(loaded);
+                            configWorldStorageLoaded = true;
+                        }
                     }
                 }
             }
@@ -81,6 +89,7 @@ namespace WkKn
 
         private void LoadPlayerConfigStore()
         {
+            playerConfigWorldStorageLoaded = false;
             playerConfigStore.Reset();
 
             try
@@ -95,7 +104,10 @@ namespace WkKn
                     {
                         var loaded = MyAPIGateway.Utilities.SerializeFromXML<WkPlayerConfigSaveData>(xml);
                         if (loaded != null)
+                        {
                             playerConfigStore.SetData(loaded);
+                            playerConfigWorldStorageLoaded = true;
+                        }
                     }
                 }
             }
@@ -103,52 +115,6 @@ namespace WkKn
             {
                 playerConfigStore.Reset();
                 MyLog.Default.WriteLineAndConsole(LogPrefix + " failed to load player config; using defaults: " + exception);
-            }
-        }
-
-        private void SaveConfigStore()
-        {
-            try
-            {
-                configStore.Normalize();
-                using (var writer = MyAPIGateway.Utilities.WriteFileInWorldStorage(ConfigStorageFile, typeof(WkKnSession)))
-                    writer.Write(MyAPIGateway.Utilities.SerializeToXML(config));
-            }
-            catch (Exception exception)
-            {
-                MyLog.Default.WriteLineAndConsole(LogPrefix + " failed to save config: " + exception);
-            }
-        }
-
-        private void SavePlayerConfigStore()
-        {
-            try
-            {
-                playerConfigStore.Normalize();
-                using (var writer = MyAPIGateway.Utilities.WriteFileInWorldStorage(PlayerConfigStorageFile, typeof(WkKnSession)))
-                    writer.Write(MyAPIGateway.Utilities.SerializeToXML(playerConfigStore.Data));
-
-                playerConfigStore.MarkClean();
-            }
-            catch (Exception exception)
-            {
-                MyLog.Default.WriteLineAndConsole(LogPrefix + " failed to save player config: " + exception);
-            }
-        }
-
-        private void SaveResearchStore()
-        {
-            try
-            {
-                NormalizeResearchStore();
-                using (var writer = MyAPIGateway.Utilities.WriteFileInWorldStorage(ResearchStorageFile, typeof(WkKnSession)))
-                    writer.Write(MyAPIGateway.Utilities.SerializeToXML(researchStore.Data));
-
-                researchStore.MarkClean();
-            }
-            catch (Exception exception)
-            {
-                MyLog.Default.WriteLineAndConsole(LogPrefix + " failed to save research store: " + exception);
             }
         }
 

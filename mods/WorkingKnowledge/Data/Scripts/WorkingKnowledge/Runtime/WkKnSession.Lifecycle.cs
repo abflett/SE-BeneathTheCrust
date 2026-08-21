@@ -51,10 +51,7 @@ namespace WkKn
             runtimeLoadIssue = null;
             try
             {
-                LoadConfigStore();
-                LoadPlayerConfigStore();
-                LoadResearchStore();
-                LoadProficiencyStore();
+                ResetPersistenceStores();
                 RebuildResearchDefinitions();
                 LoadRuntimeDefinitions();
             }
@@ -66,24 +63,23 @@ namespace WkKn
 
         internal void StartRuntime()
         {
+            var persistenceLoaded = LoadCheckpointOrLegacyPersistence();
             MyAPIGateway.Session.SessionSettings.EnableResearch = true;
             ApplyFundamentalsDefaultsForOnlinePlayers();
+            if (persistenceLoaded)
+                RefreshResearchDataFragmentsInContainerLoot();
             SyncCompletedResearchForOnlinePlayers();
         }
 
         internal void SaveRuntimeData()
         {
-            // Save As changes WorldSavePath before session components receive SaveData.
-            // Write every store so an unchanged source world still populates the new save.
-            SaveConfigStore();
-            SavePlayerConfigStore();
-            SaveResearchStore();
-            SaveProficiencyStore();
+            SaveCheckpointPersistence();
         }
 
         internal void UpdateRuntimeBeforeSimulation()
         {
             simulationTick++;
+            TryShowPersistenceStatusMessage();
             UpdateBeforeWeldSimulation();
             UpdateResearchRuntime();
             UpdateProficiencyModule();

@@ -1,6 +1,6 @@
 # Working Knowledge Configuration
 
-This guide explains the in-game Working Knowledge commands, player feedback settings, admin tuning controls, and the world-storage XML used by the mod.
+This guide explains the in-game Working Knowledge commands, player feedback settings, admin tuning controls, and persisted configuration fields used by the mod.
 
 Start in-game with:
 
@@ -410,27 +410,27 @@ Admins can use these help topics from the `/wk admin` index:
 
 The world config display is grouped by chat senders such as `Config - Research`, `Config - Proficiency`, `Config - Botches`, `Config - Salvage`, `Config - Feedback`, and `Config - Defaults`.
 
-## Storage Files
+## Persistence
 
-The world config is saved in world storage as `WkKnConfig.xml`.
+World configuration and player feedback preferences are saved with the rest of Working Knowledge's versioned state inside the world's `Sandbox.sbc` checkpoint. Players with no explicit preference record use the built-in player defaults.
 
-Player feedback preferences are saved separately in world storage as `WkKnPlayerConfig.xml`. That file stores explicit player overrides; players with no record use the built-in player defaults.
+Worlds created before `1.0.2` may contain `WkKnConfig.xml` and `WkKnPlayerConfig.xml`. When no current checkpoint entry exists, those files are loaded once and migrated during the next normal world save. They are not updated after migration.
 
-The XML element names are storage names, not always chat command names. In particular, overlapping world feedback fields are edited with `default...` command names:
+The persisted field names are not always chat command names. In particular, overlapping world feedback fields are edited with `default...` command names:
 
-- XML `ProgressChatEnabled` is chat command `defaultProgressChatEnabled`.
-- XML `ProgressToastEnabled` is chat command `defaultProgressToastEnabled`.
-- XML `ResearchChatSuppressionPercent` is chat command `defaultResearchChatSuppressionPercent`.
-- XML `ProficiencyChatSuppressionPercent` is chat command `defaultProficiencyChatSuppressionPercent`.
-- XML `ResearchToastSuppressionPercent` is chat command `defaultResearchToastSuppressionPercent`.
-- XML `ProficiencyToastSuppressionPercent` is chat command `defaultProficiencyToastSuppressionPercent`.
-- XML `CompletionSoundEnabled` is chat command `defaultCompletionSoundEnabled`.
-- XML `WeldBotchWarningCooldownSeconds` is chat command `defaultWeldBotchWarningCooldownSeconds`.
-- XML `WeldBotchSoundEnabled` is chat command `defaultWeldBotchSoundEnabled`.
+- `ProgressChatEnabled` is chat command `defaultProgressChatEnabled`.
+- `ProgressToastEnabled` is chat command `defaultProgressToastEnabled`.
+- `ResearchChatSuppressionPercent` is chat command `defaultResearchChatSuppressionPercent`.
+- `ProficiencyChatSuppressionPercent` is chat command `defaultProficiencyChatSuppressionPercent`.
+- `ResearchToastSuppressionPercent` is chat command `defaultResearchToastSuppressionPercent`.
+- `ProficiencyToastSuppressionPercent` is chat command `defaultProficiencyToastSuppressionPercent`.
+- `CompletionSoundEnabled` is chat command `defaultCompletionSoundEnabled`.
+- `WeldBotchWarningCooldownSeconds` is chat command `defaultWeldBotchWarningCooldownSeconds`.
+- `WeldBotchSoundEnabled` is chat command `defaultWeldBotchSoundEnabled`.
 
-## Default World Config XML
+## Default World Configuration Shape
 
-The mod creates this default world config on first load:
+The canonical checkpoint snapshot serializes this default world configuration shape:
 
 ```xml
 <WkConfig>

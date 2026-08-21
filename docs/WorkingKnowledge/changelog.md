@@ -4,11 +4,13 @@ Public-facing release notes for the standalone **Working Knowledge** Space Engin
 
 ## 1.0.2 - Save As Persistence Hotfix
 
-Fixed Working Knowledge progression being absent after using Space Engineers' **Save As** feature. Research, faction research, Proficiency, world configuration, and player feedback preferences now write a complete snapshot whenever Space Engineers saves the world, including after the game switches world-storage to a newly named save.
+Fixed Working Knowledge progression being absent after using **Save As** from the Space Engineers Load Game screen. Space Engineers copies only the save's top-level files from that screen and omits mod `Storage` folders. Working Knowledge now stores research, faction research, Proficiency, world configuration, and player feedback preferences together in a versioned entry inside `Sandbox.sbc`, which the Load Game screen does copy.
 
-Removed the separate five-second persistence loop and immediate gameplay writes. Working Knowledge persistence now follows the normal Space Engineers save lifecycle so its XML state remains aligned with the corresponding world checkpoint.
+Existing worlds migrate once: when no new persistence entry exists, Working Knowledge loads the legacy `WkKn*.xml` files and writes the new `Sandbox.sbc` entry on the next normal world save. After that entry exists it is authoritative, and the legacy files are left untouched. Colored startup chat and detailed log messages report whether legacy data, canonical data, or a fresh state was loaded.
 
-Existing renamed saves that already lack Working Knowledge progression are not automatically repaired. Their `WkKnResearch.xml` and `WkKnProficiency.xml` files can still be copied from the original world's Working Knowledge storage folder.
+Removed the separate five-second persistence loop and immediate gameplay writes. Working Knowledge now saves through the normal Space Engineers world-save lifecycle.
+
+Existing renamed saves that already lack Working Knowledge progression are not automatically repaired. If they do not yet contain the new persistence entry, their `WkKnResearch.xml` and `WkKnProficiency.xml` files can still be copied from the original world's Working Knowledge storage folder before first loading and saving them with `1.0.2`.
 
 ## 1.0.1 - Dedicated Server Hotfix
 

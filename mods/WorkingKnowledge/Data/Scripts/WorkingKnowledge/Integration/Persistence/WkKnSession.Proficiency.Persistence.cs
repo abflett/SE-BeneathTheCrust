@@ -26,6 +26,7 @@ namespace WkKn
     {
         private void LoadProficiencyStore()
         {
+            proficiencyWorldStorageLoaded = false;
             proficiencyStore.Reset();
 
             try
@@ -40,7 +41,10 @@ namespace WkKn
                     {
                         var loaded = MyAPIGateway.Utilities.SerializeFromXML<ProficiencySaveData>(xml);
                         if (loaded != null)
+                        {
                             proficiencyStore.SetData(loaded);
+                            proficiencyWorldStorageLoaded = true;
+                        }
                     }
                 }
 
@@ -50,22 +54,6 @@ namespace WkKn
             {
                 proficiencyStore.Reset();
                 MyLog.Default.WriteLineAndConsole(LogPrefix + " failed to load proficiency store; starting fresh: " + exception);
-            }
-        }
-
-        private void SaveProficiencyStore()
-        {
-            try
-            {
-                NormalizeProficiencyStore();
-                using (var writer = MyAPIGateway.Utilities.WriteFileInWorldStorage(ProficiencyStorageFile, typeof(WkKnSession)))
-                    writer.Write(MyAPIGateway.Utilities.SerializeToXML(proficiencyStore.Data));
-
-                proficiencyStore.MarkClean();
-            }
-            catch (Exception exception)
-            {
-                MyLog.Default.WriteLineAndConsole(LogPrefix + " failed to save proficiency store: " + exception);
             }
         }
 

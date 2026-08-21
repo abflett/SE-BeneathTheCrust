@@ -24,13 +24,16 @@ Completed release scope:
 
 ## 1.0.2 Save As Persistence Hotfix
 
-Space Engineers changes the active world-storage destination before invoking mod session-component saves during **Save As**. Working Knowledge previously skipped clean research, Proficiency, and player-configuration stores, leaving the new save without those files.
+Space Engineers' Load Game **Save As** path copies only top-level world files and omits mod `Storage` directories without invoking mod callbacks. Working Knowledge therefore needs canonical persistence in the copied checkpoint rather than the omitted mod-storage directory.
 
 Hotfix scope:
 
-- Write a complete Working Knowledge storage snapshot from the normal Space Engineers `SaveData()` callback.
+- Store all Working Knowledge state in one versioned snapshot in the built-in shared session component inside `Sandbox.sbc`, which the Load Game screen does copy.
+- Load legacy `WkKn*.xml` files only when the canonical checkpoint entry is absent, then migrate them on the next normal world save.
+- Treat the canonical checkpoint entry as authoritative after migration and leave the old XML files untouched.
+- Report the selected persistence source through colored startup chat and detailed internal logging.
 - Remove the separate five-second persistence loop and immediate gameplay writes so progression remains aligned with the world checkpoint.
-- Preserve the existing XML filenames, schemas, player and faction identities, schematic IDs, and configuration formats.
+- Preserve the legacy XML readers, player and faction identities, schematic IDs, and configuration values for one-way migration.
 - Validate normal save/reload and Save As when no Working Knowledge state has changed since the previous save.
 
 Fix and polish watch items:

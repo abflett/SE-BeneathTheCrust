@@ -18,21 +18,25 @@ From the repository root:
 
 ## Focused Save As Test
 
-1. Create or load a local survival world with Working Knowledge enabled.
-2. Gain partial research and partial Proficiency in at least one non-Fundamentals schematic.
-3. If faction research is available, sync some progress through a Research Pedestal.
-4. Change one player feedback preference and one administrator world setting.
-5. Save the world normally, then wait without earning any additional Working Knowledge progress so every store is unchanged.
-6. Use **Save As** and give the world a new unique name.
-7. Exit to the main menu and load the newly named world.
-8. Confirm personal research, faction research, Proficiency, player preferences, and world settings match the original save.
-9. Confirm the new save contains `WkKnResearch.xml`, `WkKnProficiency.xml`, `WkKnConfig.xml`, and `WkKnPlayerConfig.xml` in its Working Knowledge `Storage` folder.
-10. Reload the original save and confirm its state remains unchanged.
+1. Load the existing `Star System test 1` world, which has partial research and Proficiency in its legacy `WkKn*.xml` files.
+2. Confirm colored chat reports: `Loaded legacy Working Knowledge data. It will be migrated to the new save format on the next world save.`
+3. Confirm `SpaceEngineers.log` reports that legacy world storage loaded and migration is pending.
+4. Save the world normally and exit to the main menu.
+5. Confirm the log reports that legacy data migrated to canonical `Sandbox.sbc` persistence version 1.
+6. Reload `Star System test 1` and confirm colored chat reports: `Working Knowledge loaded successfully.`
+7. Confirm the same partial research and Proficiency remain, and the log reports that canonical persistence version 1 loaded from `Sandbox.sbc`.
+8. Exit and save, then select `Star System test 1` on the Load Game screen and use **Save As** with a new unique name.
+9. Load the newly named world without copying any files manually.
+10. Confirm colored chat reports a successful Working Knowledge load rather than legacy migration or fresh initialization.
+11. Confirm personal research, faction research, Proficiency, player preferences, and world settings match the original save.
+12. Reload the original save and confirm its state remains unchanged.
+
+The legacy XML files may remain in the original save, but their timestamps and contents should stop changing after migration. The Save As copy does not require a Working Knowledge `Storage` folder because its canonical state is inside `Sandbox.sbc`.
 
 ## Regression Checks
 
 - A normal manual save and reload preserves partial progress.
 - A configured Space Engineers autosave and reload preserves partial progress.
 - `/wk` research, Proficiency, configuration, and administrator mutations remain active immediately in memory before saving.
+- A fresh world reports successful initialization, writes canonical persistence on its first save, and reports a successful load afterward.
 - `SpaceEngineers.log` contains no Working Knowledge persistence exceptions.
-

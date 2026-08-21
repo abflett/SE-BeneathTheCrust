@@ -1,6 +1,6 @@
 namespace WkKn
 {
-    // World-storage DTO for WkKnConfig.xml. Early development can break this shape.
+    // World configuration persistence DTO. Legacy worlds may still contain this shape in WkKnConfig.xml.
     public class WkConfig
     {
         // Label for the last applied difficulty preset. Manual config edits mark this as custom.
