@@ -1,0 +1,1733 @@
+{
+  "document": "Working Knowledge settings panel design worksheet",
+  "baseline_commit": "4e15462",
+  "purpose": "Editable discussion map of the current custom Rich HUD window. This file is not loaded by the mod.",
+  "editing_guide": {
+    "hierarchy": "groups > pages > sections > rows; arrays follow current on-screen order.",
+    "current": "Reference snapshot of implemented labels, controls and descriptions. Keep this for comparison.",
+    "proposed": "Enter replacement text or control ideas here. Empty strings mean no proposal yet, not a request to erase text.",
+    "details": "Draft expanded player help: gameplay effect, tuning direction, a concrete example, and dependencies or limits. These fields are intentionally blank for discussion.",
+    "layout": "Describe moves, additions, removals, sizing or styling in requested_changes on the relevant group, page, section or row. You can also reorder arrays to propose a new order.",
+    "identifiers": "Keep setting and action identifiers stable so proposals can be mapped back to code.",
+    "notes": "Free-form questions, reasoning or feedback; use these fields instead of JSON comments.",
+    "scope": "Player settings affect the local player. Server settings require administrator access.",
+    "numeric_values": "accepted_values describes command input, not necessarily slider limits. Percentages display as percent; commands use ratios. Many multiplier sliders cover 0 to 10x with a logarithmic scale and a zero position, even where commands allow 100.",
+    "example": {
+      "setting": "progressHudFadeSeconds",
+      "proposed": {
+        "label": "Recent progress duration",
+        "description": "Choose how long a schematic stays in your recent progress display.",
+        "details": {
+          "gameplay_effect": "Changes display duration only; research and Proficiency gains are unchanged.",
+          "how_to_adjust": "Increase the duration for more reading time, or decrease it to clear the display sooner.",
+          "example": "Use 0 to keep recent history visible until replaced.",
+          "related_settings_and_limits": "The row limit controls how many recent schematics can remain visible."
+        }
+      },
+      "requested_changes": "Consider putting the value beside the slider.",
+      "notes": "Example proposal only; not applied to the row below."
+    }
+  },
+  "window": {
+    "title": "Working Knowledge Settings",
+    "current_layout": {
+      "initial_size": [
+        1120,
+        820
+      ],
+      "minimum_size": [
+        920,
+        560
+      ],
+      "sidebar_width": 238,
+      "margin": 24,
+      "column_gap": 18,
+      "standard_row_height": 92,
+      "numeric_and_text_row_height": 98,
+      "section_heading_height": 68,
+      "navigation_row_height": 38,
+      "scrolling": "Vertical sidebar and page content",
+      "supports": [
+        "drag",
+        "resize",
+        "close button",
+        "Escape"
+      ],
+      "entry_points": [
+        "/wk settings",
+        "Rich HUD Terminal > Working Knowledge > Settings launcher"
+      ]
+    },
+    "requested_changes": "",
+    "notes": ""
+  },
+  "groups": [
+    {
+      "label": "PLAYER SETTINGS",
+      "access": "player",
+      "requested_changes": "",
+      "notes": "",
+      "pages": [
+        {
+          "id": "progress_hud",
+          "label": "Progress HUD",
+          "title": "Progress HUD",
+          "description": "Display and position recent research and Proficiency activity.",
+          "requested_changes": "",
+          "notes": "",
+          "sections": [
+            {
+              "title": "Display",
+              "description": "Visibility, history size, timing, and row order.",
+              "requested_changes": "",
+              "notes": "",
+              "rows": [
+                {
+                  "setting": "progressHudEnabled",
+                  "current": {
+                    "label": "Progress HUD Bars",
+                    "control": "checkbox",
+                    "description": "Shows the Rich HUD progress bar overlay for recent research and Proficiency updates.",
+                    "accepted_values": "true/false"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "progressHudRows",
+                  "current": {
+                    "label": "Progress HUD Rows",
+                    "control": "slider",
+                    "description": "Maximum recent schematic rows shown in the progress bar overlay.",
+                    "accepted_values": "1 to 10"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "progressHudFadeSeconds",
+                  "current": {
+                    "label": "Progress HUD Fade Seconds",
+                    "control": "slider",
+                    "description": "Seconds a progress bar row stays active before fading. Use 0 to keep recent history visible until replaced.",
+                    "accepted_values": "0.0 to 60.0 seconds"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "progressHudOrder",
+                  "current": {
+                    "label": "Progress HUD Order",
+                    "control": "dropdown",
+                    "description": "Row ordering for the progress bar overlay. The default descending order keeps the newest row at the end of the stack.",
+                    "accepted_values": "ascending or descending",
+                    "choices": [
+                      "ascending",
+                      "descending"
+                    ]
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                }
+              ]
+            },
+            {
+              "title": "Placement",
+              "description": "Choose an anchor and adjust its final screen position.",
+              "requested_changes": "",
+              "notes": "",
+              "rows": [
+                {
+                  "setting": "progressHudPosition",
+                  "current": {
+                    "label": "Progress HUD Position",
+                    "control": "dropdown",
+                    "description": "Position preset for the progress bar overlay.",
+                    "accepted_values": "topLeft, topRight, bottomLeft, bottomRight, or center",
+                    "choices": [
+                      "topLeft",
+                      "topRight",
+                      "bottomLeft",
+                      "bottomRight",
+                      "center"
+                    ]
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "progressHudOffsetX",
+                  "current": {
+                    "label": "Progress HUD X Offset",
+                    "control": "slider",
+                    "description": "Horizontal offset added to the progress bar position preset. Positive values move right.",
+                    "accepted_values": "-2.0 to 2.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "progressHudOffsetY",
+                  "current": {
+                    "label": "Progress HUD Y Offset",
+                    "control": "slider",
+                    "description": "Vertical offset added to the progress bar position preset. Positive values move up.",
+                    "accepted_values": "-2.0 to 2.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "player_feedback",
+          "label": "Feedback",
+          "title": "Player Feedback",
+          "description": "Choose how Working Knowledge reports your personal progress.",
+          "requested_changes": "",
+          "notes": "",
+          "sections": [
+            {
+              "title": "Notifications",
+              "description": "Personal chat and popup feedback.",
+              "requested_changes": "",
+              "notes": "",
+              "rows": [
+                {
+                  "setting": "progressChatEnabled",
+                  "current": {
+                    "label": "Progress Chat",
+                    "control": "checkbox",
+                    "description": "Shows your delayed research and Proficiency progress chat messages when world settings allow them.",
+                    "accepted_values": "true/false"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "progressToastEnabled",
+                  "current": {
+                    "label": "Progress Toast",
+                    "control": "checkbox",
+                    "description": "Shows popup progress notifications and botch toasts when world settings allow them. The Rich HUD progress bars are separate.",
+                    "accepted_values": "true/false"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                }
+              ]
+            },
+            {
+              "title": "Chat Thresholds",
+              "description": "Minimum accumulated progress before another chat update.",
+              "requested_changes": "",
+              "notes": "",
+              "rows": [
+                {
+                  "setting": "researchChatSuppressionPercent",
+                  "current": {
+                    "label": "Research Chat Threshold",
+                    "control": "slider",
+                    "description": "Minimum accumulated research percent before another research chat update is shown for you.",
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "proficiencyChatSuppressionPercent",
+                  "current": {
+                    "label": "Proficiency Chat Threshold",
+                    "control": "slider",
+                    "description": "Minimum accumulated Proficiency percent before another Proficiency chat update is shown for you.",
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                }
+              ]
+            },
+            {
+              "title": "Toast Thresholds",
+              "description": "Minimum accumulated progress before another popup update.",
+              "requested_changes": "",
+              "notes": "",
+              "rows": [
+                {
+                  "setting": "researchToastSuppressionPercent",
+                  "current": {
+                    "label": "Research Toast Threshold",
+                    "control": "slider",
+                    "description": "Minimum accumulated research percent before another research toast appears for you.",
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "proficiencyToastSuppressionPercent",
+                  "current": {
+                    "label": "Proficiency Toast Threshold",
+                    "control": "slider",
+                    "description": "Minimum accumulated Proficiency percent before another Proficiency toast appears for you.",
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                }
+              ]
+            },
+            {
+              "title": "Sounds and Warnings",
+              "description": "Completion audio and construction-botch feedback.",
+              "requested_changes": "",
+              "notes": "",
+              "rows": [
+                {
+                  "setting": "completionSoundEnabled",
+                  "current": {
+                    "label": "Completion Sound",
+                    "control": "checkbox",
+                    "description": "Plays your research and Proficiency completion sounds when world settings allow them.",
+                    "accepted_values": "true/false"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "weldBotchSoundEnabled",
+                  "current": {
+                    "label": "Botch Sound",
+                    "control": "checkbox",
+                    "description": "Plays positional botch sounds for you when world settings allow them.",
+                    "accepted_values": "true/false"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "weldBotchWarningCooldownSeconds",
+                  "current": {
+                    "label": "Botch Warning Cooldown",
+                    "control": "text field with Apply button",
+                    "description": "Minimum time before repeating the same botch warning for you. Use default to follow world settings.",
+                    "accepted_values": "default or 0.0 to 30.0 seconds"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                }
+              ]
+            },
+            {
+              "title": "Reset",
+              "description": "Restore all personal settings to their defaults.",
+              "requested_changes": "",
+              "notes": "",
+              "rows": [
+                {
+                  "action": "reset_player_settings",
+                  "current": {
+                    "label": "Reset Player Settings",
+                    "control": "button",
+                    "description": "Removes your overrides and restores the current defaults."
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": ""
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "SERVER SETTINGS",
+      "access": "visible to all; editable by administrators",
+      "requested_changes": "",
+      "notes": "",
+      "pages": [
+        {
+          "id": "difficulty",
+          "label": "Difficulty",
+          "title": "Server Difficulty",
+          "description": "Preset bundles and authoritative world configuration. Administrator access is required.",
+          "requested_changes": "",
+          "notes": "",
+          "sections": [
+            {
+              "title": "Preset",
+              "description": "Apply a complete balance preset or reset all server settings.",
+              "requested_changes": "",
+              "notes": "",
+              "rows": [
+                {
+                  "setting": "difficultyPreset",
+                  "current": {
+                    "label": "Difficulty Preset",
+                    "control": "dropdown",
+                    "description": "Applies a complete Working Knowledge difficulty preset.",
+                    "choices": [
+                      "novice",
+                      "easy",
+                      "medium",
+                      "hard",
+                      "extreme",
+                      "custom"
+                    ],
+                    "disabled_choices": [
+                      "custom"
+                    ]
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "action": "reset_server_settings",
+                  "current": {
+                    "label": "Reset Server Settings",
+                    "control": "button",
+                    "description": "Restores the complete easy preset and all authoritative defaults."
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": ""
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "server_research",
+          "label": "Research",
+          "title": "Research",
+          "description": "Authoritative research settings for this world. Administrator access is required.",
+          "requested_changes": "",
+          "notes": "",
+          "sections": [
+            {
+              "title": "Research",
+              "description": "Discovery gains, research efficiency, and data-item behavior.",
+              "requested_changes": "",
+              "notes": "",
+              "rows": [
+                {
+                  "setting": "dataFragmentsEnabled",
+                  "current": {
+                    "label": "Research Data Items",
+                    "control": "checkbox",
+                    "description": "Enables consumable data fragments and data schematics. Disabled items are refunded and grant no research.",
+                    "accepted_values": "true/false"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "researchScale",
+                  "current": {
+                    "label": "Research Scale",
+                    "control": "slider",
+                    "description": "Global multiplier for all active research gain.",
+                    "accepted_values": "0.0 to 100.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "researchGrindingGainScale",
+                  "current": {
+                    "label": "Grinding Research Scale",
+                    "control": "slider",
+                    "description": "Multiplier for schematic research gained by grinding blocks.",
+                    "accepted_values": "0.0 to 100.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "dataFragmentRewardScale",
+                  "current": {
+                    "label": "Data Fragment Reward Scale",
+                    "control": "slider",
+                    "description": "Multiplier for partial research progress granted by consumable data fragments.",
+                    "accepted_values": "0.0 to 100.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "dataFragmentLootScale",
+                  "current": {
+                    "label": "Data Fragment Loot Scale",
+                    "control": "slider",
+                    "description": "Multiplier for data fragment loot frequency in patched container definitions. Existing spawned containers are not retroactive.",
+                    "accepted_values": "0.0 to 100.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "researchEfficiencyStart",
+                  "current": {
+                    "label": "Research Start Efficiency",
+                    "control": "slider",
+                    "description": "Research efficiency at 0% known. Higher values front-load discovery.",
+                    "accepted_values": "0.0 to 10.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "researchEfficiencyEnd",
+                  "current": {
+                    "label": "Research End Efficiency",
+                    "control": "slider",
+                    "description": "Research efficiency near 100% known. Lower values slow the final stretch.",
+                    "accepted_values": "0.0 to 10.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "server_proficiency",
+          "label": "Proficiency",
+          "title": "Proficiency",
+          "description": "Authoritative proficiency settings for this world. Administrator access is required.",
+          "requested_changes": "",
+          "notes": "",
+          "sections": [
+            {
+              "title": "Proficiency",
+              "description": "Hands-on skill gains, thresholds, and work consequences.",
+              "requested_changes": "",
+              "notes": "",
+              "rows": [
+                {
+                  "setting": "proficiencyEnabled",
+                  "current": {
+                    "label": "Proficiency",
+                    "control": "checkbox",
+                    "description": "Enables the player-only hands-on Proficiency system.",
+                    "accepted_values": "true/false"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "proficiencyGainScale",
+                  "current": {
+                    "label": "Proficiency Scale",
+                    "control": "slider",
+                    "description": "Global multiplier for hands-on Proficiency gain.",
+                    "accepted_values": "0.0 to 100.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "proficiencyGrindingGainScale",
+                  "current": {
+                    "label": "Grinding Proficiency Scale",
+                    "control": "slider",
+                    "description": "Multiplier for Proficiency gained by grinding.",
+                    "accepted_values": "0.0 to 100.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "proficiencyWeldingGainScale",
+                  "current": {
+                    "label": "Welding Proficiency Scale",
+                    "control": "slider",
+                    "description": "Multiplier for Proficiency gained by welding and repairing.",
+                    "accepted_values": "0.0 to 100.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "proficiencyFirstThreshold",
+                  "current": {
+                    "label": "Proficiency First Threshold",
+                    "control": "slider",
+                    "description": "End of the fast first Proficiency segment.",
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.8 means 80%"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "proficiencySecondThreshold",
+                  "current": {
+                    "label": "Proficiency Second Threshold",
+                    "control": "slider",
+                    "description": "End of the slow second Proficiency segment. The default 100% value makes Proficiency a two-stage curve.",
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.8 means 80%"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "proficiencyFirstSegmentRate",
+                  "current": {
+                    "label": "Proficiency First Rate",
+                    "control": "slider",
+                    "description": "Base progress earned per table work reward unit in the fast segment before the segment curve is applied.",
+                    "accepted_values": "0.0 to 10.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "proficiencySecondSegmentRate",
+                  "current": {
+                    "label": "Proficiency Second Rate",
+                    "control": "slider",
+                    "description": "Base progress earned per table work reward unit in the slow segment before the segment curve is applied.",
+                    "accepted_values": "0.0 to 10.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "proficiencyFinalSegmentRate",
+                  "current": {
+                    "label": "Proficiency Final Rate",
+                    "control": "slider",
+                    "description": "Optional final segment base rate used only when the second threshold is below 100%.",
+                    "accepted_values": "0.0 to 10.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "server_botches",
+          "label": "Botches",
+          "title": "Botches",
+          "description": "Authoritative botches settings for this world. Administrator access is required.",
+          "requested_changes": "",
+          "notes": "",
+          "sections": [
+            {
+              "title": "Botches",
+              "description": "Construction failure chance, pressure, losses, forgiveness, and audio.",
+              "requested_changes": "",
+              "notes": "",
+              "rows": [
+                {
+                  "setting": "proficiencyWeldingLossEnabled",
+                  "current": {
+                    "label": "Welding Botches",
+                    "control": "checkbox",
+                    "description": "Enables low-Proficiency construction botches while welding.",
+                    "accepted_values": "true/false"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "proficiencyBuildCapEnabled",
+                  "current": {
+                    "label": "Build Cap Pressure",
+                    "control": "checkbox",
+                    "description": "Enables guaranteed failure at the current post-functional Proficiency cap.",
+                    "accepted_values": "true/false"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "weldBotchBaseChance",
+                  "current": {
+                    "label": "Botch Base Chance",
+                    "control": "slider",
+                    "description": "Botch chance scale near the functional threshold. The medium value maps to inverse Proficiency.",
+                    "accepted_values": "0.0 to 1.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "weldBotchMaxChance",
+                  "current": {
+                    "label": "Botch Max Chance",
+                    "control": "slider",
+                    "description": "Maximum normal botch chance before the Proficiency cap forces guaranteed failure.",
+                    "accepted_values": "0.0 to 1.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "weldBotchChanceScale",
+                  "current": {
+                    "label": "Botch Chance Scale",
+                    "control": "slider",
+                    "description": "Difficulty-facing multiplier for botch chance before the max chance clamp.",
+                    "accepted_values": "0.0 to 100.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "weldBotchPostFunctionalPressure",
+                  "current": {
+                    "label": "Post-Functional Botch Pressure",
+                    "control": "slider",
+                    "description": "Shapes the post-functional botch-zone climb.",
+                    "accepted_values": "0.0 to 100.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "weldBotchSoftCapPressure",
+                  "current": {
+                    "label": "Soft-Cap Botch Pressure",
+                    "control": "slider",
+                    "description": "Shapes the post-functional Proficiency cap pressure.",
+                    "accepted_values": "0.0 to 100.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "weldBotchPressureScale",
+                  "current": {
+                    "label": "Botch Pressure Scale",
+                    "control": "slider",
+                    "description": "Difficulty-facing multiplier for post-functional botch pressure curves.",
+                    "accepted_values": "0.0 to 100.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "weldBotchRawLossRatio",
+                  "current": {
+                    "label": "Botch Damage Ratio",
+                    "control": "slider",
+                    "description": "Raw integrity loss as a multiple of the triggering positive integrity delta.",
+                    "accepted_values": "0.0 to 10.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "weldBotchForgivenessScale",
+                  "current": {
+                    "label": "Botch Forgiveness Scale",
+                    "control": "slider",
+                    "description": "Multiplier for returned component forgiveness after botch damage. Higher is gentler.",
+                    "accepted_values": "0.0 to 100.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "server_salvage",
+          "label": "Salvage",
+          "title": "Salvage",
+          "description": "Authoritative salvage settings for this world. Administrator access is required.",
+          "requested_changes": "",
+          "notes": "",
+          "sections": [
+            {
+              "title": "Salvage",
+              "description": "Grinding recovery and low-Proficiency scrap conversion.",
+              "requested_changes": "",
+              "notes": "",
+              "rows": [
+                {
+                  "setting": "salvageScrapEnabled",
+                  "current": {
+                    "label": "Salvage Scrap",
+                    "control": "checkbox",
+                    "description": "Enables low-Proficiency salvage conversion from recovered components into scrap.",
+                    "accepted_values": "true/false"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "salvageScale",
+                  "current": {
+                    "label": "Salvage Scale",
+                    "control": "slider",
+                    "description": "Multiplier for intact component recovery before the 100% cap.",
+                    "accepted_values": "0.0 to 100.0"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "salvageScrapYield",
+                  "current": {
+                    "label": "Salvage Scrap Yield",
+                    "control": "slider",
+                    "description": "Mass ratio returned as scrap ore when low-Proficiency grinding converts components to scrap.",
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.2 means 20%"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "proficiencyGrindingLossEnabled",
+                  "current": {
+                    "label": "Grinding Loss",
+                    "control": "checkbox",
+                    "description": "Enables Proficiency-biased scrap recovery while grinding.",
+                    "accepted_values": "true/false"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "server_feedback",
+          "label": "Feedback Defaults",
+          "title": "Feedback Defaults",
+          "description": "Authoritative feedback settings for this world. Administrator access is required.",
+          "requested_changes": "",
+          "notes": "",
+          "sections": [
+            {
+              "title": "Feedback",
+              "description": "World defaults for new players and shared notification behavior.",
+              "requested_changes": "",
+              "notes": "",
+              "rows": [
+                {
+                  "setting": "notificationDelaySeconds",
+                  "current": {
+                    "label": "Notification Delay",
+                    "control": "slider",
+                    "description": "World delay used to combine repeated progress updates before chat/toast feedback.",
+                    "accepted_values": "0.1 to 30.0 seconds"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "defaultProgressChatEnabled",
+                  "current": {
+                    "label": "Default Progress Chat",
+                    "control": "checkbox",
+                    "description": "World default for delayed progress chat messages.",
+                    "accepted_values": "true/false"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "defaultProgressToastEnabled",
+                  "current": {
+                    "label": "Default Progress Toast",
+                    "control": "checkbox",
+                    "description": "World default for popup progress notifications and botch toasts. The Rich HUD progress bars are separate.",
+                    "accepted_values": "true/false"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "defaultResearchChatSuppressionPercent",
+                  "current": {
+                    "label": "Default Research Chat Threshold",
+                    "control": "slider",
+                    "description": "World default/minimum accumulated research percent before another research chat update is shown.",
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "defaultProficiencyChatSuppressionPercent",
+                  "current": {
+                    "label": "Default Proficiency Chat Threshold",
+                    "control": "slider",
+                    "description": "World default/minimum accumulated Proficiency percent before another Proficiency chat update is shown.",
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "defaultResearchToastSuppressionPercent",
+                  "current": {
+                    "label": "Default Research Toast Threshold",
+                    "control": "slider",
+                    "description": "World default/minimum accumulated research percent before another research toast appears.",
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "defaultProficiencyToastSuppressionPercent",
+                  "current": {
+                    "label": "Default Proficiency Toast Threshold",
+                    "control": "slider",
+                    "description": "World default/minimum accumulated Proficiency percent before another Proficiency toast appears.",
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "defaultCompletionSoundEnabled",
+                  "current": {
+                    "label": "Default Completion Sound",
+                    "control": "checkbox",
+                    "description": "World default for completed research and mastered Proficiency sounds.",
+                    "accepted_values": "true/false"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "defaultWeldBotchWarningCooldownSeconds",
+                  "current": {
+                    "label": "Default Botch Warning Cooldown",
+                    "control": "slider",
+                    "description": "World default/minimum time before repeating the same botch warning for the same player/block.",
+                    "accepted_values": "0.0 to 30.0 seconds"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "defaultWeldBotchSoundEnabled",
+                  "current": {
+                    "label": "Default Botch Sound",
+                    "control": "checkbox",
+                    "description": "World default for botch warning sounds.",
+                    "accepted_values": "true/false"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "weldBotchSoundSubtype",
+                  "current": {
+                    "label": "Botch Sound Subtype",
+                    "control": "text field with Apply button",
+                    "description": "Sound subtype played for weld botches.",
+                    "accepted_values": "Space Engineers audio subtype"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "weldBotchSoundRange",
+                  "current": {
+                    "label": "Botch Sound Range",
+                    "control": "slider",
+                    "description": "Range in meters for positional botch sounds.",
+                    "accepted_values": "0.0 to 1000.0 meters"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "server_defaults",
+          "label": "New Player Defaults",
+          "title": "New Player Defaults",
+          "description": "Authoritative defaults settings for this world. Administrator access is required.",
+          "requested_changes": "",
+          "notes": "",
+          "sections": [
+            {
+              "title": "Defaults",
+              "description": "Starting research and Proficiency granted to new or joining players.",
+              "requested_changes": "",
+              "notes": "",
+              "rows": [
+                {
+                  "setting": "fundamentalsResearchUnlocked",
+                  "current": {
+                    "label": "Fundamentals Research",
+                    "control": "checkbox",
+                    "description": "Grants the baseline Fundamentals schematic to new/joining players.",
+                    "accepted_values": "true/false"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                },
+                {
+                  "setting": "fundamentalsProficiencyProgress",
+                  "current": {
+                    "label": "Fundamentals Proficiency",
+                    "control": "slider",
+                    "description": "Minimum baseline Proficiency for Fundamentals.",
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.8 means 80%"
+                  },
+                  "proposed": {
+                    "label": "",
+                    "control": "",
+                    "description": "",
+                    "details": {
+                      "gameplay_effect": "",
+                      "how_to_adjust": "",
+                      "example": "",
+                      "related_settings_and_limits": ""
+                    }
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "INFORMATION",
+      "access": "all players",
+      "requested_changes": "",
+      "notes": "",
+      "pages": [
+        {
+          "id": "help",
+          "label": "Help",
+          "title": "Working Knowledge Settings",
+          "description": "A compact Rich HUD interface backed by the existing server-authoritative command system.",
+          "requested_changes": "",
+          "notes": "",
+          "sections": [
+            {
+              "title": "Using This Window",
+              "description": "Settings are grouped by ownership and purpose.",
+              "requested_changes": "",
+              "notes": "",
+              "rows": [
+                {
+                  "current": {
+                    "control": "information text",
+                    "description": "Player settings affect only you. Server settings remain visible to everyone but can only be changed by an administrator. Every change uses the same validation, saving, and multiplayer path as the /wk commands."
+                  },
+                  "proposed": {
+                    "description": ""
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                }
+              ]
+            },
+            {
+              "title": "Commands Remain Available",
+              "description": "The graphical interface is optional.",
+              "requested_changes": "",
+              "notes": "",
+              "rows": [
+                {
+                  "current": {
+                    "control": "information text",
+                    "description": "Use /wk settings to reopen this window. Existing /wk config, /wk difficulty, and category help commands remain fully supported."
+                  },
+                  "proposed": {
+                    "description": ""
+                  },
+                  "requested_changes": "",
+                  "notes": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
