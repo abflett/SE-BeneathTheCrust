@@ -62,6 +62,9 @@ namespace WkKn
                 return new WkSettingPresentation(minimum, maximum, 1.0, 0, 1.0, string.Empty);
 
             var key = WkConfigStore.NormalizeKey(setting);
+            if (key.IndexOf("segmentrate", StringComparison.Ordinal) >= 0)
+                return new WkSettingPresentation(0.0, key == "proficiencyfirstsegmentrate" ? 1.0 : 0.1, 0.0001, 2, 100.0, "%");
+
             if (IsPercentRatio(key))
             {
                 var step = key.IndexOf("segmentrate", StringComparison.Ordinal) >= 0 ? 0.001 : 0.01;
@@ -86,13 +89,13 @@ namespace WkKn
                 return new WkSettingPresentation(0.0, 10.0, 0.1, 1, 1.0, string.Empty);
 
             if (key.IndexOf("seconds", StringComparison.Ordinal) >= 0 || key.IndexOf("cooldown", StringComparison.Ordinal) >= 0)
-                return new WkSettingPresentation(minimum, maximum, 0.1, 1, 1.0, " s");
+                return new WkSettingPresentation(minimum, Math.Min(maximum, key == "progresshudfadeseconds" ? 30.0 : 10.0), 0.1, 1, 1.0, " s");
 
             if (key == "weldbotchsoundrange")
-                return new WkSettingPresentation(minimum, maximum, 5.0, 0, 1.0, " m");
+                return new WkSettingPresentation(minimum, Math.Min(maximum, 100.0), 1.0, 0, 1.0, " m");
 
             if (key == "progresshudoffsetx" || key == "progresshudoffsety")
-                return new WkSettingPresentation(minimum, maximum, 0.05, 2, 1.0, string.Empty);
+                return new WkSettingPresentation(-1.0, 1.0, 0.01, 2, 1.0, string.Empty);
 
             return new WkSettingPresentation(minimum, maximum, 0.01, 2, 1.0, string.Empty);
         }

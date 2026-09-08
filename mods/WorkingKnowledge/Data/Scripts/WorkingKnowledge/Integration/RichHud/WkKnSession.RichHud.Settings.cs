@@ -4,6 +4,8 @@ namespace WkKn
 {
     public partial class WkKnSession
     {
+        private WkTextHudSettingsLauncher textHudSettingsLauncher;
+
         private void OnRichHudReady()
         {
             richHudSettingsReady = true;
@@ -23,6 +25,12 @@ namespace WkKn
 
         private void UpdateRichHudSettings()
         {
+            if (MyAPIGateway.Utilities != null && !MyAPIGateway.Utilities.IsDedicated)
+            {
+                if (textHudSettingsLauncher == null)
+                    textHudSettingsLauncher = new WkTextHudSettingsLauncher(OpenRichHudSettings);
+                textHudSettingsLauncher.Update();
+            }
             FlushRichHudSettingsCommands();
             if (!richHudSettingsReady)
                 return;

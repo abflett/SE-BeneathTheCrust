@@ -16,6 +16,7 @@ namespace WkKn
     internal sealed class WkSettingsWindow : WindowBase
     {
         private const float SidebarWidth = 238f;
+        private readonly ScaledSpaceNode responsiveRoot;
         private const float WindowMargin = 24f;
         private const float ColumnGap = 18f;
 
@@ -48,8 +49,10 @@ namespace WkKn
             Action<string, string, string, bool> applyValue,
             Action<string, string> applyDifficulty,
             Action<bool> resetConfig)
-            : base(HudMain.HighDpiRoot)
+            : base(new ScaledSpaceNode(HudMain.HighDpiRoot))
         {
+            responsiveRoot = (ScaledSpaceNode)Parent;
+            responsiveRoot.UpdateScaleFunc = GetWindowScale;
             this.playerStore = playerStore;
             this.worldStore = worldStore;
             this.getPlayerConfig = getPlayerConfig;
@@ -116,8 +119,8 @@ namespace WkKn
             RichHudTerminal.CloseMenu();
             if (!Visible)
             {
-                var screen = HudMain.ScreenDimHighDPI;
-                Offset = (screen - Size) * .5f - new Vector2(40f);
+                FitToScreen();
+                Offset = Vector2.Zero;
                 Visible = true;
             }
 
@@ -151,6 +154,7 @@ namespace WkKn
             SharedBinds.Escape.NewPressed -= OnEscapePressed;
             Visible = false;
             Unregister();
+            responsiveRoot.Unregister();
             pages.Clear();
             rows.Clear();
             worldRows.Clear();
@@ -160,6 +164,7 @@ namespace WkKn
 
         protected override void Layout()
         {
+            FitToScreen();
             base.Layout();
 
             BodyColor = bodyBaseColor.SetAlphaPct(HudMain.UiBkOpacity);
@@ -189,8 +194,22 @@ namespace WkKn
 
             base.HandleInput(cursorPos);
 
-            var halfScreen = HudMain.ScreenDimHighDPI * .5f;
-            Offset = Vector2.Clamp(Offset, -halfScreen, halfScreen);
+            FitToScreen();
+        }
+
+        private static float GetWindowScale()
+        {
+            var screen = HudMain.ScreenDimHighDPI;
+            return Math.Max(.1f, Math.Min(1f, Math.Min((screen.X - 48f) / 920f, (screen.Y - 48f) / 560f)));
+        }
+
+        private void FitToScreen()
+        {
+            var available = (HudMain.ScreenDimHighDPI - new Vector2(48f)) / GetWindowScale();
+            available = Vector2.Max(available, MinimumSize);
+            Size = Vector2.Clamp(Size, MinimumSize, available);
+            var travel = Vector2.Max(Vector2.Zero, (available - Size) * .5f);
+            Offset = Vector2.Clamp(Offset, -travel, travel);
         }
 
         private void BuildPages()
@@ -383,6 +402,8 @@ namespace WkKn
                 definition.ValueHint,
                 definition.ControlKind,
                 definition.Presentation,
+                definition.Minimum,
+                definition.Maximum,
                 definition.Choices,
                 delegate
                 {
@@ -401,6 +422,8 @@ namespace WkKn
                 definition.ValueHint,
                 definition.ControlKind,
                 definition.Presentation,
+                definition.Minimum,
+                definition.Maximum,
                 definition.Choices,
                 delegate
                 {
@@ -417,6 +440,8 @@ namespace WkKn
             string valueHint,
             WkSettingControlKind kind,
             WkSettingPresentation presentation,
+            double minimum,
+            double maximum,
             string[] choices,
             Func<string> getValue,
             bool isWorld)
@@ -435,7 +460,7 @@ namespace WkKn
             if (kind == WkSettingControlKind.Boolean)
                 row = new BooleanSettingRow(title, description, tooltip, getValue, changed);
             else if (kind == WkSettingControlKind.Number || kind == WkSettingControlKind.Integer)
-                row = new SliderSettingRow(title, description, tooltip, getValue, changed, presentation, kind == WkSettingControlKind.Integer);
+                row = new SliderSettingRow(title, description, tooltip, getValue, changed, presentation, kind == WkSettingControlKind.Integer, minimum, maximum);
             else if (kind == WkSettingControlKind.Choice)
                 row = new ChoiceSettingRow(title, description, tooltip, getValue, changed, choices);
             else if (kind == WkSettingControlKind.ReadOnly)
@@ -520,12 +545,12 @@ namespace WkKn
             return bool.TryParse(value, out parsed) && parsed;
         }
 
-        private static float ParseFloat(string value)
+        private static double ParseNumber(string value)
         {
-            float parsed;
-            return float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out parsed) &&
-                   !float.IsNaN(parsed) &&
-                   !float.IsInfinity(parsed)
+            double parsed;
+            return double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out parsed) &&
+                   !double.IsNaN(parsed) &&
+                   !double.IsInfinity(parsed)
                 ? parsed
                 : 0f;
         }
@@ -535,18 +560,6 @@ namespace WkKn
             return integer
                 ? ((int)Math.Round(value)).ToString(CultureInfo.InvariantCulture)
                 : value.ToString("0.######", CultureInfo.InvariantCulture);
-        }
-
-        private static string FormatDisplayValue(double canonicalValue, bool integer, WkSettingPresentation presentation)
-        {
-            if (integer)
-                return ((int)Math.Round(canonicalValue)).ToString(CultureInfo.InvariantCulture) + presentation.Suffix;
-
-            var displayed = canonicalValue * presentation.DisplayMultiplier;
-            var format = presentation.DecimalPlaces <= 0
-                ? "0"
-                : "0." + new string('#', presentation.DecimalPlaces);
-            return displayed.ToString(format, CultureInfo.InvariantCulture) + presentation.Suffix;
         }
 
         private static double Quantize(double value, WkSettingPresentation presentation)
@@ -807,28 +820,48 @@ namespace WkKn
         private sealed class SliderSettingRow : SettingRow
         {
             private readonly SliderBox control;
-            private readonly Label valueLabel;
+            private readonly TextField valueField;
+            private readonly BorderedButton apply;
+            private readonly double minimum, maximum;
+            private string lastFieldText = string.Empty;
             private readonly Func<string> getter;
             private readonly Action<string> changed;
             private readonly bool integer;
             private readonly WkSettingPresentation presentation;
             private bool refreshing;
 
-            internal SliderSettingRow(string title, string description, string tooltip, Func<string> getter, Action<string> changed, WkSettingPresentation presentation, bool integer)
+            internal SliderSettingRow(string title, string description, string tooltip, Func<string> getter, Action<string> changed, WkSettingPresentation presentation, bool integer, double minimum, double maximum)
                 : base(title, description, 98f)
             {
                 this.getter = getter;
                 this.changed = changed;
                 this.integer = integer;
                 this.presentation = presentation;
-                valueLabel = new Label(this)
+                this.minimum = minimum;
+                this.maximum = maximum;
+                valueField = new TextField(this)
                 {
-                    AutoResize = false,
-                    Format = TerminalFormatting.ControlFormat.WithAlignment(TextAlignment.Right),
+                    Text = string.Empty,
                     ParentAlignment = ParentAlignments.InnerRight,
-                    Size = new Vector2(280f, 24f),
-                    Offset = new Vector2(-20f, 17f),
+                    Size = new Vector2(190f, 32f),
+                    Offset = new Vector2(-100f, 20f),
                 };
+                valueField.MouseInput.ToolTip = "Enter a value, then Apply. Valid range: " +
+                    (minimum * presentation.DisplayMultiplier).ToString("0.######", CultureInfo.InvariantCulture) + " to " +
+                    (maximum * presentation.DisplayMultiplier).ToString("0.######", CultureInfo.InvariantCulture) + presentation.Suffix +
+                    ". The unit suffix is optional.\nSlider range: " +
+                    (presentation.Minimum * presentation.DisplayMultiplier).ToString("0.######", CultureInfo.InvariantCulture) + " to " +
+                    (presentation.Maximum * presentation.DisplayMultiplier).ToString("0.######", CultureInfo.InvariantCulture) + presentation.Suffix + ".\n" + description;
+                apply = new BorderedButton(this)
+                {
+                    Text = "Apply",
+                    ParentAlignment = ParentAlignments.InnerRight,
+                    Size = new Vector2(72f, 32f),
+                    Padding = Vector2.Zero,
+                    TextPadding = Vector2.Zero,
+                    Offset = new Vector2(-20f, 20f),
+                };
+                apply.MouseInput.LeftClicked += delegate { ApplyTypedValue(); };
                 control = new SliderBox(this)
                 {
                     Min = presentation.SliderScale == WkSettingSliderScale.LogarithmicWithZero ? 0f : (float)presentation.Minimum,
@@ -843,17 +876,42 @@ namespace WkKn
 
             internal override void Refresh()
             {
-                var canonicalValue = ParseFloat(getter());
+                var canonicalValue = ParseNumber(getter());
                 refreshing = true;
                 control.Value = ToSliderValue(canonicalValue, presentation);
                 refreshing = false;
-                valueLabel.Text = FormatDisplayValue(canonicalValue, integer, presentation);
+                if (!valueField.FocusHandler.HasFocus && valueField.Value.ToString() == lastFieldText)
+                    SetFieldValue(canonicalValue);
             }
 
             protected override void LayoutControl(float width)
             {
                 control.Width = width;
-                valueLabel.Width = width;
+                valueField.Width = Math.Max(100f, width - 80f);
+            }
+
+            private void SetFieldValue(double canonicalValue)
+            {
+                // Keep typed precision; slider steps apply only to slider gestures.
+                lastFieldText = (canonicalValue * presentation.DisplayMultiplier).ToString("0.######", CultureInfo.InvariantCulture) + presentation.Suffix;
+                valueField.Text = lastFieldText;
+            }
+
+            private void ApplyTypedValue()
+            {
+                if (!Editable)
+                    return;
+
+                string value, error;
+                if (!WkSettingNumericInput.TryParse(valueField.Value.ToString(), presentation.DisplayMultiplier,
+                    presentation.Suffix, minimum, maximum, integer, out value, out error))
+                {
+                    MyAPIGateway.Utilities.ShowNotification(error, 4000, "Red");
+                    return;
+                }
+
+                lastFieldText = valueField.Value.ToString();
+                changed(value);
             }
 
             private void OnValueChanged(object sender, EventArgs args)
@@ -863,11 +921,11 @@ namespace WkKn
 
                 var canonicalValue = Quantize(FromSliderValue(control.Value, presentation), presentation);
                 var value = FormatCanonicalValue(canonicalValue, integer);
-                valueLabel.Text = FormatDisplayValue(canonicalValue, integer, presentation);
-                var authoritative = ParseFloat(getter());
+                SetFieldValue(canonicalValue);
+                var authoritative = ParseNumber(getter());
                 if (!Editable || (integer
                     ? (int)Math.Round(canonicalValue) == (int)Math.Round(authoritative)
-                    : Math.Abs(canonicalValue - authoritative) < Math.Max(.000001, presentation.Step * .25)))
+                    : Math.Abs(canonicalValue - authoritative) < 0.0000005))
                     return;
 
                 changed(value);

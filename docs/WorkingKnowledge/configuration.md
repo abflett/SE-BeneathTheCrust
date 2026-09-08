@@ -1,5 +1,27 @@
 # Working Knowledge Configuration
 
+### Graphical numeric controls
+
+Every numeric slider also has a value box and **Apply** button. Type in the displayed units: `5` or `5%` means 5% in a percentage box, `25` or `25x` means a 25x multiplier. The unit suffix is optional. Chat commands continue to use canonical ratios, so their equivalent of 5% is `0.05`.
+
+Sliders cover practical tuning ranges; the value box accepts the full valid setting range, shown in its tooltip. Opening or refreshing the panel does not clamp a saved value to the slider range. Typed values are not snapped to slider steps; command precision remains six decimal places. Invalid input leaves the setting unchanged.
+
+| Controls | Slider range | Value-box range |
+| --- | --- | --- |
+| Gain, reward, loot, salvage, efficiency, botch multipliers | 0–10x, logarithmic with zero | Existing limit: 10x or 100x, depending on setting |
+| Probabilities, thresholds, starting Proficiency, scrap yield | 0–100% | 0–100% |
+| First Proficiency segment rate | 0–100% | 0–1000% |
+| Second and final Proficiency segment rates | 0–10% | 0–1000% |
+| Botch pressure shape values | 0–10 | 0–100 |
+| HUD rows | 1–10 | 1–10, whole numbers |
+| HUD X/Y offsets | −1 to 1 | −2 to 2 |
+| HUD fade | 0–30 seconds | 0–60 seconds |
+| Notification delay | 0.1–10 seconds | 0.1–30 seconds |
+| World botch warning cooldown | 0–10 seconds | 0–30 seconds |
+| Botch sound range | 0–100 metres | 0–1000 metres |
+
+The personal botch warning cooldown retains its text box so it can also accept `default`.
+
 This guide explains the in-game Working Knowledge commands, player feedback settings, admin tuning controls, and persisted configuration fields used by the mod.
 
 Start in-game with:

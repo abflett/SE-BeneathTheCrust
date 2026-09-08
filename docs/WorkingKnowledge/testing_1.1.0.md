@@ -14,6 +14,13 @@ Load Rich HUD Master Workshop item `1965654081`. Text HUD API should not be requ
 
 ## Single Player
 
+- Run `tools/test-working-knowledge-settings.ps1` for numeric input conversion and rejection checks.
+- On first opening, verify every slider value box contains the current value. Enter `25x` for Research Scale and confirm Apply retains it beyond the slider's 10x range, including after page navigation and save/reload. Dragging the slider must return to its practical range only when actually changed.
+- Enter `5` and `5%` in a percentage field; both must mean 5%. Check precise values, valid endpoints, invalid numbers, non-finite input, incorrect units, and fractional row counts. Invalid drafts must remain editable and must not change the setting.
+- Leave a value partially typed while settings refresh; the draft must remain intact. Apply, switch pages, and verify the acknowledged value. Non-admin value boxes and Apply buttons must not permit world changes.
+- Test window opening, dragging, resizing, and closing at 16:9, ultrawide, and a small or narrow viewport. The entire window, including its close button, must stay inside the screen. Verify cursor hit positions after automatic scaling.
+- With Text HUD API also loaded, open its player menu (chat plus F2), select Working Knowledge > Open settings, then close chat. Verify the same Rich HUD window opens. Repeat without Text HUD API; normal entry points must still work. Without Rich HUD Master, the optional launcher should report that it is unavailable. Rejoin a world and check for duplicate launchers.
+
 - Confirm the client log reports that Rich HUD Master connected without a Working Knowledge exception.
 - Run `/wk settings` and confirm it opens the dedicated Working Knowledge Settings window directly to Progress HUD.
 - Confirm the compact sidebar exposes Player Settings, Server Settings, and Help; every page must use full-width stacked rows and vertical scrolling without a horizontal control strip.

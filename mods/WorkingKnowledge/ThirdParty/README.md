@@ -8,3 +8,5 @@ Working Knowledge bundles the official **Rich HUD Framework Full Client 1.3.0.0*
 - License: MIT; see `RichHudFramework.LICENSE.txt`
 
 The bundled client is an integration bridge, not the Rich HUD Master implementation. Players and servers still need the Rich HUD Master Workshop dependency (`1965654081`) loaded for the overlay and settings menu to render.
+
+`Integration/RichHud/WkTextHudSettingsLauncher.cs` optionally connects to the public Text HUD API menu protocol when that mod (`758597413`) is already loaded. It adds a player-menu launcher only; no Text HUD rendering client is bundled and no additional required dependency is introduced. The protocol IDs and callbacks were checked against the installed Text HUD API `HudAPIv2.cs` menu classes. Upstream project: <https://github.com/DraygoKorvan/HUDApi>.

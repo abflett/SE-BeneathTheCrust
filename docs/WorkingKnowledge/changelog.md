@@ -4,6 +4,10 @@ Public-facing release notes for the standalone **Working Knowledge** Space Engin
 
 ## 1.1.0 - Rich HUD Settings - In Development
 
+Added editable value boxes beside every numeric slider. Apply accepts the setting's full valid range independently of the slider's practical range, preserves finer typed precision, and validates displayed units (including percentages) before sending the existing authoritative command. Narrower timing, placement, sound-range, and later Proficiency-rate sliders make everyday tuning easier.
+
+The settings window now centers and fits within the available screen, clamps its full bounds during dragging/resizing, and scales down on small viewports while retaining Rich HUD's DPI scaling. An optional Text HUD API player-menu launcher opens the same Rich HUD window after chat closes; Text HUD API is not a required dependency.
+
 Migrated the recent research and Proficiency progress overlay from Text HUD API to Rich HUD Master. The replacement preserves the compact two-bar schematic rows while using Rich HUD's high-DPI layout and shared settings interface.
 
 Restored the original compact visual layering, with each schematic label overlapping the upper research bar instead of sitting in a separate row above it.

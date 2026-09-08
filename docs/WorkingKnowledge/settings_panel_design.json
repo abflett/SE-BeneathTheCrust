@@ -55,11 +55,14 @@
       ],
       "entry_points": [
         "/wk settings",
-        "Rich HUD Terminal > Working Knowledge > Settings launcher"
-      ]
+        "Rich HUD Terminal > Working Knowledge > Settings launcher",
+        "Text HUD API player menu > Working Knowledge > Open settings (when installed; close chat to continue)"
+      ],
+      "sizing": "Initial and minimum sizes are logical units; window bounds fit the current viewport with 24-unit screen margins and additional scaling when needed."
     },
     "requested_changes": "",
-    "notes": ""
+    "notes": "There is another popular UI frame works I forgot the name Hud text (the previous hud api) or something, but it might be worth it to also add it's entry point as well. Sizing maybe should be reactive as people use different resolutions and aspect ratios. The current size is a good starting point, but it might be worth it to make the window size reactive to the screen resolution. Though maybe it is already if using world units or something.",
+    "implementation_notes": "Uses Rich HUD DPI units; now centers and fits the full window to the available screen. Very small viewports get additional uniform scaling. Optional Text HUD API player-menu launcher waits for chat to close before opening the Rich HUD window. Pending in-game validation."
   },
   "groups": [
     {
@@ -108,9 +111,19 @@
                   "setting": "progressHudRows",
                   "current": {
                     "label": "Progress HUD Rows",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Maximum recent schematic rows shown in the progress bar overlay.",
-                    "accepted_values": "1 to 10"
+                    "accepted_values": "1 to 10",
+                    "numeric_input": {
+                      "units": "whole number",
+                      "slider_minimum": 1.0,
+                      "slider_maximum": 10.0,
+                      "slider_step": 1,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 1.0,
+                      "value_box_maximum": 10.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -130,9 +143,19 @@
                   "setting": "progressHudFadeSeconds",
                   "current": {
                     "label": "Progress HUD Fade Seconds",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Seconds a progress bar row stays active before fading. Use 0 to keep recent history visible until replaced.",
-                    "accepted_values": "0.0 to 60.0 seconds"
+                    "accepted_values": "0.0 to 60.0 seconds",
+                    "numeric_input": {
+                      "units": "s",
+                      "slider_minimum": 0.0,
+                      "slider_maximum": 30,
+                      "slider_step": 0.1,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 60.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -215,9 +238,19 @@
                   "setting": "progressHudOffsetX",
                   "current": {
                     "label": "Progress HUD X Offset",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Horizontal offset added to the progress bar position preset. Positive values move right.",
-                    "accepted_values": "-2.0 to 2.0"
+                    "accepted_values": "-2.0 to 2.0",
+                    "numeric_input": {
+                      "units": "number",
+                      "slider_minimum": -1,
+                      "slider_maximum": 1,
+                      "slider_step": 0.01,
+                      "slider_scale": "linear",
+                      "value_box_minimum": -2.0,
+                      "value_box_maximum": 2.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -237,9 +270,19 @@
                   "setting": "progressHudOffsetY",
                   "current": {
                     "label": "Progress HUD Y Offset",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Vertical offset added to the progress bar position preset. Positive values move up.",
-                    "accepted_values": "-2.0 to 2.0"
+                    "accepted_values": "-2.0 to 2.0",
+                    "numeric_input": {
+                      "units": "number",
+                      "slider_minimum": -1,
+                      "slider_maximum": 1,
+                      "slider_step": 0.01,
+                      "slider_scale": "linear",
+                      "value_box_minimum": -2.0,
+                      "value_box_maximum": 2.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -329,9 +372,19 @@
                   "setting": "researchChatSuppressionPercent",
                   "current": {
                     "label": "Research Chat Threshold",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Minimum accumulated research percent before another research chat update is shown for you.",
-                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%"
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%",
+                    "numeric_input": {
+                      "units": "%",
+                      "slider_minimum": 0,
+                      "slider_maximum": 100,
+                      "slider_step": 1.0,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0,
+                      "value_box_maximum": 100,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -351,9 +404,19 @@
                   "setting": "proficiencyChatSuppressionPercent",
                   "current": {
                     "label": "Proficiency Chat Threshold",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Minimum accumulated Proficiency percent before another Proficiency chat update is shown for you.",
-                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%"
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%",
+                    "numeric_input": {
+                      "units": "%",
+                      "slider_minimum": 0,
+                      "slider_maximum": 100,
+                      "slider_step": 1.0,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0,
+                      "value_box_maximum": 100,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -381,9 +444,19 @@
                   "setting": "researchToastSuppressionPercent",
                   "current": {
                     "label": "Research Toast Threshold",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Minimum accumulated research percent before another research toast appears for you.",
-                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%"
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%",
+                    "numeric_input": {
+                      "units": "%",
+                      "slider_minimum": 0,
+                      "slider_maximum": 100,
+                      "slider_step": 1.0,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0,
+                      "value_box_maximum": 100,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -403,9 +476,19 @@
                   "setting": "proficiencyToastSuppressionPercent",
                   "current": {
                     "label": "Proficiency Toast Threshold",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Minimum accumulated Proficiency percent before another Proficiency toast appears for you.",
-                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%"
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%",
+                    "numeric_input": {
+                      "units": "%",
+                      "slider_minimum": 0,
+                      "slider_maximum": 100,
+                      "slider_step": 1.0,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0,
+                      "value_box_maximum": 100,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -635,9 +718,19 @@
                   "setting": "researchScale",
                   "current": {
                     "label": "Research Scale",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Global multiplier for all active research gain.",
-                    "accepted_values": "0.0 to 100.0"
+                    "accepted_values": "0.0 to 100.0",
+                    "numeric_input": {
+                      "units": "x",
+                      "slider_minimum": 0,
+                      "slider_maximum": 10,
+                      "slider_step": 0.01,
+                      "slider_scale": "logarithmic with zero",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 100.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -657,9 +750,19 @@
                   "setting": "researchGrindingGainScale",
                   "current": {
                     "label": "Grinding Research Scale",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Multiplier for schematic research gained by grinding blocks.",
-                    "accepted_values": "0.0 to 100.0"
+                    "accepted_values": "0.0 to 100.0",
+                    "numeric_input": {
+                      "units": "x",
+                      "slider_minimum": 0,
+                      "slider_maximum": 10,
+                      "slider_step": 0.01,
+                      "slider_scale": "logarithmic with zero",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 100.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -679,9 +782,19 @@
                   "setting": "dataFragmentRewardScale",
                   "current": {
                     "label": "Data Fragment Reward Scale",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Multiplier for partial research progress granted by consumable data fragments.",
-                    "accepted_values": "0.0 to 100.0"
+                    "accepted_values": "0.0 to 100.0",
+                    "numeric_input": {
+                      "units": "x",
+                      "slider_minimum": 0,
+                      "slider_maximum": 10,
+                      "slider_step": 0.01,
+                      "slider_scale": "logarithmic with zero",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 100.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -701,9 +814,19 @@
                   "setting": "dataFragmentLootScale",
                   "current": {
                     "label": "Data Fragment Loot Scale",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Multiplier for data fragment loot frequency in patched container definitions. Existing spawned containers are not retroactive.",
-                    "accepted_values": "0.0 to 100.0"
+                    "accepted_values": "0.0 to 100.0",
+                    "numeric_input": {
+                      "units": "x",
+                      "slider_minimum": 0,
+                      "slider_maximum": 10,
+                      "slider_step": 0.01,
+                      "slider_scale": "logarithmic with zero",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 100.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -723,9 +846,19 @@
                   "setting": "researchEfficiencyStart",
                   "current": {
                     "label": "Research Start Efficiency",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Research efficiency at 0% known. Higher values front-load discovery.",
-                    "accepted_values": "0.0 to 10.0"
+                    "accepted_values": "0.0 to 10.0",
+                    "numeric_input": {
+                      "units": "x",
+                      "slider_minimum": 0,
+                      "slider_maximum": 10,
+                      "slider_step": 0.01,
+                      "slider_scale": "logarithmic with zero",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 10.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -745,9 +878,19 @@
                   "setting": "researchEfficiencyEnd",
                   "current": {
                     "label": "Research End Efficiency",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Research efficiency near 100% known. Lower values slow the final stretch.",
-                    "accepted_values": "0.0 to 10.0"
+                    "accepted_values": "0.0 to 10.0",
+                    "numeric_input": {
+                      "units": "x",
+                      "slider_minimum": 0,
+                      "slider_maximum": 10,
+                      "slider_step": 0.01,
+                      "slider_scale": "logarithmic with zero",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 10.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -807,9 +950,19 @@
                   "setting": "proficiencyGainScale",
                   "current": {
                     "label": "Proficiency Scale",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Global multiplier for hands-on Proficiency gain.",
-                    "accepted_values": "0.0 to 100.0"
+                    "accepted_values": "0.0 to 100.0",
+                    "numeric_input": {
+                      "units": "x",
+                      "slider_minimum": 0,
+                      "slider_maximum": 10,
+                      "slider_step": 0.01,
+                      "slider_scale": "logarithmic with zero",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 100.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -829,9 +982,19 @@
                   "setting": "proficiencyGrindingGainScale",
                   "current": {
                     "label": "Grinding Proficiency Scale",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Multiplier for Proficiency gained by grinding.",
-                    "accepted_values": "0.0 to 100.0"
+                    "accepted_values": "0.0 to 100.0",
+                    "numeric_input": {
+                      "units": "x",
+                      "slider_minimum": 0,
+                      "slider_maximum": 10,
+                      "slider_step": 0.01,
+                      "slider_scale": "logarithmic with zero",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 100.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -851,9 +1014,19 @@
                   "setting": "proficiencyWeldingGainScale",
                   "current": {
                     "label": "Welding Proficiency Scale",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Multiplier for Proficiency gained by welding and repairing.",
-                    "accepted_values": "0.0 to 100.0"
+                    "accepted_values": "0.0 to 100.0",
+                    "numeric_input": {
+                      "units": "x",
+                      "slider_minimum": 0,
+                      "slider_maximum": 10,
+                      "slider_step": 0.01,
+                      "slider_scale": "logarithmic with zero",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 100.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -873,9 +1046,19 @@
                   "setting": "proficiencyFirstThreshold",
                   "current": {
                     "label": "Proficiency First Threshold",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "End of the fast first Proficiency segment.",
-                    "accepted_values": "ratio from 0.0 to 1.0; 0.8 means 80%"
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.8 means 80%",
+                    "numeric_input": {
+                      "units": "%",
+                      "slider_minimum": 0,
+                      "slider_maximum": 100,
+                      "slider_step": 1.0,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0,
+                      "value_box_maximum": 100,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -895,9 +1078,19 @@
                   "setting": "proficiencySecondThreshold",
                   "current": {
                     "label": "Proficiency Second Threshold",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "End of the slow second Proficiency segment. The default 100% value makes Proficiency a two-stage curve.",
-                    "accepted_values": "ratio from 0.0 to 1.0; 0.8 means 80%"
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.8 means 80%",
+                    "numeric_input": {
+                      "units": "%",
+                      "slider_minimum": 0,
+                      "slider_maximum": 100,
+                      "slider_step": 1.0,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0,
+                      "value_box_maximum": 100,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -917,9 +1110,19 @@
                   "setting": "proficiencyFirstSegmentRate",
                   "current": {
                     "label": "Proficiency First Rate",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Base progress earned per table work reward unit in the fast segment before the segment curve is applied.",
-                    "accepted_values": "0.0 to 10.0"
+                    "accepted_values": "0.0 to 10.0",
+                    "numeric_input": {
+                      "units": "%",
+                      "slider_minimum": 0,
+                      "slider_maximum": 100,
+                      "slider_step": 0.01,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 1000.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -939,9 +1142,19 @@
                   "setting": "proficiencySecondSegmentRate",
                   "current": {
                     "label": "Proficiency Second Rate",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Base progress earned per table work reward unit in the slow segment before the segment curve is applied.",
-                    "accepted_values": "0.0 to 10.0"
+                    "accepted_values": "0.0 to 10.0",
+                    "numeric_input": {
+                      "units": "%",
+                      "slider_minimum": 0,
+                      "slider_maximum": 10.0,
+                      "slider_step": 0.01,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 1000.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -961,9 +1174,19 @@
                   "setting": "proficiencyFinalSegmentRate",
                   "current": {
                     "label": "Proficiency Final Rate",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Optional final segment base rate used only when the second threshold is below 100%.",
-                    "accepted_values": "0.0 to 10.0"
+                    "accepted_values": "0.0 to 10.0",
+                    "numeric_input": {
+                      "units": "%",
+                      "slider_minimum": 0,
+                      "slider_maximum": 10.0,
+                      "slider_step": 0.01,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 1000.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -1045,9 +1268,19 @@
                   "setting": "weldBotchBaseChance",
                   "current": {
                     "label": "Botch Base Chance",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Botch chance scale near the functional threshold. The medium value maps to inverse Proficiency.",
-                    "accepted_values": "0.0 to 1.0"
+                    "accepted_values": "0.0 to 1.0",
+                    "numeric_input": {
+                      "units": "%",
+                      "slider_minimum": 0,
+                      "slider_maximum": 100,
+                      "slider_step": 1.0,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0,
+                      "value_box_maximum": 100,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -1067,9 +1300,19 @@
                   "setting": "weldBotchMaxChance",
                   "current": {
                     "label": "Botch Max Chance",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Maximum normal botch chance before the Proficiency cap forces guaranteed failure.",
-                    "accepted_values": "0.0 to 1.0"
+                    "accepted_values": "0.0 to 1.0",
+                    "numeric_input": {
+                      "units": "%",
+                      "slider_minimum": 0,
+                      "slider_maximum": 100,
+                      "slider_step": 1.0,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0,
+                      "value_box_maximum": 100,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -1089,9 +1332,19 @@
                   "setting": "weldBotchChanceScale",
                   "current": {
                     "label": "Botch Chance Scale",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Difficulty-facing multiplier for botch chance before the max chance clamp.",
-                    "accepted_values": "0.0 to 100.0"
+                    "accepted_values": "0.0 to 100.0",
+                    "numeric_input": {
+                      "units": "x",
+                      "slider_minimum": 0,
+                      "slider_maximum": 10,
+                      "slider_step": 0.01,
+                      "slider_scale": "logarithmic with zero",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 100.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -1111,9 +1364,19 @@
                   "setting": "weldBotchPostFunctionalPressure",
                   "current": {
                     "label": "Post-Functional Botch Pressure",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Shapes the post-functional botch-zone climb.",
-                    "accepted_values": "0.0 to 100.0"
+                    "accepted_values": "0.0 to 100.0",
+                    "numeric_input": {
+                      "units": "number",
+                      "slider_minimum": 0,
+                      "slider_maximum": 10,
+                      "slider_step": 0.1,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 100.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -1133,9 +1396,19 @@
                   "setting": "weldBotchSoftCapPressure",
                   "current": {
                     "label": "Soft-Cap Botch Pressure",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Shapes the post-functional Proficiency cap pressure.",
-                    "accepted_values": "0.0 to 100.0"
+                    "accepted_values": "0.0 to 100.0",
+                    "numeric_input": {
+                      "units": "number",
+                      "slider_minimum": 0,
+                      "slider_maximum": 10,
+                      "slider_step": 0.1,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 100.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -1155,9 +1428,19 @@
                   "setting": "weldBotchPressureScale",
                   "current": {
                     "label": "Botch Pressure Scale",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Difficulty-facing multiplier for post-functional botch pressure curves.",
-                    "accepted_values": "0.0 to 100.0"
+                    "accepted_values": "0.0 to 100.0",
+                    "numeric_input": {
+                      "units": "x",
+                      "slider_minimum": 0,
+                      "slider_maximum": 10,
+                      "slider_step": 0.01,
+                      "slider_scale": "logarithmic with zero",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 100.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -1177,9 +1460,19 @@
                   "setting": "weldBotchRawLossRatio",
                   "current": {
                     "label": "Botch Damage Ratio",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Raw integrity loss as a multiple of the triggering positive integrity delta.",
-                    "accepted_values": "0.0 to 10.0"
+                    "accepted_values": "0.0 to 10.0",
+                    "numeric_input": {
+                      "units": "x",
+                      "slider_minimum": 0,
+                      "slider_maximum": 10,
+                      "slider_step": 0.01,
+                      "slider_scale": "logarithmic with zero",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 10.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -1199,9 +1492,19 @@
                   "setting": "weldBotchForgivenessScale",
                   "current": {
                     "label": "Botch Forgiveness Scale",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Multiplier for returned component forgiveness after botch damage. Higher is gentler.",
-                    "accepted_values": "0.0 to 100.0"
+                    "accepted_values": "0.0 to 100.0",
+                    "numeric_input": {
+                      "units": "x",
+                      "slider_minimum": 0,
+                      "slider_maximum": 10,
+                      "slider_step": 0.01,
+                      "slider_scale": "logarithmic with zero",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 100.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -1261,9 +1564,19 @@
                   "setting": "salvageScale",
                   "current": {
                     "label": "Salvage Scale",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Multiplier for intact component recovery before the 100% cap.",
-                    "accepted_values": "0.0 to 100.0"
+                    "accepted_values": "0.0 to 100.0",
+                    "numeric_input": {
+                      "units": "x",
+                      "slider_minimum": 0,
+                      "slider_maximum": 10,
+                      "slider_step": 0.01,
+                      "slider_scale": "logarithmic with zero",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 100.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -1283,9 +1596,19 @@
                   "setting": "salvageScrapYield",
                   "current": {
                     "label": "Salvage Scrap Yield",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Mass ratio returned as scrap ore when low-Proficiency grinding converts components to scrap.",
-                    "accepted_values": "ratio from 0.0 to 1.0; 0.2 means 20%"
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.2 means 20%",
+                    "numeric_input": {
+                      "units": "%",
+                      "slider_minimum": 0,
+                      "slider_maximum": 100,
+                      "slider_step": 1.0,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0,
+                      "value_box_maximum": 100,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -1345,9 +1668,19 @@
                   "setting": "notificationDelaySeconds",
                   "current": {
                     "label": "Notification Delay",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "World delay used to combine repeated progress updates before chat/toast feedback.",
-                    "accepted_values": "0.1 to 30.0 seconds"
+                    "accepted_values": "0.1 to 30.0 seconds",
+                    "numeric_input": {
+                      "units": "s",
+                      "slider_minimum": 0.1,
+                      "slider_maximum": 10,
+                      "slider_step": 0.1,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0.1,
+                      "value_box_maximum": 30.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -1411,9 +1744,19 @@
                   "setting": "defaultResearchChatSuppressionPercent",
                   "current": {
                     "label": "Default Research Chat Threshold",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "World default/minimum accumulated research percent before another research chat update is shown.",
-                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%"
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%",
+                    "numeric_input": {
+                      "units": "%",
+                      "slider_minimum": 0,
+                      "slider_maximum": 100,
+                      "slider_step": 1.0,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0,
+                      "value_box_maximum": 100,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -1433,9 +1776,19 @@
                   "setting": "defaultProficiencyChatSuppressionPercent",
                   "current": {
                     "label": "Default Proficiency Chat Threshold",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "World default/minimum accumulated Proficiency percent before another Proficiency chat update is shown.",
-                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%"
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%",
+                    "numeric_input": {
+                      "units": "%",
+                      "slider_minimum": 0,
+                      "slider_maximum": 100,
+                      "slider_step": 1.0,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0,
+                      "value_box_maximum": 100,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -1455,9 +1808,19 @@
                   "setting": "defaultResearchToastSuppressionPercent",
                   "current": {
                     "label": "Default Research Toast Threshold",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "World default/minimum accumulated research percent before another research toast appears.",
-                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%"
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%",
+                    "numeric_input": {
+                      "units": "%",
+                      "slider_minimum": 0,
+                      "slider_maximum": 100,
+                      "slider_step": 1.0,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0,
+                      "value_box_maximum": 100,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -1477,9 +1840,19 @@
                   "setting": "defaultProficiencyToastSuppressionPercent",
                   "current": {
                     "label": "Default Proficiency Toast Threshold",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "World default/minimum accumulated Proficiency percent before another Proficiency toast appears.",
-                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%"
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%",
+                    "numeric_input": {
+                      "units": "%",
+                      "slider_minimum": 0,
+                      "slider_maximum": 100,
+                      "slider_step": 1.0,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0,
+                      "value_box_maximum": 100,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -1521,9 +1894,19 @@
                   "setting": "defaultWeldBotchWarningCooldownSeconds",
                   "current": {
                     "label": "Default Botch Warning Cooldown",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "World default/minimum time before repeating the same botch warning for the same player/block.",
-                    "accepted_values": "0.0 to 30.0 seconds"
+                    "accepted_values": "0.0 to 30.0 seconds",
+                    "numeric_input": {
+                      "units": "s",
+                      "slider_minimum": 0.0,
+                      "slider_maximum": 10,
+                      "slider_step": 0.1,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 30.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -1587,9 +1970,19 @@
                   "setting": "weldBotchSoundRange",
                   "current": {
                     "label": "Botch Sound Range",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Range in meters for positional botch sounds.",
-                    "accepted_values": "0.0 to 1000.0 meters"
+                    "accepted_values": "0.0 to 1000.0 meters",
+                    "numeric_input": {
+                      "units": "m",
+                      "slider_minimum": 0.0,
+                      "slider_maximum": 100,
+                      "slider_step": 1,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0.0,
+                      "value_box_maximum": 1000.0,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -1649,9 +2042,19 @@
                   "setting": "fundamentalsProficiencyProgress",
                   "current": {
                     "label": "Fundamentals Proficiency",
-                    "control": "slider",
+                    "control": "slider with value box and Apply button",
                     "description": "Minimum baseline Proficiency for Fundamentals.",
-                    "accepted_values": "ratio from 0.0 to 1.0; 0.8 means 80%"
+                    "accepted_values": "ratio from 0.0 to 1.0; 0.8 means 80%",
+                    "numeric_input": {
+                      "units": "%",
+                      "slider_minimum": 0,
+                      "slider_maximum": 100,
+                      "slider_step": 1.0,
+                      "slider_scale": "linear",
+                      "value_box_minimum": 0,
+                      "value_box_maximum": 100,
+                      "notes": "Ranges here use displayed units; accepted_values above describes canonical command input. Typed input can exceed slider limits but must remain within the value-box limits."
+                    }
                   },
                   "proposed": {
                     "label": "",
@@ -1729,5 +2132,6 @@
         }
       ]
     }
-  ]
+  ],
+  "implementation_update": "Numeric value boxes, practical slider ranges, screen fitting and optional Text HUD launcher added for the next 1.1.0 playtest. Original baseline commit retained for design history."
 }

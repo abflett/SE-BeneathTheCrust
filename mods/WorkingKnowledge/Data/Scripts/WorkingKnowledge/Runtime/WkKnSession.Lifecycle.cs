@@ -143,6 +143,9 @@ namespace WkKn
         private void ClearRuntimeState()
         {
             researchNotificationService.ClearAll();
+            if (textHudSettingsLauncher != null)
+                textHudSettingsLauncher.Close();
+            textHudSettingsLauncher = null;
             richHudIntegration.Close();
             OnRichHudReset();
             progressChatHeaderByIdentity.Clear();
