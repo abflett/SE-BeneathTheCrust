@@ -15,7 +15,6 @@ namespace WkKn
         {
             richHudSettingsReady = false;
             richHudOpenRequested = false;
-            richHudPendingSettingsCommands.Clear();
             richHudSettingsStateRequested = false;
             richHudWorldConfigSnapshot = null;
             if (richHudSettingsMenu != null)
@@ -31,7 +30,6 @@ namespace WkKn
                     textHudSettingsLauncher = new WkTextHudSettingsLauncher(OpenRichHudSettings);
                 textHudSettingsLauncher.Update();
             }
-            FlushRichHudSettingsCommands();
             if (!richHudSettingsReady)
                 return;
 
@@ -129,32 +127,17 @@ namespace WkKn
 
         private void SetRichHudConfigValue(string setting, string value, bool isWorld)
         {
-            richHudPendingSettingsCommands[setting] = "/wk config " + setting + " " + value;
-            richHudPendingSettingsDueTick = simulationTick + 15;
+            ExecuteRichHudSettingsCommand("/wk config " + setting + " " + value);
         }
 
         private void SetRichHudDifficulty(string preset)
         {
-            richHudPendingSettingsCommands.Clear();
             ExecuteRichHudSettingsCommand("/wk difficulty " + preset);
         }
 
         private void ResetRichHudConfig(bool world)
         {
-            richHudPendingSettingsCommands.Clear();
             ExecuteRichHudSettingsCommand(world ? "/wk config world reset" : "/wk config reset");
-        }
-
-        private void FlushRichHudSettingsCommands()
-        {
-            if (richHudPendingSettingsCommands.Count == 0 || simulationTick < richHudPendingSettingsDueTick)
-                return;
-
-            var commands = new string[richHudPendingSettingsCommands.Count];
-            richHudPendingSettingsCommands.Values.CopyTo(commands, 0);
-            richHudPendingSettingsCommands.Clear();
-            for (var i = 0; i < commands.Length; i++)
-                ExecuteRichHudSettingsCommand(commands[i]);
         }
 
         private void ExecuteRichHudSettingsCommand(string command)

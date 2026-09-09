@@ -73,7 +73,7 @@
       ],
       "game_hud": "Temporarily hidden locally; previous HUD state restored on close; progress overlay suppressed while open",
       "editing": "All edits staged until Apply Changes. Exit/Escape discard unapplied edits. Presets/resets replace prior drafts; other fields update after applying.",
-      "text_input": "Click a value field to activate direct typing without chat. Editing closes on focus loss, discard or loss of edit permission. Apply Changes commits the draft."
+      "text_input": "Click a value field to activate direct typing without chat. After a 350 ms typing pause, valid values update the local draft and slider. Editing closes on focus loss, discard or loss of edit permission. Apply Changes reads the latest text and commits the draft; normal world saving persists applied settings."
     },
     "requested_changes": "",
     "notes": "There is another popular UI frame works I forgot the name Hud text (the previous hud api) or something, but it might be worth it to also add it's entry point as well. Sizing maybe should be reactive as people use different resolutions and aspect ratios. The current size is a good starting point, but it might be worth it to make the window size reactive to the screen resolution. Though maybe it is already if using world units or something.",
@@ -2161,9 +2161,9 @@
       194
     ],
     "label_rgb": [
-      186,
-      233,
-      246
+      225,
+      247,
+      255
     ],
     "background_rgb": [
       58,

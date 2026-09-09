@@ -7,6 +7,18 @@ $source = Get-Content -Raw (Join-Path $repoRoot 'mods/WorkingKnowledge/Data/Scri
 $draftSource = Get-Content -Raw (Join-Path $repoRoot 'mods/WorkingKnowledge/Data/Scripts/WorkingKnowledge/Integration/RichHud/WkSettingsDraft.cs')
 $draftSource = $draftSource -replace '(?m)^using [^;]+;\r?\n', ''
 $source = "using System.Collections.Generic;" + [Environment]::NewLine + $source + [Environment]::NewLine + $draftSource
+$integrationRoot = Join-Path $repoRoot 'mods/WorkingKnowledge/Data/Scripts/WorkingKnowledge/Integration'
+$extraSources = @(
+    (Join-Path $integrationRoot 'RichHud/WkSettingsTypingDelay.cs'),
+    (Join-Path $repoRoot 'mods/WorkingKnowledge/Data/Scripts/WorkingKnowledge/Domain/Common/RatioMath.cs')
+)
+$extraSources += Get-ChildItem (Join-Path $integrationRoot 'Configuration') -Filter '*.cs' |
+    Where-Object { $_.Name -notlike 'WkKnSession*' -and $_.Name -ne 'WkSettingNumericInput.cs' } |
+    Select-Object -ExpandProperty FullName
+foreach ($sourcePath in $extraSources) {
+    $source += [Environment]::NewLine + ((Get-Content -Raw $sourcePath) -replace '(?m)^using [^;]+;\r?\n', '')
+}
+$source = "using System.Xml.Serialization;" + [Environment]::NewLine + $source
 $checks = @'
 namespace WkKn
 {
@@ -62,10 +74,52 @@ namespace WkKn
             if (applied.Count != 2 || draft.Count != 0)
                 throw new System.Exception("Discard must never execute pending actions.");
             count += 4;
+            var delay = new WkSettingsTypingDelay();
+            delay.Reset("1");
+            if (delay.IsReady("2", 0) || delay.IsReady("25", 200) || delay.IsReady("25", 549))
+                throw new System.Exception("Typing must restart the debounce interval.");
+            if (!delay.IsReady("25", 550) || delay.IsReady("25", 551))
+                throw new System.Exception("A settled edit must be processed once.");
+            delay.Reset("3");
+            if (delay.IsReady("3", 1000))
+                throw new System.Exception("Programmatic refresh/discard must cancel pending typing.");
+            count += 3;
+
+            var world = new WkConfigStore();
+            var players = new WkPlayerConfigStore();
+            draft.Stage("researchScale", "25", () => {
+                string error;
+                if (!world.TrySetValue("researchScale", "25", out error)) throw new System.Exception(error);
+            });
+            draft.Stage("progressHudRows", "9", () => {
+                string error;
+                if (!players.TrySetValue("test", "progressHudRows", "9", out error)) throw new System.Exception(error);
+            });
+            draft.Stage("researchChatSuppressionPercent", "0.05", () => {
+                string error;
+                if (!players.TrySetValue("test", "researchChatSuppressionPercent", "0.05", out error)) throw new System.Exception(error);
+            });
+            if (world.Data.ResearchScale == 25 || players.GetPlayerOrDefault("test").ProgressHudRows == 9)
+                throw new System.Exception("Draft changes must not reach configuration before Apply.");
+            draft.Apply();
+            var worldXml = new System.Xml.Serialization.XmlSerializer(typeof(WkConfig));
+            var playerXml = new System.Xml.Serialization.XmlSerializer(typeof(WkPlayerConfigSaveData));
+            var worldText = new System.IO.StringWriter();
+            var playerText = new System.IO.StringWriter();
+            worldXml.Serialize(worldText, world.Data);
+            playerXml.Serialize(playerText, players.Data);
+            var restoredWorld = new WkConfigStore();
+            var restoredPlayers = new WkPlayerConfigStore();
+            restoredWorld.SetData((WkConfig)worldXml.Deserialize(new System.IO.StringReader(worldText.ToString())));
+            restoredPlayers.SetData((WkPlayerConfigSaveData)playerXml.Deserialize(new System.IO.StringReader(playerText.ToString())));
+            if (restoredWorld.Data.ResearchScale != 25 || restoredPlayers.GetPlayerOrDefault("test").ProgressHudRows != 9 ||
+                restoredPlayers.GetPlayerOrDefault("test").ResearchChatSuppressionPercent != 5)
+                throw new System.Exception("Applied values must survive configuration serialization and normalization.");
+            count += 2;
             return count;
         }
     }
 }
 '@
-Add-Type -TypeDefinition ($source + [Environment]::NewLine + $checks)
+Add-Type -TypeDefinition ($source + [Environment]::NewLine + $checks) -ReferencedAssemblies System.Xml
 Write-Host "Passed $([WkKn.NumericInputChecks]::Run()) Working Knowledge numeric input and draft checks."

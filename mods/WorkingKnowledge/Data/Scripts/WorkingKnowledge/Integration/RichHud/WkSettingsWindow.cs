@@ -948,6 +948,7 @@ namespace WkKn
             private readonly WkSettingsTextField valueField;
             private readonly double minimum, maximum;
             private string lastFieldText = string.Empty;
+            private readonly WkSettingsTypingDelay typingDelay = new WkSettingsTypingDelay();
             private readonly Func<string> getter;
             private readonly Action<string> changed;
             private readonly bool integer;
@@ -998,6 +999,8 @@ namespace WkKn
 
             internal override void Refresh()
             {
+                if (Editable && typingDelay.IsReady(valueField.Value.ToString(), MyAPIGateway.Session.ElapsedPlayTime.TotalMilliseconds))
+                    StageDraft();
                 var canonicalValue = ParseNumber(getter());
                 refreshing = true;
                 control.Value = ToSliderValue(canonicalValue, presentation);
@@ -1018,12 +1021,13 @@ namespace WkKn
                 // Keep typed precision; slider steps apply only to slider gestures.
                 lastFieldText = (canonicalValue * presentation.DisplayMultiplier).ToString("0.######", CultureInfo.InvariantCulture) + presentation.Suffix;
                 valueField.Text = lastFieldText;
+                typingDelay.Reset(lastFieldText);
             }
 
             internal override bool ValidateDraft(out string error)
             {
                 error = null;
-                if (!Editable || valueField.Value.ToString() == lastFieldText)
+                if (!Editable)
                     return true;
                 string value;
                 if (WkSettingNumericInput.TryParse(valueField.Value.ToString(), presentation.DisplayMultiplier,
@@ -1035,14 +1039,16 @@ namespace WkKn
 
             internal override void StageDraft()
             {
-                if (!Editable || valueField.Value.ToString() == lastFieldText)
+                if (!Editable)
                     return;
                 string value, error;
                 if (WkSettingNumericInput.TryParse(valueField.Value.ToString(), presentation.DisplayMultiplier,
                     presentation.Suffix, minimum, maximum, integer, out value, out error))
                 {
                     lastFieldText = valueField.Value.ToString();
-                    changed(value);
+                    typingDelay.Reset(lastFieldText);
+                    if (Math.Abs(ParseNumber(value) - ParseNumber(getter())) > 0.00000001)
+                        changed(value);
                 }
             }
 
@@ -1134,6 +1140,7 @@ namespace WkKn
             private readonly Action<string> changed;
             private readonly bool defaultableNumber;
             private string lastFieldText = string.Empty;
+            private readonly WkSettingsTypingDelay typingDelay = new WkSettingsTypingDelay();
 
             internal TextSettingRow(string title, string description, string tooltip, Func<string> getter, Action<string> changed, bool defaultableNumber)
                 : base(title, description)
@@ -1155,6 +1162,12 @@ namespace WkKn
 
             internal override void Refresh()
             {
+                if (Editable && typingDelay.IsReady(field.Value.ToString(), MyAPIGateway.Session.ElapsedPlayTime.TotalMilliseconds))
+                {
+                    string error;
+                    if (ValidateDraft(out error))
+                        StageDraft();
+                }
                 if (!field.FocusHandler.HasFocus && field.Value.ToString() == lastFieldText)
                     DiscardDraft();
             }
@@ -1164,6 +1177,7 @@ namespace WkKn
                 field.StopEditing();
                 lastFieldText = getter();
                 field.Text = lastFieldText;
+                typingDelay.Reset(lastFieldText);
             }
 
             internal override bool ValidateDraft(out string error)
@@ -1188,7 +1202,7 @@ namespace WkKn
 
             internal override void StageDraft()
             {
-                if (Editable && field.Value.ToString() != lastFieldText)
+                if (Editable)
                 {
                     lastFieldText = field.Value.ToString();
                     var value = lastFieldText.Trim();
@@ -1197,7 +1211,9 @@ namespace WkKn
                         string error;
                         WkSettingNumericInput.TryParse(value, 1.0, " s", 0.0, 30.0, false, out value, out error);
                     }
-                    changed(value);
+                    typingDelay.Reset(lastFieldText);
+                    if (!string.Equals(value, getter(), StringComparison.OrdinalIgnoreCase))
+                        changed(value);
                 }
             }
 

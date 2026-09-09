@@ -4,6 +4,8 @@ Public-facing release notes for the standalone **Working Knowledge** Space Engin
 
 ## 1.1.0 - Rich HUD Settings - In Development
 
+Brightened schematic labels to a pale HUD-style cool white. Valid typed settings now update the local draft and slider after a 350 ms pause. Apply validates and stages the latest field text even before that delay expires, then submits commands immediately without the former secondary command queue. Configuration serialization checks cover player settings, multipliers beyond the slider range, and percentage conversion.
+
 Fixed a world-unload crash where settings cleanup accessed the Escape binding after Rich HUD had shut down. Cleanup now retains the original binding, disposes the window before resetting the framework, and safely handles repeated cleanup or an already-unloaded framework while restoring the game HUD.
 
 Fixed value-box keyboard activation in the standalone settings window by explicitly opening Rich HUD text input on focus and closing it on blur, discard, or permission loss. Fields no longer require chat to be open; active editing blocks normal game controls. Replaced neon research/Proficiency bars with vanilla-inspired pale cyan and muted blue, and changed the track to a translucent slate tint that respects HUD background opacity.

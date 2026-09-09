@@ -4,6 +4,8 @@ Working Knowledge `1.1.0` migrates the progress overlay to Rich HUD Master and a
 
 ## Build Gate
 
+For typed-value regression testing, pause for 350 ms and confirm the slider follows valid input without applying configuration. Test Apply immediately after typing and after the pause, including multiple fields, a player setting, a world multiplier beyond the slider range, and a percentage. Reopen the panel, then save and reload the world to verify persistence. Exit without Apply must discard changes; invalid input must remain editable and prevent Apply. Check brighter schematic labels over both light and dark scenery.
+
 ```powershell
 .\tools\compile-mod-scripts.ps1 -ModName WkKn
 .\build.ps1 -ModName WkKn

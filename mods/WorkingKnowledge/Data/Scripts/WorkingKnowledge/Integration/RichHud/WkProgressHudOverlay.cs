@@ -23,7 +23,7 @@ namespace WkKn
         private const float ProficiencyBarHeight = 5f;
         private const float LabelInset = 4f;
         private const float LabelTextSize = 1.02f;
-        private static readonly Color LabelColor = new Color(186, 233, 246);
+        private static readonly Color LabelColor = new Color(225, 247, 255);
         private static readonly Color LabelShadowColor = new Color(0, 0, 0);
         // Vanilla DrillBar textures tinted by Default.sbc: pale cyan fill, slate track.
         // The original background texture has approximately 30% alpha before HUD opacity.

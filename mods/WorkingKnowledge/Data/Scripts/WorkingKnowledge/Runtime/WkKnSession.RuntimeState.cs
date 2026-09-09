@@ -125,8 +125,6 @@ namespace WkKn
         private WkRichHudSettingsMenu richHudSettingsMenu;
         private bool richHudOpenRequested;
         private bool suppressWkCommandFeedback;
-        private readonly Dictionary<string, string> richHudPendingSettingsCommands = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        private long richHudPendingSettingsDueTick;
         private bool richHudSettingsStateRequested;
         private bool progressHudNetworkRegistered;
         private long commandResponseIdentityId;

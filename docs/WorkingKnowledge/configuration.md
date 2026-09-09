@@ -4,7 +4,7 @@
 
 Each setting places its title and description above its control. Numeric sliders have a value box to their right. The window footer has **Apply Changes** and **Exit** buttons. Type in the displayed units: `5` or `5%` means 5% in a percentage box, `25` or `25x` means a 25x multiplier. The unit suffix is optional. Chat commands continue to use canonical ratios, so their equivalent of 5% is `0.05`.
 
-Edits stay local to the panel until **Apply Changes** submits them through the usual authoritative command path. **Exit** and Escape discard unapplied edits. Presets and resets are also queued for Apply Changes; selecting either replaces earlier unapplied edits, and other fields show their current values until the preset/reset is applied. Normal world saving persists applied settings.
+Valid typed values update the local draft and slider after a 350 ms pause. Edits stay local to the panel until **Apply Changes** submits them through the usual authoritative command path. Apply reads the latest text even if the typing delay has not elapsed. **Exit** and Escape discard unapplied edits. Presets and resets are also queued for Apply Changes; selecting either replaces earlier unapplied edits, and other fields show their current values until the preset/reset is applied. Normal world saving persists applied settings.
 
 While the window is open, the local game HUD and Working Knowledge progress overlay are hidden. Closing the window restores the previous game HUD mode.
 
