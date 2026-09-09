@@ -4,6 +4,8 @@ Public-facing release notes for the standalone **Working Knowledge** Space Engin
 
 ## 1.1.0 - Rich HUD Settings - In Development
 
+Settings now suppress the separate vanilla HUD flag used by tool context help and idle chat, restoring the player's previous effective HUD flags on close. Section headings use a short cyan accent, larger inter-group spacing, and indented settings; removed the repeated horizontal rules beneath headings and controls.
+
 Brightened schematic labels to a pale HUD-style cool white. Valid typed settings now update the local draft and slider after a 350 ms pause. Apply validates and stages the latest field text even before that delay expires, then submits commands immediately without the former secondary command queue. Configuration serialization checks cover player settings, multipliers beyond the slider range, and percentage conversion.
 
 Fixed a world-unload crash where settings cleanup accessed the Escape binding after Rich HUD had shut down. Cleanup now retains the original binding, disposes the window before resetting the framework, and safely handles repeated cleanup or an already-unloaded framework while restoring the game HUD.

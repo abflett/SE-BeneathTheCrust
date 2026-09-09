@@ -41,6 +41,7 @@ namespace WkKn
         private readonly BorderedButton applyButton;
         private readonly Label footerStatus;
         private int? previousHudState;
+        private bool previousMinimalHud;
         private readonly TexturedBox columnDivider;
         private readonly BorderedButton closeButton;
         private SettingsPage selectedPage;
@@ -140,7 +141,10 @@ namespace WkKn
                 if (MyAPIGateway.Session != null && MyAPIGateway.Session.Config != null)
                 {
                     previousHudState = MyAPIGateway.Session.Config.HudState;
+                    previousMinimalHud = MyAPIGateway.Session.Config.MinimalHud;
                     MyVisualScriptLogicProvider.SetHudState(0, 0);
+                    // Tool context help and chat use this separate flag, not HudState.
+                    MyVisualScriptLogicProvider.ShowHud(false, 0);
                 }
                 FitToScreen();
                 Offset = Vector2.Zero;
@@ -165,6 +169,7 @@ namespace WkKn
             if (previousHudState.HasValue)
             {
                 MyVisualScriptLogicProvider.SetHudState(previousHudState.Value, 0);
+                MyVisualScriptLogicProvider.ShowHud(!previousMinimalHud, 0);
                 previousHudState = null;
             }
         }
@@ -731,6 +736,7 @@ namespace WkKn
             private readonly Label title;
             private readonly Label subtitle;
             private readonly ScrollBox content;
+            private bool hasSection;
 
             internal SettingsPage(HudParentBase parent, string heading, string description) : base(parent)
             {
@@ -764,7 +770,8 @@ namespace WkKn
 
             internal void AddSection(string heading, string description)
             {
-                content.Add(new SectionHeading(heading, description));
+                content.Add(new SectionHeading(heading, description, hasSection));
+                hasSection = true;
             }
 
             internal void AddRow(SettingRow row)
@@ -785,16 +792,18 @@ namespace WkKn
         {
             private readonly Label title;
             private readonly Label description;
-            private readonly TexturedBox divider;
+            private readonly TexturedBox accent;
+            private readonly float topSpace;
 
-            internal SectionHeading(string heading, string subheading) : base(null)
+            internal SectionHeading(string heading, string subheading, bool followsSection) : base(null)
             {
-                Size = new Vector2(620f, 68f);
+                topSpace = followsSection ? 30f : 8f;
+                Size = new Vector2(620f, 68f + topSpace);
                 title = new Label(this)
                 {
                     Text = heading,
                     AutoResize = false,
-                    Format = new GlyphFormat(TerminalFormatting.Mercury, TextAlignment.Left, 1.05f),
+                    Format = new GlyphFormat(new Color(186, 233, 246), TextAlignment.Left, 1.12f),
                     ParentAlignment = ParentAlignments.InnerTopLeft,
                     Offset = new Vector2(12f, -8f),
                     Size = new Vector2(500f, 26f),
@@ -803,32 +812,41 @@ namespace WkKn
                 {
                     Text = subheading,
                     AutoResize = false,
+                    BuilderMode = TextBuilderModes.Wrapped,
                     Format = new GlyphFormat(TerminalFormatting.MistBlue, TextAlignment.Left, .75f),
                     ParentAlignment = ParentAlignments.InnerBottomLeft,
                     Offset = new Vector2(12f, 9f),
                     Size = new Vector2(500f, 24f),
                 };
-                divider = new TexturedBox(this)
+                accent = new TexturedBox(this)
                 {
-                    Color = TerminalFormatting.LimedSpruce,
-                    ParentAlignment = ParentAlignments.InnerBottom,
-                    Height = 1f,
+                    Color = new Color(88, 160, 194, 200),
+                    ParentAlignment = ParentAlignments.InnerTopLeft,
+                    Width = 3f,
                 };
             }
 
             protected override void Layout()
             {
                 title.Width = Math.Max(100f, UnpaddedSize.X - 24f);
+                title.Offset = new Vector2(12f, -topSpace);
                 description.Width = title.Width;
-                divider.Width = UnpaddedSize.X;
+                description.LineWrapWidth = title.Width;
+                description.Height = Math.Max(24f, description.TextBoard.TextSize.Y);
+                description.VertCenterText = false;
+                description.ParentAlignment = ParentAlignments.InnerTopLeft;
+                description.Offset = new Vector2(12f, -topSpace - 30f);
+                Height = topSpace + 30f + description.Height + 16f;
+                accent.Offset = new Vector2(0f, -topSpace);
+                accent.Height = 26f;
             }
         }
 
         private abstract class SettingRow : HudElementBase
         {
+            protected const float ContentIndent = 28f;
             protected readonly Label title;
             protected readonly Label description;
-            private readonly TexturedBox divider;
             private bool editable = true;
 
             protected SettingRow(string heading, string detail, float height = 128f) : base(null)
@@ -852,12 +870,6 @@ namespace WkKn
                     ParentAlignment = ParentAlignments.InnerBottomLeft,
                     Offset = new Vector2(14f, 8f),
                     Size = new Vector2(310f, height - 35f),
-                };
-                divider = new TexturedBox(this)
-                {
-                    Color = new Color(61, 70, 78, 135),
-                    ParentAlignment = ParentAlignments.InnerBottom,
-                    Height = 1f,
                 };
             }
 
@@ -883,18 +895,17 @@ namespace WkKn
 
             protected override void Layout()
             {
-                var width = Math.Max(200f, UnpaddedSize.X - 28f);
+                var width = Math.Max(200f, UnpaddedSize.X - ContentIndent - 14f);
                 title.Size = new Vector2(width, 28f);
                 title.ParentAlignment = ParentAlignments.InnerTopLeft;
-                title.Offset = new Vector2(14f, -8f);
+                title.Offset = new Vector2(ContentIndent, -8f);
                 description.Width = width;
                 description.LineWrapWidth = width;
                 description.Height = Math.Max(24f, description.TextBoard.TextSize.Y);
                 description.VertCenterText = false;
                 description.ParentAlignment = ParentAlignments.InnerTopLeft;
-                description.Offset = new Vector2(14f, -40f);
-                Height = 40f + description.Height + 12f + 38f + 16f;
-                divider.Width = UnpaddedSize.X;
+                description.Offset = new Vector2(ContentIndent, -40f);
+                Height = 40f + description.Height + 12f + 38f + 24f;
                 LayoutControl(width);
             }
 
@@ -902,8 +913,8 @@ namespace WkKn
             {
                 element.ParentAlignment = ParentAlignments.Center;
                 element.Size = new Vector2(width, height);
-                element.Offset = new Vector2(-UnpaddedSize.X * .5f + 14f + left + width * .5f,
-                    -Height * .5f + 16f + 19f);
+                element.Offset = new Vector2(-UnpaddedSize.X * .5f + ContentIndent + left + width * .5f,
+                    -Height * .5f + 24f + 19f);
             }
 
             protected abstract void LayoutControl(float width);
@@ -1297,7 +1308,7 @@ namespace WkKn
 
             protected override void LayoutControl(float width)
             {
-                description.Offset = new Vector2(14f, -10f);
+                description.Offset = new Vector2(ContentIndent, -10f);
                 Height = description.Height + 24f;
             }
         }
