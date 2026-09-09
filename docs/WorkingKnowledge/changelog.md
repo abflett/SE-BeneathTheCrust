@@ -2,41 +2,32 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
-## 1.1.0 - Rich HUD Settings - In Development
+## 1.1.0 - Rich HUD Settings
 
-Settings now suppress the separate vanilla HUD flag used by tool context help and idle chat, restoring the player's previous effective HUD flags on close. Section headings use a short cyan accent, larger inter-group spacing, and indented settings; removed the repeated horizontal rules beneath headings and controls.
+Working Knowledge now has a dedicated settings window and a refreshed research and Proficiency overlay powered by **Rich HUD Master**.
 
-Brightened schematic labels to a pale HUD-style cool white. Valid typed settings now update the local draft and slider after a 350 ms pause. Apply validates and stages the latest field text even before that delay expires, then submits commands immediately without the former secondary command queue. Configuration serialization checks cover player settings, multipliers beyond the slider range, and percentage conversion.
+### Settings window
 
-Fixed a world-unload crash where settings cleanup accessed the Escape binding after Rich HUD had shut down. Cleanup now retains the original binding, disposes the window before resetting the framework, and safely handles repeated cleanup or an already-unloaded framework while restoring the game HUD.
+- Open the window with `/wk settings` or the Working Knowledge launcher in Rich HUD Terminal. An optional Text HUD API menu entry opens the same window when that mod is installed.
+- Configure personal progress bars, placement, notifications, thresholds, and sounds. Administrators can also edit world settings, choose difficulty presets, and reset configuration.
+- Browse a simple sidebar with clearly grouped settings, descriptions above each control, and indented rows. The window supports dragging, resizing, scrolling, high-DPI scaling, and fitting within smaller screens.
+- Type directly into numeric value boxes beside the sliders, without opening chat. Sliders cover practical tuning ranges; typed values can exceed those ranges within each setting's valid limits. Multipliers use a logarithmic slider with a zero endpoint and a practical maximum of 10x.
+- Enter values in the displayed units, including percentages, multipliers, seconds, and metres. Valid text updates the local draft and slider after a short typing pause. Invalid values are rejected with an explanation.
+- **Apply Changes** submits all valid pending edits, including text just entered. **Exit** or Escape discards unapplied edits. Applied settings persist with the normal world save.
+- The game HUD, tool context help, idle chat, and progress overlay hide while editing; the previous effective HUD state returns on close. Fixed text-field focus handling and a settings cleanup crash during world unload.
 
-Fixed value-box keyboard activation in the standalone settings window by explicitly opening Rich HUD text input on focus and closing it on blur, discard, or permission loss. Fields no longer require chat to be open; active editing blocks normal game controls. Replaced neon research/Proficiency bars with vanilla-inspired pale cyan and muted blue, and changed the track to a translucent slate tint that respects HUD background opacity.
+### Progress overlay
 
-Refined the custom settings layout from in-game feedback: a smaller header, a fixed Apply Changes / Exit footer, plain sidebar buttons, more opaque background, and vertically stacked titles, wrapped descriptions, and controls. Sliders now share a line with their value boxes. All panel edits remain pending until Apply Changes; Exit and Escape discard unapplied edits. The local game HUD and progress overlay hide during editing, and the prior HUD mode is restored when the window closes.
+- Replaced the Text HUD API overlay with Rich HUD Master while retaining compact paired research and Proficiency bars, configurable placement, row order, history size, and fading.
+- Matched the vanilla HUD palette with pale cyan research, muted blue Proficiency, and brighter cool-white labels with dark outlines. Translucent slate tracks respect the player's HUD background-opacity setting.
 
-Added editable value boxes beside every numeric slider. Apply accepts the setting's full valid range independently of the slider's practical range, preserves finer typed precision, and validates displayed units (including percentages) before sending the existing authoritative command. Narrower timing, placement, sound-range, and later Proficiency-rate sliders make everyday tuning easier.
+### Defaults, commands, and compatibility
 
-The settings window now centers and fits within the available screen, clamps its full bounds during dragging/resizing, and scales down on small viewports while retaining Rich HUD's DPI scaling. An optional Text HUD API player-menu launcher opens the same Rich HUD window after chat closes; Text HUD API is not a required dependency.
-
-Migrated the recent research and Proficiency progress overlay from Text HUD API to Rich HUD Master. The replacement preserves the compact two-bar schematic rows while using Rich HUD's high-DPI layout and shared settings interface.
-
-Restored the original compact visual layering, with each schematic label overlapping the upper research bar instead of sitting in a separate row above it.
-
-Restored the original three-direction black label outline so schematic names remain legible over bright research bars and world lighting.
-
-Added `/wk settings` to open a dedicated Working Knowledge settings window. A compact sidebar, section headings, full-width rows, and vertical scrolling replace Rich HUD Terminal's fixed horizontal tile layout. Players can configure their own progress overlay, notifications, thresholds, and sounds; administrators can also apply difficulty presets and edit authoritative world settings. The shared Rich HUD Terminal retains a launcher and Help page, while existing `/wk config` and `/wk difficulty` commands remain supported.
-
-GUI changes use the same server-authoritative validation, administrator checks, persistence, and runtime effects as chat commands. Dedicated servers return authenticated player, world, and permission snapshots to the requesting client without attempting to render the interface headlessly.
-
-Bundled the official Rich HUD Framework Full Client `1.3.0.0` source under its MIT license. Rich HUD Master is the only Workshop framework dependency required by the new interface.
-
-New worlds now begin on the Easy preset so standalone players get faster research and Proficiency gains, better salvage recovery, and gentler construction botches without requiring companion mods or chat-command tuning. Existing worlds retain every saved setting and difficulty value. Resetting the server configuration explicitly adopts the new Easy default; Medium remains available as the neutral preset.
-
-Standardized numeric input around canonical values: progress, probability, and ratio commands use `0.0` to `1.0`, while multipliers use direct values such as `0.5` or `2.0`. Ambiguous whole-percent and percent-suffixed command forms were removed, and invalid non-finite values are rejected before configuration changes are applied.
-
-Improved Rich HUD tuning controls with percentage, multiplier, seconds, and metres formatting; useful precision and step sizes; and logarithmic-with-zero sliders for the practical `0.01x` to `10x` multiplier range. These controls are presentation metadata only and do not change persisted field names, types, or meanings.
-
-The established suppression-threshold fields remain serialized as `0` to `100` percent-points for save compatibility. Commands and Rich HUD translate those fields at the boundary, so a canonical input of `0.05` continues to persist as `5`. Working Knowledge persistence remains version 1 and existing saves require no migration.
+- New worlds start on **Easy**, with faster research and Proficiency gains, better salvage recovery, and gentler construction botches. Existing worlds retain their saved settings. Explicitly resetting world configuration adopts Easy; Medium remains available as the neutral preset.
+- Existing `/wk config` and `/wk difficulty` commands remain available. Graphical changes use the same server-authoritative validation and administrator permissions; dedicated servers delegate rendering to clients.
+- Numeric commands now use canonical ratios and probabilities such as `0.05` for 5%, and direct multipliers such as `2` for 2x. Whole-percent and percent-suffixed command forms are no longer accepted. In the graphical percentage boxes, `5` or `5%` still means 5%.
+- Persistence remains version 1, with no save migration required for this update. Existing field names and meanings are unchanged, including suppression thresholds stored as percent-points.
+- **Rich HUD Master replaces Text HUD API as the Workshop UI dependency.** Text HUD API is optional. Core progression and chat configuration remain usable if Rich HUD Master is unavailable. The MIT-licensed Rich HUD Framework Full Client 1.3.0.0 is bundled with the mod.
 
 ## Working Knowledge 1.0.2 - Save As Persistence Hotfix
 
