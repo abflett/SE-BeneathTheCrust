@@ -72,7 +72,8 @@
         "Control line: slider on the left, value box on the right"
       ],
       "game_hud": "Temporarily hidden locally; previous HUD state restored on close; progress overlay suppressed while open",
-      "editing": "All edits staged until Apply Changes. Exit/Escape discard unapplied edits. Presets/resets replace prior drafts; other fields update after applying."
+      "editing": "All edits staged until Apply Changes. Exit/Escape discard unapplied edits. Presets/resets replace prior drafts; other fields update after applying.",
+      "text_input": "Click a value field to activate direct typing without chat. Editing closes on focus loss, discard or loss of edit permission. Apply Changes commits the draft."
     },
     "requested_changes": "",
     "notes": "There is another popular UI frame works I forgot the name Hud text (the previous hud api) or something, but it might be worth it to also add it's entry point as well. Sizing maybe should be reactive as people use different resolutions and aspect ratios. The current size is a good starting point, but it might be worth it to make the window size reactive to the screen resolution. Though maybe it is already if using world units or something.",
@@ -2147,5 +2148,31 @@
       ]
     }
   ],
-  "implementation_update": "Screenshot-driven layout and staged Apply Changes workflow implemented for the next 1.1.0 playtest."
+  "implementation_update": "Direct text-field focus activation and vanilla-inspired progress colors implemented for the next 1.1.0 playtest.",
+  "progress_overlay_style": {
+    "research_rgb": [
+      137,
+      217,
+      240
+    ],
+    "proficiency_rgb": [
+      88,
+      160,
+      194
+    ],
+    "label_rgb": [
+      186,
+      233,
+      246
+    ],
+    "background_rgb": [
+      58,
+      76,
+      88
+    ],
+    "background_alpha": 77,
+    "background_opacity": "Base alpha multiplied by event fade and the player HUD background-opacity setting.",
+    "reference": "Vanilla DrillBarProgress/DrillBarBackground textures and Hud/Default.sbc inventory bar tints; darker HUD-style blue distinguishes Proficiency.",
+    "notes": ""
+  }
 }

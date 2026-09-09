@@ -23,9 +23,11 @@ namespace WkKn
         private const float ProficiencyBarHeight = 5f;
         private const float LabelInset = 4f;
         private const float LabelTextSize = 1.02f;
-        private static readonly Color LabelColor = new Color(225, 236, 240);
+        private static readonly Color LabelColor = new Color(186, 233, 246);
         private static readonly Color LabelShadowColor = new Color(0, 0, 0);
-        private static readonly Color BarBackColor = new Color(24, 34, 38);
+        // Vanilla DrillBar textures tinted by Default.sbc: pale cyan fill, slate track.
+        // The original background texture has approximately 30% alpha before HUD opacity.
+        private static readonly Color BarBackColor = new Color(58, 76, 88);
 
         private readonly List<Entry> entries = new List<Entry>(MaxRows);
         private readonly Row[] rows = new Row[MaxRows];
@@ -82,7 +84,9 @@ namespace WkKn
                 return;
             }
 
-            RenderRows(currentTick, settings);
+            var backgroundOpacity = MyAPIGateway.Session != null && MyAPIGateway.Session.Config != null
+                ? MyAPIGateway.Session.Config.HUDBkOpacity : 1f;
+            RenderRows(currentTick, settings, Math.Max(0f, Math.Min(1f, backgroundOpacity)));
         }
 
         internal void Clear()
@@ -153,7 +157,7 @@ namespace WkKn
             }
         }
 
-        private void RenderRows(long currentTick, WkProgressHudSettings settings)
+        private void RenderRows(long currentTick, WkProgressHudSettings settings, float backgroundOpacity)
         {
             var visibleCount = Math.Min(settings.RowCount, entries.Count);
             ApplyPlacement(settings);
@@ -174,7 +178,7 @@ namespace WkKn
                     entry.ProficiencyProgress,
                     GetAlpha(currentTick, entry.LastUpdatedTick, settings),
                     researchColor,
-                    proficiencyColor);
+                    proficiencyColor, backgroundOpacity);
             }
 
             rowChain.Visible = visibleCount > 0;
@@ -354,7 +358,7 @@ namespace WkKn
                 {
                     Size = new Vector2(OverlayWidth, BarBackgroundHeight),
                     ParentAlignment = ParentAlignments.InnerBottomLeft,
-                    Color = WithAlpha(BarBackColor, 130),
+                    Color = WithAlpha(BarBackColor, 77),
                 };
 
                 researchFill = new TexturedBox(barBackground)
@@ -386,7 +390,7 @@ namespace WkKn
                 });
             }
 
-            internal void Update(string labelText, double researchProgress, double proficiencyProgress, byte alpha, Color researchColor, Color proficiencyColor)
+            internal void Update(string labelText, double researchProgress, double proficiencyProgress, byte alpha, Color researchColor, Color proficiencyColor, float backgroundOpacity)
             {
                 var labelFormat = new GlyphFormat(WithAlpha(LabelColor, alpha), TextAlignment.Left, LabelTextSize);
                 var shadowAlpha = (byte)(alpha * 240 / 255);
@@ -413,7 +417,7 @@ namespace WkKn
                 proficiencyFill.Width = Math.Max(0.5f, innerWidth * (float)Clamp01(proficiencyProgress));
                 researchFill.Color = WithAlpha(researchColor, alpha);
                 proficiencyFill.Color = WithAlpha(proficiencyColor, alpha);
-                barBackground.Color = WithAlpha(BarBackColor, (byte)(alpha * 130 / 255));
+                barBackground.Color = WithAlpha(BarBackColor, (byte)(alpha * 77f / 255f * backgroundOpacity));
                 currentAlpha = alpha;
                 SetVisible(alpha > 0);
             }

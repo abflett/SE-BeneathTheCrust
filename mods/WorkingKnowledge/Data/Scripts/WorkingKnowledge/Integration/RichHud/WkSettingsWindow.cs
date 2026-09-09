@@ -924,7 +924,7 @@ namespace WkKn
         private sealed class SliderSettingRow : SettingRow
         {
             private readonly SliderBox control;
-            private readonly TextField valueField;
+            private readonly WkSettingsTextField valueField;
             private readonly double minimum, maximum;
             private string lastFieldText = string.Empty;
             private readonly Func<string> getter;
@@ -942,7 +942,7 @@ namespace WkKn
                 this.presentation = presentation;
                 this.minimum = minimum;
                 this.maximum = maximum;
-                valueField = new TextField(this)
+                valueField = new WkSettingsTextField(this)
                 {
                     Text = string.Empty,
                     ParentAlignment = ParentAlignments.InnerRight,
@@ -965,6 +965,14 @@ namespace WkKn
                 };
                 control.MouseInput.ToolTip = tooltip;
                 control.ValueChanged += OnValueChanged;
+            }
+
+            internal override void SetEditable(bool value)
+            {
+                base.SetEditable(value);
+                valueField.EnableEditing = value;
+                if (!value)
+                    valueField.StopEditing();
             }
 
             internal override void Refresh()
@@ -1019,6 +1027,7 @@ namespace WkKn
 
             internal override void DiscardDraft()
             {
+                valueField.StopEditing();
                 SetFieldValue(ParseNumber(getter()));
             }
 
@@ -1099,7 +1108,7 @@ namespace WkKn
 
         private sealed class TextSettingRow : SettingRow
         {
-            private readonly TextField field;
+            private readonly WkSettingsTextField field;
             private readonly Func<string> getter;
             private readonly Action<string> changed;
             private readonly bool defaultableNumber;
@@ -1111,8 +1120,16 @@ namespace WkKn
                 this.getter = getter;
                 this.changed = changed;
                 this.defaultableNumber = defaultableNumber;
-                field = new TextField(this) { Text = string.Empty };
+                field = new WkSettingsTextField(this) { Text = string.Empty };
                 field.MouseInput.ToolTip = tooltip;
+            }
+
+            internal override void SetEditable(bool value)
+            {
+                base.SetEditable(value);
+                field.EnableEditing = value;
+                if (!value)
+                    field.StopEditing();
             }
 
             internal override void Refresh()
@@ -1123,6 +1140,7 @@ namespace WkKn
 
             internal override void DiscardDraft()
             {
+                field.StopEditing();
                 lastFieldText = getter();
                 field.Text = lastFieldText;
             }

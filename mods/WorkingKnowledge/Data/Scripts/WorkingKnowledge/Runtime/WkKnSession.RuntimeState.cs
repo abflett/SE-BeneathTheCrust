@@ -75,7 +75,7 @@ namespace WkKn
         private readonly Dictionary<string, double> progressChatLastShownByKey = new Dictionary<string, double>(StringComparer.OrdinalIgnoreCase);
         private readonly Dictionary<string, double> progressToastLastShownByKey = new Dictionary<string, double>(StringComparer.OrdinalIgnoreCase);
         private readonly Dictionary<string, long> weldBotchWarningLastShownByKey = new Dictionary<string, long>(StringComparer.OrdinalIgnoreCase);
-        private readonly WkRichHudIntegration richHudIntegration = new WkRichHudIntegration(new VRageMath.Color(180, 255, 0), new VRageMath.Color(65, 255, 195));
+        private readonly WkRichHudIntegration richHudIntegration = new WkRichHudIntegration(new VRageMath.Color(137, 217, 240), new VRageMath.Color(88, 160, 194));
         private readonly SchematicCatalog schematicCatalog = new SchematicCatalog();
         private WorkingKnowledgeLayerAudit layerAudit = new WorkingKnowledgeLayerAudit();
         private string runtimeLoadIssue;

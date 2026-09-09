@@ -380,7 +380,7 @@ namespace RichHudFramework.UI
 		{
 			bool useInput = GetCanAllowInput();
 
-			if (EnableEditing && MouseInput.IsMousedOver && HudMain.InputMode == HudInputMode.CursorOnly)
+			if (EnableEditing && !useInput && MouseInput.IsMousedOver && HudMain.InputMode == HudInputMode.CursorOnly)
 				HudMain.Cursor.RegisterToolTip(warningToolTip);
 
 			// Editing

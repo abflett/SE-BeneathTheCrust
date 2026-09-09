@@ -14,6 +14,10 @@ Load Rich HUD Master Workshop item `1965654081`. Text HUD API should not be requ
 
 ## Single Player
 
+- With chat closed, click a numeric value box and type, backspace, select all, and paste. Repeat in the personal cooldown and sound subtype text fields. Move focus between fields: only the focused field may receive text, and typing must not activate toolbar slots, movement, or chat. Apply Changes must submit the typed value; Exit/Escape must discard it.
+- Reopen after discarding a focused edit and switch pages while editing; verify no hidden field continues receiving keys. Demote an administrator with a focused server field and verify editing stops. No active field should show the obsolete "Open Chat" warning.
+- Compare the progress overlay with the vanilla inventory/weight bar and toolbar: research should be pale cyan, Proficiency a distinct darker blue, with a slate translucent track. Change HUD background opacity to zero, half, and full; only the track opacity should follow it. Verify labels, paired-bar layout, and event fading remain legible over bright and dark scenes.
+
 - Confirm the header has no X button, the sidebar has no scrollbar or contrasting well, and the footer remains visible while content scrolls. At minimum size, every navigation button must remain accessible.
 - Confirm each row stacks title, wrapped description, and control; numeric sliders and their value boxes must share one horizontal line without overlap or clipping.
 - Make edits on multiple pages, then Exit/Escape and reopen: none should have applied. Repeat and use Apply Changes: all valid edits should apply. A malformed numeric field must prevent the batch from submitting; the footer should identify the setting.

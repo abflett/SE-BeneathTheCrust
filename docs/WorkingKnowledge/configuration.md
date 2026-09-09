@@ -26,6 +26,8 @@ Sliders cover practical tuning ranges; the value box accepts the full valid sett
 
 The personal botch warning cooldown retains its text box so it can also accept `default`.
 
+Click a value box to type directly; chat does not need to be open. Keyboard focus is released when leaving the field or closing the window. Research progress uses pale cyan and Proficiency uses muted blue; the translucent track follows the game's HUD background-opacity setting.
+
 This guide explains the in-game Working Knowledge commands, player feedback settings, admin tuning controls, and persisted configuration fields used by the mod.
 
 Start in-game with:

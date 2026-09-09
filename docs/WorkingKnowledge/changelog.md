@@ -4,6 +4,8 @@ Public-facing release notes for the standalone **Working Knowledge** Space Engin
 
 ## 1.1.0 - Rich HUD Settings - In Development
 
+Fixed value-box keyboard activation in the standalone settings window by explicitly opening Rich HUD text input on focus and closing it on blur, discard, or permission loss. Fields no longer require chat to be open; active editing blocks normal game controls. Replaced neon research/Proficiency bars with vanilla-inspired pale cyan and muted blue, and changed the track to a translucent slate tint that respects HUD background opacity.
+
 Refined the custom settings layout from in-game feedback: a smaller header, a fixed Apply Changes / Exit footer, plain sidebar buttons, more opaque background, and vertically stacked titles, wrapped descriptions, and controls. Sliders now share a line with their value boxes. All panel edits remain pending until Apply Changes; Exit and Escape discard unapplied edits. The local game HUD and progress overlay hide during editing, and the prior HUD mode is restored when the window closes.
 
 Added editable value boxes beside every numeric slider. Apply accepts the setting's full valid range independently of the slider's practical range, preserves finer typed precision, and validates displayed units (including percentages) before sending the existing authoritative command. Narrower timing, placement, sound-range, and later Proficiency-rate sliders make everyday tuning easier.
