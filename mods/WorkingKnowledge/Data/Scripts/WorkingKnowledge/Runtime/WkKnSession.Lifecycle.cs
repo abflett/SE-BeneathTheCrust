@@ -146,8 +146,9 @@ namespace WkKn
             if (textHudSettingsLauncher != null)
                 textHudSettingsLauncher.Close();
             textHudSettingsLauncher = null;
-            richHudIntegration.Close();
+            // Release settings controls and restore the HUD before resetting framework modules.
             OnRichHudReset();
+            richHudIntegration.Close();
             progressChatHeaderByIdentity.Clear();
             progressChatLastShownByKey.Clear();
             progressToastLastShownByKey.Clear();

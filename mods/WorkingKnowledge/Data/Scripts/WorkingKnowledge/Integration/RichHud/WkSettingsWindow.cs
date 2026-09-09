@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using RichHudFramework;
+using RichHudFramework.Client;
 using RichHudFramework.UI;
 using RichHudFramework.UI.Client;
 using Sandbox.ModAPI;
@@ -45,6 +46,8 @@ namespace WkKn
         private SettingsPage selectedPage;
         private Color bodyBaseColor;
         private bool live;
+        private bool disposed;
+        private readonly IBind escapeBind;
         private bool canEditWorld;
 
         internal WkSettingsWindow(
@@ -119,7 +122,8 @@ namespace WkKn
             Visible = false;
 
             BuildPages();
-            SharedBinds.Escape.NewPressed += OnEscapePressed;
+            escapeBind = SharedBinds.Escape;
+            escapeBind.NewPressed += OnEscapePressed;
         }
 
         internal bool IsOpen
@@ -152,12 +156,17 @@ namespace WkKn
         {
             Visible = false;
             DiscardChanges();
+            RestoreGameHud();
+            HudMain.EnableCursor = false;
+        }
+
+        private void RestoreGameHud()
+        {
             if (previousHudState.HasValue)
             {
                 MyVisualScriptLogicProvider.SetHudState(previousHudState.Value, 0);
                 previousHudState = null;
             }
-            HudMain.EnableCursor = false;
         }
 
         internal void Refresh(bool allowWorldChanges)
@@ -175,9 +184,21 @@ namespace WkKn
 
         internal void Dispose()
         {
+            if (disposed)
+                return;
+            disposed = true;
             live = false;
-            SharedBinds.Escape.NewPressed -= OnEscapePressed;
-            Hide();
+            // Never resolve a lazy framework singleton during teardown. The framework may
+            // already have unloaded its modules before our session receives UnloadData.
+            escapeBind.NewPressed -= OnEscapePressed;
+            if (RichHudClient.Registered)
+                Hide();
+            else
+            {
+                Visible = false;
+                draft.Clear();
+                RestoreGameHud();
+            }
             Unregister();
             responsiveRoot.Unregister();
             pages.Clear();
