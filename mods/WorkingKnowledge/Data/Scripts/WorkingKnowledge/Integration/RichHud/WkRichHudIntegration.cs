@@ -56,7 +56,7 @@ namespace WkKn
             }
         }
 
-        internal void Update(long currentTick, WkProgressHudSettings settings)
+        internal void Update(long currentTick, WkProgressHudSettings settings, bool settingsOpen)
         {
             if (dedicatedServer)
                 return;
@@ -72,7 +72,7 @@ namespace WkKn
                 return;
             }
 
-            progressOverlay.Update(currentTick, settings);
+            progressOverlay.Update(currentTick, settings, settingsOpen);
         }
 
         internal void Clear()

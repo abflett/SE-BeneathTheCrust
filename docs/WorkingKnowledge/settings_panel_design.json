@@ -37,20 +37,20 @@
       ],
       "minimum_size": [
         920,
-        560
+        680
       ],
       "sidebar_width": 238,
       "margin": 24,
       "column_gap": 18,
-      "standard_row_height": 92,
-      "numeric_and_text_row_height": 98,
+      "standard_row_height": "Dynamic: 106 + description height (at least 24)",
+      "numeric_and_text_row_height": "Dynamic: same stacked layout",
       "section_heading_height": 68,
       "navigation_row_height": 38,
-      "scrolling": "Vertical sidebar and page content",
+      "scrolling": "Vertical page content only",
       "supports": [
         "drag",
         "resize",
-        "close button",
+        "footer Exit",
         "Escape"
       ],
       "entry_points": [
@@ -58,11 +58,25 @@
         "Rich HUD Terminal > Working Knowledge > Settings launcher",
         "Text HUD API player menu > Working Knowledge > Open settings (when installed; close chat to continue)"
       ],
-      "sizing": "Initial and minimum sizes are logical units; window bounds fit the current viewport with 24-unit screen margins and additional scaling when needed."
+      "sizing": "Initial and minimum sizes are logical units; window bounds fit the current viewport with 24-unit screen margins and additional scaling when needed.",
+      "header_height": 40,
+      "footer_height": 64,
+      "footer_buttons": [
+        "Apply Changes",
+        "Exit"
+      ],
+      "navigation": "Plain fixed buttons, transparent background, no sidebar scroll bar",
+      "row_layout": [
+        "Setting title",
+        "Wrapped description",
+        "Control line: slider on the left, value box on the right"
+      ],
+      "game_hud": "Temporarily hidden locally; previous HUD state restored on close; progress overlay suppressed while open",
+      "editing": "All edits staged until Apply Changes. Exit/Escape discard unapplied edits. Presets/resets replace prior drafts; other fields update after applying."
     },
     "requested_changes": "",
     "notes": "There is another popular UI frame works I forgot the name Hud text (the previous hud api) or something, but it might be worth it to also add it's entry point as well. Sizing maybe should be reactive as people use different resolutions and aspect ratios. The current size is a good starting point, but it might be worth it to make the window size reactive to the screen resolution. Though maybe it is already if using world units or something.",
-    "implementation_notes": "Uses Rich HUD DPI units; now centers and fits the full window to the available screen. Very small viewports get additional uniform scaling. Optional Text HUD API player-menu launcher waits for chat to close before opening the Rich HUD window. Pending in-game validation."
+    "implementation_notes": "Screenshot refinement implemented; pending the next in-game visual review. Footer replaces header close button; plain navigation; staged edits; stacked row controls; local HUD restoration."
   },
   "groups": [
     {
@@ -111,7 +125,7 @@
                   "setting": "progressHudRows",
                   "current": {
                     "label": "Progress HUD Rows",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Maximum recent schematic rows shown in the progress bar overlay.",
                     "accepted_values": "1 to 10",
                     "numeric_input": {
@@ -143,7 +157,7 @@
                   "setting": "progressHudFadeSeconds",
                   "current": {
                     "label": "Progress HUD Fade Seconds",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Seconds a progress bar row stays active before fading. Use 0 to keep recent history visible until replaced.",
                     "accepted_values": "0.0 to 60.0 seconds",
                     "numeric_input": {
@@ -238,7 +252,7 @@
                   "setting": "progressHudOffsetX",
                   "current": {
                     "label": "Progress HUD X Offset",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Horizontal offset added to the progress bar position preset. Positive values move right.",
                     "accepted_values": "-2.0 to 2.0",
                     "numeric_input": {
@@ -270,7 +284,7 @@
                   "setting": "progressHudOffsetY",
                   "current": {
                     "label": "Progress HUD Y Offset",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Vertical offset added to the progress bar position preset. Positive values move up.",
                     "accepted_values": "-2.0 to 2.0",
                     "numeric_input": {
@@ -372,7 +386,7 @@
                   "setting": "researchChatSuppressionPercent",
                   "current": {
                     "label": "Research Chat Threshold",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Minimum accumulated research percent before another research chat update is shown for you.",
                     "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%",
                     "numeric_input": {
@@ -404,7 +418,7 @@
                   "setting": "proficiencyChatSuppressionPercent",
                   "current": {
                     "label": "Proficiency Chat Threshold",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Minimum accumulated Proficiency percent before another Proficiency chat update is shown for you.",
                     "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%",
                     "numeric_input": {
@@ -444,7 +458,7 @@
                   "setting": "researchToastSuppressionPercent",
                   "current": {
                     "label": "Research Toast Threshold",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Minimum accumulated research percent before another research toast appears for you.",
                     "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%",
                     "numeric_input": {
@@ -476,7 +490,7 @@
                   "setting": "proficiencyToastSuppressionPercent",
                   "current": {
                     "label": "Proficiency Toast Threshold",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Minimum accumulated Proficiency percent before another Proficiency toast appears for you.",
                     "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%",
                     "numeric_input": {
@@ -560,7 +574,7 @@
                   "setting": "weldBotchWarningCooldownSeconds",
                   "current": {
                     "label": "Botch Warning Cooldown",
-                    "control": "text field with Apply button",
+                    "control": "text field; footer Apply Changes",
                     "description": "Minimum time before repeating the same botch warning for you. Use default to follow world settings.",
                     "accepted_values": "default or 0.0 to 30.0 seconds"
                   },
@@ -718,7 +732,7 @@
                   "setting": "researchScale",
                   "current": {
                     "label": "Research Scale",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Global multiplier for all active research gain.",
                     "accepted_values": "0.0 to 100.0",
                     "numeric_input": {
@@ -750,7 +764,7 @@
                   "setting": "researchGrindingGainScale",
                   "current": {
                     "label": "Grinding Research Scale",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Multiplier for schematic research gained by grinding blocks.",
                     "accepted_values": "0.0 to 100.0",
                     "numeric_input": {
@@ -782,7 +796,7 @@
                   "setting": "dataFragmentRewardScale",
                   "current": {
                     "label": "Data Fragment Reward Scale",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Multiplier for partial research progress granted by consumable data fragments.",
                     "accepted_values": "0.0 to 100.0",
                     "numeric_input": {
@@ -814,7 +828,7 @@
                   "setting": "dataFragmentLootScale",
                   "current": {
                     "label": "Data Fragment Loot Scale",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Multiplier for data fragment loot frequency in patched container definitions. Existing spawned containers are not retroactive.",
                     "accepted_values": "0.0 to 100.0",
                     "numeric_input": {
@@ -846,7 +860,7 @@
                   "setting": "researchEfficiencyStart",
                   "current": {
                     "label": "Research Start Efficiency",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Research efficiency at 0% known. Higher values front-load discovery.",
                     "accepted_values": "0.0 to 10.0",
                     "numeric_input": {
@@ -878,7 +892,7 @@
                   "setting": "researchEfficiencyEnd",
                   "current": {
                     "label": "Research End Efficiency",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Research efficiency near 100% known. Lower values slow the final stretch.",
                     "accepted_values": "0.0 to 10.0",
                     "numeric_input": {
@@ -950,7 +964,7 @@
                   "setting": "proficiencyGainScale",
                   "current": {
                     "label": "Proficiency Scale",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Global multiplier for hands-on Proficiency gain.",
                     "accepted_values": "0.0 to 100.0",
                     "numeric_input": {
@@ -982,7 +996,7 @@
                   "setting": "proficiencyGrindingGainScale",
                   "current": {
                     "label": "Grinding Proficiency Scale",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Multiplier for Proficiency gained by grinding.",
                     "accepted_values": "0.0 to 100.0",
                     "numeric_input": {
@@ -1014,7 +1028,7 @@
                   "setting": "proficiencyWeldingGainScale",
                   "current": {
                     "label": "Welding Proficiency Scale",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Multiplier for Proficiency gained by welding and repairing.",
                     "accepted_values": "0.0 to 100.0",
                     "numeric_input": {
@@ -1046,7 +1060,7 @@
                   "setting": "proficiencyFirstThreshold",
                   "current": {
                     "label": "Proficiency First Threshold",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "End of the fast first Proficiency segment.",
                     "accepted_values": "ratio from 0.0 to 1.0; 0.8 means 80%",
                     "numeric_input": {
@@ -1078,7 +1092,7 @@
                   "setting": "proficiencySecondThreshold",
                   "current": {
                     "label": "Proficiency Second Threshold",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "End of the slow second Proficiency segment. The default 100% value makes Proficiency a two-stage curve.",
                     "accepted_values": "ratio from 0.0 to 1.0; 0.8 means 80%",
                     "numeric_input": {
@@ -1110,7 +1124,7 @@
                   "setting": "proficiencyFirstSegmentRate",
                   "current": {
                     "label": "Proficiency First Rate",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Base progress earned per table work reward unit in the fast segment before the segment curve is applied.",
                     "accepted_values": "0.0 to 10.0",
                     "numeric_input": {
@@ -1142,7 +1156,7 @@
                   "setting": "proficiencySecondSegmentRate",
                   "current": {
                     "label": "Proficiency Second Rate",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Base progress earned per table work reward unit in the slow segment before the segment curve is applied.",
                     "accepted_values": "0.0 to 10.0",
                     "numeric_input": {
@@ -1174,7 +1188,7 @@
                   "setting": "proficiencyFinalSegmentRate",
                   "current": {
                     "label": "Proficiency Final Rate",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Optional final segment base rate used only when the second threshold is below 100%.",
                     "accepted_values": "0.0 to 10.0",
                     "numeric_input": {
@@ -1268,7 +1282,7 @@
                   "setting": "weldBotchBaseChance",
                   "current": {
                     "label": "Botch Base Chance",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Botch chance scale near the functional threshold. The medium value maps to inverse Proficiency.",
                     "accepted_values": "0.0 to 1.0",
                     "numeric_input": {
@@ -1300,7 +1314,7 @@
                   "setting": "weldBotchMaxChance",
                   "current": {
                     "label": "Botch Max Chance",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Maximum normal botch chance before the Proficiency cap forces guaranteed failure.",
                     "accepted_values": "0.0 to 1.0",
                     "numeric_input": {
@@ -1332,7 +1346,7 @@
                   "setting": "weldBotchChanceScale",
                   "current": {
                     "label": "Botch Chance Scale",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Difficulty-facing multiplier for botch chance before the max chance clamp.",
                     "accepted_values": "0.0 to 100.0",
                     "numeric_input": {
@@ -1364,7 +1378,7 @@
                   "setting": "weldBotchPostFunctionalPressure",
                   "current": {
                     "label": "Post-Functional Botch Pressure",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Shapes the post-functional botch-zone climb.",
                     "accepted_values": "0.0 to 100.0",
                     "numeric_input": {
@@ -1396,7 +1410,7 @@
                   "setting": "weldBotchSoftCapPressure",
                   "current": {
                     "label": "Soft-Cap Botch Pressure",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Shapes the post-functional Proficiency cap pressure.",
                     "accepted_values": "0.0 to 100.0",
                     "numeric_input": {
@@ -1428,7 +1442,7 @@
                   "setting": "weldBotchPressureScale",
                   "current": {
                     "label": "Botch Pressure Scale",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Difficulty-facing multiplier for post-functional botch pressure curves.",
                     "accepted_values": "0.0 to 100.0",
                     "numeric_input": {
@@ -1460,7 +1474,7 @@
                   "setting": "weldBotchRawLossRatio",
                   "current": {
                     "label": "Botch Damage Ratio",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Raw integrity loss as a multiple of the triggering positive integrity delta.",
                     "accepted_values": "0.0 to 10.0",
                     "numeric_input": {
@@ -1492,7 +1506,7 @@
                   "setting": "weldBotchForgivenessScale",
                   "current": {
                     "label": "Botch Forgiveness Scale",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Multiplier for returned component forgiveness after botch damage. Higher is gentler.",
                     "accepted_values": "0.0 to 100.0",
                     "numeric_input": {
@@ -1564,7 +1578,7 @@
                   "setting": "salvageScale",
                   "current": {
                     "label": "Salvage Scale",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Multiplier for intact component recovery before the 100% cap.",
                     "accepted_values": "0.0 to 100.0",
                     "numeric_input": {
@@ -1596,7 +1610,7 @@
                   "setting": "salvageScrapYield",
                   "current": {
                     "label": "Salvage Scrap Yield",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Mass ratio returned as scrap ore when low-Proficiency grinding converts components to scrap.",
                     "accepted_values": "ratio from 0.0 to 1.0; 0.2 means 20%",
                     "numeric_input": {
@@ -1668,7 +1682,7 @@
                   "setting": "notificationDelaySeconds",
                   "current": {
                     "label": "Notification Delay",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "World delay used to combine repeated progress updates before chat/toast feedback.",
                     "accepted_values": "0.1 to 30.0 seconds",
                     "numeric_input": {
@@ -1744,7 +1758,7 @@
                   "setting": "defaultResearchChatSuppressionPercent",
                   "current": {
                     "label": "Default Research Chat Threshold",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "World default/minimum accumulated research percent before another research chat update is shown.",
                     "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%",
                     "numeric_input": {
@@ -1776,7 +1790,7 @@
                   "setting": "defaultProficiencyChatSuppressionPercent",
                   "current": {
                     "label": "Default Proficiency Chat Threshold",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "World default/minimum accumulated Proficiency percent before another Proficiency chat update is shown.",
                     "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%",
                     "numeric_input": {
@@ -1808,7 +1822,7 @@
                   "setting": "defaultResearchToastSuppressionPercent",
                   "current": {
                     "label": "Default Research Toast Threshold",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "World default/minimum accumulated research percent before another research toast appears.",
                     "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%",
                     "numeric_input": {
@@ -1840,7 +1854,7 @@
                   "setting": "defaultProficiencyToastSuppressionPercent",
                   "current": {
                     "label": "Default Proficiency Toast Threshold",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "World default/minimum accumulated Proficiency percent before another Proficiency toast appears.",
                     "accepted_values": "ratio from 0.0 to 1.0; 0.1 means 10%",
                     "numeric_input": {
@@ -1894,7 +1908,7 @@
                   "setting": "defaultWeldBotchWarningCooldownSeconds",
                   "current": {
                     "label": "Default Botch Warning Cooldown",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "World default/minimum time before repeating the same botch warning for the same player/block.",
                     "accepted_values": "0.0 to 30.0 seconds",
                     "numeric_input": {
@@ -1948,7 +1962,7 @@
                   "setting": "weldBotchSoundSubtype",
                   "current": {
                     "label": "Botch Sound Subtype",
-                    "control": "text field with Apply button",
+                    "control": "text field; footer Apply Changes",
                     "description": "Sound subtype played for weld botches.",
                     "accepted_values": "Space Engineers audio subtype"
                   },
@@ -1970,7 +1984,7 @@
                   "setting": "weldBotchSoundRange",
                   "current": {
                     "label": "Botch Sound Range",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Range in meters for positional botch sounds.",
                     "accepted_values": "0.0 to 1000.0 meters",
                     "numeric_input": {
@@ -2042,7 +2056,7 @@
                   "setting": "fundamentalsProficiencyProgress",
                   "current": {
                     "label": "Fundamentals Proficiency",
-                    "control": "slider with value box and Apply button",
+                    "control": "slider with value box on its right; footer Apply Changes",
                     "description": "Minimum baseline Proficiency for Fundamentals.",
                     "accepted_values": "ratio from 0.0 to 1.0; 0.8 means 80%",
                     "numeric_input": {
@@ -2133,5 +2147,5 @@
       ]
     }
   ],
-  "implementation_update": "Numeric value boxes, practical slider ranges, screen fitting and optional Text HUD launcher added for the next 1.1.0 playtest. Original baseline commit retained for design history."
+  "implementation_update": "Screenshot-driven layout and staged Apply Changes workflow implemented for the next 1.1.0 playtest."
 }

@@ -85,7 +85,7 @@ namespace WkKn
             UpdateProficiencyModule();
             FlushReadyProgressNotifications();
             FlushReadyWeldBotchWarnings();
-            richHudIntegration.Update(simulationTick, GetLocalProgressHudSettings());
+            richHudIntegration.Update(simulationTick, GetLocalProgressHudSettings(), richHudSettingsMenu != null && richHudSettingsMenu.IsOpen);
             UpdateRichHudSettings();
         }
 

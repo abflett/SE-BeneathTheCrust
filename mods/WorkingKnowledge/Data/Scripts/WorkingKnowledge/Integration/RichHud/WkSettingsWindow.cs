@@ -5,6 +5,7 @@ using RichHudFramework;
 using RichHudFramework.UI;
 using RichHudFramework.UI.Client;
 using Sandbox.ModAPI;
+using Sandbox.Game;
 using VRageMath;
 
 namespace WkKn
@@ -32,7 +33,13 @@ namespace WkKn
         private readonly List<SettingRow> rows = new List<SettingRow>();
         private readonly List<SettingRow> worldRows = new List<SettingRow>();
         private readonly List<BorderedButton> navigationButtons = new List<BorderedButton>();
-        private readonly ScrollBox navigation;
+        private readonly EmptyHudElement navigation;
+        private readonly List<HudElementBase> navigationItems = new List<HudElementBase>();
+        private readonly WkSettingsDraft draft = new WkSettingsDraft();
+        private readonly EmptyHudElement footer;
+        private readonly BorderedButton applyButton;
+        private readonly Label footerStatus;
+        private int? previousHudState;
         private readonly TexturedBox columnDivider;
         private readonly BorderedButton closeButton;
         private SettingsPage selectedPage;
@@ -57,7 +64,8 @@ namespace WkKn
             this.worldStore = worldStore;
             this.getPlayerConfig = getPlayerConfig;
             this.getWorldConfig = getWorldConfig;
-            this.getEffectiveValue = getEffectiveValue;
+            this.getEffectiveValue = delegate(string key, Func<string> current)
+            { return draft.GetValue(key, delegate { return getEffectiveValue(key, current); }); };
             this.applyValue = applyValue;
             this.applyDifficulty = applyDifficulty;
             this.resetConfig = resetConfig;
@@ -65,29 +73,34 @@ namespace WkKn
             HeaderBuilder.Format = TerminalFormatting.HeaderFormat;
             HeaderText = new RichText("Working Knowledge Settings");
             header.Background.Visible = false;
-            header.Height = 58f;
+            header.Height = 40f;
 
-            closeButton = new BorderedButton(header)
+            footer = new EmptyHudElement(body);
+            closeButton = new BorderedButton(footer)
             {
-                Text = "X",
-                Size = new Vector2(42f, 34f),
+                Text = "Exit",
+                Size = new Vector2(110f, 38f),
                 Padding = Vector2.Zero,
                 TextPadding = Vector2.Zero,
-                ParentAlignment = ParentAlignments.InnerTopRight,
-                Offset = new Vector2(-18f, -12f),
             };
             closeButton.MouseInput.LeftClicked += delegate { Hide(); };
-            header.MouseInput.RequestCursor = true;
-
-            navigation = new ScrollBox(true, body)
+            applyButton = new BorderedButton(footer)
             {
-                Color = TerminalFormatting.DarkSlateGrey,
-                Padding = new Vector2(10f, 12f),
-                SizingMode = HudChainSizingModes.FitMembersOffAxis,
-                Spacing = 3f,
+                Text = "Apply Changes",
+                Size = new Vector2(190f, 38f),
+                Padding = Vector2.Zero,
+                TextPadding = Vector2.Zero,
             };
-            navigation.ScrollBar.Padding = new Vector2(12f, 10f);
-            navigation.ScrollBar.Width = 6f;
+            applyButton.MouseInput.LeftClicked += delegate { ApplyChanges(); };
+            footerStatus = new Label(footer)
+            {
+                Text = "Exit discards unapplied edits.",
+                AutoResize = false,
+                BuilderMode = TextBuilderModes.Wrapped,
+                Format = new GlyphFormat(TerminalFormatting.MistBlue, TextAlignment.Left, .8f),
+            };
+            header.MouseInput.RequestCursor = true;
+            navigation = new EmptyHudElement(body);
 
             columnDivider = new TexturedBox(body)
             {
@@ -99,7 +112,7 @@ namespace WkKn
             bodyBaseColor = new Color(27, 35, 41, 242);
             BodyColor = bodyBaseColor;
             BorderColor = new Color(84, 98, 107);
-            MinimumSize = new Vector2(920f, 560f);
+            MinimumSize = new Vector2(920f, 680f);
             Size = new Vector2(1120f, 820f);
             AllowResizing = true;
             CanDrag = true;
@@ -119,6 +132,12 @@ namespace WkKn
             RichHudTerminal.CloseMenu();
             if (!Visible)
             {
+                DiscardChanges();
+                if (MyAPIGateway.Session != null && MyAPIGateway.Session.Config != null)
+                {
+                    previousHudState = MyAPIGateway.Session.Config.HudState;
+                    MyVisualScriptLogicProvider.SetHudState(0, 0);
+                }
                 FitToScreen();
                 Offset = Vector2.Zero;
                 Visible = true;
@@ -132,6 +151,12 @@ namespace WkKn
         internal void Hide()
         {
             Visible = false;
+            DiscardChanges();
+            if (previousHudState.HasValue)
+            {
+                MyVisualScriptLogicProvider.SetHudState(previousHudState.Value, 0);
+                previousHudState = null;
+            }
             HudMain.EnableCursor = false;
         }
 
@@ -152,7 +177,7 @@ namespace WkKn
         {
             live = false;
             SharedBinds.Escape.NewPressed -= OnEscapePressed;
-            Visible = false;
+            Hide();
             Unregister();
             responsiveRoot.Unregister();
             pages.Clear();
@@ -167,24 +192,38 @@ namespace WkKn
             FitToScreen();
             base.Layout();
 
-            BodyColor = bodyBaseColor.SetAlphaPct(HudMain.UiBkOpacity);
-            var contentHeight = Math.Max(300f, body.UnpaddedSize.Y - (WindowMargin * 2f));
-            var contentWidth = Math.Max(420f, body.UnpaddedSize.X - SidebarWidth - (WindowMargin * 2f) - ColumnGap);
+            BodyColor = bodyBaseColor;
+            const float footerHeight = 64f;
+            var contentHeight = body.UnpaddedSize.Y - footerHeight - (WindowMargin * 2f);
+            var contentWidth = body.UnpaddedSize.X - SidebarWidth - (WindowMargin * 2f) - ColumnGap;
 
             navigation.Size = new Vector2(SidebarWidth, contentHeight);
-            navigation.ParentAlignment = ParentAlignments.InnerLeft;
-            navigation.Offset = new Vector2(WindowMargin, 0f);
+            navigation.Offset = new Vector2(-body.UnpaddedSize.X * .5f + WindowMargin + SidebarWidth * .5f, footerHeight * .5f);
+            var navY = contentHeight * .5f;
+            for (var i = 0; i < navigationItems.Count; i++)
+            {
+                var item = navigationItems[i];
+                item.Width = SidebarWidth;
+                item.Offset = new Vector2(0f, navY - item.Height * .5f);
+                navY -= item.Height + 4f;
+            }
 
             columnDivider.Height = contentHeight;
-            columnDivider.ParentAlignment = ParentAlignments.InnerLeft;
-            columnDivider.Offset = new Vector2(WindowMargin + SidebarWidth + (ColumnGap * .5f), 0f);
-
+            columnDivider.ParentAlignment = ParentAlignments.Center;
+            columnDivider.Offset = new Vector2(navigation.Offset.X + SidebarWidth * .5f + ColumnGap * .5f, footerHeight * .5f);
             for (var i = 0; i < pages.Count; i++)
             {
                 pages[i].Size = new Vector2(contentWidth, contentHeight);
-                pages[i].ParentAlignment = ParentAlignments.InnerRight;
-                pages[i].Offset = new Vector2(-WindowMargin, 0f);
+                pages[i].ParentAlignment = ParentAlignments.Center;
+                pages[i].Offset = new Vector2(body.UnpaddedSize.X * .5f - WindowMargin - contentWidth * .5f, footerHeight * .5f);
             }
+            footer.Size = new Vector2(body.UnpaddedSize.X - WindowMargin * 2f, footerHeight);
+            footer.Offset = new Vector2(0f, -body.UnpaddedSize.Y * .5f + footerHeight * .5f);
+            closeButton.Offset = new Vector2(footer.Width * .5f - 55f, 0f);
+            applyButton.Offset = new Vector2(footer.Width * .5f - 220f, 0f);
+            footerStatus.Size = new Vector2(footer.Width - 340f, 46f);
+            footerStatus.LineWrapWidth = footerStatus.Width;
+            footerStatus.Offset = new Vector2(-170f, 0f);
         }
 
         protected override void HandleInput(Vector2 cursorPos)
@@ -200,7 +239,7 @@ namespace WkKn
         private static float GetWindowScale()
         {
             var screen = HudMain.ScreenDimHighDPI;
-            return Math.Max(.1f, Math.Min(1f, Math.Min((screen.X - 48f) / 920f, (screen.Y - 48f) / 560f)));
+            return Math.Max(.1f, Math.Min(1f, Math.Min((screen.X - 48f) / 920f, (screen.Y - 48f) / 680f)));
         }
 
         private void FitToScreen()
@@ -242,7 +281,7 @@ namespace WkKn
                 "Reset Player Settings",
                 "Removes your overrides and restores the current defaults.",
                 "Reset Player Settings",
-                delegate { if (live) resetConfig(false); },
+                delegate { if (live) StageReset(false); },
                 false));
 
             AddNavigationHeading("SERVER SETTINGS");
@@ -257,7 +296,7 @@ namespace WkKn
                 "Reset Server Settings",
                 "Restores the complete easy preset and all authoritative defaults.",
                 "Reset Server Settings",
-                delegate { if (live && canEditWorld) resetConfig(true); },
+                delegate { if (live && canEditWorld) StageReset(true); },
                 true));
 
             foreach (var category in worldStore.GetDisplayCategories())
@@ -300,7 +339,7 @@ namespace WkKn
             };
             pages.Add(page);
 
-            var button = new BorderedButton
+            var button = new BorderedButton(navigation)
             {
                 Text = navigationName,
                 Size = new Vector2(SidebarWidth - 34f, 38f),
@@ -312,23 +351,23 @@ namespace WkKn
                 UseFocusFormatting = false,
             };
             button.MouseInput.LeftClicked += delegate { SelectPage(page, button); };
-            navigation.Add(button);
+            navigationItems.Add(button);
             navigationButtons.Add(button);
             return page;
         }
 
         private void AddNavigationHeading(string text)
         {
-            var heading = new LabelBox
+            var heading = new LabelBox(navigation)
             {
                 Text = text,
                 AutoResize = false,
-                Size = new Vector2(SidebarWidth - 34f, 32f),
+                Size = new Vector2(SidebarWidth - 34f, 26f),
                 TextPadding = new Vector2(10f, 0f),
                 Format = new GlyphFormat(TerminalFormatting.MistBlue, TextAlignment.Left, .78f),
                 Color = new Color(0, 0, 0, 0),
             };
-            navigation.Add(heading);
+            navigationItems.Add(heading);
         }
 
         private void SelectPage(SettingsPage page, BorderedButton button)
@@ -338,7 +377,8 @@ namespace WkKn
 
             for (var i = 0; i < navigationButtons.Count; i++)
             {
-                navigationButtons[i].Color = TerminalFormatting.OuterSpace;
+                navigationButtons[i].Color = new Color(0, 0, 0, 0);
+                navigationButtons[i].BorderThickness = 0f;
                 navigationButtons[i].HighlightColor = TerminalFormatting.Atomic;
             }
 
@@ -453,7 +493,8 @@ namespace WkKn
                     return;
 
                 var command = "/wk config " + setting + " " + value;
-                applyValue(setting, value, command, isWorld);
+                draft.Stage(setting, value, delegate { if (!isWorld || canEditWorld) applyValue(setting, value, command, isWorld); });
+                UpdateDraftStatus();
             };
 
             SettingRow row;
@@ -466,7 +507,7 @@ namespace WkKn
             else if (kind == WkSettingControlKind.ReadOnly)
                 row = new ReadOnlySettingRow(title, description, getValue);
             else
-                row = new TextSettingRow(title, description, tooltip, getValue, changed);
+                row = new TextSettingRow(title, description, tooltip, getValue, changed, kind == WkSettingControlKind.DefaultableNumber);
 
             if (isWorld)
                 row.SetEditable(false);
@@ -494,7 +535,9 @@ namespace WkKn
                     if (!live || !canEditWorld || value.Equals("custom", StringComparison.OrdinalIgnoreCase))
                         return;
 
-                    applyDifficulty(value, "/wk difficulty " + value);
+                    DiscardChanges();
+                    draft.Stage("difficultyPreset", value, delegate { if (canEditWorld) applyDifficulty(value, "/wk difficulty " + value); });
+                    footerStatus.Text = "Preset queued. Apply Changes to update the world.";
                 },
                 choices.ToArray(),
                 delegate(string value) { return !value.Equals("custom", StringComparison.OrdinalIgnoreCase); });
@@ -514,6 +557,49 @@ namespace WkKn
                 worldRows.Add(row);
             }
             return row;
+        }
+
+        private void UpdateDraftStatus()
+        {
+            footerStatus.Text = "Unapplied edits. Apply Changes to keep them; Exit discards them.";
+        }
+
+        private void DiscardChanges()
+        {
+            draft.Clear();
+            for (var i = 0; i < rows.Count; i++)
+                rows[i].DiscardDraft();
+            footerStatus.Text = "Exit discards unapplied edits. Apply Changes to keep them.";
+        }
+
+        private void StageReset(bool world)
+        {
+            DiscardChanges();
+            draft.Stage("reset", string.Empty, delegate { if (!world || canEditWorld) resetConfig(world); });
+            footerStatus.Text = "Reset queued. Apply Changes to restore defaults.";
+        }
+
+        private void ApplyChanges()
+        {
+            // Validate every typed field before submitting any of the staged changes.
+            for (var i = 0; i < rows.Count; i++)
+            {
+                string error;
+                if (!rows[i].ValidateDraft(out error))
+                {
+                    footerStatus.Text = error;
+                    return;
+                }
+            }
+            for (var i = 0; i < rows.Count; i++)
+                rows[i].StageDraft();
+            if (draft.Count == 0)
+            {
+                footerStatus.Text = "No unapplied changes.";
+                return;
+            }
+            draft.Apply();
+            footerStatus.Text = "Changes submitted. Exit closes the window.";
         }
 
         private void OnEscapePressed(object sender, EventArgs args)
@@ -724,7 +810,7 @@ namespace WkKn
             private readonly TexturedBox divider;
             private bool editable = true;
 
-            protected SettingRow(string heading, string detail, float height = 92f) : base(null)
+            protected SettingRow(string heading, string detail, float height = 128f) : base(null)
             {
                 Size = new Vector2(620f, height);
                 title = new Label(this)
@@ -741,7 +827,7 @@ namespace WkKn
                     Text = detail,
                     AutoResize = false,
                     BuilderMode = TextBuilderModes.Wrapped,
-                    Format = new GlyphFormat(TerminalFormatting.MistBlue, TextAlignment.Left, .68f),
+                    Format = new GlyphFormat(TerminalFormatting.MistBlue, TextAlignment.Left, .8f),
                     ParentAlignment = ParentAlignments.InnerBottomLeft,
                     Offset = new Vector2(14f, 8f),
                     Size = new Vector2(310f, height - 35f),
@@ -770,15 +856,33 @@ namespace WkKn
 
             internal abstract void Refresh();
 
+            internal virtual bool ValidateDraft(out string error) { error = null; return true; }
+            internal virtual void StageDraft() { }
+            internal virtual void DiscardDraft() { }
+
             protected override void Layout()
             {
-                var controlWidth = Math.Min(300f, Math.Max(220f, UnpaddedSize.X * .38f));
-                var textWidth = Math.Max(180f, UnpaddedSize.X - controlWidth - 48f);
-                title.Width = textWidth;
-                description.Width = textWidth;
-                description.TextBoard.LineWrapWidth = textWidth;
+                var width = Math.Max(200f, UnpaddedSize.X - 28f);
+                title.Size = new Vector2(width, 28f);
+                title.ParentAlignment = ParentAlignments.InnerTopLeft;
+                title.Offset = new Vector2(14f, -8f);
+                description.Width = width;
+                description.LineWrapWidth = width;
+                description.Height = Math.Max(24f, description.TextBoard.TextSize.Y);
+                description.VertCenterText = false;
+                description.ParentAlignment = ParentAlignments.InnerTopLeft;
+                description.Offset = new Vector2(14f, -40f);
+                Height = 40f + description.Height + 12f + 38f + 16f;
                 divider.Width = UnpaddedSize.X;
-                LayoutControl(controlWidth);
+                LayoutControl(width);
+            }
+
+            protected void PlaceControl(HudElementBase element, float left, float width, float height = 38f)
+            {
+                element.ParentAlignment = ParentAlignments.Center;
+                element.Size = new Vector2(width, height);
+                element.Offset = new Vector2(-UnpaddedSize.X * .5f + 14f + left + width * .5f,
+                    -Height * .5f + 16f + 19f);
             }
 
             protected abstract void LayoutControl(float width);
@@ -813,7 +917,7 @@ namespace WkKn
 
             protected override void LayoutControl(float width)
             {
-                control.Offset = new Vector2(-24f, 0f);
+                PlaceControl(control, 0f, 32f, 32f);
             }
         }
 
@@ -821,7 +925,6 @@ namespace WkKn
         {
             private readonly SliderBox control;
             private readonly TextField valueField;
-            private readonly BorderedButton apply;
             private readonly double minimum, maximum;
             private string lastFieldText = string.Empty;
             private readonly Func<string> getter;
@@ -831,7 +934,7 @@ namespace WkKn
             private bool refreshing;
 
             internal SliderSettingRow(string title, string description, string tooltip, Func<string> getter, Action<string> changed, WkSettingPresentation presentation, bool integer, double minimum, double maximum)
-                : base(title, description, 98f)
+                : base(title, description, 128f)
             {
                 this.getter = getter;
                 this.changed = changed;
@@ -846,22 +949,12 @@ namespace WkKn
                     Size = new Vector2(190f, 32f),
                     Offset = new Vector2(-100f, 20f),
                 };
-                valueField.MouseInput.ToolTip = "Enter a value, then Apply. Valid range: " +
+                valueField.MouseInput.ToolTip = "Enter a value, then use Apply Changes below. Valid range: " +
                     (minimum * presentation.DisplayMultiplier).ToString("0.######", CultureInfo.InvariantCulture) + " to " +
                     (maximum * presentation.DisplayMultiplier).ToString("0.######", CultureInfo.InvariantCulture) + presentation.Suffix +
                     ". The unit suffix is optional.\nSlider range: " +
                     (presentation.Minimum * presentation.DisplayMultiplier).ToString("0.######", CultureInfo.InvariantCulture) + " to " +
                     (presentation.Maximum * presentation.DisplayMultiplier).ToString("0.######", CultureInfo.InvariantCulture) + presentation.Suffix + ".\n" + description;
-                apply = new BorderedButton(this)
-                {
-                    Text = "Apply",
-                    ParentAlignment = ParentAlignments.InnerRight,
-                    Size = new Vector2(72f, 32f),
-                    Padding = Vector2.Zero,
-                    TextPadding = Vector2.Zero,
-                    Offset = new Vector2(-20f, 20f),
-                };
-                apply.MouseInput.LeftClicked += delegate { ApplyTypedValue(); };
                 control = new SliderBox(this)
                 {
                     Min = presentation.SliderScale == WkSettingSliderScale.LogarithmicWithZero ? 0f : (float)presentation.Minimum,
@@ -886,8 +979,9 @@ namespace WkKn
 
             protected override void LayoutControl(float width)
             {
-                control.Width = width;
-                valueField.Width = Math.Max(100f, width - 80f);
+                const float fieldWidth = 160f;
+                PlaceControl(control, 0f, width - fieldWidth - 16f, 34f);
+                PlaceControl(valueField, width - fieldWidth, fieldWidth);
             }
 
             private void SetFieldValue(double canonicalValue)
@@ -897,21 +991,35 @@ namespace WkKn
                 valueField.Text = lastFieldText;
             }
 
-            private void ApplyTypedValue()
+            internal override bool ValidateDraft(out string error)
             {
-                if (!Editable)
-                    return;
+                error = null;
+                if (!Editable || valueField.Value.ToString() == lastFieldText)
+                    return true;
+                string value;
+                if (WkSettingNumericInput.TryParse(valueField.Value.ToString(), presentation.DisplayMultiplier,
+                    presentation.Suffix, minimum, maximum, integer, out value, out error))
+                    return true;
+                error = title.Text.ToString() + ": " + error;
+                return false;
+            }
 
+            internal override void StageDraft()
+            {
+                if (!Editable || valueField.Value.ToString() == lastFieldText)
+                    return;
                 string value, error;
-                if (!WkSettingNumericInput.TryParse(valueField.Value.ToString(), presentation.DisplayMultiplier,
+                if (WkSettingNumericInput.TryParse(valueField.Value.ToString(), presentation.DisplayMultiplier,
                     presentation.Suffix, minimum, maximum, integer, out value, out error))
                 {
-                    MyAPIGateway.Utilities.ShowNotification(error, 4000, "Red");
-                    return;
+                    lastFieldText = valueField.Value.ToString();
+                    changed(value);
                 }
+            }
 
-                lastFieldText = valueField.Value.ToString();
-                changed(value);
+            internal override void DiscardDraft()
+            {
+                SetFieldValue(ParseNumber(getter()));
             }
 
             private void OnValueChanged(object sender, EventArgs args)
@@ -975,7 +1083,7 @@ namespace WkKn
 
             protected override void LayoutControl(float width)
             {
-                control.Width = width;
+                PlaceControl(control, 0f, Math.Min(360f, width));
             }
 
             private void OnValueChanged(object sender, EventArgs args)
@@ -992,51 +1100,71 @@ namespace WkKn
         private sealed class TextSettingRow : SettingRow
         {
             private readonly TextField field;
-            private readonly BorderedButton apply;
             private readonly Func<string> getter;
+            private readonly Action<string> changed;
+            private readonly bool defaultableNumber;
+            private string lastFieldText = string.Empty;
 
-            internal TextSettingRow(string title, string description, string tooltip, Func<string> getter, Action<string> changed)
-                : base(title, description, 98f)
+            internal TextSettingRow(string title, string description, string tooltip, Func<string> getter, Action<string> changed, bool defaultableNumber)
+                : base(title, description)
             {
                 this.getter = getter;
-                field = new TextField(this)
-                {
-                    ParentAlignment = ParentAlignments.InnerRight,
-                    Size = new Vector2(190f, 40f),
-                    Offset = new Vector2(-110f, 0f),
-                };
+                this.changed = changed;
+                this.defaultableNumber = defaultableNumber;
+                field = new TextField(this) { Text = string.Empty };
                 field.MouseInput.ToolTip = tooltip;
-                apply = new BorderedButton(this)
-                {
-                    Text = "Apply",
-                    ParentAlignment = ParentAlignments.InnerRight,
-                    Size = new Vector2(92f, 40f),
-                    Padding = Vector2.Zero,
-                    TextPadding = Vector2.Zero,
-                    Offset = new Vector2(-18f, 0f),
-                };
-                apply.MouseInput.LeftClicked += delegate
-                {
-                    if (Editable)
-                        changed(field.Value.ToString());
-                };
             }
 
             internal override void Refresh()
             {
-                if (!field.FocusHandler.HasFocus)
+                if (!field.FocusHandler.HasFocus && field.Value.ToString() == lastFieldText)
+                    DiscardDraft();
+            }
+
+            internal override void DiscardDraft()
+            {
+                lastFieldText = getter();
+                field.Text = lastFieldText;
+            }
+
+            internal override bool ValidateDraft(out string error)
+            {
+                error = null;
+                if (Editable && string.IsNullOrWhiteSpace(field.Value.ToString()))
                 {
-                    var value = getter();
-                    if (!string.Equals(field.Value.ToString(), value, StringComparison.Ordinal))
-                        field.Text = value;
+                    error = title.Text.ToString() + ": enter a value.";
+                    return false;
+                }
+                if (Editable && defaultableNumber && !field.Value.ToString().Trim().Equals("default", StringComparison.OrdinalIgnoreCase))
+                {
+                    string value;
+                    if (!WkSettingNumericInput.TryParse(field.Value.ToString(), 1.0, " s", 0.0, 30.0, false, out value, out error))
+                    {
+                        error = title.Text.ToString() + ": " + error;
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            internal override void StageDraft()
+            {
+                if (Editable && field.Value.ToString() != lastFieldText)
+                {
+                    lastFieldText = field.Value.ToString();
+                    var value = lastFieldText.Trim();
+                    if (defaultableNumber && !value.Equals("default", StringComparison.OrdinalIgnoreCase))
+                    {
+                        string error;
+                        WkSettingNumericInput.TryParse(value, 1.0, " s", 0.0, 30.0, false, out value, out error);
+                    }
+                    changed(value);
                 }
             }
 
             protected override void LayoutControl(float width)
             {
-                apply.Width = 92f;
-                field.Width = Math.Max(110f, width - apply.Width - 10f);
-                field.Offset = new Vector2(-(apply.Width + 30f), 0f);
+                PlaceControl(field, 0f, Math.Min(420f, width));
             }
         }
 
@@ -1066,7 +1194,7 @@ namespace WkKn
 
             protected override void LayoutControl(float width)
             {
-                value.Width = width;
+                PlaceControl(value, 0f, width);
             }
         }
 
@@ -1094,7 +1222,7 @@ namespace WkKn
 
             protected override void LayoutControl(float width)
             {
-                button.Width = width;
+                PlaceControl(button, 0f, Math.Min(360f, width));
             }
         }
 
@@ -1114,8 +1242,8 @@ namespace WkKn
 
             protected override void LayoutControl(float width)
             {
-                description.Width = Math.Max(100f, UnpaddedSize.X - 28f);
-                description.TextBoard.LineWrapWidth = description.Width;
+                description.Offset = new Vector2(14f, -10f);
+                Height = description.Height + 24f;
             }
         }
     }

@@ -4,6 +4,9 @@ param()
 $ErrorActionPreference = 'Stop'
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $source = Get-Content -Raw (Join-Path $repoRoot 'mods/WorkingKnowledge/Data/Scripts/WorkingKnowledge/Integration/Configuration/WkSettingNumericInput.cs')
+$draftSource = Get-Content -Raw (Join-Path $repoRoot 'mods/WorkingKnowledge/Data/Scripts/WorkingKnowledge/Integration/RichHud/WkSettingsDraft.cs')
+$draftSource = $draftSource -replace '(?m)^using [^;]+;\r?\n', ''
+$source = "using System.Collections.Generic;" + [Environment]::NewLine + $source + [Environment]::NewLine + $draftSource
 $checks = @'
 namespace WkKn
 {
@@ -40,10 +43,29 @@ namespace WkKn
             Check("5.5", 1, "", 1, 10, true, null);
             foreach (var text in new[] { "", "abc", "NaN", "Infinity", "-Infinity", "1e999", "5%", "1,5" })
                 Check(text, 1, "x", 0, 100, false, null);
+            var draft = new WkSettingsDraft();
+            var applied = new System.Collections.Generic.List<string>();
+            draft.Stage("rate", "2", () => applied.Add("old"));
+            draft.Stage("RATE", "3", () => applied.Add("rate"));
+            draft.Stage("delay", "5", () => applied.Add("delay"));
+            if (applied.Count != 0 || draft.Count != 2 || draft.GetValue("rate", () => "1") != "3")
+                throw new System.Exception("Edits must remain local and repeated edits must replace the prior value.");
+            draft.Apply();
+            if (string.Join(",", applied) != "rate,delay" || draft.Count != 0 || draft.GetValue("rate", () => "1") != "1")
+                throw new System.Exception("Apply must submit the latest values in order and clear drafts.");
+            draft.Apply();
+            if (applied.Count != 2)
+                throw new System.Exception("Applying an empty draft must not resubmit changes.");
+            draft.Stage("reset", "", () => applied.Add("reset"));
+            draft.Clear();
+            draft.Apply();
+            if (applied.Count != 2 || draft.Count != 0)
+                throw new System.Exception("Discard must never execute pending actions.");
+            count += 4;
             return count;
         }
     }
 }
 '@
 Add-Type -TypeDefinition ($source + [Environment]::NewLine + $checks)
-Write-Host "Passed $([WkKn.NumericInputChecks]::Run()) Working Knowledge numeric input checks."
+Write-Host "Passed $([WkKn.NumericInputChecks]::Run()) Working Knowledge numeric input and draft checks."

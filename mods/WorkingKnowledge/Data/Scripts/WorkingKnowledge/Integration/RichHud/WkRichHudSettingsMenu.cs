@@ -77,6 +77,8 @@ namespace WkKn
             live = true;
         }
 
+        internal bool IsOpen { get { return settingsWindow != null && settingsWindow.IsOpen; } }
+
         internal void Open()
         {
             if (settingsWindow != null)

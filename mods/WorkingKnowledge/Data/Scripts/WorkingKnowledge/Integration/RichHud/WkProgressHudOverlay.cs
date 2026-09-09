@@ -71,12 +71,12 @@ namespace WkKn
                 rows[i] = null;
         }
 
-        internal void Update(long currentTick, WkProgressHudSettings settings)
+        internal void Update(long currentTick, WkProgressHudSettings settings, bool suppressed)
         {
             settings = NormalizeSettings(settings);
             TrimExpired(currentTick, settings);
 
-            if (rowChain == null || !settings.Enabled)
+            if (rowChain == null || !settings.Enabled || suppressed)
             {
                 HideRows();
                 return;

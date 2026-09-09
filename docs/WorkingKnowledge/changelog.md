@@ -4,6 +4,8 @@ Public-facing release notes for the standalone **Working Knowledge** Space Engin
 
 ## 1.1.0 - Rich HUD Settings - In Development
 
+Refined the custom settings layout from in-game feedback: a smaller header, a fixed Apply Changes / Exit footer, plain sidebar buttons, more opaque background, and vertically stacked titles, wrapped descriptions, and controls. Sliders now share a line with their value boxes. All panel edits remain pending until Apply Changes; Exit and Escape discard unapplied edits. The local game HUD and progress overlay hide during editing, and the prior HUD mode is restored when the window closes.
+
 Added editable value boxes beside every numeric slider. Apply accepts the setting's full valid range independently of the slider's practical range, preserves finer typed precision, and validates displayed units (including percentages) before sending the existing authoritative command. Narrower timing, placement, sound-range, and later Proficiency-rate sliders make everyday tuning easier.
 
 The settings window now centers and fits within the available screen, clamps its full bounds during dragging/resizing, and scales down on small viewports while retaining Rich HUD's DPI scaling. An optional Text HUD API player-menu launcher opens the same Rich HUD window after chat closes; Text HUD API is not a required dependency.

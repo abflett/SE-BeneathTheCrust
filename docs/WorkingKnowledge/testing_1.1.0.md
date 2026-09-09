@@ -14,10 +14,16 @@ Load Rich HUD Master Workshop item `1965654081`. Text HUD API should not be requ
 
 ## Single Player
 
-- Run `tools/test-working-knowledge-settings.ps1` for numeric input conversion and rejection checks.
-- On first opening, verify every slider value box contains the current value. Enter `25x` for Research Scale and confirm Apply retains it beyond the slider's 10x range, including after page navigation and save/reload. Dragging the slider must return to its practical range only when actually changed.
+- Confirm the header has no X button, the sidebar has no scrollbar or contrasting well, and the footer remains visible while content scrolls. At minimum size, every navigation button must remain accessible.
+- Confirm each row stacks title, wrapped description, and control; numeric sliders and their value boxes must share one horizontal line without overlap or clipping.
+- Make edits on multiple pages, then Exit/Escape and reopen: none should have applied. Repeat and use Apply Changes: all valid edits should apply. A malformed numeric field must prevent the batch from submitting; the footer should identify the setting.
+- Queue a preset or reset, then Exit: the world must remain unchanged. Repeat, add a setting override after the preset/reset, and Apply Changes: the override must take effect after the preset/reset.
+- Test opening and closing from each game HUD mode (hidden, full, no descriptions). The game HUD should hide during editing and return to the exact prior mode on Exit, Escape, opening another game screen, framework reset, and world unload. Check hosted and remote clients affect only their own HUD.
+
+- Run `tools/test-working-knowledge-settings.ps1` for numeric input conversion, rejection, and draft apply/discard checks.
+- On first opening, verify every slider value box contains the current value. Enter `25x` for Research Scale and confirm Apply Changes retains it beyond the slider's 10x range, including after page navigation and save/reload. Dragging the slider must return to its practical range only when actually changed.
 - Enter `5` and `5%` in a percentage field; both must mean 5%. Check precise values, valid endpoints, invalid numbers, non-finite input, incorrect units, and fractional row counts. Invalid drafts must remain editable and must not change the setting.
-- Leave a value partially typed while settings refresh; the draft must remain intact. Apply, switch pages, and verify the acknowledged value. Non-admin value boxes and Apply buttons must not permit world changes.
+- Leave a value partially typed while settings refresh; the draft must remain intact. Apply Changes, switch pages, and verify the acknowledged value. Non-admin value boxes and Apply Changes must not permit world changes.
 - Test window opening, dragging, resizing, and closing at 16:9, ultrawide, and a small or narrow viewport. The entire window, including its close button, must stay inside the screen. Verify cursor hit positions after automatic scaling.
 - With Text HUD API also loaded, open its player menu (chat plus F2), select Working Knowledge > Open settings, then close chat. Verify the same Rich HUD window opens. Repeat without Text HUD API; normal entry points must still work. Without Rich HUD Master, the optional launcher should report that it is unavailable. Rejoin a world and check for duplicate launchers.
 
@@ -25,8 +31,8 @@ Load Rich HUD Master Workshop item `1965654081`. Text HUD API should not be requ
 - Run `/wk settings` and confirm it opens the dedicated Working Knowledge Settings window directly to Progress HUD.
 - Confirm the compact sidebar exposes Player Settings, Server Settings, and Help; every page must use full-width stacked rows and vertical scrolling without a horizontal control strip.
 - Open Rich HUD Terminal and confirm Working Knowledge contains a functional Settings launcher and Help page.
-- Confirm the window closes through its X button and Escape, can be dragged/resized, and reopens cleanly.
-- Exercise every player toggle, slider, dropdown, text value, and reset button; reopen the page and confirm values persist.
+- Confirm the window closes through its footer Exit button and Escape, can be dragged/resized, and reopens cleanly.
+- Exercise every player toggle, slider, dropdown, text value, and reset button; apply changes, reopen the page and confirm values persist.
 - Trigger research and Proficiency gains and confirm the compact two-bar rows update, order correctly, move with position/offset settings, and respect row/fade limits.
 - Apply each difficulty preset and representative settings from every server category as an administrator.
 - Confirm `/wk config` and `/wk difficulty` still report and change the same values.
