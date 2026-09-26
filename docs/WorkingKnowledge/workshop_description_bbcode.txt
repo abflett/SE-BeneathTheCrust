@@ -1,56 +1,48 @@
 [h1]Working Knowledge[/h1]
-[h3]A salvage-first progression overhaul for Space Engineers survival.[/h3]
+[h3]A salvage-first progression overhaul for Space Engineers.[/h3]
 
-Working Knowledge gives veteran Space Engineers players a new survival progression experience.
+Working Knowledge transforms Space Engineers survival into a true field-engineering experience.
 
-Instead of racing through a simple build-one-block chain, your engineer learns technology by recovering schematic data, decoding research fragments, and practicing the work. Wrecks, captured ships, abandoned stations, signals, and POIs become more than loot piles. They become opportunities to study unfamiliar machines and bring that knowledge back to your own base.
+Instead of racing through a linear build-one-block menu, you must recover schematic data, decode research fragments, and practice your trade. Wrecks, captured ships, abandoned stations, and POIs are no longer just component scrap heaps—they are critical opportunities to study unfamiliar tech and advance your capabilities.
 
-A good find is no longer just a question of components. It is a decision. Do you keep the part working? Move it? Repair around it? Strip it for materials? Or grind it down for research progress and accept the loss?
+Every find presents a real tactical decision:
+[list]
+[*]Keep the block functional and build around it?
+[*]Relocate it using specialized tools?
+[*]Strip it carefully for parts?
+[*]Or grind it down for raw research progress and accept the loss?
+[/list]
 
-[b]Research[/b] is what your engineer understands.
-[b]Proficiency[/b] is how well your engineer can do the work.
+[b]Research[/b] unlocks what you understand.
+[b]Proficiency[/b] determines how well you build, repair, and salvage.
 
-Together, they turn progression into something closer to field engineering: learn the schematic, practice the craft, and gradually become better at building, repairing, grinding, and salvaging the technology you rely on.
-
-[h2]What Changes?[/h2]
+[h2]Core Systems[/h2]
 [h3]Tailored Schematic Families[/h3]
-Working Knowledge replaces the simple vanilla-style progression chain with tailored schematic families. Most vanilla public cube blocks are grouped into related technologies, and those families must be researched before they can be built normally in survival.
+Vanilla progression chains are replaced by grouped, tech-logical schematic families. Most public cube blocks belong to a family that must be researched before you can construct it from scratch.
 
-[h3]Research Sources[/h3]
-You can recover progress by dismantling unknown blocks, decoding Data Fragments, or receiving exact Data Schematics from POIs, missions, scenarios, or admin rewards. Completing a schematic family unlocks its blocks for normal use.
+[h3]Field Research[/h3]
+Gain progression points by dismantling unknown technologies, decoding rare Data Fragments from loot, or securing exact Data Schematics from POIs, missions, scenarios, and admin events. Unlocking a family opens its technology for normal production.
 
-[h3]Hands-On Proficiency[/h3]
-Learning the schematic is only part of the system. Proficiency tracks the practical side of engineering. Early work with unfamiliar systems can be inefficient: salvage may be less clean, construction may be less reliable, and repairs may cost more than expected. As your engineer gains experience with that family, the work becomes more dependable.
+[h3]Practical Proficiency[/h3]
+Unlocking a schematic is only half the battle. Your hands-on experience dictates your efficiency:
+[list]
+[*]Low Proficiency: Slower work, higher chance of component loss during salvage, higher repair costs, and potential construction setbacks.
+[*]High Proficiency: Clean salvage, faster builds, reliable repairs, and peak component recovery.
+[/list]
+[i]Technology isn't just unlocked—it's mastered.[/i]
 
-[i]Technology is not just unlocked. It is learned.[/i]
+[h2]Recommended Gameplay Setup[/h2]
+Working Knowledge is fully functional as a standalone mod, but the physical salvage loop shines brightest when paired with tools that encourage moving and preserving machinery.
 
-[h2]Recommended Way To Play[/h2]
-Working Knowledge works standalone. Its progress overlay and graphical settings use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1965654081]Rich HUD Master[/url]. The intended physical salvage experience is even better with tools that recover, move, and reuse parts instead of grinding every discovery into scrap.
+[h3]Required & Recommended Companions[/h3]
+[b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1965654081]Rich HUD Master[/url] (Required)[/b]
+Provides the core engine for the graphical settings menu and live progress overlay overlay.
 
-[h3]Recommended Companions[/h3]
-[b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=510790477]Advanced Welding[/url][/b]
-Detach and reattach workflows make recovered machinery valuable in its current form. Instead of every unknown block becoming either components or research points, you can preserve useful equipment, move it, and build around it.
+[b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=510790477]Advanced Welding[/url] (Recommended)[/b]
+Allows detaching and reattaching intact functional blocks, making intact salvage vastly more valuable than raw scrap.
 
-[b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2891367014]Improvised Experimentation[/url][/b]
-Moving, dragging, carrying, and repositioning wreckage gives salvage work more texture and makes damaged finds feel like physical problems to solve.
-
-[h2]Challenge And Configuration[/h2]
-Working Knowledge is built to challenge veteran players, but it is not locked to one balance. It can support a focused research overhaul, a relaxed long-form survival world, or a demanding salvage campaign.
-
-Players can open the graphical settings with [b]/wk settings[/b]. World admins receive additional server controls for difficulty presets and authoritative tuning. Research gain, Proficiency gain, salvage recovery, construction setbacks, botch damage, and player feedback can all be adjusted from the GUI or existing [b]/wk[/b] commands.
-
-Make schematic unlocks faster, soften Proficiency pressure, reduce salvage penalties, disable construction setbacks, or lean into the full field-engineering experience.
-
-Players can use [b]/wk config[/b] to view their current feedback settings, then [b]/wk config help[/b] to see the commands for changing HUD progress bars, chat progress, popup progress toasts, and sounds.
-
-Start with:
-[code]/wk
-/wk help
-/wk settings
-/wk difficulty
-/wk config
-/wk config help
-/wk config world[/code]
+[b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2891367014]Improvised Experimentation[/url] (Recommended)[/b]
+Adds physics-based dragging, carrying, and repositioning, turning heavy wreck salvage into an engaging spatial puzzle.
 
 [h2]Feature Highlights[/h2]
 [h3]Research And Progression[/h3]
@@ -60,13 +52,13 @@ Start with:
 [*]Research progress recovered by grinding unknown technology.
 [*]Data Fragments as rare random research loot.
 [*]Exact Data Schematics for authored rewards, POIs, missions, scenarios, or admin use.
-[*]Separate player research and faction research.
+[*]Separate player research and faction research options.
 [/list]
 
 [h3]Proficiency And Field Work[/h3]
 [list]
 [*]Player-only Proficiency for hands-on engineering practice.
-[*]Salvage recovery influenced by Proficiency.
+[*]Salvage recovery and yield influenced directly by Proficiency.
 [*]Construction and repair setbacks for low-Proficiency work.
 [*]Better reliability as your engineer gains experience.
 [/list]
@@ -75,48 +67,42 @@ Start with:
 [list]
 [*]Research Pedestal terminal block for viewing and syncing research.
 [*]LCD apps for Research, Proficiency, Identity, and display Calibration.
-[*]Configurable Rich HUD progress overlay for recent research and Proficiency updates.
-[*]Graphical player and administrator settings through [b]/wk settings[/b].
-[*]Existing [b]/wk[/b] configuration commands remain supported.
+[*]Theme-matched Rich HUD progress overlay for recent research and Proficiency updates.
+[*]Full graphical settings menu accessible via [b]/wk settings[/b].
 [*]Admin tuning and difficulty presets for novice, easy, medium, hard, and extreme worlds.
 [/list]
 
-[h2]Recommended Setup[/h2]
-[list]
-[*]Best tested in a fresh survival world.
-[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1965654081]Rich HUD Master[/url] is used by the progress overlay and graphical settings menu. Core progression and chat commands still work without it.
-[*]Advanced Welding and Improvised Experimentation are recommended for the intended salvage experience.
-[*]No DLC required, but Sparks of the Future owners also get the optional Research Sci-Fi Terminal.
-[/list]
+[h2]Configuration & Commands[/h2]
+The fastest way to configure your settings, adjust difficulty presets, or customize progress bars is through the graphical settings panel. 
+
+Open the GUI in-game by typing:
+[code]/wk settings[/code]
+
+For a general overview or a full list of available fallback chat commands, use:
+[code]/wk
+/wk help[/code]
 
 [h2]Compatibility Notes[/h2]
-Working Knowledge changes how block knowledge, schematic unlocks, grinding research, salvage recovery, and low-Proficiency construction behave. Mods that also change those systems should be tested together.
-
-Progression overhauls are the most likely to overlap. Mods that bypass block placement restrictions, rewrite grinding or welding, or heavily change salvage flow may also affect the intended experience.
+Working Knowledge alters block unlocks, grinding output, salvage rates, and placement rules. Mods that alter these same mechanics should be tested together.
 
 [h3]Custom Block Compatibility Layers[/h3]
-Custom block mods can be connected to Working Knowledge with small layer mods. Layers can use built-in schematic families, define their own stable research groups, or explicitly reorganize built-in blocks. The layer toolkit scans block mods and generates the mappings, unlockers, research definitions, and exact Data Schematics required by custom groups.
+Custom block mods can be connected to Working Knowledge using small layer mods. The included Layer Toolkit scans third-party block mods and generates the mappings, research definitions, and exact Data Schematics required for custom groups.
 
 Admins can use [b]/wk admin audit[/b] to check loaded layers. Detailed compatibility warnings also appear in the Space Engineers log and F11 mod-error screen.
 
 [url=https://github.com/abflett/SE-BeneathTheCrust/blob/main/tools/WorkingKnowledgeLayerToolkit/README.md]Working Knowledge Layer Toolkit README[/url]
 [url=https://github.com/abflett/SE-BeneathTheCrust/releases]Toolkit Releases And Downloads[/url]
 
-[h2]Project Links[/h2]
+[h2]Latest Updates & Project Info[/h2]
+[b]1.1.x Update Highlights:[/b]
+[list]
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1965654081]Rich HUD Master[/url] is now required for full GUI settings and overlay support.
+[*]Added the graphical settings menu ([b]/wk settings[/b]) for quick, visual tuning of difficulty, audio, and UI parameters.
+[*]Redesigned progress bars to seamlessly match Space Engineers UI color themes.
+[/list]
+
 Working Knowledge is the first playable layer of the larger Space Engineers: Beneath the Crust campaign project.
 
+[b]Project Links & Feedback:[/b]
 [url=https://github.com/abflett/SE-BeneathTheCrust/blob/main/mods/WorkingKnowledge/README.md]Working Knowledge README[/url]
-[url=https://github.com/abflett/SE-BeneathTheCrust]Project README[/url]
-
-[h2]1.0.2 Persistence Hotfix[/h2]
-Working Knowledge progression now follows the normal Space Engineers save lifecycle. Research, faction research, Proficiency, and configuration state are preserved when using [b]Save As[/b] to create a newly named copy of a world.
-
-Existing worlds migrate their Working Knowledge data automatically on the next normal save. A short colored chat message reports when migration is pending and when Working Knowledge loads successfully from the new save format.
-
-[h2]Current Status And Feedback[/h2]
-Working Knowledge 1.0 is the stable standalone release of the salvage-first progression overhaul. It includes schematic coverage for the Space Engineers 1.210 Prosperity update and Prosperity Pack while preserving the established research, Proficiency, configuration, persistence, and compatibility-layer systems from the public feedback releases.
-
-Continued bug reports, compatibility notes, and balance feedback are welcome as the [b]1.0.x[/b] line receives maintenance and compatibility updates.
-
-[b]Bug reports, compatibility notes, and balance feedback:[/b]
-[url=https://github.com/abflett/SE-BeneathTheCrust/issues]GitHub Issues[/url]
+[url=https://github.com/abflett/SE-BeneathTheCrust/issues]Bug Reports & Feedback (GitHub Issues)[/url]

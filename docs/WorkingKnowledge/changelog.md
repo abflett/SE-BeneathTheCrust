@@ -2,7 +2,7 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
-## 1.1.0 - Rich HUD Settings
+## Working Knowledge 1.1.0 - Rich HUD Settings
 
 Working Knowledge now has a dedicated settings window and a refreshed research and Proficiency overlay powered by **Rich HUD Master**.
 
