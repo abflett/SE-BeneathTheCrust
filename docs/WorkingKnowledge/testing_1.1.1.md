@@ -1,6 +1,8 @@
 # Working Knowledge 1.1.1 unload hotfix validation
 
-Release candidate for [issue #2](https://github.com/abflett/SE-BeneathTheCrust/issues/2). Publication remains pending maintainer playtesting.
+Release candidate for [issue #2](https://github.com/abflett/SE-BeneathTheCrust/issues/2). Maintainer smoke testing found normal behavior; the maintainer chose to defer the full checklist and monitor reported issues. Publication is a separate maintainer step.
+
+The subsequent startup-message change adds `Type /wk settings to open the settings panel.` to successful initialization/load notifications, including legacy-data loads. Error notifications remain unchanged. This addition stays in the pending 1.1.1 release.
 
 Validation recorded on 2026-09-26: mod compilation, all 34 settings checks, all 9 unload scenarios, and release validation passed (19 XML files, icons, catalog parity, layer generator and priority/fallback fixtures). The local Working Knowledge test copy was deployed. No Workshop upload or release tag was created.
 

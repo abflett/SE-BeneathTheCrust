@@ -274,7 +274,7 @@ namespace WkKn
             if (persistenceStatusIsError)
                 ShowWkTargetColoredChatMessage(GetLocalIdentityId(), "Working Knowledge", persistenceStatusMessage, WkChatWarningColor);
             else
-                ShowWkColoredChatMessage("Working Knowledge", persistenceStatusMessage, WkChatInfoColor);
+                ShowWkColoredChatMessage("Working Knowledge", persistenceStatusMessage + " Type /wk settings to open the settings panel.", WkChatInfoColor);
 
             persistenceStatusMessageShown = true;
         }
