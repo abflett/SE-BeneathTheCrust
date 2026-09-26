@@ -180,7 +180,7 @@ namespace WkKn
             {
                 GridIntegrityState state;
                 if (grids.TryGetValue(gridIds[i], out state))
-                    UntrackGrid(state.Grid);
+                    WkCleanup.Run("grid event handlers", delegate { UntrackGrid(state.Grid); });
             }
 
             Clear();

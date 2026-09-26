@@ -81,7 +81,7 @@ See [Working Knowledge configuration](../../docs/WorkingKnowledge/configuration.
 
 ## Current Status
 
-Working Knowledge's `1.1.x` feature line is in development on top of the stable `1.0.x` line. Version `1.0.2` is the validated hotfix base while the `1.1.0` Rich HUD migration and graphical settings menu are tested on a feature branch.
+Working Knowledge's `1.1.x` Rich HUD feature line is now on `main`. Version `1.1.1` is a session-unload hotfix candidate, pending maintainer playtesting before publication. See the [1.1.1 test plan](../../docs/WorkingKnowledge/testing_1.1.1.md).
 
 Fresh worlds now target the more approachable `easy` play experience; established worlds retain their saved balance, and `medium` remains the neutral preset. Dedicated-server command routing, remote progress HUD synchronization, headless diagnostics, and icon packaging have completed their focused hotfix pass; balance and compatibility feedback will continue through the stable line.
 

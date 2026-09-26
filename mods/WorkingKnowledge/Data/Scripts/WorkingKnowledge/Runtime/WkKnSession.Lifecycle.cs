@@ -96,7 +96,7 @@ namespace WkKn
 
         internal void UnloadRuntimeModules()
         {
-            UnregisterResearchPedestalControls();
+            WkCleanup.Run("research terminal controls", UnregisterResearchPedestalControls);
             ClearRuntimeState();
         }
 
@@ -114,12 +114,17 @@ namespace WkKn
 
         private void UnregisterSessionEvents()
         {
-            MyVisualScriptLogicProvider.PlayerConnected -= OnPlayerConnected;
-            MyAPIGateway.Utilities.MessageEnteredSender -= OnMessageEntered;
-            MyAPIGateway.Players.ItemConsumed -= OnItemConsumed;
-            MyAPIGateway.Entities.OnEntityAdd -= OnEntityAdded;
-            MyAPIGateway.Entities.OnEntityRemove -= OnEntityRemoved;
-            UnsubscribeTrackedBlockIntegrityGrids();
+            WkCleanup.Run("player connected handler", delegate { MyVisualScriptLogicProvider.PlayerConnected -= OnPlayerConnected; });
+            if (MyAPIGateway.Utilities != null)
+                WkCleanup.Run("chat handler", delegate { MyAPIGateway.Utilities.MessageEnteredSender -= OnMessageEntered; });
+            if (MyAPIGateway.Players != null)
+                WkCleanup.Run("item consumed handler", delegate { MyAPIGateway.Players.ItemConsumed -= OnItemConsumed; });
+            if (MyAPIGateway.Entities != null)
+            {
+                WkCleanup.Run("entity add handler", delegate { MyAPIGateway.Entities.OnEntityAdd -= OnEntityAdded; });
+                WkCleanup.Run("entity remove handler", delegate { MyAPIGateway.Entities.OnEntityRemove -= OnEntityRemoved; });
+            }
+            WkCleanup.Run("tracked grids", UnsubscribeTrackedBlockIntegrityGrids);
         }
 
         private void LoadRuntimeDefinitions()
@@ -144,23 +149,23 @@ namespace WkKn
         {
             researchNotificationService.ClearAll();
             if (textHudSettingsLauncher != null)
-                textHudSettingsLauncher.Close();
+                WkCleanup.Run("Text HUD launcher", textHudSettingsLauncher.Close);
             textHudSettingsLauncher = null;
             // Release settings controls and restore the HUD before resetting framework modules.
-            OnRichHudReset();
-            richHudIntegration.Close();
+            WkCleanup.Run("Rich HUD settings", OnRichHudReset);
+            WkCleanup.Run("Rich HUD integration", richHudIntegration.Close);
             progressChatHeaderByIdentity.Clear();
             progressChatLastShownByKey.Clear();
             progressToastLastShownByKey.Clear();
             weldBotchWarningLastShownByKey.Clear();
-            UnregisterResearchTerminalNetworkHandler();
-            UnregisterLocalFeedbackNetworkHandler();
-            UnregisterCommandRequestNetworkHandler();
-            UnregisterProgressHudNetworkHandler();
+            WkCleanup.Run("research terminal network", UnregisterResearchTerminalNetworkHandler);
+            WkCleanup.Run("feedback network", UnregisterLocalFeedbackNetworkHandler);
+            WkCleanup.Run("command network", UnregisterCommandRequestNetworkHandler);
+            WkCleanup.Run("progress HUD network", UnregisterProgressHudNetworkHandler);
             blockWorkState.ClearPendingOperations();
             researchPedestalViewsByBlock.Clear();
-            ClearResearchDisplayRuntimeState();
-            ClearProficiencyRuntimeState();
+            WkCleanup.Run("research displays", ClearResearchDisplayRuntimeState);
+            WkCleanup.Run("proficiency displays", ClearProficiencyRuntimeState);
         }
 
     }

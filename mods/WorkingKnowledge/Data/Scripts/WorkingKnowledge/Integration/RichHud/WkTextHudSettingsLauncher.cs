@@ -71,9 +71,12 @@ namespace WkKn
 
         internal void Close()
         {
+            if (closed)
+                return;
             closed = true;
             requested = false;
-            MyAPIGateway.Utilities.UnregisterMessageHandler(RegistrationId, Register);
+            if (MyAPIGateway.Utilities != null)
+                WkCleanup.Run("Text HUD registration", delegate { MyAPIGateway.Utilities.UnregisterMessageHandler(RegistrationId, Register); });
             try
             {
                 if (setter != null && root != null)

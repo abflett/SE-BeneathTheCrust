@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using RichHudFramework;
-using RichHudFramework.Client;
 using RichHudFramework.UI;
 using RichHudFramework.UI.Client;
 using Sandbox.ModAPI;
@@ -196,16 +195,14 @@ namespace WkKn
             // Never resolve a lazy framework singleton during teardown. The framework may
             // already have unloaded its modules before our session receives UnloadData.
             escapeBind.NewPressed -= OnEscapePressed;
-            if (RichHudClient.Registered)
-                Hide();
-            else
-            {
-                Visible = false;
-                draft.Clear();
-                RestoreGameHud();
-            }
-            Unregister();
-            responsiveRoot.Unregister();
+            // Registration can outlive the master's text resources. Never refresh fields
+            // or resolve framework singletons while disposing, even if still registered.
+            Visible = false;
+            draft.Clear();
+            HudMain.EnableCursor = false; // Plain client-side flag; no renderer access.
+            WkCleanup.Run("restore game HUD", RestoreGameHud);
+            WkCleanup.Run("detach settings window", delegate { Unregister(); });
+            WkCleanup.Run("detach settings root", delegate { responsiveRoot.Unregister(); });
             pages.Clear();
             rows.Clear();
             worldRows.Clear();

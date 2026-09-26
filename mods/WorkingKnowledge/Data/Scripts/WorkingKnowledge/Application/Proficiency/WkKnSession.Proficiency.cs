@@ -41,9 +41,9 @@ namespace WkKn
 
         private void ClearProficiencyRuntimeState()
         {
-            UnregisterProficiencyNetworkHandler();
+            WkCleanup.Run("proficiency network", UnregisterProficiencyNetworkHandler);
             proficiencyNotificationService.ClearAll();
-            ClearWeldRuntimeState();
+            WkCleanup.Run("weld tracking", ClearWeldRuntimeState);
             syncedLocalProficiencyScope = null;
             if (activeSession == this)
                 activeSession = null;

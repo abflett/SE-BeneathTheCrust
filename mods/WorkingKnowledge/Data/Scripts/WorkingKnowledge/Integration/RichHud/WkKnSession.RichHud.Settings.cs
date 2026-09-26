@@ -17,9 +17,10 @@ namespace WkKn
             richHudOpenRequested = false;
             richHudSettingsStateRequested = false;
             richHudWorldConfigSnapshot = null;
-            if (richHudSettingsMenu != null)
-                richHudSettingsMenu.Close();
+            var closingMenu = richHudSettingsMenu;
             richHudSettingsMenu = null;
+            if (closingMenu != null)
+                WkCleanup.Run("settings menu", closingMenu.Close);
         }
 
         private void UpdateRichHudSettings()

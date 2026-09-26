@@ -82,7 +82,7 @@ namespace WkKn
 
         internal void Close()
         {
-            progressOverlay.Close();
+            WkCleanup.Run("progress overlay", progressOverlay.Close);
 
             if (apiReady)
             {
@@ -127,8 +127,8 @@ namespace WkKn
 
         private void OnApiReset()
         {
-            progressOverlay.Detach();
             apiReady = false;
+            WkCleanup.Run("progress overlay reset", progressOverlay.Detach);
 
             if (resetCallback != null)
                 resetCallback();

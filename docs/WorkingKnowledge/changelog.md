@@ -2,6 +2,13 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
+## 1.1.1 - Session Unload Hotfix
+
+- Fixed settings-window disposal updating Rich HUD text fields after the framework's rendering resources have unloaded, even when its client still reports registered ([issue #2](https://github.com/abflett/SE-BeneathTheCrust/issues/2)).
+- Disposal discards unapplied edits without refreshing controls, clears the cursor request, restores the previous game HUD, and detaches the window. Normal Exit/Escape and Apply behavior are unchanged.
+- Hardened shutdown against unavailable game APIs and isolated external cleanup steps. A failed cleanup is logged with its operation and exception while remaining HUD, event, network, and display cleanup continues.
+- No save-format or gameplay changes. In-game unload/reload validation is pending; see [the 1.1.1 test plan](testing_1.1.1.md) before publishing.
+
 ## Working Knowledge 1.1.0 - Rich HUD Settings
 
 Working Knowledge now has a dedicated settings window and a refreshed research and Proficiency overlay powered by **Rich HUD Master**.

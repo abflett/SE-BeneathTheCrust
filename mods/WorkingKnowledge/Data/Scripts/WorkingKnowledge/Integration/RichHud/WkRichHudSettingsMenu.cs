@@ -95,12 +95,12 @@ namespace WkKn
         internal void Close()
         {
             live = false;
-            if (settingsWindow != null)
-                settingsWindow.Dispose();
-
+            var closingWindow = settingsWindow;
             settingsWindow = null;
             pendingValues.Clear();
             pendingCommands.Clear();
+            if (closingWindow != null)
+                WkCleanup.Run("settings window", closingWindow.Dispose);
         }
 
         internal void AcknowledgeCommand(string command)

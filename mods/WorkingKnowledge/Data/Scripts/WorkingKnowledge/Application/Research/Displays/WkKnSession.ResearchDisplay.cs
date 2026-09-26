@@ -26,7 +26,7 @@ namespace WkKn
 
         private void ClearResearchDisplayRuntimeState()
         {
-            UnregisterResearchDisplayNetworkHandler();
+            WkCleanup.Run("research display network", UnregisterResearchDisplayNetworkHandler);
             syncedLocalResearchDisplay = null;
             SetResearchDisplaySnapshot(ResearchDisplaySnapshot.CreateMessage("Working Knowledge is offline."));
         }

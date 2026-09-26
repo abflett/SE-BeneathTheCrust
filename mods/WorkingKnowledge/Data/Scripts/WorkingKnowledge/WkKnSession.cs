@@ -49,9 +49,9 @@ namespace WkKn
             if (!runtimeActive)
                 return;
 
-            UnregisterGameEventHandlers();
-            UnloadRuntimeModules();
             runtimeActive = false;
+            WkCleanup.Run("game event handlers", UnregisterGameEventHandlers);
+            WkCleanup.Run("runtime modules", UnloadRuntimeModules);
         }
     }
 }
