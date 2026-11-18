@@ -9,12 +9,9 @@ Public-facing release notes for the standalone **Working Knowledge** Space Engin
 - Mapped separation charges to Mechanical Systems, jump seats to Habitat Fixtures, and decorative intakes to Decorative Fixtures. Other additions use their existing functional families.
 - Hid internal schematic-family unlocker blocks from the G-menu build list and search by disabling their loaded build-list definitions. They remain public and registered for the progression graph and research unlocks; no definitions are disabled in XML. This also covers custom layer unlockers.
 - Updated the Layer Toolkit catalog, balance data, and bundled vanilla icons for the current game content.
-- Pending in-game validation of the new mappings, G-menu visibility, progression graph, and research completion; see [the playtest checklist](testing_1.2.0.md).
-
-## Working Knowledge 1.1.2 - Research Consumable Fix
-
-- Removed the unintended radiation immunity effect from all four data fragments and 57 built-in data schematics. Items remain stat-free consumables with their existing IDs, use sound, and research behavior; maintainer playtesting confirmed consumption works, and the game and renderer logs showed no related errors.
-- Updated the data generator and Layer Toolkit schematic template, examples, and conflict-test fixture to emit stat-free items. The generated schematic definitions were updated directly to keep this playtest scoped to the consumable fix.
+- Fixed data fragments and exact Data Schematics granting unintended radiation immunity when consumed. All research items now use stat-free consumable definitions while preserving their existing IDs, use sound, and research behavior. Exact schematics are still returned after use.
+- Updated the data generator and Layer Toolkit schematic template, examples, and conflict-test fixture so newly generated schematics also omit the unintended effect.
+- Published to the Steam Workshop after focused G-menu and consumable playtesting. Those checks passed, and the game logs showed no related errors. Broader progression, save/reload, and multiplayer checks remain outstanding; see [the playtest checklist](testing_1.2.0.md).
 
 ## Working Knowledge 1.1.1 - Session Unload Hotfix
 
