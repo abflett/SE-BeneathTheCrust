@@ -174,7 +174,13 @@ namespace WkKn
                     continue;
 
                 if (IsGeneratedUnlocker(block.Id, unlockerBlockPrefix))
+                {
+                    // Keep Public=true and the loaded definition for the vanilla research graph.
+                    // The G-menu ignores GuiVisible during text searches, but checks Enabled.
+                    // Do this after loading: Enabled=false in SBC would remove the definition.
+                    block.Enabled = false;
                     continue;
+                }
 
                 if (IsResearchTerminalDefinition(block.Id, researchPedestalSubtype, researchSciFiTerminalSubtype))
                     continue;

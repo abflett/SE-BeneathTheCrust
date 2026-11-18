@@ -2,9 +2,18 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
+## Working Knowledge 1.2.0 - Warfare 3 Support
+
+- Added Space Engineers 1.211 Warfare 3 blocks and the additions to older DLC packs to the research catalog. Existing family IDs and assignments remain unchanged.
+- Added Prototech Microwave Emitter Schematics, shared by the large- and small-grid emitters, with a dedicated variant group and radial-menu entry.
+- Mapped separation charges to Mechanical Systems, jump seats to Habitat Fixtures, and decorative intakes to Decorative Fixtures. Other additions use their existing functional families.
+- Hid internal schematic-family unlocker blocks from the G-menu build list and search by disabling their loaded build-list definitions. They remain public and registered for the progression graph and research unlocks; no definitions are disabled in XML. This also covers custom layer unlockers.
+- Updated the Layer Toolkit catalog, balance data, and bundled vanilla icons for the current game content.
+- Pending in-game validation of the new mappings, G-menu visibility, progression graph, and research completion; see [the playtest checklist](testing_1.2.0.md).
+
 ## Working Knowledge 1.1.2 - Research Consumable Fix
 
-- Removed the unintended radiation immunity effect from all four data fragments and 57 built-in data schematics. Items remain stat-free consumables with their existing IDs, use sound, and research behavior; in-game consumption is pending maintainer playtesting.
+- Removed the unintended radiation immunity effect from all four data fragments and 57 built-in data schematics. Items remain stat-free consumables with their existing IDs, use sound, and research behavior; maintainer playtesting confirmed consumption works, and the game and renderer logs showed no related errors.
 - Updated the data generator and Layer Toolkit schematic template, examples, and conflict-test fixture to emit stat-free items. The generated schematic definitions were updated directly to keep this playtest scoped to the consumable fix.
 
 ## Working Knowledge 1.1.1 - Session Unload Hotfix

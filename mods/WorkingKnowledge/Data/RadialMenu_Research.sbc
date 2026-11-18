@@ -201,6 +201,9 @@
             <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
               <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="EngineerPlushieGroup" />
             </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="IntakeBlocksGroup" />
+            </Item>
           </Items>
         </Section>
         <Section>
@@ -494,6 +497,9 @@
               <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="MergeBlockGroup" />
             </Item>
             <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="SeparationChargeGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
               <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PistonGroup" />
             </Item>
             <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
@@ -598,6 +604,9 @@
           <Items>
             <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
               <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechOxygenGeneratorGroup" />
+            </Item>
+            <Item xsi:type="MyObjectBuilder_RadialMenuItemCubeBlock">
+              <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechMicrowaveEmitterGroup" />
             </Item>
           </Items>
         </Section>

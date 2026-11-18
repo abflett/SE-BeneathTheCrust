@@ -13,8 +13,8 @@ The project is being built as standalone mods first so each major system can be 
 - **Current playable layer:** `mods/WorkingKnowledge`
 - **Current scenario tooling layer:** `mods/Worldwright`
 - **Campaign state:** design and content foundation in `docs/`
-- **Current Working Knowledge line:** `1.1.x` Rich HUD settings and Space Engineers 1.210 Prosperity block support
-- **Development target:** Working Knowledge `1.1.1` session-unload hotfix, pending playtesting
+- **Current Working Knowledge line:** `1.2.x` Space Engineers 1.211 Warfare 3 block support
+- **Development target:** Working Knowledge `1.2.0` Warfare 3 support, pending playtesting
 - **Hotfix base:** Working Knowledge `1.1.0` Rich HUD settings
 - **Development style:** standalone mod roots, compatibility-conscious maintenance, and focused release validation
 

@@ -62,7 +62,10 @@ $bundledVanillaIconPaths = @(
     'GUI\Icons\Cubes\PrototechBattery.dds',
     'GUI\Icons\Cubes\PrototechDrill.dds',
     'GUI\Icons\Cubes\Prototech_Reactor.dds',
-    'GUI\Icons\Cubes\Prototech_Generator.dds'
+    'GUI\Icons\Cubes\Prototech_Generator.dds',
+    'GUI\Icons\Cubes\LargePrototech_Microwave.dds',
+    'GUI\Icons\Cubes\MergeBlock.dds',
+    'GUI\Icons\Cubes\SeparationBlock.dds'
 )
 $vanillaTextureRoot = Join-Path $SpaceEngineersContent 'Textures'
 $canAuditVanillaIcons = Test-Path -LiteralPath $vanillaTextureRoot -PathType Container
@@ -106,7 +109,7 @@ foreach ($relativePath in $workingKnowledgeIconPaths) {
 Write-Host "Validated $($workingKnowledgeIconPaths.Count) custom Working Knowledge icons."
 
 $changelog = Get-Content -LiteralPath (Join-Path $repoRoot 'docs\WorkingKnowledge\changelog.md') -Raw
-if ($changelog -notmatch [regex]::Escape("## $ExpectedVersion")) {
+if ($changelog -notmatch ("(?m)^## (?:Working Knowledge )?" + [regex]::Escape($ExpectedVersion) + "(?:\s|$)")) {
     throw "Working Knowledge changelog has no $ExpectedVersion heading."
 }
 
@@ -197,6 +200,9 @@ if (-not $SkipCompile) {
 }
 
 $layerValidator = Join-Path $repoRoot 'tools\WorkingKnowledgeLayerToolkit\Validate.ps1'
+if (Test-Path -LiteralPath (Join-Path $SpaceEngineersContent 'Data\CubeBlocks')) {
+    & (Join-Path $repoRoot 'tools\test-working-knowledge-data.ps1') -SpaceEngineersData (Join-Path $SpaceEngineersContent 'Data')
+}
 & (Join-Path $repoRoot 'tools\WorkingKnowledgeLayerToolkit\Start.ps1') -SelfTest
 & $layerValidator -LayerPath (Join-Path $repoRoot 'tools\WorkingKnowledgeLayerToolkit\ExampleMod')
 & $layerValidator -LayerPath (Join-Path $repoRoot 'mods\WKL-ARCTrussSystem')

@@ -153,6 +153,7 @@ function Get-SchematicSortOrder {
         'prototech.jump_drive' { return 960 }
         'prototech.thruster' { return 970 }
         'prototech.o2_h2_generator' { return 980 }
+        'prototech.microwave_emitter' { return 990 }
     }
 
     if ($ResearchId -like 'prototech.*') {
@@ -222,6 +223,7 @@ function Get-SchematicTier {
         'prototech.jump_drive' { return 'Prototech' }
         'prototech.thruster' { return 'Prototech' }
         'prototech.o2_h2_generator' { return 'Prototech' }
+        'prototech.microwave_emitter' { return 'Prototech' }
         default { return 'None' }
     }
 }
@@ -269,6 +271,7 @@ function Get-SchematicTitle {
         'prototech.drill' { return 'Prototech Drill Schematics' }
         'prototech.reactor' { return 'Prototech Reactor Schematics' }
         'prototech.o2_h2_generator' { return 'Prototech O2/H2 Generator Schematics' }
+        'prototech.microwave_emitter' { return 'Prototech Microwave Emitter Schematics' }
         'structure.door' { return 'Door Schematics' }
         'structure.hangar_gate' { return 'Hangar Gate Schematics' }
         'structure.industrial_access' { return 'Industrial Access Schematics' }
@@ -335,6 +338,7 @@ function Get-SchematicDescription {
         'prototech.drill' { return 'Schematics for rare prototech mining systems.' }
         'prototech.reactor' { return 'Schematics for rare prototech reactor systems.' }
         'prototech.o2_h2_generator' { return 'Schematics for rare prototech oxygen and hydrogen processing systems.' }
+        'prototech.microwave_emitter' { return 'Schematics for rare prototech microwave emitters and EMP systems.' }
         'structure.door' { return 'Schematics for doors, hatches, gates, and access ways used to seal or control movement through interiors.' }
         'structure.hangar_gate' { return 'Schematics for hangar doors, blast door segments, and large sealed gates used to protect bays and vehicle access.' }
         'structure.industrial_access' { return 'Schematics for catwalks, stairs, ladders, ramps, railings, and other open industrial access structures.' }
@@ -460,9 +464,14 @@ function Get-ResearchId {
             'largeblockprototechgyro|smallblockprototechgyro' { return 'prototech.gyroscope' }
             'largeblockprototechdrill' { return 'prototech.drill' }
             'largeblockprototechoxygengenerator' { return 'prototech.o2_h2_generator' }
+            '^(largeblock|smallblock)prototechmicroemitter$' { return 'prototech.microwave_emitter' }
             default { return 'prototech.' + (Convert-ToSafeToken $subtype).ToLowerInvariant() }
         }
     }
+
+    if ($type -eq 'functionalblock' -and $subtype -match '^(largeblock|smallblock)separationcharge$') { return 'mechanical.systems' }
+    if ($type -eq 'cubeblock' -and $subtype -match '^(largeblock|smallblock)intake') { return 'decor.decorative_fixtures' }
+    if ($type -eq 'cockpit' -and $subtype -match '^(largeblock|smallblock)jumpseat') { return 'decor.habitat_fixtures' }
 
     if ($type -eq 'basicmissionblock') { return 'automation.ai_control' }
     if (Test-Any $subtype @('transponder')) { return 'automation.logic' }
@@ -1191,6 +1200,15 @@ function Get-ResearchVariantGroups {
             New-VariantBlock 'MyObjectBuilder_Drill' 'SmallBlockDrillReskin'
             New-VariantBlock 'MyObjectBuilder_Drill' 'LargeBlockDrillReskin'
         )
+        New-VariantGroup -Subtype 'MergeBlockGroup' -Icon 'Textures\GUI\Icons\Cubes\MergeBlock.dds' -DisplayName 'DisplayName_Block_MergeBlock' -Description 'Description_MergeBlock' -Blocks @(
+            New-VariantBlock 'MyObjectBuilder_MergeBlock' 'LargeShipMergeBlock'
+            New-VariantBlock 'MyObjectBuilder_MergeBlock' 'SmallShipMergeBlock'
+            New-VariantBlock 'MyObjectBuilder_MergeBlock' 'SmallShipSmallMergeBlock'
+        )
+        New-VariantGroup -Subtype 'SeparationChargeGroup' -Icon 'Textures\GUI\Icons\Cubes\SeparationBlock.dds' -DisplayName 'DisplayName_Block_SeparationCharge' -Description 'Description_Block_SeparationCharge' -Blocks @(
+            New-VariantBlock 'MyObjectBuilder_FunctionalBlock' 'LargeBlockSeparationCharge'
+            New-VariantBlock 'MyObjectBuilder_FunctionalBlock' 'SmallBlockSeparationCharge'
+        )
         New-VariantGroup -Subtype 'PrototechGroup' -Icon 'Textures\GUI\Icons\Cubes\Prototech_JumpDrive.dds' -DisplayName 'DisplayName_Block_PrototechJumpDrive' -Description 'Description_Prototech_JumpDrive' -Blocks @(
             New-VariantBlock 'MyObjectBuilder_JumpDrive' 'LargePrototechJumpDrive'
             New-VariantBlock 'MyObjectBuilder_JumpDrive' 'SmallPrototechJumpDrive'
@@ -1222,6 +1240,10 @@ function Get-ResearchVariantGroups {
         )
         New-VariantGroup -Subtype 'PrototechOxygenGeneratorGroup' -Icon 'Textures\GUI\Icons\Cubes\Prototech_Generator.dds' -DisplayName 'DisplayName_Block_PrototechOxygenGenerator' -Description 'Description_PrototechOxygenGenerator' -Blocks @(
             New-VariantBlock 'MyObjectBuilder_OxygenGenerator' 'LargeBlockPrototechOxygenGenerator'
+        )
+        New-VariantGroup -Subtype 'PrototechMicrowaveEmitterGroup' -Icon 'Textures\GUI\Icons\Cubes\LargePrototech_Microwave.dds' -DisplayName 'DisplayName_Block_MicroEmitter' -Description 'Description_PrototechMicroEmitterLarge' -Blocks @(
+            New-VariantBlock 'MyObjectBuilder_FunctionalBlock' 'LargeBlockPrototechMicroEmitter'
+            New-VariantBlock 'MyObjectBuilder_FunctionalBlock' 'SmallBlockPrototechMicroEmitter'
         )
     )
 }
@@ -1450,6 +1472,18 @@ function Write-ResearchRadialMenu {
     $importedToolbar = [System.Xml.XmlElement] $output.ImportNode($toolbar, $true)
     [void] $radialMenus.AppendChild($importedToolbar)
 
+    $mechanicalSection = Find-RadialSectionByLabel -Menu $importedToolbar -Label 'RadialMenuGroupTitle_Mechanical'
+    if ($null -ne $mechanicalSection) {
+        Set-RadialSectionItems -Document $output -Section $mechanicalSection -Label 'RadialMenuGroupTitle_Mechanical' -Subtypes @(
+            'LandingGearGroup',
+            'MergeBlockGroup',
+            'SeparationChargeGroup',
+            'PistonGroup',
+            'RotorGroup',
+            'HingeGroup'
+        )
+    }
+
     $productionSection = Find-RadialSectionByLabel -Menu $importedToolbar -Label 'RadialMenuGroupTitle_ProductionMedical'
     if ($null -ne $productionSection) {
         Set-RadialSectionItems -Document $output -Section $productionSection -Label 'RadialMenuGroupTitle_Production' -Subtypes @(
@@ -1518,7 +1552,8 @@ function Write-ResearchRadialMenu {
             'PrototechBatteryGroup',
             'PrototechDrillGroup',
             'PrototechReactorGroup',
-            'PrototechOxygenGeneratorGroup'
+            'PrototechOxygenGeneratorGroup',
+            'PrototechMicrowaveEmitterGroup'
         )
         if ($null -ne $hitechSection.NextSibling) {
             [void] $hitechSection.ParentNode.InsertBefore($prototechSection, $hitechSection.NextSibling)

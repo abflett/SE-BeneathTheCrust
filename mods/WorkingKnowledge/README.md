@@ -81,7 +81,7 @@ See [Working Knowledge configuration](../../docs/WorkingKnowledge/configuration.
 
 ## Current Status
 
-Working Knowledge's `1.1.x` Rich HUD feature line is now on `main`. Version `1.1.1` is a session-unload hotfix candidate, pending maintainer playtesting before publication. See the [1.1.1 test plan](../../docs/WorkingKnowledge/testing_1.1.1.md).
+Working Knowledge's `1.2.x` line adds Space Engineers 1.211 Warfare 3 block support. Version `1.2.0` is pending maintainer playtesting before publication. See the [1.2.0 test plan](../../docs/WorkingKnowledge/testing_1.2.0.md).
 
 Fresh worlds now target the more approachable `easy` play experience; established worlds retain their saved balance, and `medium` remains the neutral preset. Dedicated-server command routing, remote progress HUD synchronization, headless diagnostics, and icon packaging have completed their focused hotfix pass; balance and compatibility feedback will continue through the stable line.
 

@@ -80,6 +80,27 @@
       </Blocks>
     </BlockVariantGroup>
     <BlockVariantGroup>
+      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="MergeBlockGroup" />
+      <Icon>Textures\GUI\Icons\Cubes\MergeBlock.dds</Icon>
+      <DisplayName>DisplayName_Block_MergeBlock</DisplayName>
+      <Description>Description_MergeBlock</Description>
+      <Blocks>
+        <Block Type="MyObjectBuilder_MergeBlock" Subtype="LargeShipMergeBlock" />
+        <Block Type="MyObjectBuilder_MergeBlock" Subtype="SmallShipMergeBlock" />
+        <Block Type="MyObjectBuilder_MergeBlock" Subtype="SmallShipSmallMergeBlock" />
+      </Blocks>
+    </BlockVariantGroup>
+    <BlockVariantGroup>
+      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="SeparationChargeGroup" />
+      <Icon>Textures\GUI\Icons\Cubes\SeparationBlock.dds</Icon>
+      <DisplayName>DisplayName_Block_SeparationCharge</DisplayName>
+      <Description>Description_Block_SeparationCharge</Description>
+      <Blocks>
+        <Block Type="MyObjectBuilder_FunctionalBlock" Subtype="LargeBlockSeparationCharge" />
+        <Block Type="MyObjectBuilder_FunctionalBlock" Subtype="SmallBlockSeparationCharge" />
+      </Blocks>
+    </BlockVariantGroup>
+    <BlockVariantGroup>
       <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechGroup" />
       <Icon>Textures\GUI\Icons\Cubes\Prototech_JumpDrive.dds</Icon>
       <DisplayName>DisplayName_Block_PrototechJumpDrive</DisplayName>
@@ -163,6 +184,16 @@
       <Description>Description_PrototechOxygenGenerator</Description>
       <Blocks>
         <Block Type="MyObjectBuilder_OxygenGenerator" Subtype="LargeBlockPrototechOxygenGenerator" />
+      </Blocks>
+    </BlockVariantGroup>
+    <BlockVariantGroup>
+      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="PrototechMicrowaveEmitterGroup" />
+      <Icon>Textures\GUI\Icons\Cubes\LargePrototech_Microwave.dds</Icon>
+      <DisplayName>DisplayName_Block_MicroEmitter</DisplayName>
+      <Description>Description_PrototechMicroEmitterLarge</Description>
+      <Blocks>
+        <Block Type="MyObjectBuilder_FunctionalBlock" Subtype="LargeBlockPrototechMicroEmitter" />
+        <Block Type="MyObjectBuilder_FunctionalBlock" Subtype="SmallBlockPrototechMicroEmitter" />
       </Blocks>
     </BlockVariantGroup>
   </BlockVariantGroups>
