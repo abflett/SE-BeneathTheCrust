@@ -1,5 +1,14 @@
 # Working Knowledge Layer Toolkit Changelog
 
+## 1.3.0 - Warfare 3 Catalog And Stat-Free Schematics
+
+- Added an explicit MIT license for the standalone toolkit.
+- Updated the built-in catalog to all 58 active Working Knowledge families, including the new `prototech.microwave_emitter` family shared by large- and small-grid emitters.
+- Kept Industrial Access and the existing stable family IDs, display names, and tiers synchronized with Working Knowledge 1.2.x for Space Engineers 1.211 Warfare 3.
+- Removed the unintended radiation immunity effect from generated custom Data Schematics and the included examples. Items remain stat-free `ConsumableItem` definitions with the existing use sound and durable research behavior.
+- Custom hidden unlockers remain public and registered for the progression hierarchy; Working Knowledge 1.2.0 hides their loaded build-list entries at runtime.
+- Validated catalog parity, generator self-tests, example definitions, maintained layers, priority resolution, and standalone archive extraction.
+
 ## 1.2.0 - Industrial Access Group Catalog
 
 - Added the built-in `structure.industrial_access` group for catwalks, stairs, ladders, ramps, railings, and other open industrial access structures.

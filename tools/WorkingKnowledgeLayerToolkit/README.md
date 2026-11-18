@@ -1,6 +1,8 @@
 # Working Knowledge Layer Toolkit
 
-Version **1.2.0**
+Version **1.3.0**
+
+The toolkit is available under the [MIT License](LICENSE.txt).
 
 This Windows toolkit creates small compatibility layer mods for **Working Knowledge**. A layer assigns blocks from another Space Engineers mod to built-in or layer-defined schematic groups without copying that mod's blocks, models, or recipes.
 
@@ -8,7 +10,7 @@ Layers can also reorganize blocks already covered by Working Knowledge. When ass
 
 ## Download And Requirements
 
-The 1.2.0 source is prepared in this repository for the next toolkit release. Until its archive is published, download the current [WorkingKnowledgeLayerToolkit-1.1.0.zip](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.1.0/WorkingKnowledgeLayerToolkit-1.1.0.zip), then unzip it anywhere convenient.
+Download the latest standalone ZIP from the [SE-BeneathTheCrust releases page](https://github.com/abflett/SE-BeneathTheCrust/releases), then unzip it anywhere convenient. This version targets the Working Knowledge 1.2.x family catalog for Space Engineers 1.211 Warfare 3.
 
 Use the [SE-BeneathTheCrust releases page](https://github.com/abflett/SE-BeneathTheCrust/releases) for release notes, older versions, and future updates.
 

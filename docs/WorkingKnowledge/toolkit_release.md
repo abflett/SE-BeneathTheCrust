@@ -4,13 +4,13 @@ Maintainer checklist for publishing the standalone toolkit archive. This is sepa
 
 ## Current Published Release
 
-- Release: [Working Knowledge Layer Toolkit 1.1.0](https://github.com/abflett/SE-BeneathTheCrust/releases/tag/v1.1.0)
-- Direct asset: [WorkingKnowledgeLayerToolkit-1.1.0.zip](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.1.0/WorkingKnowledgeLayerToolkit-1.1.0.zip)
+- Release: [Working Knowledge Layer Toolkit 1.2.0](https://github.com/abflett/SE-BeneathTheCrust/releases/tag/v1.2.0)
+- Direct asset: [WorkingKnowledgeLayerToolkit-1.2.0.zip](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.2.0/WorkingKnowledgeLayerToolkit-1.2.0.zip)
 - General release history: [SE-BeneathTheCrust Releases](https://github.com/abflett/SE-BeneathTheCrust/releases)
 
 ## Prepared Next Release
 
-Toolkit `1.2.0` is prepared locally with the built-in Industrial Access group catalog and updated group-selection guidance. Its validated archive remains under `.tmp/releases/` until the maintainer chooses to publish a new GitHub release.
+Toolkit `1.3.0` updates the complete 58-family catalog for Working Knowledge 1.2.x / Warfare 3 and generates stat-free custom schematics. Its validated archive is `.tmp/releases/WorkingKnowledgeLayerToolkit-1.3.0.zip`.
 
 ## Release Identity
 
@@ -32,7 +32,7 @@ The script stages a top-level `WorkingKnowledgeLayerToolkit` folder, creates the
 Also run the current Working Knowledge release validator. It compiles the mod, tests the source toolkit, validates maintained layers, runs priority-resolution fixtures, and builds the standalone archive:
 
 ```powershell
-.\tools\validate-working-knowledge-release.ps1 -ExpectedVersion 0.13.0
+.\tools\validate-working-knowledge-release.ps1 -ExpectedVersion 1.2.0
 ```
 
 The release validator also compares the generated Working Knowledge research metadata against the Toolkit catalog. It fails if any active built-in schematic group is missing or if a display name or tier differs. Priority/fallback fixtures use temporary fake layers and suppress their expected invalid-case diagnostics; only their pass/fail result appears in normal release output.
@@ -41,7 +41,7 @@ Open the final archive once and confirm it contains one top-level `WorkingKnowle
 
 ## Publication Gates
 
-- Select and add an explicit repository/toolkit license before the next public toolkit release. The repository currently has no license file; this is a maintainer policy decision and must not be inferred by tooling.
+- Include the toolkit's maintainer-approved MIT license (`tools/WorkingKnowledgeLayerToolkit/LICENSE.txt`) in every archive. This license covers the standalone toolkit; it does not declare a license for the rest of the repository.
 - Commit and push all source changes before creating the release.
 - Create or update the GitHub release for the toolkit version.
 - Attach the validated `.tmp/releases/WorkingKnowledgeLayerToolkit-<version>.zip` without renaming its internal folder.

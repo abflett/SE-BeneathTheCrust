@@ -90,6 +90,7 @@ try {
     }
 
     $requiredPackagePaths = @(
+        'LICENSE.txt',
         'VERSION.txt',
         'CHANGELOG.md',
         'Start.bat',
