@@ -110,7 +110,7 @@ The mod currently includes:
 - Creative worlds and admin creative-mode testing are allowed to bypass schematic locks.
 - Rich HUD Master is used for the optional progress overlay and graphical settings menu; core progression and `/wk` configuration commands remain usable if the framework is unavailable.
 - Other progression or research-overhaul mods are likely to conflict.
-- Public modded blocks without a Working Knowledge mapping remain outside its research and Proficiency systems. Use a compatibility layer when those blocks should participate; the ready-to-use [Working Knowledge Layer Toolkit 1.1.0](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.1.0/WorkingKnowledgeLayerToolkit-1.1.0.zip) can generate one.
+- Public modded blocks without a Working Knowledge mapping remain outside its research and Proficiency systems. Use a compatibility layer when those blocks should participate; the ready-to-use [Working Knowledge Layer Toolkit 1.3.0](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.3.0/WorkingKnowledgeLayerToolkit-1.3.0.zip) can generate one.
 
 ## Project Docs
 

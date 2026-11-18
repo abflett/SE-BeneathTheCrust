@@ -4,13 +4,13 @@ Maintainer checklist for publishing the standalone toolkit archive. This is sepa
 
 ## Current Published Release
 
-- Release: [Working Knowledge Layer Toolkit 1.2.0](https://github.com/abflett/SE-BeneathTheCrust/releases/tag/v1.2.0)
-- Direct asset: [WorkingKnowledgeLayerToolkit-1.2.0.zip](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.2.0/WorkingKnowledgeLayerToolkit-1.2.0.zip)
+- Release: [Working Knowledge Layer Toolkit 1.3.0](https://github.com/abflett/SE-BeneathTheCrust/releases/tag/v1.3.0)
+- Direct asset: [WorkingKnowledgeLayerToolkit-1.2.0.zip](https://github.com/abflett/SE-BeneathTheCrust/releases/download/v1.3.0/WorkingKnowledgeLayerToolkit-1.3.0.zip)
 - General release history: [SE-BeneathTheCrust Releases](https://github.com/abflett/SE-BeneathTheCrust/releases)
 
-## Prepared Next Release
+## Release Contents
 
-Toolkit `1.3.0` updates the complete 58-family catalog for Working Knowledge 1.2.x / Warfare 3 and generates stat-free custom schematics. Its validated archive is `.tmp/releases/WorkingKnowledgeLayerToolkit-1.3.0.zip`.
+Toolkit `1.3.0` updates the complete 58-family catalog for Working Knowledge 1.2.x / Warfare 3 and generates stat-free custom schematics. It includes an explicit MIT license. The published ZIP was downloaded, compared with the source, and passed the packaged generator self-test and example validation.
 
 ## Release Identity
 
@@ -47,3 +47,9 @@ Open the final archive once and confirm it contains one top-level `WorkingKnowle
 - Attach the validated `.tmp/releases/WorkingKnowledgeLayerToolkit-<version>.zip` without renaming its internal folder.
 - Verify the uploaded archive can be downloaded, extracted, started with `Start.bat`, and validated on a clean path.
 - Keep the toolkit README linked to the releases page. Add a version-specific direct link only after the asset exists.
+
+## Automated Publication
+
+The `Release Working Knowledge Layer Toolkit` GitHub Actions workflow validates and packages the toolkit when a `v*` tag is pushed. The tag must match `tools/WorkingKnowledgeLayerToolkit/VERSION.txt`, and the commit must contain `docs/WorkingKnowledge/releases/toolkit-<version>.md` with the release body. It publishes the standard release title and ZIP using the workflow's job-scoped repository token.
+
+The hosted runner validates catalog parity, toolkit generation, examples, and priority fixtures with `-SkipCompile`; game-script compilation and current-game asset checks must still pass locally before tagging. After publication, download and validate the uploaded archive, then update public download links.

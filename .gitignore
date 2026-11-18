@@ -367,3 +367,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Keep authored toolkit release notes despite the generic build-output exclusion.
+!docs/WorkingKnowledge/releases/
+!docs/WorkingKnowledge/releases/*.md
