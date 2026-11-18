@@ -77,7 +77,7 @@ override CubeBlock/SmallHeavyBlockArmorBlock = $ResearchId
     <Id><TypeId>ConsumableItem</TypeId><SubtypeId>$itemSubtype</SubtypeId></Id><DisplayName>$GroupDisplayName Data Schematic</DisplayName>
     <Description>$Description This durable test schematic is returned after use.</Description><Icon>Textures\GUI\Icons\Items\Datapad_Item.dds</Icon>
     <Size><X>0.2</X><Y>0.1</Y><Z>0.2</Z></Size><Mass>0.2</Mass><Volume>0.05</Volume><Model>Models\Items\Datapad_Item.mwm</Model>
-    <PhysicalMaterial>Metal</PhysicalMaterial><Stats><Stat Name="RadiationImmunity" Value="1" Time="1" /></Stats><UseSound>PlayUsePowerKit</UseSound>
+    <PhysicalMaterial>Metal</PhysicalMaterial><UseSound>PlayUsePowerKit</UseSound>
     <DepositAllEnabled>false</DepositAllEnabled><CanPlayerOrder>false</CanPlayerOrder><CanPlayerOffer>false</CanPlayerOffer>
   </PhysicalItem>
 </PhysicalItems></Definitions>

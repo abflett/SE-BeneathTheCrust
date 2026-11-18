@@ -2,6 +2,11 @@
 
 Public-facing release notes for the standalone **Working Knowledge** Space Engineers mod.
 
+## Working Knowledge 1.1.2 - Research Consumable Fix
+
+- Removed the unintended radiation immunity effect from all four data fragments and 57 built-in data schematics. Items remain stat-free consumables with their existing IDs, use sound, and research behavior; in-game consumption is pending maintainer playtesting.
+- Updated the data generator and Layer Toolkit schematic template, examples, and conflict-test fixture to emit stat-free items. The generated schematic definitions were updated directly to keep this playtest scoped to the consumable fix.
+
 ## 1.1.1 - Session Unload Hotfix
 
 - Fixed settings-window disposal updating Rich HUD text fields after the framework's rendering resources have unloaded, even when its client still reports registered ([issue #2](https://github.com/abflett/SE-BeneathTheCrust/issues/2)).
